@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TypeOfCargo1__c</fullName>
+    <externalId>false</externalId>
+    <label>Type Of Cargo</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>General</fullName>
+                <default>false</default>
+                <label>General</label>
+            </value>
+            <value>
+                <fullName>Dangerous</fullName>
+                <default>false</default>
+                <label>Dangerous</label>
+            </value>
+            <value>
+                <fullName>Refrigerated</fullName>
+                <default>false</default>
+                <label>Refrigerated</label>
+            </value>
+            <value>
+                <fullName>Volume Cargo</fullName>
+                <default>false</default>
+                <label>Volume Cargo</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

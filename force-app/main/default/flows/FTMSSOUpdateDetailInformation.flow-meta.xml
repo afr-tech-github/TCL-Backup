@@ -1,0 +1,808 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>assign_Agent_2nd_Detail</name>
+        <label>assign Agent 2nd Detail</label>
+        <locationX>734</locationX>
+        <locationY>692</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Agent2ndDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Agent2ndDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Carrier_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_Agent_Detail</name>
+        <label>assign Agent Detail</label>
+        <locationX>725</locationX>
+        <locationY>530</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.AgentDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>AgentDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Agent_2nd_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_Carrier_Detail</name>
+        <label>assign Carrier Detail</label>
+        <locationX>733</locationX>
+        <locationY>852</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CarrierDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CarrierDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.LatePaymentDetails__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.CarrierAirlinerVendor__r.LatePaymentDetails__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_MShipper_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_Consignee_Detail</name>
+        <label>assign Consignee Detail</label>
+        <locationX>735</locationX>
+        <locationY>1689</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.ConsigneeDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ConsigneeDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Notify_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_Customer_Detail</name>
+        <label>assign Customer Detail</label>
+        <locationX>719</locationX>
+        <locationY>363</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.CustomerDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CustomerDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Agent_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_MConsignee_Detail</name>
+        <label>assign MConsignee Detail</label>
+        <locationX>732</locationX>
+        <locationY>1364</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.MasterConsigneeDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MasterConsigneeDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Shipper_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_MNotify_Detail</name>
+        <label>assign MNotify Detail</label>
+        <locationX>737</locationX>
+        <locationY>1177</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.MasterNotifyPartyDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MasterNotifyPartyDetailInformation_formular</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_MConsignnee_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_MNotify_Detail_0</name>
+        <label>assign MNotify Detail</label>
+        <locationX>734</locationX>
+        <locationY>1861</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.HouseNotifyPartyDetail_Information__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>HouseNotifyPartyDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Notify_Party_2_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_MNotify_Party_2_Detail_0</name>
+        <label>assign MNotify Party 2 Detail</label>
+        <locationX>734</locationX>
+        <locationY>2059</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.SecondNotifyPartyDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>SecondNotifyPartyDetailInformation_formular</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>update_Advance_Shipment</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_MShipper_Detail</name>
+        <label>assign MShipper Detail</label>
+        <locationX>738</locationX>
+        <locationY>1016</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.MasterShipperDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MasterShipperDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_MNotify_Detail</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>assign_Shipper_Detail</name>
+        <label>assign Shipper Detail</label>
+        <locationX>732</locationX>
+        <locationY>1534</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.ShipperDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ShipperDetailInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>check_Consignnee_Detail</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>check_Agent_2nd_Detail</name>
+        <label>check Agent 2nd Detail</label>
+        <locationX>467</locationX>
+        <locationY>690</locationY>
+        <defaultConnector>
+            <targetReference>check_Carrier_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Agent2nd_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Agent2ndDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Agent2nd__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Agent_2nd_Detail</targetReference>
+            </connector>
+            <label>Agent2nd null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Agent_Detail</name>
+        <label>check Agent Detail</label>
+        <locationX>469</locationX>
+        <locationY>526</locationY>
+        <defaultConnector>
+            <targetReference>check_Agent_2nd_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Agent_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AgentDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Agent__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Agent_Detail</targetReference>
+            </connector>
+            <label>Agent null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Carrier_Detail</name>
+        <label>check Carrier Detail</label>
+        <locationX>464</locationX>
+        <locationY>847</locationY>
+        <defaultConnector>
+            <targetReference>check_MShipper_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Carrier_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CarrierDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.CarrierAirlinerVendor__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Carrier_Detail</targetReference>
+            </connector>
+            <label>Carrier null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Consignnee_Detail</name>
+        <label>check Consignnee Detail</label>
+        <locationX>459</locationX>
+        <locationY>1690</locationY>
+        <defaultConnector>
+            <targetReference>check_Notify_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Consignee_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ConsigneeDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Consignee__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Consignee_Detail</targetReference>
+            </connector>
+            <label>Consignee null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Customer_Detail</name>
+        <label>check Customer Detail</label>
+        <locationX>469</locationX>
+        <locationY>363</locationY>
+        <defaultConnector>
+            <targetReference>check_Agent_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Customer_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.CustomerDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Customer__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Customer_Detail</targetReference>
+            </connector>
+            <label>Customer null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_MConsignnee_Detail</name>
+        <label>check MConsignnee Detail</label>
+        <locationX>462</locationX>
+        <locationY>1367</locationY>
+        <defaultConnector>
+            <targetReference>check_Shipper_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>MConsignee_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterConsigneeDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterConsignee__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_MConsignee_Detail</targetReference>
+            </connector>
+            <label>MConsignee null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_MNotify_Detail</name>
+        <label>check MNotify Detail</label>
+        <locationX>460</locationX>
+        <locationY>1193</locationY>
+        <defaultConnector>
+            <targetReference>check_MConsignnee_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>MNotify_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterNotifyPartyDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterNotifyParty__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_MNotify_Detail</targetReference>
+            </connector>
+            <label>MNotify null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_MShipper_Detail</name>
+        <label>check MShipper Detail</label>
+        <locationX>467</locationX>
+        <locationY>1016</locationY>
+        <defaultConnector>
+            <targetReference>check_MNotify_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>MShipper_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterShipperDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterShipper__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_MShipper_Detail</targetReference>
+            </connector>
+            <label>MShipper null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Notify_Detail</name>
+        <label>check Notify Detail</label>
+        <locationX>458</locationX>
+        <locationY>1875</locationY>
+        <defaultConnector>
+            <targetReference>Check_Notify_Party_2_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Notify_null_0</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.HouseNotifyPartyDetail_Information__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.HouseNotifyParty__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_MNotify_Detail_0</targetReference>
+            </connector>
+            <label>Notify null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Notify_Party_2_Detail</name>
+        <label>Check Notify Party 2 Detail</label>
+        <locationX>460</locationX>
+        <locationY>2069</locationY>
+        <defaultConnector>
+            <targetReference>update_Advance_Shipment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Notify_Party_2_null_0</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.SecondNotifyPartyDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.SecondNotifyParty__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_MNotify_Party_2_Detail_0</targetReference>
+            </connector>
+            <label>Notify Party 2 null</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>check_Shipper_Detail</name>
+        <label>check Shipper Detail</label>
+        <locationX>460</locationX>
+        <locationY>1550</locationY>
+        <defaultConnector>
+            <targetReference>check_Consignnee_Detail</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Shipper_null</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ShipperDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Shipper__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>assign_Shipper_Detail</targetReference>
+            </connector>
+            <label>Shipper null</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>Agent2ndDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Agent2nd__r.AccountNameENG__c} )), {!$Record.Agent2nd__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent2nd__r.Company_Address__c})), {!$Record.Agent2nd__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent2nd__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Agent2nd__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent2nd__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.Agent2nd__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>AgentDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Agent__r.AccountNameENG__c} )), {!$Record.Agent__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent__r.Company_Address__c})), {!$Record.Agent__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Agent__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Agent__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.Agent__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>CarrierDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.CarrierAirlinerVendor__r.AccountNameENG__c} )), {!$Record.CarrierAirlinerVendor__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.CarrierAirlinerVendor__r.Company_Address__c})), {!$Record.CarrierAirlinerVendor__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.CarrierAirlinerVendor__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.CarrierAirlinerVendor__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.CarrierAirlinerVendor__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.CarrierAirlinerVendor__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>ConsigneeDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Consignee__r.AccountNameENG__c} )), {!$Record.Consignee__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Consignee__r.Company_Address__c})), {!$Record.Consignee__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Consignee__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Consignee__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Consignee__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.Consignee__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>CustomerDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Customer__r.AccountNameENG__c} )), {!$Record.Customer__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Customer__r.Company_Address__c})), {!$Record.Customer__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Customer__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Customer__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Customer__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.Customer__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>HouseNotifyPartyDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.HouseNotifyParty__r.AccountNameENG__c} )), {!$Record.HouseNotifyParty__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.HouseNotifyParty__r.Company_Address__c})), {!$Record.HouseNotifyParty__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.HouseNotifyParty__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.HouseNotifyParty__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.HouseNotifyParty__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.HouseNotifyParty__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>MasterConsigneeDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.MasterConsignee__r.AccountNameENG__c} )), {!$Record.MasterConsignee__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterConsignee__r.Company_Address__c})), {!$Record.MasterConsignee__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterConsignee__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterConsignee__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterConsignee__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.MasterConsignee__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>MasterNotifyPartyDetailInformation_formular</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.MasterNotifyParty__r.AccountNameENG__c} )), {!$Record.MasterNotifyParty__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterNotifyParty__r.Company_Address__c})), {!$Record.MasterNotifyParty__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterNotifyParty__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterNotifyParty__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterNotifyParty__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.MasterNotifyParty__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>MasterShipperDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.MasterShipper__r.AccountNameENG__c} )), {!$Record.MasterShipper__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterShipper__r.Company_Address__c})), {!$Record.MasterShipper__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterShipper__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterShipper__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.MasterShipper__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.MasterShipper__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>SecondNotifyPartyDetailInformation_formular</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.SecondNotifyParty__r.AccountNameENG__c} )), {!$Record.SecondNotifyParty__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.SecondNotifyParty__r.Company_Address__c})), {!$Record.SecondNotifyParty__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.SecondNotifyParty__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.SecondNotifyParty__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.SecondNotifyParty__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.SecondNotifyParty__r.Fax}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>ShipperDetailInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Shipper__r.AccountNameENG__c} )), {!$Record.Shipper__r.AccountNameENG__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Shipper__r.Company_Address__c})), {!$Record.Shipper__r.Company_Address__c} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Shipper__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Shipper__r.Phone} + &quot; &quot; + BR(), NULL) &amp;
+IF(NOT(ISBLANK({!$Record.Shipper__r.Fax})), &quot; &quot; + &quot;FAX:&quot; +&quot; &quot;+ {!$Record.Shipper__r.Fax}, NULL)</expression>
+    </formulas>
+    <interviewLabel>F/TMS S/O | Update Detail Information {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>F/TMS S/O | Update Detail Information</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>update_Advance_Shipment</name>
+        <label>update Advance Shipment</label>
+        <locationX>598</locationX>
+        <locationY>2367</locationY>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>382</locationY>
+        <connector>
+            <targetReference>check_Customer_Detail</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Customer__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Shipper__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Consignee__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Agent__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Agent2nd__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CarrierAirlinerVendor__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>HouseNotifyParty__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterShipper__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterNotifyParty__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterConsignee__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CustomerDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>AgentDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ShipperDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ConsigneeDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Agent2ndDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>HouseNotifyPartyDetail_Information__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterConsigneeDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterShipperDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterNotifyPartyDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>CarrierDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>FTMSSO__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

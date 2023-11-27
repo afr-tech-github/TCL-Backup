@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Xe 1MT</fullName>
+        <default>false</default>
+        <label>Xe 1MT</label>
+    </customValue>
+    <customValue>
+        <fullName>Xe 2MT</fullName>
+        <default>false</default>
+        <label>Xe 2MT</label>
+    </customValue>
+    <customValue>
+        <fullName>Xe 3MT</fullName>
+        <default>false</default>
+        <label>Xe 3MT</label>
+    </customValue>
+    <customValue>
+        <fullName>Xe 5MT</fullName>
+        <default>false</default>
+        <label>Xe 5MT</label>
+    </customValue>
+    <customValue>
+        <fullName>Xe 8MT</fullName>
+        <default>false</default>
+        <label>Xe 8MT</label>
+    </customValue>
+    <customValue>
+        <fullName>Xe mooc sàn (floor bed trailer)</fullName>
+        <default>false</default>
+        <label>Xe mooc sàn (floor bed trailer)</label>
+    </customValue>
+    <customValue>
+        <fullName>Others (Note in remark)</fullName>
+        <default>false</default>
+        <label>Others (Note in remark)</label>
+    </customValue>
+    <customValue>
+        <fullName>Tuk Tuk</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Tuk Tuk</label>
+    </customValue>
+    <customValue>
+        <fullName>Container Truck</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Container Truck</label>
+    </customValue>
+    <customValue>
+        <fullName>Normal Truck</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Normal Truck</label>
+    </customValue>
+    <masterLabel>Truck Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

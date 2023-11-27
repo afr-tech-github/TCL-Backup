@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Garment</fullName>
+        <default>false</default>
+        <label>Garment</label>
+    </customValue>
+    <customValue>
+        <fullName>Steel</fullName>
+        <default>false</default>
+        <label>Steel</label>
+    </customValue>
+    <customValue>
+        <fullName>Textile</fullName>
+        <default>false</default>
+        <label>Textile</label>
+    </customValue>
+    <customValue>
+        <fullName>Footwear</fullName>
+        <default>false</default>
+        <label>Footwear</label>
+    </customValue>
+    <customValue>
+        <fullName>Furniture</fullName>
+        <default>false</default>
+        <label>Furniture</label>
+    </customValue>
+    <customValue>
+        <fullName>Electronic</fullName>
+        <default>false</default>
+        <label>Electronic</label>
+    </customValue>
+    <customValue>
+        <fullName>Foodstuff</fullName>
+        <default>false</default>
+        <label>Foodstuff</label>
+    </customValue>
+    <customValue>
+        <fullName>Agricultural</fullName>
+        <default>false</default>
+        <label>Agriculture</label>
+    </customValue>
+    <customValue>
+        <fullName>Medical/ Chemical</fullName>
+        <default>false</default>
+        <label>Medical/ Chemical</label>
+    </customValue>
+    <customValue>
+        <fullName>Construction</fullName>
+        <default>false</default>
+        <label>Construction</label>
+    </customValue>
+    <customValue>
+        <fullName>Equipment/ Machinery</fullName>
+        <default>false</default>
+        <label>Equipment/ Machinery</label>
+    </customValue>
+    <customValue>
+        <fullName>Seafood/ Freezer cargo/ Meat</fullName>
+        <default>false</default>
+        <label>Seafood/ Freezer cargo/ Meat</label>
+    </customValue>
+    <customValue>
+        <fullName>Trucking</fullName>
+        <default>false</default>
+        <label>Trucking</label>
+    </customValue>
+    <customValue>
+        <fullName>Customs Broker</fullName>
+        <default>false</default>
+        <label>Customs Broker</label>
+    </customValue>
+    <customValue>
+        <fullName>Homewares</fullName>
+        <default>false</default>
+        <label>Homewares</label>
+    </customValue>
+    <customValue>
+        <fullName>Trading</fullName>
+        <default>false</default>
+        <label>Trading</label>
+    </customValue>
+    <customValue>
+        <fullName>Others.</fullName>
+        <default>false</default>
+        <label>Others.</label>
+    </customValue>
+    <customValue>
+        <fullName>Logistics/ Forwarders</fullName>
+        <default>false</default>
+        <label>Logistics/ Forwarders</label>
+    </customValue>
+    <masterLabel>Business Industry</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

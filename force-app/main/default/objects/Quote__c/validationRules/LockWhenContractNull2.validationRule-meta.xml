@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockWhenContractNull2</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+ Additional_Contract_Date__c =  TODAY(), 
+  ISBLANK( Contract_ID__c ),
+OR(
+ 
+ISCHANGED(	LastActivityDate	),
+ISCHANGED(	LastModifiedById	),
+ISCHANGED(	LastModifiedDate	),
+
+
+ISCHANGED(	LatePaymentPenalty__c	),
+ISCHANGED(	Location__c	),
+ISCHANGED(	MeasurementTotalCBM__c	),
+ISCHANGED(	Name	),
+ISCHANGED(	NetWeight__c	),
+ISCHANGED(	NoteDesciption__c	),
+ISCHANGED(	OwnerId	),
+ISCHANGED(	PaymentCondition__c	),
+ISCHANGED(	PickupAddress__c	),
+ISCHANGED(	PICOfRequesterCompany__c	),
+ISCHANGED(	PlaceofReceipt__c	),
+ISCHANGED(	PODAOA__c	),
+ISCHANGED(	POLAOD__c	),
+ISCHANGED(	ProfitINCLTaxFCY__c	),
+ISCHANGED(	ProfitINCLTaxLocal__c	),
+ISCHANGED(	ProfitNICTaxFCY__c	),
+ISCHANGED(	ProfitNICTaxLocal__c	),
+ISCHANGED(	ProfitRatioinclTaxFCY__c	),
+ISCHANGED(	ProfitRatioinclTaxLocal__c	),
+ISCHANGED(	ProfitRatioNICTaxFCY__c	),
+ISCHANGED(	ProfitRatioNICTaxLocal__c	),
+ISCHANGED(	Profit_incl_TaxLocal__c	),
+ISCHANGED(	Profit_NIC_TaxLocal__c	),
+ISCHANGED(	QuoteIssueDate__c	),
+ISCHANGED(	QuoteName__c	),
+ISCHANGED(	QuoteNumber__c	),
+ISCHANGED(	QuotePIC__c	),
+ISCHANGED(	QuoteStatus__c	),
+ISCHANGED(	Quote_Line__c	),
+ISCHANGED(	Reason_Lost__c	),
+ISCHANGED(	Remarks__c	),
+ISCHANGED(	RequestCompanysPIC__c	),
+ISCHANGED(	RequestDetail__c	),
+ISCHANGED(	RequesterCompany__c	),
+ISCHANGED(	RequestfromCustomerID__c	),
+ISCHANGED(	ShipmentTerm__c	),
+ISCHANGED(	SOAIssueDate__c	),
+ISCHANGED(	SOASettlementDay__c	),
+
+ISCHANGED(	TotalAmountofBuyingActual__c	),
+ISCHANGED(	TotalAmountofBuyingFCY__c	),
+ISCHANGED(	TotalAmountofBuyingLocal__c	),
+ISCHANGED(	TotalAmountofSellingActual__c	),
+ISCHANGED(	TotalAmountofSellingFCY__c	),
+ISCHANGED(	TotalAmountofSellingLocal__c	),
+ISCHANGED(	TotalBuyingAmountLocal__c	),
+ISCHANGED(	TotalBuyingInclTaxActual__c	),
+ISCHANGED(	TotalBuyingInclTaxFCY__c	),
+ISCHANGED(	TotalBuyingInclTaxLocal__c	),
+ISCHANGED(	TotalSellingAmountLocal__c	),
+ISCHANGED(	TotalSellingInclTaxActual__c	),
+ISCHANGED(	TotalSellingInclTaxFCY__c	),
+ISCHANGED(	TotalSellingInclTaxLocal__c	)
+
+)
+)</errorConditionFormula>
+    <errorMessage>This record has been locked. Please check and type Contract ID for unlock record</errorMessage>
+</ValidationRule>

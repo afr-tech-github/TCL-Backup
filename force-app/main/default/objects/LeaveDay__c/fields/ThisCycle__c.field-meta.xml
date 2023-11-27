@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ThisCycle__c</fullName>
+    <externalId>false</externalId>
+    <formula>If (Month( LeaveDate__c ) = 1, &quot;January&quot;,
+If (Month( LeaveDate__c ) = 2, &quot;February&quot;,
+If (Month( LeaveDate__c ) = 3, &quot;March&quot;,
+If (Month( LeaveDate__c ) = 4, &quot;April&quot;,
+If (Month( LeaveDate__c ) = 5, &quot;May&quot;,
+If (Month( LeaveDate__c ) = 6, &quot;June&quot;,
+If (Month( LeaveDate__c ) = 7, &quot;July&quot;,
+If (Month( LeaveDate__c ) = 8, &quot;August&quot;,
+If (Month( LeaveDate__c ) = 9, &quot;September&quot;,
+If (Month( LeaveDate__c ) = 10, &quot;October&quot;,
+If (Month( LeaveDate__c ) = 11, &quot;November&quot;,
+&quot;December&quot;)))))))))))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>This Cycle</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

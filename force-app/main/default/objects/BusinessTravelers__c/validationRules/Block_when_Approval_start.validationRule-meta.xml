@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_when_Approval_start</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( BusinessTravelRequest__r.IsBlock__c , 
+OR (ischanged( ActualStartDate__c ),
+ischanged(  ActualEndDate__c  ),
+ischanged ( TotalEstimateExpense__c )))</errorConditionFormula>
+    <errorMessage>Cannot adjust Start Date, End Date, Estimate Cost when the Business Travel Request is in Approval Process!</errorMessage>
+</ValidationRule>

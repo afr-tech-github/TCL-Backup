@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>20&apos;DC</fullName>
+        <default>false</default>
+        <label>20&apos;DC</label>
+    </customValue>
+    <customValue>
+        <fullName>20&apos;HC</fullName>
+        <default>false</default>
+        <label>20&apos;HC</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;DC</fullName>
+        <default>false</default>
+        <label>40&apos;DC</label>
+    </customValue>
+    <customValue>
+        <fullName>45&apos;DC</fullName>
+        <default>false</default>
+        <label>45&apos;DC</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;HC</fullName>
+        <default>false</default>
+        <label>40&apos;HC</label>
+    </customValue>
+    <customValue>
+        <fullName>45&apos;HC</fullName>
+        <default>false</default>
+        <label>45&apos;HC</label>
+    </customValue>
+    <customValue>
+        <fullName>20&apos;RF</fullName>
+        <default>false</default>
+        <label>20&apos;RF</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;RF</fullName>
+        <default>false</default>
+        <label>40&apos;RF</label>
+    </customValue>
+    <customValue>
+        <fullName>45&apos;RF</fullName>
+        <default>false</default>
+        <label>45&apos;RF</label>
+    </customValue>
+    <customValue>
+        <fullName>20&apos;OT</fullName>
+        <default>false</default>
+        <label>20&apos;OT</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;OT</fullName>
+        <default>false</default>
+        <label>40&apos;OT</label>
+    </customValue>
+    <customValue>
+        <fullName>45&apos;OT</fullName>
+        <default>false</default>
+        <label>45&apos;OT</label>
+    </customValue>
+    <customValue>
+        <fullName>20&apos;FR</fullName>
+        <default>false</default>
+        <label>20&apos;FR</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;FR</fullName>
+        <default>false</default>
+        <label>40&apos;FR</label>
+    </customValue>
+    <customValue>
+        <fullName>Bulk</fullName>
+        <default>false</default>
+        <label>Bulk</label>
+    </customValue>
+    <customValue>
+        <fullName>ISO</fullName>
+        <default>false</default>
+        <label>ISO</label>
+    </customValue>
+    <customValue>
+        <fullName>20&apos;IMO</fullName>
+        <default>false</default>
+        <label>20&apos;IMO</label>
+    </customValue>
+    <customValue>
+        <fullName>40&apos;IMO</fullName>
+        <default>false</default>
+        <label>40&apos;IMO</label>
+    </customValue>
+    <customValue>
+        <fullName>45&apos;IMO</fullName>
+        <default>false</default>
+        <label>45&apos;IMO</label>
+    </customValue>
+    <customValue>
+        <fullName>AIR</fullName>
+        <default>false</default>
+        <label>AIR</label>
+    </customValue>
+    <customValue>
+        <fullName>CBM</fullName>
+        <default>false</default>
+        <label>CBM</label>
+    </customValue>
+    <customValue>
+        <fullName>RTON</fullName>
+        <default>false</default>
+        <label>RTON</label>
+    </customValue>
+    <customValue>
+        <fullName>-1000KGS</fullName>
+        <default>false</default>
+        <label>-1000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+1000KGS</fullName>
+        <default>false</default>
+        <label>+1000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+2000KGS</fullName>
+        <default>false</default>
+        <label>+2000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+3000KGS</fullName>
+        <default>false</default>
+        <label>+3000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+4000KGS</fullName>
+        <default>false</default>
+        <label>+4000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+5000KGS</fullName>
+        <default>false</default>
+        <label>+5000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+6000KGS</fullName>
+        <default>false</default>
+        <label>+6000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+7000KGS</fullName>
+        <default>false</default>
+        <label>+7000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+8000KGS</fullName>
+        <default>false</default>
+        <label>+8000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+9000KGS</fullName>
+        <default>false</default>
+        <label>+9000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>+10000KGS</fullName>
+        <default>false</default>
+        <label>+10000KGS</label>
+    </customValue>
+    <customValue>
+        <fullName>1 TON</fullName>
+        <default>false</default>
+        <label>1 TON</label>
+    </customValue>
+    <customValue>
+        <fullName>1.5 TONS</fullName>
+        <default>false</default>
+        <label>1.5 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>2 TONS</fullName>
+        <default>false</default>
+        <label>2 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>2.5 TONS</fullName>
+        <default>false</default>
+        <label>2.5 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>3.5 TONS</fullName>
+        <default>false</default>
+        <label>3.5 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>5 TONS</fullName>
+        <default>false</default>
+        <label>5 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>6 TONS</fullName>
+        <default>false</default>
+        <label>6 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>8 TONS</fullName>
+        <default>false</default>
+        <label>8 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>10 TONS</fullName>
+        <default>false</default>
+        <label>10 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>14 TONS</fullName>
+        <default>false</default>
+        <label>14 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>15 TONS</fullName>
+        <default>false</default>
+        <label>15 TONS</label>
+    </customValue>
+    <customValue>
+        <fullName>20 TONS</fullName>
+        <default>false</default>
+        <label>20 TONS</label>
+    </customValue>
+    <masterLabel>Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

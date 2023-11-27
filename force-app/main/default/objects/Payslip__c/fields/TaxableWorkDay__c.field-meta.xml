@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TaxableWorkDay__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF (  SpecialEmployee__c ,   StandardWorkDay__c  ,  WorkDay__c  +  AnnualLeaves__c + AdjustWorkDay__c  +  PrivilegeLeave__c +  HolidayLeave__c  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Taxable Work Day = Work Day + Annual Leaves + Privilege Leave + Holiday Leave + Adjust Work Day</inlineHelpText>
+    <label>Taxable Work Day</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

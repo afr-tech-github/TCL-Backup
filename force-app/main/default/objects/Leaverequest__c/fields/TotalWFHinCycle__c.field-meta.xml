@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalWFHinCycle__c</fullName>
+    <externalId>false</externalId>
+    <formula>Employee__r.WorkCycle__r.WFHDayCreated__c +  Employee__r.WorkCycle__r.WFHDayPlanned__c  + Employee__r.WorkCycle__r.WFHDayUsed__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total WFH in Cycle</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

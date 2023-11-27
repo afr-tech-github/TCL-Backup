@@ -1,0 +1,165 @@
+<aura:component controller="InquiryController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+
+    <aura:attribute name="ShowCreateInquiry" type="Boolean"  />
+    <!-- <aura:attribute name="childFunction" type="Aura.Action"/> -->
+    <aura:registerEvent name="parentFunction" type="c:Back_InquireEvent"/>
+    <aura:attribute name="InqureLine" type="List"  />
+    <aura:attribute name="TransValue" type="List"  />
+
+    <aura:attribute name="RefPriceID" type="String" />
+    <aura:attribute name="comboProduct" type="String" />
+
+    <aura:attribute name="queryConditions" type="String" />
+    <aura:attribute name="recordId" type="String" />
+    
+    
+    <table>
+        <tr>
+            <th style="padding: 0 10px;">Inquiry Route ID</th>
+            <!-- <th style="padding: 0 10px;">Route Name</th>
+            <th style="padding: 0 10px;">Place of Receipt</th>
+            <th style="padding: 0 10px;">Place of Delivery</th> -->
+
+            
+            <th style="padding: 0 10px;">Transportation Way</th>
+            <th style="padding: 0 10px;">Combo Product</th>
+            <th style="padding: 0 10px;">Service</th>
+            <th style="padding: 0 10px;">Requested</th>
+            <th style="padding: 0 10px;"></th>
+   
+
+
+        </tr>
+        <aura:iteration items="{!v.InqureLine}" var="InqureLineItem" indexVar="index">
+        <tr style="vertical-align: bottom;">
+            <td  style="width: 22%; padding: 0 10px;">
+                <div style="margin-right: 5px;">
+                <l_lookup:Lookup aura:id="lookupId" onchange="{!c.onUpdateFieldChange}"  
+                                styleClass="{!index}" objectType="InquiryRoute__c"
+                                label="&nbsp;"
+                                removeValueOnQueryConditionChange="" primarySearchField="Name"
+                                selectedRecordId="{!v.RefPriceID}" 
+                                dropDownQuery="Inquiry__c != null" queryCondition="{!v.queryConditions}" />
+                            </div>
+            </td>
+            <!-- <td  style="width: 12%; padding: 0 10px;">
+                <div style="margin-right: 5px;">
+                <lightning:recordEditForm objectApiName="InquiryRoute__c" recordId="{!InqureLineItem.Route__c}">
+                    <lightning:inputField  variant="label-hidden"
+                    disabled="true"
+                     fieldName="RouteName__c"
+                     >
+                        
+                    </lightning:inputField>
+                </lightning:recordEditForm>
+                </div>
+            </td> -->
+            <!-- <td  style="width: 12%; padding: 0 10px;">
+                <div style="margin-right: 5px;">
+                <lightning:recordEditForm objectApiName="InquiryRoute__c" recordId="{!InqureLineItem.Route__c}">
+                    <lightning:inputField  variant="label-hidden"
+                    disabled="true"
+                     fieldName="Place_of_Receipt__c"
+                     >
+                        
+                    </lightning:inputField>
+                </lightning:recordEditForm>
+                </div>
+            </td> -->
+            <!-- <td  style="width: 12%; padding: 0 10px;">
+                <div style="margin-right: 5px;">
+                <lightning:recordEditForm objectApiName="InquiryRoute__c" recordId="{!InqureLineItem.Route__c}">
+                    <lightning:inputField  variant="label-hidden"
+                    disabled="true"
+                     fieldName="Place_of_Delivery__c"
+                     >
+                        
+                    </lightning:inputField>
+                </lightning:recordEditForm>
+                </div>
+            </td> -->
+            <td  style="width: 22%; padding: 0 10px;">
+                <div style="margin-right: 5px;">
+                <lightning:select name="select1" variant="label-hidden" value="{!InqureLineItem.TransportationWay__c}"  >
+                    <option value="">--none--</option>
+                    
+                 <aura:iteration items="{!v.TransValue}" var="trans" indexVar="index">
+
+                    <option value="{!trans}">{!trans}</option>
+                    </aura:iteration>
+                </lightning:select>
+                </div>
+            </td>
+            
+            <td style="width: 22%; padding: 0 10px;">
+                <lightning:recordEditForm objectApiName="InquiryLine__c" >
+                    <div style="margin-right: 5px;">
+                        <lightning:inputField  variant="label-hidden"
+                         fieldName="ComboProduct__c"
+                        value="{!InqureLineItem.ComboProduct__c}" >
+                            
+                        </lightning:inputField>
+                    </div>
+                </lightning:recordEditForm>
+                
+            </td>
+            <td style="width: 22%; padding: 0 10px;">
+                <lightning:recordEditForm objectApiName="InquiryLine__c" >
+                    <div style="margin-right: 5px;">
+                        <lightning:inputField  variant="label-hidden"
+                         fieldName="Service__c"
+                        value="{!InqureLineItem.Service__c}" >
+                            
+                        </lightning:inputField>
+                    </div>
+                </lightning:recordEditForm>
+            </td>
+            <td style="width: 5%;padding: 0 10px;">
+                
+                    <div style="margin-right: 5px;">
+                        <!-- <lightning:input type="checkBox"  type="checkbox"
+                       
+                        checked="{!InqureLineItem.Requested__c}" >
+                            
+                        </lightning:input> -->
+                        <lightning:input  type="checkbox" label="" name="input1" checked="{!InqureLineItem.Requested__c}"/>
+                    </div>
+                
+            </td>
+            <td style="width: 5%;padding: 0 10px;">
+                <td style="padding: 0 4px;" >
+                    <div>
+                      <a
+                          onclick="{!c.removeRecord}"
+                          data-record="{!index}"
+                        >
+                          <lightning:icon
+                            iconName="utility:delete"
+                            size="small"
+                            alternativeText="Delete"
+                          />
+                          <span class="slds-assistive-text">Delete</span>
+                        </a>
+                    </div>
+                  </td>
+            </td>
+        </tr>
+    </aura:iteration>
+    </table>
+
+
+
+    <div style="    margin-top: 25px;
+    text-align: center;">
+
+    
+    <lightning:button variant="brand" label="Back" title="Brand action" onclick="{!c.callParentFunction}" />
+    <lightning:button variant="brand" label="Add" title="Brand action" onclick="{!c.addRow}" />
+
+    <lightning:button variant="brand" label="Submit" title="Brand action" onclick="{!c.confirm}" />
+        </div>
+
+</aura:component>

@@ -1,0 +1,1 @@
+*** 個案升級警示 ***   下列個案已經升級：公司：{!Account.Name}  個案：{!Case.CaseNumber}: {!Case.Subject}  擁有者：{!CaseOwner.FullName}   按一下該連結存取此個案：  {!Case.Link}

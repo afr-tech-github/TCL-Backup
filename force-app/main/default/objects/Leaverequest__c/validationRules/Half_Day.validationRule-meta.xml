@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Half_Day</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND( HalfDay__c = TRUE,  Start_Date__c  &lt;&gt;   End_Date__c )</errorConditionFormula>
+    <errorDisplayField>HalfDay__c</errorDisplayField>
+    <errorMessage>Please chooese End Date as same as Start Date in case you apply for a half day leave</errorMessage>
+</ValidationRule>

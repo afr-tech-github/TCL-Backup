@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Air_type__c</fullName>
+    <externalId>false</externalId>
+    <label>Air type</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>TransportationWay__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Air_Type</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <valueName>Air Express</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <valueName>Air Cargo</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

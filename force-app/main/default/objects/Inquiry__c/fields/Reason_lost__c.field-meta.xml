@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Reason_lost__c</fullName>
+    <externalId>false</externalId>
+    <label>Reason lost</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Price is not match with customer required</fullName>
+                <default>false</default>
+                <label>Price is not match with customer required</label>
+            </value>
+            <value>
+                <fullName>Customer change their plan in exporting</fullName>
+                <default>false</default>
+                <label>Customer change their plan in exporting</label>
+            </value>
+            <value>
+                <fullName>Shipping line cancel booking because space cutting or out of empty container</fullName>
+                <default>false</default>
+                <label>Shipping line cancel booking because space cutting or out of empty container</label>
+            </value>
+            <value>
+                <fullName>Full space</fullName>
+                <default>false</default>
+                <label>Full space</label>
+            </value>
+            <value>
+                <fullName>Delay in releasing booking - customer choose other forwarder</fullName>
+                <default>false</default>
+                <label>Delay in releasing booking - customer choose other forwarder</label>
+            </value>
+            <value>
+                <fullName>Did not found the reason - waiting for customer&apos;s confirmation</fullName>
+                <default>false</default>
+                <label>Did not found the reason - waiting for customer&apos;s confirmation</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Value1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Value1</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

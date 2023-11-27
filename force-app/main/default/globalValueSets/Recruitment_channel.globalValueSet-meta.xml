@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Linkedin</fullName>
+        <default>false</default>
+        <label>Linkedin</label>
+    </customValue>
+    <customValue>
+        <fullName>Vietnamwork</fullName>
+        <default>false</default>
+        <label>Vietnamwork</label>
+    </customValue>
+    <customValue>
+        <fullName>Referral</fullName>
+        <default>false</default>
+        <label>Referral</label>
+    </customValue>
+    <customValue>
+        <fullName>TopCV</fullName>
+        <default>false</default>
+        <label>TopCV</label>
+    </customValue>
+    <customValue>
+        <fullName>CV sharing</fullName>
+        <default>false</default>
+        <label>CV sharing</label>
+    </customValue>
+    <customValue>
+        <fullName>Facebook group</fullName>
+        <default>false</default>
+        <label>Facebook group</label>
+    </customValue>
+    <customValue>
+        <fullName>Events</fullName>
+        <default>false</default>
+        <label>Events</label>
+    </customValue>
+    <description>Where the candidate from</description>
+    <masterLabel>Recruitment channel</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

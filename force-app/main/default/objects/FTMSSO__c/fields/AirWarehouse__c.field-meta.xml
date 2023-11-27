@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AirWarehouse__c</fullName>
+    <externalId>false</externalId>
+    <label>Air Warehouse</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Kho ALSC: CÔNG TY CỔ PHẦN NHÀ GA HÀNG HÓA (ALSC)</fullName>
+                <default>false</default>
+                <label>Kho ALSC: CÔNG TY CỔ PHẦN NHÀ GA HÀNG HÓA (ALSC)</label>
+            </value>
+            <value>
+                <fullName>Kho ACSV: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA HÀNG KHÔNG VIỆT NAM (ACSV)</fullName>
+                <default>false</default>
+                <label>Kho ACSV: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA HÀNG KHÔNG VIỆT NAM (ACSV)</label>
+            </value>
+            <value>
+                <fullName>Kho NCTS: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA NỘI BÀI (NCTS)</fullName>
+                <default>false</default>
+                <label>Kho NCTS: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA NỘI BÀI (NCTS)</label>
+            </value>
+            <value>
+                <fullName>Kho SCSC: CÔNG TY CỔ PHẦN HÀNG HÓA SÀI GÒN (SCSC)</fullName>
+                <default>false</default>
+                <label>Kho SCSC: CÔNG TY CỔ PHẦN HÀNG HÓA SÀI GÒN (SCSC)</label>
+            </value>
+            <value>
+                <fullName>Kho TSC: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA TÂN SƠN NHẤT (TCS)</fullName>
+                <default>false</default>
+                <label>Kho TSC: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA TÂN SƠN NHẤT (TCS)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

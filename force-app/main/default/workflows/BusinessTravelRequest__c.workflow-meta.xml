@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workflow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fieldUpdates>
+        <fullName>BODApproved</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>BOD Approved</literalValue>
+        <name>BOD Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>BODRejected</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>BOD Rejected</literalValue>
+        <name>BOD Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>BOD_Approved</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>BOD Approved</literalValue>
+        <name>BOD Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>BOD_Rejected</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>BOD Rejected</literalValue>
+        <name>BOD Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Block_on</fullName>
+        <field>IsBlock__c</field>
+        <literalValue>1</literalValue>
+        <name>Block on</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Checkbox</fullName>
+        <field>ManagerApproved__c</field>
+        <literalValue>1</literalValue>
+        <name>Checkbox</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ManagerApproveddd</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Manager Approved</literalValue>
+        <name>Manager Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ManagerRejected</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Manager Rejected</literalValue>
+        <name>Manager Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ManagerRejectedd</fullName>
+        <field>Rejected_By__c</field>
+        <literalValue>Manager</literalValue>
+        <name>Manager Rejected</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Manager_Approved</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Manager Approved</literalValue>
+        <name>Manager Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pending</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Pending Approval</literalValue>
+        <name>Pending Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Pending_Approval</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Pending Approval</literalValue>
+        <name>Pending Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Rejected_By</fullName>
+        <field>Rejected_By__c</field>
+        <literalValue>BOD</literalValue>
+        <name>Rejected By</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset</fullName>
+        <field>Rejected_By__c</field>
+        <name>Reset</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>ResetApproval</fullName>
+        <field>ApprovalStatus__c</field>
+        <name>Reset Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Approval</fullName>
+        <field>ApprovalStatus__c</field>
+        <name>Reset Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Reset_Rejected_By</fullName>
+        <field>Rejected_By__c</field>
+        <name>Reset Rejected By</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>StatusUpdatetoApproved</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status Update to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>StatusUpdatetoCancelled</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>Status Update to Cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Update_to_Approved</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Status Update to Approved</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Status_Update_to_Cancelled</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>Status Update to Cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Approval</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Approved</literalValue>
+        <name>Update Status to Approval</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>Update_Status_to_Cancelled</fullName>
+        <field>ApprovalStatus__c</field>
+        <literalValue>Cancelled</literalValue>
+        <name>Update Status to Cancelled</name>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>false</reevaluateOnChange>
+    </fieldUpdates>
+    <tasks>
+        <fullName>Business_Request_Approval_Approved</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>-5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>BusinessTravelRequest__c.From__c</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Business Request Approval Approved</subject>
+    </tasks>
+    <tasks>
+        <fullName>Business_Request_Approval_Rejected</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>-5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>BusinessTravelRequest__c.CreatedDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Not Started</status>
+        <subject>Business Request Approval Rejected</subject>
+    </tasks>
+    <tasks>
+        <fullName>Business_Request_Approval_Rejection</fullName>
+        <assignedToType>owner</assignedToType>
+        <dueDateOffset>6</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>BusinessTravelRequest__c.CreatedDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Deferred</status>
+        <subject>Business Request Approval Rejection</subject>
+    </tasks>
+    <tasks>
+        <fullName>Business_Request_Approval_Request</fullName>
+        <assignedToType>owner</assignedToType>
+        <description>Dear Mr./Ms. Manager,
+Please check my Business Travel Request and response to me!</description>
+        <dueDateOffset>5</dueDateOffset>
+        <notifyAssignee>false</notifyAssignee>
+        <offsetFromField>BusinessTravelRequest__c.CreatedDate</offsetFromField>
+        <priority>Normal</priority>
+        <protected>false</protected>
+        <status>Completed</status>
+        <subject>Business Request Approval Request</subject>
+    </tasks>
+</Workflow>

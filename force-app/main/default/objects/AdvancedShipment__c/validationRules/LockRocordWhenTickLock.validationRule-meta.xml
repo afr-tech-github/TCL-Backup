@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockRocordWhenTickLock</fullName>
+    <active>false</active>
+    <errorConditionFormula>Lock_Missing_Contract__c &amp;&amp; 
+NOT( ISCHANGED(Lock_Missing_Contract__c ) ) &amp;&amp; 
+ $Profile.Name &lt;&gt; &apos;System Administrator&apos;</errorConditionFormula>
+    <errorMessage>This record has been locked. Please check Contract and contact to Admin</errorMessage>
+</ValidationRule>

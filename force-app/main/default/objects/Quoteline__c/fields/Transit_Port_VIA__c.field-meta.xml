@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transit_Port_VIA__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Transit Port (VIA)</label>
+    <referenceTo>PortCode__c</referenceTo>
+    <relationshipLabel>Quote lines (Transit Port (VIA))</relationshipLabel>
+    <relationshipName>Quote_lines2</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

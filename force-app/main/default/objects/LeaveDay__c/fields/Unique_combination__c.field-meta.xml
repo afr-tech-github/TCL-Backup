@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Unique_combination__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>BAONK: This field is to prevent create duplicate Leave day of same employee</description>
+    <externalId>false</externalId>
+    <label>Unique_combination</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

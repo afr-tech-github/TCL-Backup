@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Quote_ID__c</columns>
+    <columns>Quote_route__c</columns>
+    <columns>ShipmentConverted__c</columns>
+    <columns>TypeofTrade__c</columns>
+    <columns>ShipmentTerm__c</columns>
+    <columns>TransportationWay__c</columns>
+    <columns>P_O_L_A_O_D__c</columns>
+    <columns>P_O_D_A_O_A__c</columns>
+    <columns>ETD__c</columns>
+    <columns>ETA__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

@@ -1,0 +1,13 @@
+<aura:component controller="GoogleMapController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+    <aura:attribute name="frameSrc" type="String"/>
+    <aura:attribute name="recordId" type="String" />
+    
+
+    <!-- init handler which will call 'doInit' fucntion on component load-->
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <aura:handler event="force:refreshView" action="{!c.init}" />
+
+    <!-- render map component only when we have at least 1 record in list.(mapMarkersData) -->   
+    <iframe id="myFrame" style="height: 700px;width: 100%" src="{!v.frameSrc}"/>
+    
+</aura:component>

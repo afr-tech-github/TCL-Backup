@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockRecord</fullName>
+    <active>false</active>
+    <errorConditionFormula>PRIORVALUE (  Lock__c  ) = TRUE</errorConditionFormula>
+    <errorMessage>This Inquiry is locked after winning the quotation.</errorMessage>
+</ValidationRule>

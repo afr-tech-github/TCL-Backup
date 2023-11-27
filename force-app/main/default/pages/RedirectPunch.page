@@ -1,0 +1,5 @@
+<apex:page controller="GoogleMapPunchController">
+    <script>
+        window.parent.location.replace("https://tcl-02-dev-ed.develop.lightning.force.com/{!id}");
+    </script>
+</apex:page>

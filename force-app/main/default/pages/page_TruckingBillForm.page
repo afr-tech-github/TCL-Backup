@@ -1,0 +1,549 @@
+<apex:page controller="truckingBillController" sidebar="false"  applyBodyTag="false" cache="true" title="12344324" showHeader="false" >    
+    <head>
+        <style type="text/css">
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+                .print-only {
+            page-break-inside: avoid !important;
+              }
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            @page {
+            
+                margin: 8mm 8mm 8mm 8mm;
+
+                size:  a4;   /* auto is the initial value */
+                /* margin: 0mm;   */
+                @bottom-center{
+                    content: element(footer);
+                }
+                
+            }
+            p{
+                margin: 0 0;
+            }
+            
+            div.footer {
+                display: block;
+                position: running(footer);
+            }
+           
+            table td{
+                vertical-align: top;
+            }
+            table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            }
+            body {
+                font-size: 11px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                /* font-family: "Calibri", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+               
+            }
+            .fontBold { 
+                font-weight: bold;
+            }
+            table td {
+                line-height: 15px;
+                padding: 0 3px;
+                font-family: 'Times New Roman', Times, serif;
+                /* border: 1px solid black; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                padding: 0 3px;
+                line-height: 15px;
+                font-family: 'Times New Roman', Times, serif;
+                /* background-color: rgb(179, 175, 175); */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                text-align: center;
+            }
+            table tr {
+                min-height: 15px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .report-header {
+                width: 100%;
+                display: flex;
+                /* align-items: center; */
+            }
+            .logo-company {
+                float: left;
+                width: 32%;
+
+            }
+            .info-company {
+                width: 30%;
+                float: left; 
+                /* font-weight: bolder; */
+                padding-top: 20px;
+            }
+            .name-company {
+                font-weight: bolder;
+                font-size: 14px;
+                white-space: nowrap;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .address-company {
+                font-size: 11px;
+                /* white-space: nowrap; */
+                /* font-weight: bold; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .infor-company {
+                font-size: 11px;
+                white-space: nowrap;
+                /* font-weight: bold; */
+                font-family: 'Times New Roman', Times, serif;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .subtable,
+            .subtable td{
+                border: none;
+            }
+            .una{
+                padding: 0;
+                position: relative;
+                width: 10%;
+            }
+            /* .una::after{
+                content: '';
+                width: 100%;
+                height: 100%;
+                border: 1px solid;
+                top: 0;
+                position: absolute;
+                
+            } */
+           
+         
+            
+
+
+        </style>
+        <script type="text/javascript">
+                  
+            window.onload = function() {
+                //window.top.document.title = "Your Title";
+                window.print();
+                return false; 
+            }
+        </script>
+    </head>
+    <body id="content" style="margin-top: 0 !important;">
+        <div id="head"></div>
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to movess</div>
+            
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">PRINT</a>
+        </div>
+        <table style="width: 100%;border: 2px solid;">
+            <tr style="height: 10px;border: 2px solid;"></tr>
+           
+            <tr >
+                <td colspan="2">
+
+                    <p>Shipper/Exporter (complete name and address)</p>
+                    <p><apex:outputField value="{!So.ShipperDetailInformation__c}"></apex:outputField>  </p>
+                </td> 
+                
+                <td rowspan="5" style="width: 55%; padding: 0; border-left: 2px solid">
+                    <div>
+                        <div style="display: flex;justify-content: space-between;align-items: start;margin-left: 15px;margin-bottom: 10px;">
+
+                          
+                                <img align="middle" src="{!Company.CompanyLogo__c}" style="width: auto;height: 95px"/>
+                            
+                            <div style="border: 1px solid;margin-left: 22px;flex-grow: 1;margin-top: 10px;border-right: none;padding: 0 2px;">
+                                <p>Bill of Trucking No.</p>
+                                 <p style="font-weight: bold"><apex:outputText value="{!trains.TruckingBillNo__c}"></apex:outputText>  </p>
+
+                            </div>
+                        </div>
+                        <div style="text-align: center">
+                            <p><b>TIMES CARGO LOGISTIC CO.,LTD
+                                <p>
+                                    <b>
+                                    TRUCKING BILL</b>
+                                    </p>
+                                </b>
+                            </p>
+                                <p>( NON-NEGOTIABLE UNLESS CONSIGNED " TO ORDER")</p>
+                        </div>
+
+                    </div>
+                    <div style="font-size: 10.5px;margin-bottom: 15px;border-bottom: 1px solid;margin-top: 35px;text-align: justify;line-height: 12px">
+                    <p style="  text-indent: 15px;margin-bottom: 3px">
+                        RECEIVED in apparent good order and condition except as otherwise noted, the total number of
+                        containers or other package or units enumerated below for transportation from the place of receipt to the
+                        place of delivery subject to the terms hereof.
+                    </p>
+                    <p style="  text-indent: 15px;margin-bottom: 3px">
+                        If the Bills of Lading is issued "to order" then one of the signed Bill of lading must be surrendered duty
+                        endorsed in exchange for the Goods or delivery Order. On presentation of this document (duty endorsed) to
+                        the Delivery Agent by the Holder the rights and liabilities arising in accordance with the terms hereof shall
+                        (without prejudice to any rule of common law or statute rendering them binding on the Merchant) become
+                        binding in all respects between the Carrier and the Holder as though the contract evidenced hereby had
+                        been made between them.
+                    </p>
+                    <p style="  text-indent: 15px;margin-bottom: 3px">
+                        IN WITNESS WHEREOF this number of original Bill of Lading stated below all of the same tenor and
+                        date, one of which being accomplished the others to stand void.
+                    </p>
+
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                 <td  colspan="2">
+
+                <p>Consignee (complete name and address)</p>
+                <p><apex:outputField value="{!So.ConsigneeDetailInformation__c}"></apex:outputField>  </p>
+                </td>
+            </tr>
+            <tr>
+                <td  colspan="2">
+
+                <p>Notify party (complete name and address)</p>
+                <!-- <p><b>SAME AS CONSIGNEE</b></p> -->
+                <p><apex:outputField value="{!So.HouseNotifyPartyDetail_Information__c}"></apex:outputField>  </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p>Place of receipt</p>
+                    <p style="font-weight: bold"><apex:outputText value="{!So.PlaceofReceipt__r.City_Name__c}, "></apex:outputText>
+                        <apex:outputText value="{!So.PlaceofReceipt__r.CountryName__c}"></apex:outputText> 
+                    </p>
+
+                </td>
+                <td>
+                    <p>Port of loading</p>
+                    <p style="font-weight: bold"><apex:outputText value="{!So.POLAOD__r.City_Name__c}, "></apex:outputText> 
+                        <apex:outputText value="{!So.POLAOD__r.CountryName__c}"></apex:outputText> 
+                    </p>
+
+                </td>
+            </tr>
+            <tr style="height: 30px">
+               <td></td>
+               <td></td>
+
+            </tr>
+            <tr>
+                <td>
+                    <p>Port of discharge</p>
+                    <p style="font-weight: bold"><apex:outputText value="{!So.PODAOA__r.City_Name__c}, "></apex:outputText> 
+                        <apex:outputText value="{!So.PODAOA__r.CountryName__c}"></apex:outputText> 
+                    </p>
+
+                </td>
+                <td>
+                    <p>Place of delivery</p>
+                    <p style="font-weight: bold"><apex:outputText value="{!So.PlaceofDelivery__r.City_Name__c}, "></apex:outputText> 
+                        <apex:outputText value="{!So.PlaceofDelivery__r.CountryName__c}"></apex:outputText> 
+                    </p>
+
+                </td>
+                <td style="border-left: 2px solid">
+                    <p>Final destination(for the Merchant's reference)</p>
+                    <p style="font-weight: bold"><apex:outputText value="{!So.FinalDestination__r.City_Name__c}, "></apex:outputText> 
+                        <apex:outputText value="{!So.FinalDestination__r.CountryName__c}"></apex:outputText> 
+                    </p>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+
+                    <p style="text-align: center"><b style="text-transform: uppercase">PARTICULARS FURNISHED BY SHIPPER</b></p>
+                </td>
+            </tr>
+            <tr>
+            <td colspan="3" style="padding: 0">
+                <table  class="subtable" style="width: 100%">
+                    <tr style="text-align: center;border-bottom: 1px solid;">
+                        <td>MKS &amp; NOS/CONTAINER NOS</td>
+                        <td>NO. OF PKGS.</td>
+                        <td>DESCRIPTION OF PACKAGES AND GOODS</td>
+                        <td>GROSS WEIGHT</td>
+                        <td>MEASUREMENT</td>
+
+                    </tr>
+                    <tr style="height: 250px">
+                        <td>
+                            <b><apex:outputField value="{!So.MarksNumbersAttachment__c}"></apex:outputField></b>
+                        </td>
+                        <td style="text-align: center">
+                            <b><apex:outputField value="{!So.CargoQuantity__c}"></apex:outputField></b>
+                            &nbsp;
+                            
+                            <b>
+                                <apex:outputField rendered="{!So.CargoQuantity__c == 1}" value="{!So.CargoUnit__c}"></apex:outputField>
+                                <apex:outputField rendered="{!So.CargoQuantity__c > 1}" value="{!So.Plural_Cargo_Unit__c}"></apex:outputField>
+
+                            </b>
+                        </td>
+                        <td style="padding:0 10px">
+                            <b>
+                                <apex:outputField value="{!So.DescriptionofGoods__c}"> </apex:outputField>
+                            </b>
+                           
+                        </td>
+                        <td style="text-align: center">
+                            <p><b>KGS</b></p>
+                            <b>
+
+                                <apex:outputField value="{!So.GrossWeight__c}"> </apex:outputField>
+                            </b>
+                           
+                        </td>
+                        <td style="text-align: center">
+                            <b>
+                            <p><b>CBM</b></p>
+
+                                <apex:outputField value="{!So.MeasurementTotalCBM__c}"> </apex:outputField>
+                            </b>
+                           
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <p style="text-decoration: underline"><b>SHIPPING MARK:</b></p>
+                            
+                            <b>
+                                <apex:outputText value="NO MARK"></apex:outputText>
+                            </b> 
+                            <p>
+
+                                <apex:outputField value="{!trains.Cargo_Delivery_Remarks__c}"></apex:outputField>
+                            </p>
+                            <p>Total number of packages:</p>
+                        </td>
+                        <td colspan="3">
+                            <p><b>ETD: </b> 
+                                <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                <apex:param value="{!So.ETD__c}" />
+                                </apex:outputText>
+                            </p>
+                            <p><b>SAY: </b> 
+                               
+                            </p>
+                        </td>
+
+                    </tr>
+                </table>
+               
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" style="padding: 0">
+                <table  class="subtable" style="width: 100%">
+
+                    <tr >
+
+                        <td rowspan="2" style="width: 14%">
+                            Freight and charges:
+                            <p style="word-break: none">
+                            <apex:outputField value="{!So.HouseFreightCollectPrepaid__c}"></apex:outputField>
+                            </p>
+                        </td>
+                        <td rowspan="2">
+                            Prepaid
+                            <p style="word-spacing: none"><b>AS ARRANGED</b></p>
+                        </td>
+                        <td rowspan="2" style="border-right: 1px solid">
+                            Collect
+                        </td>
+                        <td style="width: 43% ; border-bottom: 1px solid; height: 70px" colspan="2">
+                            FOR DELIVERY OF GOODS PLEASE APPLY TO:
+                            <p>
+
+                                <apex:outputField value="{!So.AgentDetailInformation__c}"></apex:outputField>
+                            </p>
+
+                            
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Prepaid at
+                            <p>{!So.PrepaidAt__c}</p>
+                        </td>
+                        <td>
+                            Payable at
+                            <p>{!So.Payable_At_HBL__c}</p>
+
+                        </td>
+                    </tr>
+                    <tr style="border: 1px solid;border-left: none;border-right: none">
+                        <td colspan="3" style="border-right: 1px solid">
+                            Excess Value Declaration: Refer to Clause 6 (3) (B ) + © on reverse side
+                        </td>
+                        <td >
+                            Number of Original B (s)/L
+                            <p> <b>{!So.NumberofOriginalHBLIssued__c}</b></p>
+                        </td>
+                        <td >
+                            Shipper_Reference
+                            <p>S/O No</p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total prepaid</td>
+                        <td class="una" style="border: 1px solid" >
+                            <div style="border-bottom: 1px solid;position: absolute;top: 50%;width: 100%;transform: rotate(7deg);">
+
+                            </div>
+                        </td>
+                        <td class="una" style="border: 1px solid">
+                            <div style="border-bottom: 1px solid;position: absolute;top: 50%;width: 100%;transform: rotate(7deg);">
+
+                            </div>
+                        </td>
+                        <td colspan="2" rowspan="4" style="border: 1px solid;border-right: none;vertical-align: middle"><b>TIMES CARGO LOGISTIC CO., LTD</b></td>
+
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid; border-left: none">Total collect</td>
+                        <td class="una" style="border: 1px solid">
+                            <div style="border-bottom: 1px solid;position: absolute;top: 50%;width: 100%;transform: rotate(7deg);">
+
+                            </div>
+                        </td>
+                        <td class="una" style="border: 1px solid">
+                            <div style="border-bottom: 1px solid;position: absolute;top: 50%;width: 100%;transform: rotate(7deg);">
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Place and date of Issue</td>
+                        <td style="border: 1px solid;text-align: right"><b>{!So.Place_of_issue__c}</b></td>
+                        <td style="border: 1px solid;text-align: right">
+                            <b>
+
+                                <apex:outputText value="{0,date,dd/MM/yyyy}">
+                                <apex:param value="{!So.Date_of_issue__c}" />
+                                </apex:outputText>
+                            </b>
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>On Board Date</td>
+
+                    </tr >
+                    <tr style="border-top: 1px solid;font-size: 10px">
+                        <td colspan="3" style="border-right: 1px solid" >
+                            <p><b style="margin-right: 75px">SIGNATURE</b>
+                                <b style="font-weight: bold">TIMES CARGO LOGISTIC CO.,LTD</b>
+                            </p>
+
+                        </td>
+                       
+                        <td colspan="2">
+                            <p style="text-align: center"><b>AS CARRIER</b></p>
+                            
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+              
+        </tr>
+        </table>
+        <p style="text-align: center;font-size: 14px; margin-top: 15px"><b>CONDITIONS OF CONTRACT</b></p>
+        <p style="text-align: center;color: blue;text-decoration: underline"><a href="https://www.tcllogistic.com/useful-inf/bill-of-lading-conditions">
+        </a>(Please visit our website for more information: https://www.tcllogistic.com/useful-inf/bill-of-lading-conditions)</p>
+
+
+    
+    </body>
+  
+      
+    <script>
+        dragElement(document.getElementById("mydiv"));
+        
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+   
+</apex:page>

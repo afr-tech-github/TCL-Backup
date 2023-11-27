@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MainFolder__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Link (URL) of folder which contains files or sub-folder relating to this project</inlineHelpText>
+    <label>Main Folder</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Url</type>
+</CustomField>

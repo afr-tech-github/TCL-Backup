@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lock_fields_when_status_isnot_Open</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(  
+Or(
+PRIORVALUE( From__c) &lt;&gt; From__c,
+PRIORVALUE( To__c) &lt;&gt; To__c,
+PRIORVALUE( RecordTypeId) &lt;&gt;  RecordTypeId),   not(ispickval(Status__c,&quot;Created&quot;)))</errorConditionFormula>
+    <errorMessage>Can not edit Source, Destination Location, and Record type when status is not Created</errorMessage>
+</ValidationRule>

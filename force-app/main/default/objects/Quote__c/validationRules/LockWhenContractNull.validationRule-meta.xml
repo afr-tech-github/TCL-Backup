@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockWhenContractNull</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+ Additional_Contract_Date__c =  TODAY(), 
+  ISBLANK( Contract_ID__c ),
+OR(
+ ISCHANGED(	AmountBuyinginclTaxLocal__c	),
+ISCHANGED(	AmountofTaxBuyingLocal__c	),
+ISCHANGED(	AmountofTaxSellingLocal__c	),
+ISCHANGED(	AmountSellinginclTaxLocal__c	),
+ISCHANGED(	ApprovalStatus__c	),
+ISCHANGED(	ApprovedDate__c	),
+ISCHANGED(	Branch__c	),
+ISCHANGED(	CargoMode__c	),
+ISCHANGED(	Cargo_Quantity__c	),
+ISCHANGED(	checkQuotePIC__c	),
+ISCHANGED(	Commodity1__c	),
+ISCHANGED(	Commodity__c	),
+ISCHANGED(	CompensationTerm__c	),
+ISCHANGED(	Condition__c	),
+ISCHANGED(	ContainerQuantity1__c	),
+ISCHANGED(	ContainerQuantity2__c	),
+ISCHANGED(	ContainerQuantity3__c	),
+ISCHANGED(	ContainerType1__c	),
+ISCHANGED(	ContainerType2__c	),
+ISCHANGED(	ContainerType3__c	),
+ISCHANGED(	ContainerTypeQuantity__c	),
+ISCHANGED(	Container_Mode__c	),
+ISCHANGED(	ContractEndDate__c	),
+ISCHANGED(	ContractID__c	),
+ISCHANGED(	ContractSignedDate__c	),
+ISCHANGED(	ContractStartDate__c	),
+		
+ISCHANGED(	Contract__c	),
+ISCHANGED(	CreatedById	),
+ISCHANGED(	CreatedDate	),
+ISCHANGED(	DayCompare__c	),
+ISCHANGED(	DeliveryAddress__c	),
+ISCHANGED(	Department__c	),
+ISCHANGED(	DescriptionofGoods__c	),
+ISCHANGED(	EBooking__c	),
+ISCHANGED(	ETA__c	),
+ISCHANGED(	ETD__c	),
+ISCHANGED(	ExternalSalesman__c	),
+ISCHANGED(	FinalDestination__c	),
+ISCHANGED(	Frequency__c	),
+ISCHANGED(	GrossWeight__c	),
+ISCHANGED(	HBLType__c	),
+ISCHANGED(	HouseFreightCollectPrepaid__c	),
+ISCHANGED(	Id	),
+ISCHANGED(	INCOTERMS__c	),
+ISCHANGED(	InquiryID__c	),
+
+ISCHANGED(	TransportationWay__c	),
+ISCHANGED(	TypeOfCargo1__c	),
+ISCHANGED(	TypeofCargo__c	),
+ISCHANGED(	TypeofTrade__c	),
+ISCHANGED(	ValidDate__c	),
+ISCHANGED(	Validto__c	),
+ISCHANGED(	VesselFlight__c	),
+ISCHANGED(	Volume__c	),
+ISCHANGED(	Voyage__c	)
+
+)
+)</errorConditionFormula>
+    <errorMessage>This record has been locked. Please check and type Contract ID for unlock record</errorMessage>
+</ValidationRule>

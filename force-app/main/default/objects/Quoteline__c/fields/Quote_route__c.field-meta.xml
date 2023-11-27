@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_route__c</fullName>
+    <deleteConstraint>Restrict</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Quote route</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Quote_route__c.Quote__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.QuoteID__c</valueField>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>Quote_route__c</referenceTo>
+    <relationshipLabel>Quote lines</relationshipLabel>
+    <relationshipName>Quote_lines</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

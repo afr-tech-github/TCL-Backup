@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Multiple-choice</fullName>
+        <default>false</default>
+        <label>Multiple-choice</label>
+    </customValue>
+    <customValue>
+        <fullName>Essay</fullName>
+        <default>false</default>
+        <label>Essay</label>
+    </customValue>
+    <masterLabel>Test Answer Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

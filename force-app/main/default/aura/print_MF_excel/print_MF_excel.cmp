@@ -1,0 +1,14 @@
+<aura:component implements="force:hasSObjectName,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+
+<h1 style="font-size: 30px;margin: 45px 15px 30px;text-align: center;text-transform: uppercase;font-weight: bold;padding: 0 70px;">export Sea Manifest excel file</h1>
+<div style="text-align: center; ">
+
+    <button class="slds-button slds-button_neutral"  onclick="{!c.close}">CANCEL</button>
+    <button class="slds-button slds-button_brand lfm-center"  style="margin-left: 10px;" onclick="{!c.createBlankMultiTab}"> EXPORT</button>
+
+</div>
+
+
+
+</aura:component>

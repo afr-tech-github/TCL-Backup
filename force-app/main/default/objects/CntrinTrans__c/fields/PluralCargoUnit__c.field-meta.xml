@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PluralCargoUnit__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( Cargo_Quantity__c = 1, TEXT(CargoUnit__c) ,
+IF(Text(CargoUnit__c)= &quot;&quot;, &quot;&quot;,
+IF(Text(CargoUnit__c)= &quot;BALE, COMPRESSED&quot;, &quot;BALES, COMPRESSED&quot;,
+IF(Text(CargoUnit__c)= &quot;CARBOY, NON-PROTECTED&quot;, &quot;CARBOYS, NON-PROTECTED&quot;,
+IF(
+OR(
+RIGHT(TEXT(CargoUnit__c), 1) = &quot;S&quot;,
+RIGHT(TEXT(CargoUnit__c), 1) = &quot;Z&quot;,
+RIGHT(TEXT(CargoUnit__c), 1) = &quot;O&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;SH&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;CH&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;SS&quot;,
+RIGHT(TEXT(CargoUnit__c), 1) = &quot;X&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;SS&quot;),
+TEXT(CargoUnit__c) &amp; &quot;ES&quot;,
+IF(
+OR(
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;AY&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;OY&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;EY&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;IY&quot;,
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;UY&quot;
+),
+TEXT(CargoUnit__c) &amp; &quot;S&quot;,
+IF(
+RIGHT(TEXT(CargoUnit__c), 1) = &quot;Y&quot;,
+LEFT(TEXT(CargoUnit__c), LEN(TEXT(CargoUnit__c)) - 1) &amp; &quot;IES&quot;,
+IF(
+RIGHT(TEXT(CargoUnit__c), 2) = &quot;FE&quot;,
+IF(
+TEXT(CargoUnit__c) = &quot;wife&quot;,
+&quot;wives&quot;,
+IF(
+TEXT(CargoUnit__c) = &quot;wolf&quot;,
+&quot;wolves&quot;,
+LEFT(TEXT(CargoUnit__c), LEN(TEXT(CargoUnit__c)) - 2) &amp; &quot;VES&quot;
+)
+),
+TEXT(CargoUnit__c) &amp; &quot;S&quot;
+)
+)
+)
+))))
+)</formula>
+    <label>Plural Cargo Unit</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

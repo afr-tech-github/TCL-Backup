@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CreatedfromCombinedSI__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Used to Trigger &quot;F/TMS S/O | Trigger Flow to Create Consol Bills after Combining SI&quot; flow</description>
+    <externalId>false</externalId>
+    <label>Created from Combined SI</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

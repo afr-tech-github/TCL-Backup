@@ -1,0 +1,122 @@
+<aura:component controller="MassEditQuoteLineController" access="global" implements="force:hasRecordId">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <aura:attribute name="isFirstRecord" type="Boolean" default="false" />
+    <!-- <aura:attribute name="isTrucking" type="Boolean" default="false" /> -->
+    <aura:attribute name="quoteLineChanged" type="List" />
+    <aura:attribute name="isShow" type="Boolean" default="true" />
+    <aura:attribute name="parent" type="Aura.Component" required="true" />
+    <aura:attribute name="id" type="String" />
+    <aura:attribute name="QuoteId" type="String" />
+    <aura:attribute name="queryRoute" type="String" />
+    <aura:attribute name="DefaultRef" type="String" />
+    <aura:attribute name="DefaultSection" type="String" />
+    <aura:attribute name="RefPriceID" type="String" />
+    <aura:attribute name="countRefPriceID" type="Integer" default="0" />
+    <aura:attribute name="sectionQuoteLine" type="String" />
+    <aura:attribute name="countSection" type="Integer" default="0" />
+    <aura:attribute name="QuoteLine" type="List" />
+    <aura:attribute name="isSelected" type="Boolean" default="false" />
+    <lightning:spinner aura:id="spinner" class="slds-hide" />
+    <aura:method name="onChangeItem" action="{! c.onChangeItem}">
+        <aura:attribute name="isSelected" type="Boolean" />
+    </aura:method>
+    <aura:registerEvent name="changedFields" type="c:evtMassEditQuoteLine" />
+
+    <aura:if isTrue="{!v.isShow}">
+        <lightning:recordEditForm recordId="{!v.id}" objectApiName="Quoteline__c">
+            <table id="main" style="width: 100%;">
+                <tr>
+                    <td style="width: 40px;vertical-align: middle;">
+                        <p style="{!IF(v.isFirstRecord == true,'visibility: hidden;','display:none;')}">1</p>
+                        <lightning:input class="selectItem" type="checkbox" checked="{!v.isSelected}"
+                            onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td style="min-width: 130px;max-width: 130px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Name</span>
+                        <div style="border: 1px solid rgb(118, 112, 112);border-radius: 5px;padding: 4%;">
+                            <a href="{!'/'+ v.id}" target="_blank">{!v.QuoteLine.Name}</a>
+                        </div>
+                    </td>
+                    <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Reference Price ID</span>
+                        <div id="hihihaha">
+                            <l_lookup:Lookup aura:id="lookupId" onchange="{!c.onChangeItem}" styleClass="{!index}"
+                                objectType="ReferencePrice__c" primarySearchField="Name"
+                                selectedRecordId="{!v.QuoteLine.ReferencePrice__c}" dropDownLimit="3"
+                                fuzzySearch="true" dropDownQuery="Name != null" queryCondition="{!v.queryRoute}" />
+                        </div>
+                    </td>
+                    <lightning:recordEditForm recordId="{!v.QuoteLine.ReferencePrice__c}" objectApiName="ReferencePrice__c">
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Service Name</span>
+                            <lightning:inputField variant="label-hidden" disabled="true" fieldName="ServiceName__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Supplier/ Vendor</span>
+                            <lightning:inputField variant="label-hidden" disabled="true" fieldName="Account__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Unit Price of Buying</span>
+                            <lightning:inputField variant="label-hidden" disabled="true"
+                                fieldName="UnitPriceofBuying__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Currency-Buying</span>
+                            <lightning:inputField variant="label-hidden" disabled="true"
+                                fieldName="CurrencyBuying__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Charge Unit</span>
+                            <lightning:inputField variant="label-hidden" disabled="true" fieldName="ChargeUnit__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Container Type</span>
+                            <lightning:inputField variant="label-hidden" disabled="true" fieldName="ContainerType__c" />
+                        </td>
+                    </lightning:recordEditForm>
+                    <!-- <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Printing Section</span>
+                        <l_lookup:Lookup aura:id="lookupId" styleClass="{!index}" onchange="{!c.onChangeItem}"
+                            objectType="Section__c" primarySearchField="Name"
+                            selectedRecordId="{!v.QuoteLine.Section__c}" dropDownLimit="3" fuzzySearch="true"
+                            dropDownQuery="Name != null" queryCondition="{!' Quote__c =\'' + v.QuoteId + '\''}" />
+                    </td> -->
+                    <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Charge Quantity</span>
+                        <lightning:inputField aura:id="field" variant="label-hidden"
+                            value="{!v.QuoteLine.ChargeQuantity__c}" fieldName="ChargeQuantity__c"
+                            onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td style="min-width: 150px;max-width: 150px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Currency-Selling</span>
+                        <lightning:inputField aura:id="field" variant="label-hidden"
+                            value="{!v.QuoteLine.CurrencySelling__c}" fieldName="CurrencySelling__c"
+                            onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Tax Rate-Selling(%)</span>
+                        <lightning:inputField aura:id="field" variant="label-hidden"
+                            value="{!v.QuoteLine.TaxRateSelling__c}" fieldName="TaxRateSelling__c"
+                            onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Selling List Price
+                            (Actual)</span>
+                        <lightning:inputField aura:id="field" variant="label-hidden"
+                            value="{!v.QuoteLine.SellingListPriceActual__c}" fieldName="SellingListPriceActual__c"
+                            onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td style="min-width: 200px;max-width: 200px;">
+                        <span style="{!IF(v.isFirstRecord == true,'','display:none;')}">Remark</span>
+                        <lightning:inputField aura:id="field" variant="label-hidden" value="{!v.QuoteLine.Remarks__c}"
+                            fieldName="Remarks__c" onchange="{!c.onChangeItem}" />
+                    </td>
+                    <td>
+                        <p style="{!IF(v.isFirstRecord == true,'visibility: hidden;','display:none;')}">1</p>
+                        <lightning:button label="Delete" onclick="{!c.onDelete}" />
+                    </td>
+                </tr>
+            </table>
+        </lightning:recordEditForm>
+    </aura:if>
+</aura:component>

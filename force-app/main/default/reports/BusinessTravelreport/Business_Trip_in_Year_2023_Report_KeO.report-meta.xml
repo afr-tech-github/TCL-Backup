@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <block>
+        <blockInfo>
+            <blockId>B0</blockId>
+            <joinTable>Employee__c</joinTable>
+        </blockInfo>
+        <columns>
+            <aggregateTypes>Sum</aggregateTypes>
+            <field>Employee__c.Business_Travelers__r$Approved__c</field>
+        </columns>
+        <columns>
+            <aggregateTypes>Sum</aggregateTypes>
+            <field>Employee__c.Business_Travelers__r$Rejected_By_Manager__c</field>
+        </columns>
+        <columns>
+            <aggregateTypes>Sum</aggregateTypes>
+            <field>Employee__c.Business_Travelers__r$Rejected_By_BOD__c</field>
+        </columns>
+        <columns>
+            <aggregateTypes>Sum</aggregateTypes>
+            <field>Employee__c.Business_Travelers__r$Rejected_By_HR__c</field>
+        </columns>
+        <filter>
+            <criteriaItems>
+                <column>Employee__c$Active__c</column>
+                <columnToColumn>false</columnToColumn>
+                <isUnlocked>true</isUnlocked>
+                <operator>equals</operator>
+                <value>1</value>
+            </criteriaItems>
+            <criteriaItems>
+                <column>Employee__c.Business_Travelers__r$RequestStatus__c</column>
+                <columnToColumn>false</columnToColumn>
+                <isUnlocked>true</isUnlocked>
+                <operator>notEqual</operator>
+                <value>Created</value>
+            </criteriaItems>
+            <criteriaItems>
+                <column>Employee__c.Business_Travelers__r$RequestStatus__c</column>
+                <columnToColumn>false</columnToColumn>
+                <isUnlocked>true</isUnlocked>
+                <operator>notEqual</operator>
+                <value>Pending Approval</value>
+            </criteriaItems>
+        </filter>
+        <format>Summary</format>
+        <name>Business Trip in a year</name>
+        <params>
+            <name>co</name>
+            <value>1</value>
+        </params>
+        <reportType>Business_Trip_in_a_Year__c</reportType>
+        <scope>organization</scope>
+        <showGrandTotal>true</showGrandTotal>
+        <showSubTotals>true</showSubTotals>
+        <timeFrameFilter>
+            <dateColumn>Employee__c$CreatedDate</dateColumn>
+            <interval>INTERVAL_CUSTOM</interval>
+        </timeFrameFilter>
+    </block>
+    <blockInfo>
+        <blockId xsi:nil="true"/>
+        <joinTable>Employee__c</joinTable>
+    </blockInfo>
+    <format>MultiBlock</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Employee__c$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Business Trip in Year 2023 Report</name>
+    <params>
+        <name>lsk</name>
+        <value>1</value>
+    </params>
+    <reportType>Business_Trip_in_a_Year__c</reportType>
+    <showDetails>false</showDetails>
+</Report>

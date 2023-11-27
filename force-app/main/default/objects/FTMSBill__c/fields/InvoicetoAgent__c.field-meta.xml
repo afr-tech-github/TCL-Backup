@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InvoicetoAgent__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND ((NOT(ISBLANK( InvoiceTo__c))), OR( InvoiceTo__r.Id  = FTMSSO__r.Agent__r.Id, InvoiceTo__r.Id  = FTMSSO__r.Agent2nd__r.Id)), TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Invoice to = Agent</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

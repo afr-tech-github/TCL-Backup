@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <flowDefinition>FTMS_S_O_Combine_mulitple_S_Os_and_create_Advance_Shipment_record</flowDefinition>
+    <label>Combine this SO with other SO</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

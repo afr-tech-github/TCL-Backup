@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Door to Door</fullName>
+        <default>false</default>
+        <label>Door to Door</label>
+    </customValue>
+    <customValue>
+        <fullName>Cross Border</fullName>
+        <default>false</default>
+        <label>Cross Border</label>
+    </customValue>
+    <customValue>
+        <fullName>Multimodal</fullName>
+        <default>false</default>
+        <label>Multimodal</label>
+    </customValue>
+    <customValue>
+        <fullName>Domestic Sea/Waterway</fullName>
+        <default>false</default>
+        <label>Domestic Sea/Waterway</label>
+    </customValue>
+    <masterLabel>Combo Product</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Compare_profit__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF ((TotalSellingInclTaxActual__c-TotalAmountofBuyingActual__c  ) &lt;=0.05* TotalSellingInclTaxActual__c &amp;&amp; TotalSellingInclTaxActual__c  &lt;&gt; 0  &amp;&amp; TotalAmountofBuyingActual__c &lt;&gt; 0  , TRUE, FALSE)</formula>
+    <label>Compare profit</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

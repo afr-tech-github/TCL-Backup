@@ -1,0 +1,1018 @@
+<aura:component controller="InquiryController"
+    implements="force:hasSObjectName,force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+
+    <ltng:require scripts="{!$Resource.jquery}" />
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    <aura:handler event="force:refreshView" action="{!c.doinit}" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="IQID" type="String" />
+    <aura:attribute name="QuoteId" type="String" />
+    <aura:attribute name="fieldLabels" type="Object" />
+
+    <aura:attribute name="result" type="List" />
+    <aura:attribute name="valueSearch" type="String" />
+    <aura:attribute name="InquiryDate" type="Date" />
+    <aura:attribute name="ShowCreateInquiry" type="boolean" default="false" />
+    <!-- <aura:attribute name="parentFunction" type="Aura.Action"/> -->
+    <aura:handler name="parentFunction" event="c:Back_InquireEvent" action="{!c.parentFunction}" />
+    
+    <aura:attribute name="Inquiry" type="Inquiry__c" />
+    <aura:attribute name="Quote" type="Quote__c" default="
+    {
+        'sobjectType': 'Quote__c',
+                     'ContainerType3__c': '',
+                     'ContainerQuantity3__c': '',
+                     'ContainerType2__c': '',
+                     'ContainerQuantity2__c': '',
+                     'ContainerType1__c': '',
+                     'ContainerQuantity1__c': '',
+                     'DeliveryAddress__c': '',
+                     'PickupAddress__c': '',
+                     'Remarks__c': '',
+                    'RequesterCompany__c': '',
+                    'RequestCompanysPIC__c': '',
+                    'QuotePIC__c': '',
+                    'Cargo_Unit__c': '',
+                    'InquiryID__c': '',
+                    'TypeofTrade__c': '',
+                    'ShipmentTerm__c': '',
+                    'TransportationWay__c': '',
+                    'Commodity1__c': '',
+                    'DescriptionofGoods__c': '',
+                    'TypeOfCargo1__c': '',
+                    'INCOTERMS__c': '',
+                    'Cargo_Quantity__c': '',
+                    'GrossWeight__c': '',
+                    'NetWeight__c': '',
+                    'MeasurementTotalCBM__c': '',
+                    'Volume__c': '',
+                    'DIM_Dimension__c': '',
+                    'ETD__c': '',
+                    'ETA__c': '',
+                    'QuoteName__c': '',
+                    'QuoteIssueDate__c': '',
+                    'Validto__c': '',
+                    'ExternalSalesman__c': '',
+                    'Additional_Contract_Date__c': '',
+                    'Contract_ID__c': '',
+                    'Currency__c': '',
+                    'RequestDetail__c': '',
+    }
+    " />
+    <aura:attribute name="POIds" type="List" />
+    <aura:attribute name="isPrevious" type="boolean" default="false" />
+    <aura:attribute name="isShowData" type="boolean" default="true" />
+    <aura:attribute name="isShowConvert" type="boolean" default="false" />
+    <aura:attribute name="showNoRecords" type="boolean" default="false" />
+    <!-- <aura:attribute name="isShowBack" type="boolean" default="true" /> -->
+    <aura:attribute name="isShowSpinner" type="boolean" default="false" />
+    <aura:if isTrue="{!v.isShowSpinner == true}">
+        <lightning:spinner aura:id="spinnerMain" variant="brand" size="large" />
+    </aura:if>
+    <aura:registerEvent name="quoteEvent" type="c:quoteEvent" />
+    <div id="main" style="margin-top: 30px;">
+        <div style="{!IF(v.isShowData == true,'','display:none;')}">
+            <div style="text-align: center;color:red;font-size: 30px; font-weight: bold;">
+                INQUIRY INFORMATION
+            </div>
+            <div style="text-align: center;color:red;font-size: 30px;font-weight: bold;margin-top: -1%;">
+                <table>
+                    <col width="44%" />
+                    <col width="12%" />
+                    <col width="44%" />
+                    <tr>
+                        <td style="float: right; padding: 0px;margin: 0px;">
+                            <img style="rotate: 270deg; width: 16px;"
+                                src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001kspR&amp;oid=00D8d00000AXMQJ&amp;lastMod=1698897842000"
+                                alt="" />
+                        </td>
+                        <td style="padding: 0px;margin: 0px;">
+                            <div style="border: 3.5px solid red;margin-top: 4%;"></div>
+                        </td>
+                        <td style="padding: 0px;margin: 0px;">
+                            <img style="rotate: 90deg; width: 16px;"
+                                src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001kspR&amp;oid=00D8d00000AXMQJ&amp;lastMod=1698897842000"
+                                alt="" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div id="searchIQ" style="display: flex;margin-left: 2.5%;font-weight: 600;">
+                <div><span style="font-size: 15px;">Search</span>
+                    <lightning:input style="display: inline-block;margin-left: 10px;" placeholder="Route name"
+                        onchange="{!c.onSearch}" value="{!v.valueSearch}" />
+                </div>
+            </div>
+            <br />
+            <aura:if isTrue="{!v.showNoRecords == false}">
+                <aura:iteration items="{!v.result}" var="r" indexVar="index">
+                    <table class="border" id="mainTable" style="width: 100%;border-collapse: collapse;">
+                        <col width="2%" />
+                        <col width="2%" />
+                        <col width="2%" />
+                        <col width="11.4%" />
+                        <col width="11.5%" />
+                        <col width="11.5%" />
+                        
+                        <col width="11.5%" />
+                        <col width="11.5%" />
+                        <col width="11.5%" />
+                        
+
+                        <col width="11.5%" />
+                        <col width="11.5%" />
+                        <tr style="{!IF(index > 0, 'display:none;','')}">
+                            <th></th>
+                            <th colspan="3">Inquiry Route ID</th>
+                            <th>Route Name</th>
+                            <th>{!v.fieldLabels.OriginCountry__c}</th>
+                            <th>{!v.fieldLabels.DestinationCountry__c}</th>
+                            <th>Receipt</th>
+                            <th>{!v.fieldLabels.POLAOL__c}</th>
+                            <th>{!v.fieldLabels.PODAOD__c}</th>
+                            <th>Delivery</th>
+
+                        </tr>
+                        <tr>
+                            <td style="{!IF(r.NameComboProduct == '' &amp;&amp; empty(r.InquiryNoCombo), 'pointer-events: none;','')}"
+                                data-record="{!r.Id}" onclick="{!c.showDetail}">
+                                <img src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001oLGw&amp;oid=00D8d00000AXMQJ&amp;lastMod=1696823508000"
+                                    alt="" />
+                            </td>
+                            <td colspan="3">
+                                <a href="{!'/'+ r.Id}" target="_blank">
+                                    <span class="label label-primary">{!r.Name}</span>
+                                </a>
+                                <aura:if isTrue="{!and(r.NameComboProduct == '', empty(r.InquiryNoCombo))}">
+                                    <span style="margin-left: 5px;font-size: 75%;background-color: red;"
+                                        class="label label-primary">No
+                                        Records</span>
+                                </aura:if>
+                            </td>
+                            <td>{!r.RouteName__c}</td>
+
+                            <td>{!r.OriginCountry}</td>
+                            <td>{!r.DestinationCountry}</td>
+                            <td>{!r.Place_of_Receipt__c}</td>
+
+                            <td>{!r.POL}</td>
+                            <td>{!r.POD}</td>
+                            <td>{!r.Place_of_Delivery__c}</td>
+
+                        </tr>
+                        <tr class="{!'hideRow ' + r.Id}">
+                            <td></td>
+                            <td></td>
+                            <td colspan="9" style="transition: all 0.3 linear;">
+                                <div class="detail-content" style="transition: all ease 0.3s !important">
+                                    <ul style="transition: all ease 0.3s !important">
+                                        <aura:if isTrue="{!r.NameComboProduct != ''}">
+                                            <li>
+                                                <div class="detail"></div>
+                                                <div class="detail detail-main">
+                                                    <table class="border">
+                                                        <col width="2%" />
+                                                        <col width="20%" />
+                                                        <col width="78%" />
+                                                        <tr style="border: none;">
+                                                            <td data-record="{!r.NameComboProductId + r.Id}"
+                                                                onclick="{!c.showDetail}">
+                                                                <img src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001oLGw&amp;oid=00D8d00000AXMQJ&amp;lastMod=1696823508000"
+                                                                    alt="" />
+                                                            </td>
+                                                            <td>
+                                                                <a href="{!'/'+ r.NameComboProductId}" target="_blank">
+                                                                    <span
+                                                                        class="label label-primary">{!r.NameComboProduct}</span>
+                                                                </a>
+
+                                                                <aura:if
+                                                                    isTrue="{!empty(r.ComboProduct.InquiryLineCombo)}">
+                                                                    <span
+                                                                        style="margin-left: 5px;font-size: 75%;background-color: red;"
+                                                                        class="label label-primary">No
+                                                                        Records</span>
+                                                                </aura:if>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                    <div class="{!'hideRow ' + r.NameComboProductId + r.Id + ' child'+r.Id}"
+                                                        style="margin-top: 4px;margin-left: 40px;">
+                                                        <ul>
+                                                            <aura:iteration items="{!r.ComboProduct.InquiryLineCombo}"
+                                                                var="rInCombo" indexVar="index">
+                                                                <li style="width: 100%;">
+                                                                    <div class="detail"
+                                                                        style="{!IF(index > 0, 'display:none;','visibility: hidden;')}">
+                                                                    </div>
+                                                                    <table class="border"
+                                                                        style=" width: 100%;border-collapse:collapse ;">
+                                                                        <col width="17%" />
+                                                                        <col width="8%" />
+                                                                        <col width="13%" />
+                                                                        <col width="13%" />
+                                                                        <col width="13%" />
+                                                                        <col width="12%" />
+                                                                        <col width="14%" />
+                                                                        <col width="10%" />
+
+                                                                        <tr
+                                                                            style="{!IF(index > 0, 'display:none;','')}">
+                                                                            <th>{!v.fieldLabels.Name}</th>
+                                                                            <th>Requested</th>
+                                                                            
+                                                                            <!-- <th>{!v.fieldLabels.Requested__c}</th> -->
+                                                                            <th>{!v.fieldLabels.Service__c}</th>
+                                                                            <th>{!v.fieldLabels.ServiceType__c}</th>
+                                                                            <th>{!v.fieldLabels.StartTime__c}</th>
+                                                                            <th>{!v.fieldLabels.EndTime__c}</th>
+                                                                            <th>{!v.fieldLabels.DurationMinute__c}</th>
+                                                                            <th>PIC</th>
+
+                                                                        </tr>
+                                                                    </table>
+                                                                </li>
+                                                                <li style="width: 100%;">
+                                                                    <div class="detail"></div>
+                                                                    <div class="detail detail-main">
+                                                                        <table class="border"
+                                                                            style=" width: 100%;border-collapse:collapse ;">
+                                                                            <col width="2%" />
+                                                                            <col width="15%" />
+                                                                            <col width="8%" />
+                                                                            <col width="13%" />
+                                                                            <col width="13%" />
+                                                                            <col width="13%" />
+                                                                            <col width="12%" />
+                                                                            <col width="14%" />
+                                                                            <col width="10%" />
+
+                                                                            <tr>
+                                                                                <td data-record="{!rInCombo.Id}"
+                                                                                    onclick="{!c.showDetail}">
+                                                                                    <img src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001oLGw&amp;oid=00D8d00000AXMQJ&amp;lastMod=1696823508000"
+                                                                                        alt="" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a href="{!'/'+ rInCombo.Id}"
+                                                                                        target="_blank">
+                                                                                        <span
+                                                                                            class="label label-primary">{!rInCombo.Name}</span>
+                                                                                    </a>
+
+                                                                                    <aura:if
+                                                                                        isTrue="{!empty(rInCombo.Price_Options__r)}">
+                                                                                        <span
+                                                                                            style="margin-left: 5px;font-size: 75%;background-color: red;"
+                                                                                            class="label label-primary">No
+                                                                                            Records</span>
+                                                                                    </aura:if>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <input type="checkbox"  name="input3" checked="{!rInCombo.Requested__c}" disabled="true"/>
+                
+                                                                                </td>
+                                                                                <!-- <td>{!rInCombo.Requested__c}</td> -->
+                                                                                <td>{!rInCombo.Service__r.Name}</td>
+                                                                                <td>{!rInCombo.ServiceType__c}</td>
+                                                                                <td>{!rInCombo.StartTime__c}</td>
+                                                                                <td>{!rInCombo.EndTime__c}</td>
+                                                                                <td>{!rInCombo.DurationMinute__c}</td>
+                                                                                <td>{!rInCombo.PricingMember__c}</td>
+
+                                                                            </tr>
+                                                                        </table>
+                                                                        <div class="{!'hideRow ' + rInCombo.Id + ' child'+r.Id}"
+                                                                            style="margin-top: 4px;margin-left: 40px;">
+                                                                            <ul>
+                                                                                <aura:iteration
+                                                                                    items="{!rInCombo.Price_Options__r}"
+                                                                                    var="rPricee" indexVar="index">
+                                                                                    <li>
+                                                                                        <table class="border"
+                                                                                            style="margin-left: 4%; width: 100%;border-collapse:collapse ;">
+                                                                                            <col width="2%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <tr
+                                                                                                style="{!IF(index > 0, 'display:none;','')}">
+                                                                                                <th>
+                                                                                                    <input
+                                                                                                        data-record="{!rInCombo.Id}"
+                                                                                                        type="checkbox"
+                                                                                                        class="{!rInCombo.Id}"
+                                                                                                        onchange="{!c.onSelectPOAll}" />
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.NamePO}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.ReferencePrice__c}
+                                                                                                </th>
+                                                                                                <th>Supplier <br />/Vendor
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.ChargeUnit__c}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.ContainerType__c}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.CurrencyPO}
+                                                                                                </th>
+                                                                                                <th>Buying Price</th>
+                                                                                                <th>{!v.fieldLabels.Com__c}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.DEM__c}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.DET__c}
+                                                                                                </th>
+                                                                                                <th>{!v.fieldLabels.ST__c}
+                                                                                                </th>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </li>
+                                                                                    <li>
+                                                                                        <div class="detail"></div>
+                                                                                        <table class="border"
+                                                                                            style="margin-left: 2%; width: 100%;border-collapse:collapse ;">
+                                                                                            <col width="2%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="10%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <col width="6%" />
+                                                                                            <tr>
+                                                                                                <th>
+                                                                                                    <input
+                                                                                                        id="{!rPricee.Id}"
+                                                                                                        data-record="{!rPricee.Id}"
+                                                                                                        type="checkbox"
+                                                                                                        class="{!'priceId'+ rInCombo.Id + ' priceId'}"
+                                                                                                        onchange="{!c.onSelectPO}" />
+                                                                                                </th>
+                                                                                                <td>
+                                                                                                    <!-- <span
+                                                                                                        class="label label-primary">{!rPricee.Name}</span> -->
+                                                                                                    <a href="{!'/'+ rPricee.Id}"
+                                                                                                        target="_blank">
+                                                                                                        <span
+                                                                                                            class="label label-primary">{!rPricee.Name}</span>
+                                                                                                    </a>
+                                                                                                </td>
+                                                                                                <td>
+                                                                                                    <aura:if isTrue="{!not(empty(rPricee.ReferencePrice__c))}">
+
+                                                                                                        <a href="{!'/'+ rPricee.ReferencePrice__c}"
+                                                                                                        target="_blank">
+                                                                                                        <span
+                                                                                                        class="label label-primary"> {!rPricee.ReferencePrice__r.Name}</span>
+                                                                                                    </a>
+                                                                                                    </aura:if>
+                                                                                                   
+                                                                                                </td>
+                                                                                                <td style="width: 10%;">
+                                                                                                    <aura:if isTrue="{!not(empty(rPricee.SupplierVendor__c))}">
+
+                                                                                                    <a href="{!'/'+ rPricee.SupplierVendor__c}"
+                                                                                                    target="_blank">
+                                                                                                    <span style="display: block; width: 100%; white-space:initial;word-break: break-all;"
+                                                                                                        class="label label-primary"> {!rPricee.SupplierVendor__r.Name}</span>
+                                                                                                    </a>
+                                                                                                    </aura:if>
+                                                                                                
+                                                                                                </td>
+                                                                                                <td style="text-align: left;">{!rPricee.ChargeUnit__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.ContainerType__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.Currency__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.BuyingListPriceActual__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.Com__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.DEM__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.DET__c}
+                                                                                                </td>
+                                                                                                <td>{!rPricee.ST__c}
+                                                                                                </td>
+                                                                                            </tr>
+                                                                                        </table>
+                                                                                    </li>
+                                                                                </aura:iteration>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </li>
+                                                            </aura:iteration>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </aura:if>
+                                        <aura:if isTrue="{!not(empty(r.InquiryNoCombo))}">
+                                            <li>
+                                                <div class="detail" style="visibility: hidden;"></div>
+                                                <table class="">
+                                                    <col width="2%" />
+                                                    <col width="13%" />
+                                                    <col width="10%" />
+
+                                                    <col width="15%" />
+                                                    <col width="15%" />
+                                                    <col width="13%" />
+                                                    <col width="12%" />
+                                                    <col width="12%" />
+                                                    <col width="10%" />
+
+                                                    <tr>
+                                                        <th></th>
+                                                        <th>{!v.fieldLabels.Name}</th>
+                                                        <th>Requested</th>
+                                                        <th>{!v.fieldLabels.Service__c}</th>
+                                                        <th>{!v.fieldLabels.ServiceType__c}</th>
+                                                        <th>{!v.fieldLabels.StartTime__c}</th>
+                                                        <th>{!v.fieldLabels.EndTime__c}</th>
+                                                        <th>{!v.fieldLabels.DurationMinute__c}</th>
+                                                        <th>PIC</th>
+                                                    </tr>
+                                                </table>
+                                            </li>
+                                            <aura:iteration items="{!r.InquiryNoCombo}" var="rInNoCombo"
+                                                indexVar="index">
+                                                <li>
+                                                    <div class="detail"></div>
+                                                    <div class="detail detail-main trans">
+                                                        <table class="">
+                                                            <col width="2%" />
+                                                            <col width="13%" />
+                                                            <col width="8%" />
+
+                                                            <col width="15%" />
+                                                            <col width="15%" />
+                                                            <col width="13%" />
+                                                            <col width="12%" />
+                                                            <col width="12%" />
+                                                            <col width="10%" />
+
+                                                            <tr>
+                                                                <td data-record="{!rInNoCombo.Id}"
+                                                                    onclick="{!c.showDetail}">
+                                                                    <img id="{!rInNoCombo.Id}"
+                                                                        style="transition: all ease .2s;"
+                                                                        src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001oLGw&amp;oid=00D8d00000AXMQJ&amp;lastMod=1696823508000"
+                                                                        alt="" />
+                                                                </td>
+                                                                <td>
+                                                                    <a href="{!'/'+ rInNoCombo.Id}" target="_blank">
+                                                                        <span
+                                                                            class="label label-primary">{!rInNoCombo.Name}</span>
+                                                                    </a>
+
+                                                                    <aura:if
+                                                                        isTrue="{!empty(rInNoCombo.Price_Options__r)}">
+                                                                        <span
+                                                                            style="margin-left: 5px;font-size: 75%;background-color: red;"
+                                                                            class="label label-primary">No
+                                                                            Records</span>
+                                                                    </aura:if>
+                                                                </td>
+                                                                <td>
+                                                                    <input type="checkbox"  name="input3" checked="{!rInNoCombo.Requested__c}" disabled="true"/>
+
+                                                                </td>
+
+                                                                <td>{!rInNoCombo.Service__r.Name}</td>
+                                                                <td>{!rInNoCombo.ServiceType__c}</td>
+                                                                <td>{!rInNoCombo.StartTime__c}</td>
+                                                                <td>{!rInNoCombo.EndTime__c}</td>
+                                                                <td>{!rInNoCombo.DurationMinute__c}</td>
+                                                                <td>{!rInNoCombo.PricingMember__c}</td>
+                                                            </tr>
+                                                        </table>
+
+                                                        <div class="{!'hideRow ' + rInNoCombo.Id + ' child'+r.Id}"
+                                                            style="margin-top: 4px;margin-left: 40px;">
+                                                            <ul style="width: 100%;">
+                                                                <aura:iteration items="{!rInNoCombo.Price_Options__r}"
+                                                                    var="rInNoComboPrice" indexVar="index">
+                                                                    <li>
+                                                                        <div style="{!IF(index > 0, 'display:none;','visibility: hidden;')}"
+                                                                            class="detail"></div>
+                                                                        <table
+                                                                            style="width: 100%;border-collapse:collapse ;table-layout: fixed;">
+                                                                            <col width="2%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <tr
+                                                                                style="{!IF(index > 0, 'display:none;','')}">
+                                                                                <th>
+                                                                                    <input
+                                                                                        data-record="{!rInNoCombo.Id}"
+                                                                                        type="checkbox"
+                                                                                        class="{!rInNoCombo.Id}"
+                                                                                        onchange="{!c.onSelectPOAll}" />
+                                                                                </th>
+                                                                                <th>Price Option</th>
+                                                                                <th>Reference <br />Price</th>
+                                                                                <th>Supplier<br />Vendor</th>
+                                                                                <th>Charge Unit</th>
+                                                                                <th>Container<br />Type</th>
+                                                                                <th>Currency</th>
+                                                                                <th>Buying Price</th>
+                                                                                <th>{!v.fieldLabels.Com__c}</th>
+                                                                                <th>{!v.fieldLabels.DEM__c}</th>
+                                                                                <th>{!v.fieldLabels.DET__c}</th>
+                                                                                <th>{!v.fieldLabels.ST__c}</th>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </li>
+                                                                    <li>
+                                                                        <div class="detail"></div>
+                                                                        <table
+                                                                            style="width: 100%;border-collapse:collapse ;">
+                                                                            <col width="2%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="10%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <col width="6%" />
+                                                                            <tr>
+                                                                                <td>
+                                                                                    <input id="{!rInNoComboPrice.Id}"
+                                                                                        data-record="{!rInNoComboPrice.Id}"
+                                                                                        type="checkbox"
+                                                                                        class="{!'priceId'+ rInNoCombo.Id + ' priceId'}"
+                                                                                        onchange="{!c.onSelectPO}" />
+                                                                                </td>
+                                                                                <td>
+                                                                                    <a href="{!'/'+ rInNoComboPrice.Id}"
+                                                                                        target="_blank">
+                                                                                        <span
+                                                                                            class="label label-primary">
+                                                                                            <span
+                                                                                                class="label label-primary">{!rInNoComboPrice.Name}</span>
+                                                                                        </span>
+                                                                                    </a>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <aura:if isTrue="{!not(empty(rInNoComboPrice.ReferencePrice__c))}">
+
+                                                                                        <a href="{!'/'+ rInNoComboPrice.ReferencePrice__c}"
+                                                                                        target="_blank">
+                                                                                        <span
+                                                                                        class="label label-primary"> {!rInNoComboPrice.ReferencePrice__r.Name}</span>
+                                                                                    </a>
+                                                                                    </aura:if>
+                                                                                   
+                                                                                </td>
+                                                                                <td style="width: 10%;">
+                                                                                    <aura:if isTrue="{!not(empty(rInNoComboPrice.SupplierVendor__c))}">
+
+                                                                                    <a href="{!'/'+ rInNoComboPrice.SupplierVendor__c}"
+                                                                                    target="_blank">
+                                                                                    <span style="display: block; width: 100%;white-space: initial;word-break: break-all;"
+                                                                                        class="label label-primary"> {!rInNoComboPrice.SupplierVendor__r.Name}</span>
+                                                                                    </a>
+                                                                                    </aura:if>
+                                                                                
+                                                                                </td>
+                                                                                <!-- <td>{!rInNoComboPrice.ReferencePrice__r.Name}
+                                                                                </td>
+                                                                                <td>{!rInNoComboPrice.SupplierVendor__r.Name}
+                                                                                </td> -->
+                                                                                <td style="text-align: left;">{!rInNoComboPrice.ChargeUnit__c}
+                                                                                </td>
+                                                                                <td>{!rInNoComboPrice.ContainerType__c}
+                                                                                </td>
+                                                                                <td>{!rInNoComboPrice.Currency__c}</td>
+                                                                                <td>{!rInNoComboPrice.BuyingListPriceActual__c}
+                                                                                </td>
+                                                                                <td>{!rInNoComboPrice.Com__c}</td>
+                                                                                <td>{!rInNoComboPrice.DEM__c}</td>
+                                                                                <td>{!rInNoComboPrice.DET__c}</td>
+                                                                                <td>{!rInNoComboPrice.ST__c}</td>
+                                                                            </tr>
+                                                                        </table>
+                                                                    </li>
+                                                                </aura:iteration>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </aura:iteration>
+                                        </aura:if>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </aura:iteration>
+                <div class="slds-align_absolute-center slds-p-top_small" style="padding-top: 100px">
+                    <aura:if isTrue="{!v.sObjectName == 'Quote__c'}">
+                        <lightning:button variant="brand" label="Back" title="Brand action" onclick="{!c.onBack}" />
+                    </aura:if>
+                    <aura:if isTrue="{!v.sObjectName == 'Quote__c'}">
+                        <lightning:button variant="brand" label="Create" title="Brand action"
+                            onclick="{!c.onSaveFrom}" />
+                            <!-- <lightning:button variant="brand" label="refresh" title="Brand action"
+                                    onclick="{!c.doinit}" /> -->
+                    </aura:if>
+                    <aura:if isTrue="{!v.sObjectName == 'Inquiry__c'}">
+                        <lightning:button variant="brand" label="Create Quote &amp; QL" title="Brand action"
+                            onclick="{!c.onNext}" />
+                            <lightning:button variant="brand" label="Create Inquiry Line" title="Brand action"
+                            onclick="{!c.CreateInquiry}" />
+                            <lightning:button variant="brand" label="Refresh" title="Brand action"
+                                    onclick="{!c.doinit}" />
+                    </aura:if>
+                </div>
+                <aura:set attribute="else">
+                    <div style="font-size: 20px; color: red;text-align: center;">
+                        No Inquiry Route
+                    </div>
+                </aura:set>
+            </aura:if>
+        </div>
+        <aura:if isTrue="{!v.ShowCreateInquiry}">
+            <c:AddMultipleInquiryLineV2  recordId="{!v.recordId}"  />
+        </aura:if>
+        <div style="{!IF(v.isShowConvert == true,'', 'display:none;')}">
+            <lightning:recordEditForm objectApiName="Quote__c">
+                <table id="quoteTable" style="width: 100%; border-collapse: collapse;">
+                    <col width="5%" />
+                    <col width="45%" />
+                    <col width="45%" />
+                    <col width="5%" />
+                    <tr>
+                        <td></td>
+                        <td colspan="2"
+                            style="background-color: #F8B9B9;font-size: 15px;font-weight: bold;border-radius: 5px;">
+                            Basic
+                            Information</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.InquiryID__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="InquiryID__c" value="{!v.Quote.InquiryID__c}"  />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.QuoteName__c} </label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="QuoteName__c"
+                                value="{!v.Quote.QuoteName__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.QuoteIssueDate__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="QuoteIssueDate__c"
+                                value="{!v.Quote.QuoteIssueDate__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.RequesterCompany__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="RequesterCompany__c" value="{!v.Quote.RequesterCompany__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Validto__c}  </label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="Validto__c"
+                                value="{!v.Quote.Validto__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.RequestCompanysPIC__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="RequestCompanysPIC__c" value="{!v.Quote.RequestCompanysPIC__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.QuotePIC__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="QuotePIC__c" value="{!v.Quote.QuotePIC__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ExternalSalesman__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="ExternalSalesman__c"
+                                value="{!v.Quote.ExternalSalesman__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <!-- <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299"
+                                part="label">{!v.fieldLabels.Additional_Contract_Date__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                fieldName="Additional_Contract_Date__c"
+                                value="{!v.Quote.Additional_Contract_Date__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Contract_ID__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="Contract_ID__c"
+                                value="{!v.Quote.Contract_ID__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Currency__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="Currency__c"
+                                value="{!v.Quote.Currency__c}" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr> -->
+                    <tr>
+                        <td></td>
+                        <td colspan="2"
+                            style="background-color: #F8B9B9;font-size: 15px;font-weight: bold;border-radius: 5px;">
+                            Shipping
+                            Information</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.TypeofTrade__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="TypeofTrade__c" value="{!v.Quote.TypeofTrade__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ETD__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="ETD__c" value="{!v.Quote.ETD__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ShipmentTerm__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="ShipmentTerm__c" value="{!v.Quote.ShipmentTerm__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ETA__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="ETA__c" value="{!v.Quote.ETA__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.TransportationWay__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="TransportationWay__c" value="{!v.Quote.TransportationWay__c}" />
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2"
+                            style="background-color: #F8B9B9;font-size: 15px;font-weight: bold;border-radius: 5px;">
+                            Cargo
+                            Information</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.RequestDetail__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="RequestDetail__c"
+                                value="{!v.Quote.RequestDetail__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Cargo_Quantity__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="Cargo_Quantity__c" value="{!v.Quote.Cargo_Quantity__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                           
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">Cargo Unit</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="Cargo_Unit__c" value="{!v.Quote.Cargo_Unit__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Commodity1__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="Commodity1__c" value="{!v.Quote.Commodity1__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.GrossWeight__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="GrossWeight__c"
+                                value="{!v.Quote.GrossWeight__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.DescriptionofGoods__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="DescriptionofGoods__c" value="{!v.Quote.DescriptionofGoods__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.NetWeight__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden" fieldName="NetWeight__c"
+                                value="{!v.Quote.NetWeight__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.TypeOfCargo1__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="TypeOfCargo1__c" value="{!v.Quote.TypeOfCargo1__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.MeasurementTotalCBM__c}</label>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                fieldName="MeasurementTotalCBM__c" value="{!v.Quote.MeasurementTotalCBM__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.INCOTERMS__c}</label>
+                            <lightning:inputField disabled="true" aura:id="field" variant="label-hidden"
+                                fieldName="INCOTERMS__c" value="{!v.Quote.INCOTERMS__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Volume__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="Volume__c" value="{!v.Quote.Volume__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.PickupAddress__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="PickupAddress__c" value="{!v.Quote.PickupAddress__c}" />
+
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.DIM_Dimension__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="DIM_Dimension__c" value="{!v.Quote.DIM_Dimension__c}" />
+
+                            
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.DeliveryAddress__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="DeliveryAddress__c" value="{!v.Quote.DeliveryAddress__c}" />
+                        </td>
+                        <td>
+
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2"
+                            style="background-color: #F8B9B9;font-size: 15px;font-weight: bold;border-radius: 5px;">
+                            Container
+                            Information</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerQuantity1__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerQuantity1__c" value="{!v.Quote.ContainerQuantity1__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerType1__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerType1__c" value="{!v.Quote.ContainerType1__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerQuantity2__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerQuantity2__c" value="{!v.Quote.ContainerQuantity2__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerType2__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerType2__c" value="{!v.Quote.ContainerType2__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerQuantity3__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerQuantity3__c" value="{!v.Quote.ContainerQuantity3__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.ContainerType3__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                                fieldName="ContainerType3__c" value="{!v.Quote.ContainerType3__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2"
+                            style="background-color: #F8B9B9;font-size: 15px;font-weight: bold;border-radius: 5px;">
+                            Other 
+                            Information</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                       
+                        <td>
+                            <label class="" for="input-299" part="label">{!v.fieldLabels.Currency__c}</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden"
+                            required="true"
+                                fieldName="Currency__c" value="{!v.Quote.Currency__c}" />
+                        </td>
+                        <td>
+                            <label class="" for="input-299" part="label">Remark</label>
+                            <lightning:inputField  aura:id="field" variant="label-hidden" 
+                                fieldName="Remarks__c" value="{!v.Quote.Remarks__c}" />
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+            </lightning:recordEditForm>
+            <div class="slds-align_absolute-center slds-p-top_small" style="padding-top: 50px">
+                <lightning:button variant="brand" label="Previous" title="Brand action" onclick="{!c.onPrevious}" />
+                <lightning:button variant="brand" label="Confirm" title="Brand action" onclick="{!c.onSave}" />
+            </div>
+        </div>
+    </div>
+</aura:component>

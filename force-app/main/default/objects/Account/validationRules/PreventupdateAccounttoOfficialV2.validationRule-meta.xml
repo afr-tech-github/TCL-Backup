@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventupdateAccounttoOfficialV2</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR(AND(   TEXT(Credit__c) = &apos;TRUE&apos;,
+  OR( RecordType.Name = &apos;Customer&apos;,
+     RecordType.Name = &apos;Agent&apos;),
+  ISPICKVAL(Type_of_Account__c, &apos;Official&apos;) ,
+  OR(
+   ISBLANK( NumberOfEmployees ),
+   ISBLANK( NumberofOffices__c ) ,
+   ISBLANK( Charter_capital__c ) ,
+    ISBLANK( EstimateVolumeTeusCBM__c ),
+   ISNULL( Routing__c ) 
+  
+  ) 
+),
+AND(   TEXT(Credit__c) = &apos;FALSE&apos;,
+  OR( RecordType.Name = &apos;Customer&apos;,
+     RecordType.Name = &apos;Agent&apos;),
+  ISPICKVAL(Type_of_Account__c, &apos;Official&apos;) ,
+  OR(
+   ISBLANK( NumberOfEmployees ),
+   ISBLANK( NumberofOffices__c ) ,
+   ISBLANK( Charter_capital__c ) ,
+    ISBLANK( EstimateVolumeTeusCBM__c ),
+   ISNULL( Routing__c ), 
+ISBLANK ( CreditLimit__c ),
+ISBLANK( CreditTerm__c )
+  
+  ) 
+))</errorConditionFormula>
+    <errorMessage>PLEASE INPUT ALL REQUIRED FIELDS BEFORE UPDATE ACCOUNT TO &quot;OFFICIAL&quot;</errorMessage>
+</ValidationRule>

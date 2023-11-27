@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Required_Service__c</fullName>
+    <externalId>false</externalId>
+    <label>Required Service</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Others</fullName>
+                <default>false</default>
+                <label>Others</label>
+            </value>
+            <value>
+                <fullName>Fumigation Service Required</fullName>
+                <default>false</default>
+                <label>Fumigation Service Required</label>
+            </value>
+            <value>
+                <fullName>Consolidation Service Required</fullName>
+                <default>false</default>
+                <label>Consolidation Service Required</label>
+            </value>
+            <value>
+                <fullName>Warehouse Service Required</fullName>
+                <default>false</default>
+                <label>Warehouse Service Required</label>
+            </value>
+            <value>
+                <fullName>Trading Service Required</fullName>
+                <default>false</default>
+                <label>Trading Service Required</label>
+            </value>
+            <value>
+                <fullName>Picklist (Multi-Select)</fullName>
+                <default>false</default>
+                <label>Picklist (Multi-Select)</label>
+            </value>
+            <value>
+                <fullName>Customs Clearance Service Required</fullName>
+                <default>false</default>
+                <label>Customs Clearance Service Required</label>
+            </value>
+            <value>
+                <fullName>Transportation Service Required</fullName>
+                <default>false</default>
+                <label>Transportation Service Required</label>
+            </value>
+            <value>
+                <fullName>Value Added Service Required</fullName>
+                <default>false</default>
+                <label>Value Added Service Required</label>
+            </value>
+            <value>
+                <fullName>Forwarding Service Required</fullName>
+                <default>false</default>
+                <label>Forwarding Service Required</label>
+            </value>
+            <value>
+                <fullName>C/O Service Required</fullName>
+                <default>false</default>
+                <label>C/O Service Required</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

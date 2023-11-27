@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Holiday_Date_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR 
+(
+ YEAR( Start_Date__c )  &lt; YEAR(TODAY()),
+ YEAR(End_Date__c) &lt; YEAR(TODAY()),
+ Start_Date__c &gt; End_Date__c
+)</errorConditionFormula>
+    <errorMessage>Date invalid! Please input again!</errorMessage>
+</ValidationRule>

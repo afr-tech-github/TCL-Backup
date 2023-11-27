@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Category__c</fullName>
+    <externalId>false</externalId>
+    <label>Category</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>true</sorted>
+            <value>
+                <fullName>ANOTHER CHARGES PER RECEIPT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>ANOTHER CHARGES PER RECEIPT</label>
+            </value>
+            <value>
+                <fullName>C/O</fullName>
+                <default>false</default>
+                <label>C/O</label>
+            </value>
+            <value>
+                <fullName>COMMISSION SHARE</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>COMMISSION SHARE</label>
+            </value>
+            <value>
+                <fullName>CONTAINER FEE</fullName>
+                <default>false</default>
+                <label>CONTAINER FEE</label>
+            </value>
+            <value>
+                <fullName>CUSTOMS</fullName>
+                <default>false</default>
+                <label>CUSTOMS</label>
+            </value>
+            <value>
+                <fullName>DEPOT</fullName>
+                <default>false</default>
+                <label>DEPOT</label>
+            </value>
+            <value>
+                <fullName>EXPORT PERMIT</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EXPORT PERMIT</label>
+            </value>
+            <value>
+                <fullName>EXPRESS</fullName>
+                <default>false</default>
+                <label>EXPRESS</label>
+            </value>
+            <value>
+                <fullName>FREIGHT</fullName>
+                <default>false</default>
+                <label>FREIGHT</label>
+            </value>
+            <value>
+                <fullName>FUMIGATION</fullName>
+                <default>false</default>
+                <label>FUMIGATION</label>
+            </value>
+            <value>
+                <fullName>LASHING</fullName>
+                <default>false</default>
+                <label>LASHING</label>
+            </value>
+            <value>
+                <fullName>LOADING/UNLOAD</fullName>
+                <default>false</default>
+                <label>LOADING/UNLOAD</label>
+            </value>
+            <value>
+                <fullName>LOCAL CHARGES (POL)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>LOCAL CHARGES (POL)</label>
+            </value>
+            <value>
+                <fullName>LOCAL CHARGES L/C</fullName>
+                <default>false</default>
+                <label>LOCAL CHARGES L/C</label>
+            </value>
+            <value>
+                <fullName>PACKING</fullName>
+                <default>false</default>
+                <label>PACKING</label>
+            </value>
+            <value>
+                <fullName>PORT</fullName>
+                <default>false</default>
+                <label>PORT</label>
+            </value>
+            <value>
+                <fullName>TRUCKING</fullName>
+                <default>false</default>
+                <label>TRUCKING</label>
+            </value>
+            <value>
+                <fullName>TRUCKING &amp; CUSTOM (POL)</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>TRUCKING &amp; CUSTOM (POL)</label>
+            </value>
+            <value>
+                <fullName>Value1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Value1</label>
+            </value>
+            <value>
+                <fullName>WAREHOUSE</fullName>
+                <default>false</default>
+                <label>WAREHOUSE</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

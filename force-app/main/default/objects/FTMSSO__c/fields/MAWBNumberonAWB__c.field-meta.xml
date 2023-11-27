@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>MAWBNumberonAWB__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( LEN( MAWBNumber__c) = 9,LEFT( MAWBNumber__c , 3) +&quot; &quot; + POLAOD__r.Port_Code_Short__c +&quot; &quot;+ RIGHT( MAWBNumber__c , 6),
+IF( LEN( MAWBNumber__c) = 10,LEFT( MAWBNumber__c , 3) +&quot; &quot; + POLAOD__r.Port_Code_Short__c +&quot; &quot;+ RIGHT( MAWBNumber__c , 7),
+IF( AND(LEN( MAWBNumber__c)= 12, CONTAINS(MAWBNumber__c,&apos;-&apos; )) ,LEFT( MAWBNumber__c , 3) +&quot; &quot; + POLAOD__r.Port_Code_Short__c +&quot; &quot;+ RIGHT( MAWBNumber__c , 8),
+LEFT( MAWBNumber__c , 3) +&quot; &quot; + POLAOD__r.Port_Code_Short__c +&quot; &quot;+ RIGHT( MAWBNumber__c , 9))))</formula>
+    <label>MAWB Number on AWB</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

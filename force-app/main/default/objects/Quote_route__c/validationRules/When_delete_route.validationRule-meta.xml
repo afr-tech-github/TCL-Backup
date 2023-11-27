@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>When_delete_route</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+IsDeleted__c = TRUE,
+ISNULL(Quote__r.InquiryID__c) = FALSE,
+ISNULL ( Inquiry_Route__c ) = FALSE, Quote__r.InquiryID__c =  Inquiry__c 
+)</errorConditionFormula>
+    <errorDisplayField>Inquiry_Route__c</errorDisplayField>
+    <errorMessage>You can not delete a Quote Route related to an Inquiry Route. Please delete the Inquiry Route first. Thank you!</errorMessage>
+</ValidationRule>

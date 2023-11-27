@@ -1,0 +1,117 @@
+<apex:page controller="FormHAWBController" showHeader="false" applyHtmlTag="false" >
+    <head>
+        <style type="text/css">
+            table{  
+                border-spacing: 0px;
+                border-collapse: collapse;
+            }
+            .container{
+                width: 100%
+            }
+            .container td{
+                border: 1px solid black;
+            }
+            .container table td{
+                border: none;
+            }
+            .container table td:not(:first-child){
+                border-left: 1px solid black;
+            }
+        </style>
+    </head>
+    <body>
+        <div style="font-weight: 700; width: 100%">{!shipment.HBLNumber__c}</div>
+        <table class="container">
+            <col style="width: 50%;"/>
+            <col style="width: 50%;"/>
+            <tr>
+                <td>
+                    <div>Shipper's Name and Address</div>
+                    <div>{!shipment.ShipperDetailInformation_text__c}</div>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Consigne's Name and Address</div>
+                    <div>{!shipment.ConsigneeDetailInformation_text__c}</div>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Also Notify</div>
+                    <div>{!shipment.HouseNotifyDetailInformation_text__c}</div>
+                </td>
+                <td>
+                    <div>Accounting Information</div>
+                    <div></div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <div>Airport of Departure (Addr. of First Carrier) and Requested Routing</div>
+                    <div>{!shipment.POLAODsDetailInformation__c}</div>
+                </td>
+                <td>
+                    <div>
+                        Master Airwaybill No.
+                        <div>{!shipment.MAWBNumber__c}</div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 0">
+                    <table style="width: 100%">
+                        <col style="width: 15%"/>
+                        <col style="width: 45%"/>
+                        <col style="width: 13%"/>
+                        <col style="width: 9%"/>
+                        <col style="width: 9%"/>
+                        <col style="width: 9%"/>
+                        <tr>
+                            <td>
+                                <div>To</div>
+                                <div></div>
+                            </td>
+                            <td>
+                                <div>
+                                    <div>By First Carrier</div>
+                                    <div>Routing and Destination</div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div>to</div>
+                            </td>
+                            <td>
+                                <div>by</div>
+                            </td>
+                            <td>
+                                <div>to</div>
+                            </td>
+                            <td>
+                                <div>by</div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td>
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+
+                </td>
+            </tr>
+        </table>
+    </body>
+</apex:page>

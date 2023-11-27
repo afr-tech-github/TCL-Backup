@@ -1,0 +1,15 @@
+.THIS .th-color {
+    color: white;
+    background: #2874ba;
+    font-size: 20px;
+    text-align: left;
+    white-space: initial;
+  }
+  .THIS .headertr::after{
+    content: '';
+    width: 100%;
+    border-bottom: 1px solid #c9c9c9;
+    position: absolute;
+    /* bottom: -1px; */
+    left: 0;
+  }

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>AdvancedShipment__c</entityName>
+    <fieldName>Advance_Shipment_Status__c</fieldName>
+    <masterLabel>STATUS - TRUCKING - EXPORT - CONSOL</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;CS Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Update the status of the truck, whether it is docked or not.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Doc Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Summarize all incurred costs&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Custom Staff:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Liquidation of declaration&lt;/li&gt;&lt;li&gt;Save the receipt of the liquidation into the Job recod.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>After drop op date</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;CS Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Confirm packing plan &amp;amp; truck booking&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Custom Staff:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Re-check packing plan and request extend (if any)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Before loading date (2 days)</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;CS Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Receive the packing plan from the customer&lt;/li&gt;&lt;li&gt;Receive booking confirmation from customer&lt;/li&gt;&lt;li&gt;Send email to ADC to get empty release order&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Booking Process</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li&gt;User must press the &amp;quot;Cancel Job&amp;quot; button and provide a reason for cancellation.&lt;/li&gt;&lt;li&gt;Then, the job will then be locked, preventing any further edits.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Doc Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Generate PL sheet and submit for Salesman to re-check by standard process&lt;/li&gt;&lt;li&gt;Send Debit note to the customer&lt;/li&gt;&lt;li&gt;Make payment to the carrier&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Close PL Sheet</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;CS Staff&lt;/strong&gt;:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Update Container information&lt;/li&gt;&lt;li&gt;Follow-up the truck process&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;Custom Staff&lt;/strong&gt;&lt;span style=&quot;font-size: 13px;&quot;&gt;:&lt;/span&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Register electronic manifest number&lt;/li&gt;&lt;li&gt;Provide the official declaration&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Load date % VN return port</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>EXPORTCONSOLTRUCKING</recordTypeName>
+</PathAssistant>

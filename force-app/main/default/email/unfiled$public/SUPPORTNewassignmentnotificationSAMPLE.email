@@ -1,0 +1,1 @@
+*** 新個案指派通知 ***   下列個案已指派給您。公司：{!Account.Name}  連絡人姓名：{!Contact.Name}  個案號碼：{!Case.CaseNumber}  主題：{!Case.Subject}  描述：{!Case.Description}   按一下該連結存取此個案：  {!Case.Link}

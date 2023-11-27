@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TargetSalary__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF( SalesTeam__c = &apos;OVS&apos;,  TotalIncomeBeforeTax__c , TotalIncomeBeforeTax__c  * 3)</formula>
+    <label>Target Salary</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

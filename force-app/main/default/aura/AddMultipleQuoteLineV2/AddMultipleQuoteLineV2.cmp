@@ -1,0 +1,209 @@
+<aura:component controller="QuoteController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    <aura:attribute name="lstQuoteLine" type="Quoteline__c[]" />
+    <aura:attribute name="queryRoute" type="String" />
+    <aura:attribute name="QuoteId" type="String" />
+    <aura:attribute name="RefPriceID" type="String" />
+    <aura:attribute name="QuoteRoute" type="String" />
+    <aura:handler event="force:refreshView" action="{!c.doinit}" />
+    <aura:attribute name="isShowSpinner" type="boolean" default="true" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="IdServiece" type="String" />
+
+
+
+    <aura:if isTrue="{!v.isShowSpinner == true}">
+        <lightning:spinner aura:id="spinnerMain" variant="brand" size="large" />
+    </aura:if>
+    <aura:registerEvent name="quoteEvent" type="c:quoteEvent" />
+    <div id="main" style=" overflow: auto; ">
+        <div style="display: inline-block; width: 2250px; !important">
+            <aura:iteration items="{!v.lstQuoteLine}" var="quoteLine" indexVar="index">
+                <lightning:recordEditForm objectApiName="Quoteline__c" onerror="{!c.onError}"
+                    onsuccess="{!c.onSuccess}">
+                    <div aura:id="getIndex" data-record="{!index}" style="display: flex;">
+                        <div data-record="{!index}" style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Reference Price ID</span>
+                            <l_lookup:Lookup aura:id="lookupId" onchange="{!c.onUpdateFieldChange}"
+                                styleClass="{!index}" objectType="ReferencePrice__c"
+                                removeValueOnQueryConditionChange="" primarySearchField="Name"
+                                selectedRecordId="{!v.RefPriceID}" dropDownLimit="3" fuzzySearch="true"
+                                dropDownQuery="Name != null" queryCondition="{!v.queryRoute}" />
+                        </div>
+
+                        <aura:if isTrue="{!not(empty(quoteLine.ReferencePrice__c))}">
+                        <lightning:recordEditForm recordId="{!quoteLine.ReferencePrice__c}"
+                            objectApiName="ReferencePrice__c">
+                            <div style="display: flex;">
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Service Name</span>
+                                    <div>
+                                        <lightning:inputField variant="label-hidden" disabled="true"
+                                            style="background-color: #f3f3f3" readonly="" fieldName="ServiceName__c" />
+                                    </div>
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Supplier/ Vendor</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="Account__c" />
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Unit Price of Buying</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="UnitPriceofBuying__c" />
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Currency-Buying</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="CurrencyBuying__c" />
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Charge Unit</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="ChargeUnit__c" />
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Container Type</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="ContainerType__c" />
+                                </div>
+                                <!-- <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Route</span>
+                                    <lightning:inputField variant="label-hidden" fieldName="Route__c" disabled="true" />
+                                </div> -->
+                            </div>
+                        </lightning:recordEditForm>
+                        <aura:set attribute="else" >
+                            <lightning:recordEditForm 
+                            objectApiName="Quoteline__c">
+                            <div style="display: flex;">
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;" onchange="{!c.changeDiv}">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Service Name</span>
+                                    <div data-record="{!quoteLine.Id}" >
+                                        <lightning:inputField variant="label-hidden" 
+                                            style="background-color: #f3f3f3"  fieldName="ServiceID__c" value="{!quoteLine.ServiceID__c}"
+                                            onchange="{!c.changeServiceId}"
+                                          
+                                            />
+                                    </div>
+                                </div>
+
+
+
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Supplier/ Vendor</span>
+                                    <lightning:inputField variant="label-hidden" 
+                                        fieldName="SupplierVendor__c" value="{!quoteLine.SupplierVendor__c}" />
+                                </div>
+
+                                
+                                <aura:if isTrue="{!not(empty(quoteLine.ServiceID__c))}" >
+                                <lightning:recordEditForm   objectApiName="Service__c" recordId="{!quoteLine.ServiceID__c}">
+                                    <div style="display: flex;">
+
+                                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                            <span style="{!IF(index != 0,'visibility: hidden','')}">Unit Price of Buying</span>
+                                        <lightning:inputField variant="label-hidden" 
+                                        fieldName="BuyingListPriceActual__c"  disabled="{!quoteLine.Print__c}" />
+                                        
+                                        </div>
+                                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                        <span style="{!IF(index != 0,'visibility: hidden','')}">Currency-Buying</span>
+                                        <lightning:inputField variant="label-hidden" 
+                                        fieldName="Currency__c"   disabled="{!quoteLine.Print__c}"/>
+                                         </div>
+                                    </div>
+                                
+                                </lightning:recordEditForm>
+                                     <aura:set attribute="else" >
+                                    <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                        <span style="{!IF(index != 0,'visibility: hidden','')}">Unit Price of Buying</span>
+                                        <lightning:inputField variant="label-hidden" 
+                                            fieldName="BuyingListPriceActual__c" value="{!quoteLine.BuyingListPriceActual__c}" />
+                                    </div>
+                                    <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                        <span style="{!IF(index != 0,'visibility: hidden','')}">Currency-Buying</span>
+                                        <lightning:inputField variant="label-hidden" 
+                                            fieldName="CurrencyBuying__c" value="{!quoteLine.CurrencyBuying__c}" />
+                                    </div>
+                                    </aura:set>
+                                   
+                                </aura:if>
+                                <!--  -->
+                                
+                                <!--  -->
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Charge Unit</span>
+                                    <lightning:inputField variant="label-hidden" 
+                                        fieldName="ChargeUnit__c" value="{!quoteLine.ChargeUnit__c}" />
+                                </div>
+                                <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Container Type</span>
+                                    <lightning:inputField variant="label-hidden" 
+                                        fieldName="ContainerType1__c"  value="{!quoteLine.ContainerType1__c}" />
+                                </div>
+                                <!-- <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                                    <span style="{!IF(index != 0,'visibility: hidden','')}">Route</span>
+                                    <lightning:inputField variant="label-hidden" fieldName="Route__c" value="{!quoteLine.Route__c}"  />
+                                </div> -->
+                            </div>
+                        </lightning:recordEditForm>
+                        </aura:set>
+                    </aura:if>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Quote Route</span>
+                            <l_lookup:Lookup aura:id="lookupId" onchange="{!c.onUpdateFieldChange}"
+                                styleClass="{!index}" objectType="Quote_route__c" removeValueOnQueryConditionChange=""
+                                primarySearchField="Name" selectedRecordId="{!v.QuoteRoute}" dropDownLimit="3"
+                                fuzzySearch="true" dropDownQuery="Name != null"
+                                queryCondition="{!' Quote__c =\'' + v.QuoteId + '\''}" />
+                        </div>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Charge Quantity</span>
+                            <lightning:inputField variant="label-hidden" aura:id="field" class="{!index}"
+                                fieldName="ChargeQuantity__c" value="{!quoteLine.ChargeQuantity__c}" />
+                        </div>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Currency-Selling</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden" class="{!index}"
+                                fieldName="CurrencySelling__c" value="{!quoteLine.CurrencySelling__c}" />
+                        </div>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Tax Rate-Selling(%)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden" class="{!index}"
+                                fieldName="TaxRateSelling__c" value="{!quoteLine.TaxRateSelling__c}" />
+                        </div>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Selling List Price (Actual)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden" class="{!index}"
+                                fieldName="SellingListPriceActual__c" value="{!quoteLine.SellingListPriceActual__c}" />
+                        </div>
+                        <div style="min-width: 200px;max-width: 200px; margin-right: 5px;">
+                            <span style="{!IF(index != 0,'visibility: hidden','')}">Remark</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden" class="{!index}"
+                                fieldName="Remarks__c" value="{!quoteLine.Remarks__c}" />
+                        </div>
+                        <div>
+                            <span>Action</span>
+                            <div onclick="{!c.removeRecord}" data-record="{!index}">
+                                <img src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000001oF2G&amp;oid=00D8d00000AXMQJ&amp;lastMod=1695804204000"
+                                    alt="" />
+                            </div>
+                        </div>
+                    </div>
+                </lightning:recordEditForm>
+            </aura:iteration>
+        </div>
+        <div class="slds-align_absolute-center slds-p-top_small" style="padding: 100px 0px">
+            <aura:if isTrue="{!v.sObjectName == 'Quote__c'}">
+                <lightning:button variant="brand" label="Back" title="Brand action" onclick="{!c.onBack}" />
+            </aura:if>
+            <lightning:button variant="brand" label="Add" title="Brand action" onclick="{!c.addRow}" />
+            <lightning:button variant="brand" label="Submit" title="Brand action" onclick="{!c.saveQuoteLines}" />
+            <!-- <lightning:button variant="brand" label="showData" title="Brand action" onclick="{!c.showwData}" /> -->
+
+        </div>
+    </div>
+</aura:component>

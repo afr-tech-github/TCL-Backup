@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>House_Bill__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(OR(RecordType.DeveloperName = &apos;AirImport&apos;, RecordType.DeveloperName = &apos;AirExport&apos;) ,  HAWBNumber__c , IF(OR(RecordType.DeveloperName = &apos;OceanImport&apos;, RecordType.DeveloperName = &apos;OceanExport&apos;) ,   HBLNumber__c , &apos;&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>House Bill</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

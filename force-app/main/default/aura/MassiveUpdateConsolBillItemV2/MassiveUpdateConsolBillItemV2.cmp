@@ -1,0 +1,269 @@
+<aura:component controller="MassUpdateConsolBillControllerV2" implements="force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome" access="global">
+  <aura:attribute name="ListWapper" type="List" />
+<aura:attribute name="isLoading" type="Boolean" default="false"/>
+<aura:attribute name="selectedPK" type="List" />
+<aura:attribute name="listDetail" type="List" />
+<aura:attribute name="searchValue" type="String" default="" />
+<aura:attribute name="id" type="String" />
+<aura:attribute name="iconDown" type="String" default="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R35O&amp;oid=00D5i00000CHEMI&amp;lastMod=1689847786000" />
+  
+  
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  
+  <div> 
+    <!-- <div  style="overflow-x: auto;border-radius: 5px;    min-height: 350px;" class="LH_ALL1">
+        <div  style="padding: 16px;background: #f3f3f3; min-width: 1000px; display: flex;align-items: center;" class="header smallMobie" >
+         
+
+                <span   style="width: 24px; height: 24px;border-radius: 3px;background-color: #ea70b1">
+                    <img  src="https://tcl-02-dev-ed.develop.my.salesforce.com/img/icon/t4v35/custom/custom54_120.png" title="Packages detail" alt=""/>
+                </span>
+                <p  style="font-weight: 700; font-size: 16px;display: inline-block; margin-left: 10px;"  >Massive Update Consol Bill
+               
+                </p>
+        <aura:if isTrue="{! v.selectedPK.length> 0 }"> 
+                <lightning:button variant="destructive"  onclick="{!c.deletePackage}" label="Xóa" title="Destructive action" class="slds-m-left_x-small"></lightning:button>
+        </aura:if>
+    </div>     -->
+    
+    <div aura:id="loadingSection" class="{!'slds-spinner_container' + (v.isLoading ? '' : ' slds-hide')}">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    
+    <table id="myTableDebit" style="border: 1px solid #c9c9c9; border-bottom: none; min-width: 1000px;" class="smallMobie" >
+        
+        
+        <tr  style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;">
+             <th style="padding: 15px 10px; "></th>
+             <th style="padding: 15px 10px; "></th>
+
+           
+             <th style="padding: 15px 10px; " class="width5">STT</th>
+           
+                   
+                <th>Master Billing </th>
+                <th >Name</th>
+                <th >Pricing Name</th>
+                <th >F/TMS S/O</th>
+                <th >Charge Unit</th>
+                <th >Quantity</th>
+                <th >Container Type</th>
+                <th >Invoice to</th>
+                <th >Currency-Selling</th>
+                <th >Unit Price of Selling (Actual)</th>
+                <th >Tax Ratio-Selling</th>
+                <th >Tax Included-Selling</th>
+                <th >Payment To</th>
+                <th >Unit Price of Buying (Actual)</th>
+                <th >Tax Ratio-Buying</th>
+                <th >Tax Included-Buying</th>      
+          
+        </tr>
+        <tbody>
+          <!-- <lightning:recordEditForm
+          aura:id="recordEditForm"
+          recordId="{!v.recordId}"
+          objectApiName="ConsolBill__c"
+          density="comfy"> -->
+            <aura:iteration  items="{!v.ListWapper}" var="wapperItem" indexVar="index">
+              <lightning:recordEditForm
+              aura:id="recordEditForm"
+              recordId="{!v.id}"
+        
+              objectApiName="ConsolBill__c"
+            >
+              <lightning:messages />
+              <tr>
+                <td></td>
+                  <aura:if isTrue="{!wapperItem.DocDT.length > 0}">
+                      <td style="width: 50px;cursor: pointer;"  onclick="{!c.togglePackageList}" data-index="{!wapperItem.Doc.Id}" >
+                            <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto" class="imageDown" />    
+                      </td>
+                      <aura:set attribute="else">
+                          <td style="width: 50px" >
+                              <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto;opacity: .3;"  />    
+                           </td>
+                      </aura:set>
+                  </aura:if>
+                  
+                  <td> 
+                    {!index + 1}   
+                  </td>
+                  <td>
+                    {!wapperItem.Doc.MasterBilling__r.Name}
+                  </td>
+                  <td data-index="{!wapperItem.Doc.Id}" style="cursor: pointer; color: #0176d3;" >
+                      <a href="{! '/'+ wapperItem.Doc.Id}" target="_blank">{!wapperItem.Doc.Name}</a>
+                     
+                  </td>
+                  <td>
+                    <lightning:inputField aura:id="wapperItem" class="{!wapperItem.Doc.Id}" fieldName="{!wapperItem.Doc.PricingName__c}"/>
+                      <!-- <input id="{!wapperItem.Doc.PricingName__r.Name}"  data-id="{!wapperItem.Doc.Id}"  type="text" value="{!wapperItem.Doc.PricingName__r.Name}" />  -->
+                  </td>
+                  <td  >
+                      {!wapperItem.Doc.FTMSSO__r.Name}
+                  </td>
+  
+                  <td  >
+                      {!wapperItem.Doc.ChargeUnit__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.Quantity__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.Container_Type__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.Invoiceto__r.Name}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.CurrencySelling__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.UnitPriceofSellingActual__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.TaxRatioSelling__c}
+                  </td>
+                  <td  >
+                    <input id="{!wapperItem.Doc.Tax_Included_Selling__c}"  data-id="{!wapperItem.Doc.Id}"  type="checkbox" value="{!wapperItem.Doc.Id}" />
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.PaymentTo__r.Name}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.UnitPriceofBuyingActual__c}
+                  </td>
+                  <td  >
+                    {!wapperItem.Doc.TaxRatioBuying__c}
+                  </td>
+                  <td  >
+                    <input id="{!wapperItem.Doc.Tax_Included__c}"  data-id="{!wapperItem.Doc.Id}"  type="checkbox" value="{!wapperItem.Doc.Id}" />
+                  </td>
+              </tr>
+              <tr >
+                
+                  <td colspan="14" style="padding: 0; border: none;">
+                      
+                <div class="{!wapperItem.Doc.Id}" style="height: 0; overflow: hidden; transition: all ease .3s;position: relative; box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.1);">
+  
+                
+         
+              <table style="width: calc(100% - 94px);margin-left: 90px" class="subtable">
+  
+  
+                
+               <tr  style="background-color:   #f7f7f7;position: relative;">
+  
+                 
+               
+  
+                      <th>
+                         
+                      </th>
+              
+                  <th style="padding: 15px 10px; " class="width5">STT</th>
+             
+                     
+                  <th>Master Billing </th>
+                  <th >Name</th>
+                  <th >Pricing Name</th>
+                  <th >F/TMS S/O</th>
+                  <th >Charge Unit</th>
+                  <th >Quantity</th>
+                  <th >Container Type</th>
+                  <th >Invoice to</th>
+                  <th >Currency-Selling</th>
+                  <th >Unit Price of Selling (Actual)</th>
+                  <th >Tax Ratio-Selling</th>
+                  <th >Tax Included-Selling</th>
+                  <th >Payment To</th>
+                  <th >Unit Price of Buying (Actual)</th>
+                  <th >Tax Ratio-Buying</th>
+                  <th >Tax Included-Buying</th> 
+                  <div style="position: absolute;
+                  width: 1px;
+                  height: 100%;
+                  background: #2da02b;
+                  left: -38px;
+                  top: -12px;"></div> 
+                  
+                  </tr>
+  
+                    
+                  <aura:iteration  items="{!wapperItem.DocDT}" var="DocDt" indexVar="index" >
+                      
+                      
+                    
+                          <tr  style="position: relative;" >
+                            <td></td>
+                              <td  > 
+                                  {!index + 1}   
+                              </td>
+                              <td >{!DocDt.MasterBilling__r.Name}</td>
+                              <td  style="cursor: pointer; color: #0176d3;" >
+                                <a href="{! '/' +  DocDt.Id}" target="_blank">{!DocDt.Name}</a>
+                               
+  
+                              </td>
+  
+                              
+  
+                             
+  
+                              <td >{!DocDt.PricingName__r.Name}</td>
+  
+                              <td>{!DocDt.FTMSSO__r.Name}</td>
+  
+                              
+                              <td >{!DocDt.ChargeUnit__c}</td>
+                              <td >{!DocDt.Quantity__c}</td>
+                              <td >{!DocDt.Container_Type__c}</td>
+                              <td >{!DocDt.Invoiceto__r.Name}</td>
+                              <td >{!DocDt.CurrencySelling__c}</td>
+                              <td >{!DocDt.UnitPriceofSellingActual__c}</td>
+                              <td >{!DocDt.TaxRatioSelling__c}</td>
+                              <td >
+                                <input class="{!wapperItem.Doc.Id}" data-parent="{!wapperItem.Doc.Id}" id="{!DocDt.Tax_Included_Selling__c}"  type="checkbox"  value="{!DocDt.Id}" />
+                          
+                              </td>
+                              <td >{!DocDt.PaymentTo__r.Name}</td>
+                              <td >{!DocDt.UnitPriceofBuyingActual__c}</td>
+                              <td >{!DocDt.TaxRatioBuying__c}</td>
+                              <td >
+                                <input class="{!wapperItem.Doc.Id}" data-parent="{!wapperItem.Doc.Id}" id="{!DocDt.Tax_Included__c}"  type="checkbox"  value="{!DocDt.Id}" />
+                     
+                              </td>
+                              <div style=" 
+                              position: absolute;
+                              width: 38px;
+                              height: 120%;
+                              border-bottom-left-radius: 10px;
+                              top: -70%;
+                              left: -40px;
+                              border-left: 1px solid #2da02b;
+                              border-bottom: 1px solid #2da02b">
+                          </div>
+                          </tr>  
+                        
+                   
+  
+                  </aura:iteration>
+               
+              </table>
+          </div>
+          </td>
+              </tr>
+            </lightning:recordEditForm>
+          </aura:iteration>
+          
+
+    </tbody>
+    </table> 
+</div>
+
+</aura:component>

@@ -1,0 +1,12 @@
+Dear TCL Phnom Penh,
+
+The shipment no {!AdvancedShipment__c.FileNo__c} of {!AdvancedShipment__c.Customer__c} consists of the information below:
+- Master B/L Number: {!AdvancedShipment__c.MBLorMAWBNumber__c}
+- Description of Goods: {!AdvancedShipment__c.Description_of_Goods__c}
+- Container No./ Seal No.: {!AdvancedShipment__c.Container_No_Seal_No__c}
+
+Please check and reconfirm that you have received the email.
+If you require further information, feel free to contact me.
+
+Thank you and Best Regards,
+{!User.Name}

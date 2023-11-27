@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PaymentToEqualAgent__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(AND ((NOT(ISBLANK(  PaymentTo__c ))), OR( PaymentTo__r.Id =  FTMSSO__r.Agent__r.Id,PaymentTo__r.Id  = FTMSSO__r.Agent2nd__r.Id)), TRUE, FALSE)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Paymen To = Agent</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

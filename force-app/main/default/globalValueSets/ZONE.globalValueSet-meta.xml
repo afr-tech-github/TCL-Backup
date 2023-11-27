@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ASIA</fullName>
+        <default>true</default>
+        <label>ASIA</label>
+    </customValue>
+    <customValue>
+        <fullName>EUROPE</fullName>
+        <default>false</default>
+        <label>EUROPE</label>
+    </customValue>
+    <customValue>
+        <fullName>ASIA/EUROPE</fullName>
+        <default>false</default>
+        <label>ASIA/EUROPE</label>
+    </customValue>
+    <customValue>
+        <fullName>EUROPE/ASIA</fullName>
+        <default>false</default>
+        <label>EUROPE/ASIA</label>
+    </customValue>
+    <customValue>
+        <fullName>NORTH AMERICA</fullName>
+        <default>false</default>
+        <label>NORTH AMERICA</label>
+    </customValue>
+    <customValue>
+        <fullName>SOUTH AMERICA</fullName>
+        <default>false</default>
+        <label>SOUTH AMERICA</label>
+    </customValue>
+    <customValue>
+        <fullName>OCEANIA</fullName>
+        <default>false</default>
+        <label>OCEANIA</label>
+    </customValue>
+    <customValue>
+        <fullName>AFRICA</fullName>
+        <default>false</default>
+        <label>AFRICA</label>
+    </customValue>
+    <customValue>
+        <fullName>UNKNOWN</fullName>
+        <default>false</default>
+        <label>UNKNOWN</label>
+    </customValue>
+    <customValue>
+        <fullName>ANTARCTICA</fullName>
+        <default>false</default>
+        <label>ANTARCTICA</label>
+    </customValue>
+    <customValue>
+        <fullName>ASIA/OCEANIA</fullName>
+        <default>false</default>
+        <label>ASIA/OCEANIA</label>
+    </customValue>
+    <masterLabel>ZONE</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

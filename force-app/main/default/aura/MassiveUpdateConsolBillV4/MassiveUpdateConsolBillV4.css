@@ -1,0 +1,63 @@
+.THIS .slds-listbox {
+    max-height: 180px !important;
+    overflow-y: auto !important;
+    /* display: block; */
+    /* z-index: 9999 !important; */
+    
+  }
+  .THIS .slds-media__body{
+    height: 35px;
+  }
+  .THIS .slds-button{
+    float: inline-end;
+  }
+  .THIS .subtable tr:hover{
+    /* padding-left: 10px; */
+    background-color: rgb(246, 238, 238);
+    transition: all ease .3s
+  }
+  .THIS .smallMobie tr:nth-child(1):hover{
+    background-color: rgb(246, 238, 238);
+    transition: all ease .3s
+  }
+  .THIS .slds-listbox {
+    max-height: 175px !important;
+    overflow-y: auto !important;
+    /* display: block; */
+    /* z-index: 9999 !important; */
+    
+  }
+  /* .THIS .subtable tr{
+    border-left: 1px solid #ba0517;
+ } */
+ .THIS .headertr::after{
+  content: '';
+  width: 100%;
+  border-bottom: 1px solid #c9c9c9;
+  position: absolute;
+  /* bottom: -1px; */
+  left: 0;
+}
+.THIS .smallMobiex::after{
+  content: '';
+  width: 100%;
+  border-bottom: 1px solid #c9c9c9;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.THIS .slds-input{
+  border: none;
+}
+.THIS .slds-input_faux{
+  border: none;
+}
+.THIS .boderbottom{
+  border-bottom: 2px solid rgb(248, 166, 166);
+}
+.THIS .subtable tr:last-child{
+  border-left: none !important;
+}
+/* .THIS .subtable td:first-child{
+  border-left: 1px solid #ba0517;
+} */

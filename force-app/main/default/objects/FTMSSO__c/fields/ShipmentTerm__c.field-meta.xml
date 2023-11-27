@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ShipmentTerm__c</fullName>
+    <externalId>false</externalId>
+    <label>Shipment Term</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>TransportationWay__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Shipment_Term</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>SEA</controllingFieldValue>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <controllingFieldValue>TRUCKING</controllingFieldValue>
+            <controllingFieldValue>RAIL</controllingFieldValue>
+            <controllingFieldValue>INLAND WATERWAY</controllingFieldValue>
+            <controllingFieldValue>MULTIMODAL</controllingFieldValue>
+            <valueName>FCL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SEA</controllingFieldValue>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <controllingFieldValue>TRUCKING</controllingFieldValue>
+            <controllingFieldValue>RAIL</controllingFieldValue>
+            <controllingFieldValue>INLAND WATERWAY</controllingFieldValue>
+            <controllingFieldValue>MULTIMODAL</controllingFieldValue>
+            <valueName>LCL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SEA</controllingFieldValue>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <controllingFieldValue>TRUCKING</controllingFieldValue>
+            <controllingFieldValue>RAIL</controllingFieldValue>
+            <controllingFieldValue>INLAND WATERWAY</controllingFieldValue>
+            <controllingFieldValue>MULTIMODAL</controllingFieldValue>
+            <valueName>CONSOL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>SEA</controllingFieldValue>
+            <controllingFieldValue>AIR</controllingFieldValue>
+            <controllingFieldValue>TRUCKING</controllingFieldValue>
+            <controllingFieldValue>RAIL</controllingFieldValue>
+            <controllingFieldValue>INLAND WATERWAY</controllingFieldValue>
+            <controllingFieldValue>MULTIMODAL</controllingFieldValue>
+            <valueName>CHARTER</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

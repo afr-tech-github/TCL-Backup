@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnimationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <animationFrequency>always</animationFrequency>
+    <developerName>TruckingImportPath</developerName>
+    <isActive>true</isActive>
+    <masterLabel>Trucking Import Path</masterLabel>
+    <recordTypeContext>Custom</recordTypeContext>
+    <recordTypeName>Import</recordTypeName>
+    <sobjectType>Transportation__c</sobjectType>
+    <targetField>Transport_Status__c</targetField>
+    <targetFieldChangeToValues>Completed</targetFieldChangeToValues>
+</AnimationRule>

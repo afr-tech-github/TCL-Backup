@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Price_Option_ID</fullName>
+    <fields>ReferencePrice__c</fields>
+    <fields>SupplierVendor__c</fields>
+    <fields>Service__c</fields>
+    <fields>ServiceType__c</fields>
+    <fields>ChargeUnit__c</fields>
+    <fields>BuyingListPriceActual__c</fields>
+    <label>Price Option ID</label>
+</CompactLayout>

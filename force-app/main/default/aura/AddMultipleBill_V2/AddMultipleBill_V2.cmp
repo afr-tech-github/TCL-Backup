@@ -1,0 +1,266 @@
+<aura:component
+  controller="AddMultipleBillController"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global"
+>
+  <aura:attribute name="billList" type="FTMSBill__c[]" />
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:registerEvent name="addBillUpdateEvt" type="c:addBillUpdateEvt" />
+ 
+
+
+  <lightning:spinner aura:id="spinner" class="slds-hide" />
+  <span style="overflow-x:auto; overflow-y:hidden;display: block;">
+    <span style="display: block;width: 2200px; margin-bottom: 150px;">
+      <aura:iteration items="{!v.billList}" var="bill" indexVar="index">
+        <lightning:recordEditForm
+          class="iteration"
+          aura:id="recordEditForm"
+          objectApiName="FTMSBill__c"
+        >
+      <table style="margin: 4px 0;">
+         <thead>
+          <tr>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Service Name</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Charge Quantity</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Charge Unit</div>
+            </th>
+             <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Container Type</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Invoice to</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Unit Price of Selling</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Tax Included-Selling</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Currency-Selling</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Issued Tax Inv - Selling</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Selling Tax(%)</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">On-behalf-of Customer</div>    
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Payment to-Buying</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Unit Price of Buying</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Tax Included-Buying</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Currency-Buying</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Issued Tax Inv - Buying</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Buying Tax(%)</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Description</div>
+            </th>
+            <th style="{!IF(index != 0,'height: 0;','')}">
+              <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Action</div>
+            </th>
+          </tr>
+         </thead>
+         <tbody>
+          <td style="padding: 0 4px;" >
+            <lightning:inputField
+                aura:id="field"
+                variant="label-hidden"
+                fieldName="Service__c"
+                value="{!bill.Service__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px;" >
+            <lightning:inputField
+                aura:id="field"
+                variant="label-hidden"
+                fieldName="ChargeQuantity__c"
+                value="{!bill.ChargeQuantity__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;">
+            <lightning:inputField
+                aura:id="field"
+                variant="label-hidden"
+                fieldName="ChargeUnit__c"
+                value="{!bill.ChargeUnit__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px;">
+            <lightning:inputField
+                aura:id="field"
+                variant="label-hidden"
+                fieldName="ContainerType__c"
+                value="{!bill.ContainerType__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px;">
+              <lightning:inputField
+                style="text-align: center; slds-scrollable"
+                variant="label-hidden"
+                fieldName="InvoiceTo__c"
+                value="{!bill.InvoiceTo__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;" >
+            <lightning:inputField
+                variant="label-hidden"
+                fieldName="UnitPriceFCY__c"
+                value="{!bill.UnitPriceFCY__c}"
+              />
+          </td>
+          <td style="padding: 0 4px; text-align: center;">
+            <lightning:input
+              type="checkbox"
+              value="{!bill.TaxIncluded__c}"
+              checked="{!bill.TaxIncluded__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;">
+            <lightning:inputField
+                variant="label-hidden"
+                fieldName="CurrencySelling__c"
+                value="{!bill.CurrencySelling__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px; text-align: center;">
+            <lightning:input
+              type="checkbox"
+              value="{!bill.IssuedTaxInvSelling__c}"
+              checked="{!bill.IssuedTaxInvSelling__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;" >
+              <lightning:inputField
+                  variant="label-hidden"
+                  fieldName="TaxRateSelling__c"
+                  value="{!bill.TaxRateSelling__c}"
+                />
+                <!-- <lightning:input type="number" formatter="percent-fixed" step="0.01" maxlength="2" value="{!bill.clofor_com_cfs__TaxRate__c}"/> -->
+            </td>
+
+            <td style="padding: 0 4px; text-align: center;"  >
+              <lightning:input
+                type="checkbox"
+                value="{!bill.AdvancePaymentonbehalfofCustomer__c}"
+                checked="{!bill.AdvancePaymentonbehalfofCustomer__c}"
+              />
+          </td>
+          
+          <td style="padding: 0 4px;">
+            
+            <lightning:inputField
+              variant="label-hidden"
+                fieldName="PaymentTo__c"
+                value="{!bill.PaymentTo__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px;"  >
+              <lightning:inputField
+              variant="label-hidden"
+                fieldName="UnitPriceofBuyingFCY__c"
+                value="{!bill.UnitPriceofBuyingFCY__c}"
+              />
+          </td>
+          <td style="padding: 0 4px; text-align: center;">
+            <lightning:input
+              type="checkbox"
+              value="{!bill.TaxIncludedBuying__c}"
+              checked="{!bill.TaxIncludedBuying__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;">
+              <lightning:inputField
+              variant="label-hidden"
+                fieldName="CurrencyBuying__c"
+                value="{!bill.CurrencyBuying__c}"
+                
+              />
+          </td>
+          <td style="padding: 0 4px; text-align: center;">
+            <lightning:input
+              type="checkbox"
+              value="{!bill.IssuedTaxInvBuying__c}"
+              checked="{!bill.IssuedTaxInvBuying__c}"
+              />
+          </td>
+          <td style="padding: 0 4px;" >
+                <lightning:inputField
+                variant="label-hidden"
+                  fieldName="TaxRateBuying__c"
+                  value="{!bill.TaxRateBuying__c}"
+                />
+            </td>
+            <td style="padding: 0 4px;" >
+              <lightning:inputField
+                  aura:id="field"
+                  variant="label-hidden"
+                  fieldName="Description__c"
+                  value="{!bill.Description__c}"
+                />
+            </td>
+          <td style="padding: 0 4px;" >
+            <div>
+              <a
+                  onclick="{!c.removeRecord}"
+                  data-record="{!index}"
+                >
+                  <lightning:icon
+                    iconName="utility:delete"
+                    size="small"
+                    alternativeText="Delete"
+                  />
+                  <span class="slds-assistive-text">Delete</span>
+                </a>
+            </div>
+          </td>
+         </tbody>
+      </table>
+    </lightning:recordEditForm>
+  </aura:iteration> 
+      <div
+            class="slds-align_absolute-center slds-p-top_small"
+            style="padding-top: 5px"
+          >
+            <lightning:button
+              variant="brand"
+              label="Add"
+              title="Brand action"
+              onclick="{!c.addRow}"
+            />
+            <lightning:button
+              variant="brand"
+              label="Submit"
+              title="Brand action"
+              onclick="{!c.saveBills}"
+
+            />
+          </div>
+    </span>
+  </span>
+          
+</aura:component>

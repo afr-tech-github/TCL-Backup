@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>Check_Booking_Of_AdvancedShipment</name>
+        <label>Check Booking Of AdvancedShipment</label>
+        <locationX>374</locationX>
+        <locationY>539</locationY>
+        <defaultConnector>
+            <targetReference>Update</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>IsNull</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get.EBookingID__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>IsNull</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_get_AdvancedShipment</name>
+        <label>Check get AdvancedShipment</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <defaultConnector>
+            <targetReference>Check_Booking_Of_AdvancedShipment</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>is_Null</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>is Null</label>
+        </rules>
+    </decisions>
+    <description>fix check field E-Booking ID in Advanced Shipment instead of get Booking record</description>
+    <environments>Default</environments>
+    <interviewLabel>Consol CNTR Trigger\ {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Consol CNTR Trigger | update DEM/DET/ Combined DEM DET durations</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Get TypeofTrade__c of Advanced Shipment</description>
+        <name>Get</name>
+        <label>Get Advanced Shipment</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_get_AdvancedShipment</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AdvancedShipment__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AdvancedShipment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <description>Update information on Consol CNTR</description>
+        <name>Update</name>
+        <label>Update Consol CNTR</label>
+        <locationX>506</locationX>
+        <locationY>647</locationY>
+        <inputAssignments>
+            <field>CombinedDEMDETDuration__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.CombinedDEMDETdays__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContainerCutoffTime__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.CNTRCutofftime__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ContainerFreeTime__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.CNTRFreetime__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DEMDuration__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.DEMFreeTimeDurationdays__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>DETDuration__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.DETFreeTimeDurationdays__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Vendor__c</field>
+            <value>
+                <elementReference>Get.EBookingID__r.Master_Carrier_Consolidator__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>AdvancedShipment__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>ConsolCNTR__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

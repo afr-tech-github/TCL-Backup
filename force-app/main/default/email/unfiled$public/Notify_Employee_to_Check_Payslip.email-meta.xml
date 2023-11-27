@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Notify Employee to Check Payslip</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>Notify Employee to Check Payslip</name>
+    <style>none</style>
+    <subject>ANNOUNCEMENT TO CHECK PAYSLIP</subject>
+    <textOnly>Dear {!Payslip__c.OwnerFullName},  
+
+We write this Email to inform you that you Payslip {!Payslip__c.Name} in {!Payslip__c.Salarycycle__c} of {!Payslip__c.Year__c} is now available.  
+
+Please check and response us if there is anything to concern.  
+
+Dearest Regards, TCL HR Department</textOnly>
+    <type>custom</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

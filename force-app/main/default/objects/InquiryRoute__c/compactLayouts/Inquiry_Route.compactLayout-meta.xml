@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inquiry_Route</fullName>
+    <fields>Customer__c</fields>
+    <fields>Inquiry__c</fields>
+    <fields>Route__c</fields>
+    <fields>POLAOL__c</fields>
+    <fields>PODAOD__c</fields>
+    <label>Inquiry Route</label>
+</CompactLayout>

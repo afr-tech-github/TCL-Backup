@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>ACCOUNTANT</fullName>
+        <default>false</default>
+        <label>ACCOUNTANT</label>
+    </customValue>
+    <customValue>
+        <fullName>BCI</fullName>
+        <default>false</default>
+        <label>BCI</label>
+    </customValue>
+    <customValue>
+        <fullName>BOD</fullName>
+        <default>false</default>
+        <label>BOD</label>
+    </customValue>
+    <customValue>
+        <fullName>BS</fullName>
+        <default>false</default>
+        <label>BS</label>
+    </customValue>
+    <customValue>
+        <fullName>CROSS BORDER</fullName>
+        <default>false</default>
+        <label>CROSS BORDER</label>
+    </customValue>
+    <customValue>
+        <fullName>HR - ADMIN - IT</fullName>
+        <default>false</default>
+        <label>HR - ADMIN - IT</label>
+    </customValue>
+    <customValue>
+        <fullName>OPERATION</fullName>
+        <default>false</default>
+        <label>OPERATION</label>
+    </customValue>
+    <customValue>
+        <fullName>PRICING</fullName>
+        <default>false</default>
+        <label>PRICING</label>
+    </customValue>
+    <customValue>
+        <fullName>SALES</fullName>
+        <default>false</default>
+        <label>SALES</label>
+    </customValue>
+    <masterLabel>Department</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Assign_value</name>
+        <label>Assign value</label>
+        <locationX>598</locationX>
+        <locationY>597</locationY>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Lastnumber</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.JobRequestID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>JobRequestId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Month</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MonthOfLastRecord</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Job_Request_Id</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_value_0</name>
+        <label>Assign value</label>
+        <locationX>817</locationX>
+        <locationY>596</locationY>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.JobRequestID__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>JobRequestId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_Job_Request_Id</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>CheckYearandMonth</name>
+        <label>Check Year &amp; Month</label>
+        <locationX>656</locationX>
+        <locationY>451</locationY>
+        <defaultConnector>
+            <targetReference>Assign_value_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>SameMonth</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>YearOflastRecord</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>CurrentYear</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>MonthOfLastRecord</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>CurrentMonth</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_value</targetReference>
+            </connector>
+            <label>Same Month</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>BranchFormula</name>
+        <dataType>String</dataType>
+        <expression>IF(ISPICKVAL({!$Record.Branch__c},&quot;&quot;),TEXT({!$User.Branch__c}),TEXT({!$Record.Branch__c}))</expression>
+    </formulas>
+    <formulas>
+        <name>CurrentMonth</name>
+        <dataType>String</dataType>
+        <expression>TEXT(Month({!$Flow.CurrentDate}))</expression>
+    </formulas>
+    <formulas>
+        <name>CurrentYear</name>
+        <dataType>String</dataType>
+        <expression>MID(TEXT(YEAR({!$Flow.CurrentDate})),3,2)</expression>
+    </formulas>
+    <formulas>
+        <name>JobRequestId</name>
+        <dataType>String</dataType>
+        <expression>CASE({!BranchFormula},&apos;Ha Noi&apos;,&quot;HN&quot;,
+		&apos;Hai Phong&apos;,&quot;HPH&quot;,
+		&apos;Ho Chi Minh&apos;,&quot;HCM&quot;,&quot;&quot;)
+&amp;		
+&apos;-&apos;
+&amp;
+CASE({!$Record.RecordType.DeveloperName},&apos;AirExport&apos;,&apos;AE&apos;,
+											  &apos;AirImport&apos;,&apos;AI&apos;,
+											  &apos;OceanExport&apos;,&apos;SE&apos;,
+											  &apos;OceanImport&apos;,&apos;SI&apos;,&apos;&apos;)
+&amp;
+LPAD(TEXT(MONTH({!$Flow.CurrentDate})),2,&apos;0&apos;)
+&amp;
+MID(TEXT(YEAR({!$Flow.CurrentDate})),3,2)
+&amp;
+&apos;-&apos;
+&amp;
+CASE(LEN(TEXT({!OrderNumber})),1,&apos;000&apos; + TEXT({!OrderNumber}),
+							   2,&apos;00&apos;+ TEXT({!OrderNumber}),
+                               3,&apos;0&apos;+ TEXT({!OrderNumber}),TEXT({!OrderNumber}))</expression>
+    </formulas>
+    <formulas>
+        <name>Lastnumber</name>
+        <dataType>Number</dataType>
+        <expression>VALUE(RIGHT({!Get_newest_record.JobRequestID__c}, 4))</expression>
+        <scale>2</scale>
+    </formulas>
+    <formulas>
+        <name>MonthOfLastRecord</name>
+        <dataType>String</dataType>
+        <expression>TEXT(MONTH(DATEVALUE({!Get_newest_record.CreatedDate})))</expression>
+    </formulas>
+    <formulas>
+        <name>YearOflastRecord</name>
+        <dataType>String</dataType>
+        <expression>MID(TEXT(YEAR(DATEVALUE({!Get_newest_record.CreatedDate}))),3,2)</expression>
+    </formulas>
+    <interviewLabel>F/TMS S/O | {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>F/TMS S/O | Auto populate Job Request ID when record create</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_newest_record</name>
+        <label>Get newest record</label>
+        <locationX>751</locationX>
+        <locationY>352</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CheckYearandMonth</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.RecordTypeId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Branch__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>BranchFormula</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Job_Request_Id</name>
+        <label>Update Job Request Id</label>
+        <locationX>725</locationX>
+        <locationY>794</locationY>
+        <inputAssignments>
+            <field>JobRequestID__c</field>
+            <value>
+                <elementReference>JobRequestId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>652</locationX>
+        <locationY>54</locationY>
+        <connector>
+            <targetReference>Get_newest_record</targetReference>
+        </connector>
+        <object>FTMSSO__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>Month</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OrderNumber</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>

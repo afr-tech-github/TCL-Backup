@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ApprenticeshipProcess__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Apprenticeship Process</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>Employee_Process__c.RecordType.Name</field>
+            <operation>equals</operation>
+            <value>Promotion Process</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.Employee__c</field>
+            <operation>equals</operation>
+            <valueField>Employee_Process__c.Employeename__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>Employee_Process__c</referenceTo>
+    <relationshipLabel>Payslip</relationshipLabel>
+    <relationshipName>Payslip</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

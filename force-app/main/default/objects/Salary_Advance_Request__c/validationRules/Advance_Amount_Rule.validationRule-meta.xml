@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Advance_Amount_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>AdvanceAmount__c /  (Employee__r.Salarypolicy__r.Basicsalary__c +  Employee__r.Salarypolicy__r.Productivitysalary__c ) &gt; 0.3</errorConditionFormula>
+    <errorMessage>Advance Salary cannot exceed 30% Basic Salary!</errorMessage>
+</ValidationRule>

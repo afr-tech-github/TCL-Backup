@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Warning_In_Progress_Update</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  ISCHANGED(Status__c),
+  OR(
+    AND(ISPICKVAL(PRIORVALUE(Status__c), &apos;Created&apos;), NOT(ISPICKVAL(Status__c, &apos;In Progress&apos;))),
+    AND(ISPICKVAL(PRIORVALUE(Status__c), &apos;In Progress&apos;), NOT(ISPICKVAL(Status__c, &apos;Completed&apos;)))
+  )
+)</errorConditionFormula>
+    <errorMessage>Application status must be update by the following order: Created &gt; In Progress &gt; Completed</errorMessage>
+</ValidationRule>

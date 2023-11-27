@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Advance_Day_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR (
+ day(Today()) &lt;&gt; 15,
+ day(Today())  &lt;&gt; 16,
+ day(Today()) &lt;&gt; 17)</errorConditionFormula>
+    <errorMessage>Salary Advance Request can ONLY create on day 15th, 16th or 17th of the month!</errorMessage>
+</ValidationRule>

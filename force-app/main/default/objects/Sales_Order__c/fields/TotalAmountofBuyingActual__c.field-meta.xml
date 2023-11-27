@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalAmountofBuyingActual__c</fullName>
+    <externalId>false</externalId>
+    <label>Total Amount of Buying (Actual)</label>
+    <summarizedField>Sales_Order_Line__c.TotalAmountofBuyingActual__c</summarizedField>
+    <summaryForeignKey>Sales_Order_Line__c.SO_ID__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

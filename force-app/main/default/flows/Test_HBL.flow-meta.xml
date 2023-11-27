@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <assignments>
+        <name>Add_variables</name>
+        <label>Add variables</label>
+        <locationX>316</locationX>
+        <locationY>44</locationY>
+        <assignmentItems>
+            <assignToReference>POLName</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Get.POLAOD__r.Name</elementReference>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <assignments>
+        <name>Add_variables_0</name>
+        <label>Add variables</label>
+        <locationX>278</locationX>
+        <locationY>717</locationY>
+        <assignmentItems>
+            <assignToReference>POL</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get.POLAOD__r.PortCode__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>POD</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get.PODAOA__r.PortCode__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>Get.HBLNumber__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>HBL</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CollectionSO</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>Get</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Show</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Add_variables_0_0</name>
+        <label>Add variables</label>
+        <locationX>293</locationX>
+        <locationY>514</locationY>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LastestNumber</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_variables_0</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>AssignOrderNumber_0</name>
+        <label>AssignOrderNumber</label>
+        <locationX>1337</locationX>
+        <locationY>178</locationY>
+        <assignmentItems>
+            <assignToReference>POLName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LoopThroughSO_0.POLAOD__r.Name</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>OrderNumber</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreatedDate</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>LoopThroughSO_0.CreatedDate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LoopThroughSO_0.HBLNumber__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>HBL_AirExport</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CollectionSO</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>LoopThroughSO_0</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>RemoveLastValuesAirExport</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>RemoveLastValuesAirExport</name>
+        <label>RemoveLastValuesAirExport</label>
+        <locationX>1339</locationX>
+        <locationY>339</locationY>
+        <assignmentItems>
+            <assignToReference>POLName</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CreatedDate</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>LoopThroughSO_0</targetReference>
+        </connector>
+    </assignments>
+    <collectionProcessors>
+        <name>SortIteminCollection_0</name>
+        <elementSubtype>SortCollectionProcessor</elementSubtype>
+        <label>Sort Item in Collection</label>
+        <locationX>938</locationX>
+        <locationY>182</locationY>
+        <collectionProcessorType>SortCollectionProcessor</collectionProcessorType>
+        <collectionReference>GetallAirExportRecords</collectionReference>
+        <connector>
+            <targetReference>LoopThroughSO_0</targetReference>
+        </connector>
+        <limit>50</limit>
+        <sortOptions>
+            <doesPutEmptyStringAndNullFirst>false</doesPutEmptyStringAndNullFirst>
+            <sortField>CreatedDate</sortField>
+            <sortOrder>Asc</sortOrder>
+        </sortOptions>
+    </collectionProcessors>
+    <decisions>
+        <name>Check_RecordType</name>
+        <label>Check RecordType?</label>
+        <locationX>646</locationX>
+        <locationY>253</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>OceanExport</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>OceanExport</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetLastestSO</targetReference>
+            </connector>
+            <label>Ocean Export</label>
+        </rules>
+        <rules>
+            <name>AirExport</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AirExport</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>GetallAirExportRecords</targetReference>
+            </connector>
+            <label>Air Export</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>CheckLastestHBL</name>
+        <label>Check Lastest HBL</label>
+        <locationX>258</locationX>
+        <locationY>328</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GetLastestSO</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_variables_0_0</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>HBL</name>
+        <dataType>String</dataType>
+        <expression>&quot;ASAP&quot; &amp; UPPER(RIGHT({!POL}, 3)) &amp; &quot;/&quot;&amp;  UPPER(RIGHT({!POD}, 3))
+&amp; RIGHT(&quot;0&quot; &amp; TEXT(MONTH(TODAY())), 2)
+&amp; RIGHT(TEXT(YEAR(TODAY())), 2)
+&amp; CASE(LEN(TEXT({!OrderNumber})),1,&quot;00&quot; &amp; TEXT({!OrderNumber}),
+2,&quot;0&quot; &amp; TEXT({!OrderNumber}),TEXT({!OrderNumber}))</expression>
+    </formulas>
+    <formulas>
+        <name>HBL_AirExport</name>
+        <dataType>String</dataType>
+        <expression>&quot;ASAP&quot; &amp; {!PortCode}
+&amp; RIGHT(&quot;0&quot; &amp; TEXT(MONTH({!CreatedDate})), 2)
+&amp; RIGHT(TEXT(YEAR({!CreatedDate})), 2)
+&amp; CASE(LEN(TEXT({!OrderNumber})),1,&quot;0&quot; &amp; TEXT({!OrderNumber}),TEXT({!OrderNumber}))</expression>
+    </formulas>
+    <formulas>
+        <name>LastestNumber</name>
+        <dataType>Number</dataType>
+        <expression>VALUE(RIGHT({!GetLastestSO.HBLNumber__c},3))</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>PortCode</name>
+        <dataType>String</dataType>
+        <expression>IF(
+   CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HANOI&quot;) || CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HN&quot;) || CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HÀNỘI&quot;) || CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HÀNOI&quot;) || CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HANÔI&quot;) || CONTAINS(
+      UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+      &quot;HANỘI&quot;),
+   &quot;HN&quot;,
+   IF(
+      CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;SAIGON&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;HOCHIMINH&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;SG&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;HỒCHÍMINH&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;SÀIGÒN&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;HOCHÍMINH&quot;) || CONTAINS(
+         UPPER(TRIM(SUBSTITUTE({!POLName}, &quot; &quot;, &quot;&quot;))),
+         &quot;HÔCHIMINH&quot;),
+      &quot;SG&quot;,
+      &quot;&quot;
+   )
+)</expression>
+    </formulas>
+    <formulas>
+        <name>ValidCreatedDate</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT(YEAR(DATEVALUE({!Get.CreatedDate}))) &amp;&quot;-&quot;&amp; TEXT(MONTH(DATEVALUE({!Get.CreatedDate})))&amp;&quot;-&quot;&amp; &quot;01&quot; &amp; &quot; 00:00:00&quot;) - (7/24)</expression>
+    </formulas>
+    <formulas>
+        <name>ValidEndDate</name>
+        <dataType>DateTime</dataType>
+        <expression>IF(
+   MONTH(DATEVALUE({!ValidCreatedDate})) = 12,
+   DATETIMEVALUE(TEXT(YEAR(DATEVALUE({!ValidCreatedDate}))) &amp; &quot;-12-31 23:59:59&quot;) - (7/24),
+   DATETIMEVALUE(TEXT(YEAR(DATEVALUE({!ValidCreatedDate}))) &amp; &quot;-&quot; &amp; TEXT(MONTH(DATEVALUE({!ValidCreatedDate})) + 1) &amp; &quot;-01 00:00:00&quot;) - (7/24) - (1 / (24 * 60 * 60))
+)</expression>
+    </formulas>
+    <formulas>
+        <name>ValidEndDate2</name>
+        <dataType>DateTime</dataType>
+        <expression>DATETIMEVALUE(TEXT(YEAR(DATEVALUE({!Get.CreatedDate}))) &amp;&quot;-&quot;&amp; TEXT({!LastestNumber}) &amp;&quot;-&quot;&amp; &quot;01&quot; &amp; &quot; 23:59:59&quot;) - (7/24) - 1</expression>
+    </formulas>
+    <interviewLabel>Test| HBL {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Test| HBL</label>
+    <loops>
+        <name>LoopThroughSO_0</name>
+        <label>LoopThroughSO</label>
+        <locationX>1124</locationX>
+        <locationY>257</locationY>
+        <collectionReference>GetallAirExportRecords</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>AssignOrderNumber_0</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Show</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get</name>
+        <label>Get SO</label>
+        <locationX>556</locationX>
+        <locationY>55</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_RecordType</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetallAirExportRecords</name>
+        <label>Get all Air Export Records</label>
+        <locationX>798</locationX>
+        <locationY>182</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>SortIteminCollection_0</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get.RecordType.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>Get.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>GreaterThanOrEqualTo</operator>
+            <value>
+                <elementReference>ValidCreatedDate</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>LessThanOrEqualTo</operator>
+            <value>
+                <elementReference>ValidEndDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GetLastestSO</name>
+        <label>Get Lastest S/O</label>
+        <locationX>482</locationX>
+        <locationY>249</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>CheckLastestHBL</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>RecordTypeId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get.RecordTypeId</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Id</field>
+            <operator>NotEqualTo</operator>
+            <value>
+                <elementReference>Get.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>CreatedDate</field>
+            <operator>LessThan</operator>
+            <value>
+                <elementReference>Get.CreatedDate</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <screens>
+        <name>Show</name>
+        <label>Show</label>
+        <locationX>848</locationX>
+        <locationY>847</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>HBLEXport</name>
+            <fieldText>&lt;p&gt;{!GetLastestSO.HBLNumber__c}{!ValidEndDate2}&lt;/p&gt;&lt;p&gt;{!HBL}&lt;/p&gt;&lt;p&gt;{!ValidCreatedDate}&lt;/p&gt;&lt;p&gt;{!PortCode}&lt;/p&gt;&lt;p&gt;{!LastestNumber}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>LIST</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>FTMSSO__c</typeValue>
+            </dataTypeMappings>
+            <extensionName>flowruntime:datatable</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>label</name>
+                <value>
+                    <stringValue>Data Table</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>selectionMode</name>
+                <value>
+                    <stringValue>NO_SELECTION</stringValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>minRowSelection</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>tableData</name>
+                <value>
+                    <elementReference>CollectionSO</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>maxRowSelection</name>
+                <value>
+                    <numberValue>0.0</numberValue>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>columns</name>
+                <value>
+                    <stringValue>[{&quot;apiName&quot;:&quot;Name&quot;,&quot;guid&quot;:&quot;column-20ef&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:0,&quot;label&quot;:&quot;F/TMS S/O ID&quot;,&quot;type&quot;:&quot;text&quot;},{&quot;apiName&quot;:&quot;CreatedDate&quot;,&quot;guid&quot;:&quot;column-474f&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:1,&quot;label&quot;:&quot;Created Date&quot;,&quot;type&quot;:&quot;customDateTime&quot;},{&quot;apiName&quot;:&quot;HBLNumber__c&quot;,&quot;guid&quot;:&quot;column-7c7d&quot;,&quot;editable&quot;:false,&quot;hasCustomHeaderLabel&quot;:false,&quot;customHeaderLabel&quot;:&quot;&quot;,&quot;wrapText&quot;:true,&quot;order&quot;:2,&quot;label&quot;:&quot;H B/L Number&quot;,&quot;type&quot;:&quot;text&quot;}]</stringValue>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <start>
+        <locationX>769</locationX>
+        <locationY>12</locationY>
+        <connector>
+            <targetReference>Get</targetReference>
+        </connector>
+    </start>
+    <status>Draft</status>
+    <variables>
+        <name>CollectionSO</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>FTMSSO__c</objectType>
+    </variables>
+    <variables>
+        <name>CreatedDate</name>
+        <dataType>Date</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>OrderNumber</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+    <variables>
+        <name>POD</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>POL</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>POLName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

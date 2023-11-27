@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Inventory_Lock__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>BAO NK: one Product transfer record can update Inventory only ONCE</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Inventory already updated!</inlineHelpText>
+    <label>Inventory Lock</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

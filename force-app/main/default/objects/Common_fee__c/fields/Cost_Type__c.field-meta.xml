@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Type__c</fullName>
+    <externalId>false</externalId>
+    <label>Cost Type</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Admin cost</fullName>
+                <default>false</default>
+                <label>Admin cost</label>
+            </value>
+            <value>
+                <fullName>HR cost</fullName>
+                <default>false</default>
+                <label>HR cost</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

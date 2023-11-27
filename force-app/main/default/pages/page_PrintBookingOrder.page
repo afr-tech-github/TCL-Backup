@@ -1,0 +1,361 @@
+<apex:page controller="PrintBookingOrderController" contentType="text/html" sidebar="false" applyBodyTag="false" cache="true" showHeader="false"
+    docType="html-5.0">
+    
+
+    <head>
+        <style type="text/css">
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+           
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            @page {
+                margin: 13mm 10mm 13mm 10mm;
+                size:  A4;   /* auto is the initial value */
+                font-family: Arial Unicode MS;
+            }
+            table td {
+                line-height: 15px;
+                padding: 3px;
+                font-family: Arial Unicode MS;
+                vertical-align: center;
+                overflow-wrap: break-word;
+            }
+            table th {
+                padding: 3px;
+                line-height: 15px;
+                font-family: Arial Unicode MS;
+                overflow-wrap: break-word;
+            }
+            table th {
+                text-align: center;
+                font-family: Arial Unicode MS;
+            }
+            table tr {
+                min-height: 24px;
+                font-family: Arial Unicode MS;
+                border-top : 1px solid  black;
+            }
+           
+        </style>
+       
+    </head>
+
+    <body>
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to move</div>
+            
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">Generate PDF</a>
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.history.back()">Cancel</a>
+        </div>
+                
+                
+        <table style="width:100%; border:1px solid  black;border-collapse: collapse; font-size: 13px">
+            <col width="13%" />
+            <col width="9%" />
+            <col width="13%" />
+            <col width="28%" />
+            <col width="17%" />
+            <col width="10%" />
+            <col width="10%" />
+        
+            <tr style="height: 75px">
+                <td colspan="3">
+                    <img align="left" src="https://tcl-02-dev-ed.develop.file.force.com/file-asset/logo22?v=1" width="125px" height="auto" />
+                </td>
+                <td colspan="4" style="text-align:left;font-weight:bold; font-size:21px;" >
+                    <apex:outputText value="TIMES CARGO LOGISTIC CO.,LTD" />
+                </td>
+            </tr>    
+            <tr>
+                <td colspan="7" style="text-align: center;font-weight:bold; border-top:1px solid  black; font-size:21px; height:40px;" >
+                    <apex:outputText value="BOOKING ORDER" />
+                </td>
+            </tr>
+            <tr style="border-top:1px solid  black;">
+                <td colspan="2" style="font-weight:bold;" >
+                    <apex:outputText value="BOOKING DATE:" />
+                </td>
+                <td colspan="1" style="font-weight:bold;text-align:right" >
+                    <apex:outputText value="{0,date, dd'-'MMM'-'yyyy}">
+                                <apex:param value="{!shipment.Date_of_issue__c}"/>
+                    </apex:outputText>
+                </td>
+                <td colspan="1"></td>
+                <td colspan="3" style="text-align:left" >
+                    <apex:outputText value="From: TCL" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="4" style="border-left : 1px solid  black;">
+                    <apex:outputText value=" BOOKING NO: {!shipment.HouseBookingNo__c}" style="font-weight:bold" />
+                </td>
+            </tr>
+            <tr style="border-top : none;">
+                <td colspan="3" style="vertical-align:top">
+                    <br/>
+                    <apex:outputText value="Shipper: {!shipment.Shippernamefor__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="4" style="border-left : 1px solid  black;font-weight:bold">
+                    <apex:outputText value=" Địa điểm xếp hàng: {!shipment.POLAOD__r.Name}" />
+                    <br/>
+                    <apex:outputText value="Địa điểm đích cho vận chuyển bảo thuế: {!shipment.PlaceofReceipt__r.CodeofWarehouse__c} - {!PlaceofReceipt}"  />
+                    <br/>
+                    <apex:outputText value="Mã địa điểm xếp hàng: {!shipment.POLAOD__r.Standard_Port_Code__c}" />
+                </td>
+            </tr>
+            <tr style="border-top : none;height:70px">
+                <td colspan="3" style="vertical-align:center; border-top :1px solid  black;">
+                    <apex:outputText value="CNEE: {!shipment.Consigneename__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="4" style="border-left : 1px solid  black;font-weight:bold; vertical-align:top ">
+                    <apex:outputText value="Mã hiệu phương thức vận chuyển: {!shipment.CodeOfTransportationWay__c}" />
+                </td>
+            </tr>
+            <tr style="border-top : none; font-size: 11px">
+                <td colspan="3" style="vertical-align:center; border-top :1px solid  black;">
+                    <apex:outputText value="Container number (Số cont):	{!shipment.ContainerNo__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" rowspan="2" 
+                    style="border-left : 1px solid  black;font-weight:bold;  border-top :1px solid  black; text-align:center; font-size:15px ">
+                    <apex:outputText value="ETD: {0,date, dd'-'MMM'-'yyyy}">
+                        <apex:param value="{!shipment.ETD__c}"/>
+                    </apex:outputText>
+                </td>
+                <td colspan="3" style="border-left : 1px solid  black;font-weight:bold;  border-top :1px solid  black; ">
+                    <apex:outputText value="Closing time SI:" />
+                    <apex:outputText value="{0,time, hh:mm} dated {0,date, dd'/'MM'/'yyyy}" rendered="{!shipment.CargoClosingTime__c != null}">
+                        <apex:param value="{!shipment.CargoClosingTime__c}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr style="border-top : none; font-size: 11px">
+                <td colspan="3" style="vertical-align:center; border-top :1px solid  black"></td>
+                <td colspan="3" style="border-left : 1px solid  black;font-weight:bold;border-top :1px solid  black; ">
+                    <apex:outputText value="Closing time Warehouse:" />
+                    <apex:outputText value="{0,time, hh:mm} dated {0,date, dd'/'MM'/'yyyy}" rendered="{!shipment.WarehouseClosingTime__c != null}">
+                        <apex:param value="{!shipment.WarehouseClosingTime__c}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr style="border-top :1px solid  black">
+                <td style="border-left : 1px solid  black;"></td>
+                <td style="border-left : 1px solid  black;"></td>
+                <td style="border-left : 1px solid  black;"></td>
+                <td style="border-left : 1px solid  black; text-align:left">
+                    <apex:outputText value="PORT OF DISCHARGE: " style="font-weight:bold;" />
+                </td>
+                <td colspan="3" style="text-align:center">
+                    <apex:outputText value="{!shipment.PODAOA__r.Name}, {!shipment.PODAOA__r.CountryCode__c}" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :1px solid  black">
+                <td colspan="3" style="border-left : 1px solid  black; text-align:left">
+                    <apex:outputText value="PLACE OF RECEIVING CARGO " style="font-weight:bold;" />
+                </td>
+                <td style="border-left : 1px solid  black; text-align:left">
+                    <apex:outputText value="PORT OF DELIVERY:  " style="font-weight:bold;" />
+                </td>
+                <td colspan="3" style="text-align:center">
+                    <apex:outputText value="{!shipment.PlaceofDelivery__r.Name}, {!shipment.PlaceofDelivery__r.CountryCode__c}" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :1px solid  black; height:70px">
+                <td colspan="3" style="border-left : 1px solid  black; text-align:center">
+                    <apex:outputText value="{!shipment.PlaceofReceipt__r.Name}" style="font-weight:bold;" />
+                </td>
+                <td colspan="4" style="text-align:left; border-left : 1px solid  black;vertical-align:top">
+                    <apex:outputText value="For stuffing cargo pls contact: (Để đóng hàng xin liên hệ)" style="font-weight:bold;" />
+                    <br/>
+                    &#x2612; <apex:outputText value=" Hotline PH: 0938.597.560" style="font-weight:bold;" />
+
+                </td>
+            </tr>
+            <tr style="border-top :1px solid  black;">
+                <td colspan="3" rowspan="6" style="border-left : 1px solid  black; text-align:center">
+                    <apex:outputText value="VESSEL: {!shipment.VesselName__c} {!shipment.Voyage__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;vertical-align:top">
+                    <apex:outputText value="Quantity" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;vertical-align:top">
+                    <apex:outputText value="Dimension" style="font-weight:bold;" />
+                </td>
+                <td colspan="2" style="text-align:center; border-left : 1px solid  black;vertical-align:top">
+                    <apex:outputText value="Volume (Thể tích)" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :none;text-align:center;">
+                <td colspan="1" style=" border-left : 1px solid  black;vertical-align:top;border-top :none">
+                    <apex:outputText value="(Số lượng)" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="border-left : 1px solid  black;vertical-align:top;border-top :none">
+                    <apex:outputText value="(Kích thước)" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" rowspan="2" style="border-left : 1px solid  black;border-top :1px solid  black;vertical-align:center">
+                    <apex:outputText value="{!shipment.MeasurementTotalCBM__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" rowspan="2" style="border-left : 1px solid  black;border-top :1px solid  black;vertical-align:center">
+                    <apex:outputText value="CBM" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :none;height:20px">
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;vertical-align:top;border-top :1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;vertical-align:top;border-top :1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :none; text-align:center;height:20px">
+                <td colspan="1" style=" border-left : 1px solid  black;vertical-align:top;border-top :none;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style=" border-left : 1px solid  black;vertical-align:top;border-top :none;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" rowspan="2" style="border-left : 1px solid  black;border-top :1px solid  black;vertical-align:center">
+                    <apex:outputText value="{!shipment.GrossWeight__c}" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" rowspan="2" style="border-left : 1px solid  black;border-top :1px solid  black;vertical-align:center">
+                    <apex:outputText value="KGS" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :none;height:15px">
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;font-weight:bold">
+                    <apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.CargoUnit__c}" rendered="{!shipment.CargoQuantity__c == 1}" /> 
+                    <apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.Plural_Cargo_Unit__c}" rendered="{!shipment.CargoQuantity__c > 1}"/>
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;">
+                    <apex:outputText value="{!shipment.Dimension__c}" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :none;height:45px">
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center; border-left : 1px solid  black;border-top :1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+                <td colspan="1" style="text-align:center;border-top :1px solid  black;">
+                    <apex:outputText value="" style="font-weight:bold;" />
+                </td>
+            </tr>
+            <tr style="border-top :1px solid  black;">
+                <td colspan="1">
+                    <apex:outputText value="Lưu ý:" style="font-weight:bold; font-style:italic; text-decoration:underline;font-size:15px" />
+                </td>
+                <td colspan="6">
+                    <apex:outputText value="* THÔNG BÁO THỜI GIAN RA HÀNG TRƯỚC 1 NGÀY" />
+                </td>
+            </tr>
+            <tr style="border-top :none">
+                <td colspan="1">
+                </td>
+                <td colspan="6">
+                    <apex:outputText value="* 5 days free storage fee at warehouse." />
+                </td>
+            </tr>
+            <tr style="border-top :none; height:80px">
+                <td colspan="1">
+                </td>
+                <td colspan="6" style="vertical-align:top">
+                    <apex:outputText value="* Địa chỉ kho Phú Hữu : Khu phố 4, Phường Phú Hữu, Quận 9, TP.HCM, Việt Nam."  />
+                </td>
+            </tr>
+            <tr style="border-top:none; text-align:center">
+                <td colspan="7">
+                    <apex:outputText value="THANK YOU VERY MUCH FOR YOUR COOPERATION"  style="font-weight:bold; font-style:italic; font-size:20px; " />
+                </td>
+            </tr>
+            <tr style="border-top:none; height:15px">
+                <td colspan="7">
+                </td>
+            </tr>
+        </table>
+        	
+
+        
+    </body>
+    <script>
+    	
+        dragElement(document.getElementById("mydiv"));
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</apex:page>

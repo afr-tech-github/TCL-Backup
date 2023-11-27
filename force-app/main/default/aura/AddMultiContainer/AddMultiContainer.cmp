@@ -1,0 +1,162 @@
+<aura:component
+  controller="AddMultipleContainerController"
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global"
+>
+  <aura:attribute name="contList" type="ConsolCNTR__c[]" />
+  <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+  <aura:attribute name="cargoUnitList" type="List" default="[]" description="Cargo Unit Picklist Values"/>
+
+  <aura:html tag="style">
+    .cuf-content { padding: 0 0rem !important; } .slds-p-around--medium {
+    padding: 0rem !important; } .slds-modal__content{ height:unset !important;
+    max-height:unset !important; } .slds-modal__container{ max-width:95rem
+    !important; width:100% !important; }
+  </aura:html>
+
+  <lightning:spinner aura:id="spinner" class="slds-hide" />
+  <aura:iteration items="{!v.contList}" var="cont" indexVar="index">
+            <lightning:recordEditForm
+              class="iteration"
+              aura:id="recordEditForm"
+              objectApiName="ConsolCNTR__c"
+            >
+          <table style="margin: 4px 0;">
+             <thead>
+              <tr>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Container Number</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Seal No</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Container type</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Cargo Quantity</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Cargo Unit</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Gross Weight (Kg)</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Net Weight (Kg)</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Measurement (CBM)</div>
+                </th>
+                <th style="{!IF(index != 0,'height: 0;','')}">
+                  <div style="{!IF(index != 0,'visibility: hidden; height: 0;','')}">Action</div>
+                </th>
+              </tr>
+             </thead>
+             <tbody>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    aura:id="field"
+                    variant="label-hidden"
+                    fieldName="Container_Number__c"
+                    value="{!cont.Container_Number__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    aura:id="field"
+                    variant="label-hidden"
+                    fieldName="Seal_Number__c"
+                    value="{!cont.Seal_Number__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;">
+                <lightning:inputField
+                    aura:id="field"
+                    variant="label-hidden"
+                    fieldName="Container_Type__c"
+                    value="{!cont.Container_Type__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;">
+                  <lightning:inputField
+                    style="text-align: center;"
+                    variant="label-hidden"
+                    fieldName="Cargo_Quantity__c"
+                    value="{!cont.Cargo_Quantity__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    variant="label-hidden" 
+                    fieldName="Cargo_Unit__c"
+                    value="{!cont.Cargo_Unit__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    variant="label-hidden" 
+                    fieldName="Gross_WeightKg__c"
+                    value="{!cont.Gross_WeightKg__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    variant="label-hidden" 
+                    fieldName="Net_WeightKg__c"
+                    value="{!cont.Net_WeightKg__c}"
+                  />
+              </td>
+              <td style="padding: 0 4px;" >
+                <lightning:inputField
+                    variant="label-hidden" 
+                    fieldName="MeasurementCBM__c"
+                    value="{!cont.MeasurementCBM__c}"
+                  />
+              </td>
+              <!-- <td  style="padding: 0 4px;">
+                <lightning:select variant="label-hidden" name="mySelect" aura:id="mySelect" value="{!cont.Cargo_Unit__c}">
+                    <aura:iteration items="{!v.cargoUnitList}" var="item">
+                        <option text="{!item.label}" value="{!item.value}"/>
+                    </aura:iteration>
+                </lightning:select>
+              </td> -->
+              <td style="padding: 0 4px;" >
+                <div>
+                  <a
+                      onclick="{!c.removeRecord}"
+                      data-record="{!index}"
+                    >
+                      <lightning:icon
+                        iconName="utility:delete"
+                        size="small"
+                        alternativeText="Delete"
+                      />
+                      <span class="slds-assistive-text">Delete</span>
+                    </a>
+                </div>
+              </td>
+             </tbody>
+          </table>
+        </lightning:recordEditForm>
+      </aura:iteration>  
+
+          <div
+            class="slds-align_absolute-center slds-p-top_small"
+            style="padding-top: 50px"
+          >
+            <lightning:button
+              variant="brand"
+              label="Add"
+              title="Brand action"
+              onclick="{!c.addRow}"
+            />
+            <lightning:button
+              variant="brand"
+              label="Submit"
+              title="Brand action"
+              onclick="{!c.saveConts}"
+
+            />
+          </div>
+</aura:component>

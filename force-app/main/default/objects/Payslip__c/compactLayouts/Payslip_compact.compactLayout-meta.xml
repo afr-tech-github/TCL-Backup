@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Payslip_compact</fullName>
+    <fields>Employee__c</fields>
+    <fields>Branch__c</fields>
+    <fields>Salarycycle__c</fields>
+    <fields>Year__c</fields>
+    <label>Payslip compact</label>
+</CompactLayout>

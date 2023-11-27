@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Check_Blank</name>
+        <label>Check Blank</label>
+        <locationX>386</locationX>
+        <locationY>400</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Not_Blank</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.ChargeQuantity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_record</targetReference>
+            </connector>
+            <label>Not Blank</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>ChargeQuantity</name>
+        <dataType>Number</dataType>
+        <expression>CASE({!$Record.ChargeUnit__c},
+        &apos;Bill&apos;,1,
+		&apos;B/L&apos;,1,
+        &apos;Shipment&apos;,1,
+        &apos;Set&apos;,1, 
+        &apos;CBM&apos;,{!ChargeUnitCBM},
+        &apos;Kg&apos;, {!ChargeUnitKg},NULL
+    )</expression>
+        <scale>3</scale>
+    </formulas>
+    <formulas>
+        <name>ChargeUnitCBM</name>
+        <dataType>Number</dataType>
+        <expression>	IF(
+	AND(({!Get_F_TMS_S_O.MeasurementTotalCBM__c}*1000)&gt;{!Get_F_TMS_S_O.GrossWeight__c},
+		OR(
+		{!Get_F_TMS_S_O.RecordType.DeveloperName} = &apos;OceanExport&apos;,
+		{!Get_F_TMS_S_O.RecordType.DeveloperName} =&apos;OceanImport&apos;
+		)),
+	IF({!Get_F_TMS_S_O.MeasurementTotalCBM__c}&lt;1,1,{!Get_F_TMS_S_O.MeasurementTotalCBM__c}),
+	IF({!Get_F_TMS_S_O.GrossWeight__c}/1000&lt;1,1,{!Get_F_TMS_S_O.GrossWeight__c}/1000))</expression>
+        <scale>4</scale>
+    </formulas>
+    <formulas>
+        <name>ChargeUnitKg</name>
+        <dataType>Number</dataType>
+        <expression>IF(
+	AND(
+	{!Get_F_TMS_S_O.GrossWeight__c}&gt;{!Get_F_TMS_S_O.ChargeableWeight__c},
+		OR(
+			{!Get_F_TMS_S_O.RecordType.DeveloperName} = &apos;AirExport&apos;,
+			{!Get_F_TMS_S_O.RecordType.DeveloperName} =&apos;AirImport&apos;
+			)),
+{!Get_F_TMS_S_O.GrossWeight__c},{!Get_F_TMS_S_O.ChargeableWeight__c})</expression>
+        <scale>4</scale>
+    </formulas>
+    <interviewLabel>F/TMS Bill | {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>F/TMS Bill | Update charge Unit in record F/TMS Bill when created</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_F_TMS_S_O</name>
+        <label>Get F/TMS S/O</label>
+        <locationX>697</locationX>
+        <locationY>346</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Check_Blank</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.FTMSSO__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_record</name>
+        <label>Update record</label>
+        <locationX>769</locationX>
+        <locationY>551</locationY>
+        <inputAssignments>
+            <field>ChargeQuantity__c</field>
+            <value>
+                <elementReference>ChargeQuantity</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>47</locationY>
+        <connector>
+            <targetReference>Get_F_TMS_S_O</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>B/L</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Bill</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>CBM</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Set</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Shipment</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Kg</stringValue>
+            </value>
+        </filters>
+        <object>FTMSBill__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

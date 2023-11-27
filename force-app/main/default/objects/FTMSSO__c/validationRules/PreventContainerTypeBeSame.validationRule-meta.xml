@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventContainerTypeBeSame</fullName>
+    <active>true</active>
+    <errorConditionFormula>NOT(
+OR(
+isblank( text(ContainerType1__c )) &amp;&amp; isblank( text( ContainerType2__c )) ,
+
+isblank( text( ContainerType2__c )) &amp;&amp; isblank( text( ContainerType3__c )) ,
+
+isblank( text( ContainerType3__c )) &amp;&amp; isblank( text(ContainerType1__c ))
+))
+&amp;&amp; 
+(  
+OR(
+text(ContainerType1__c) == text(ContainerType2__c ),
+text(ContainerType1__c) == text(ContainerType3__c ),
+text(ContainerType3__c) == text(ContainerType2__c )
+) 
+)</errorConditionFormula>
+    <errorMessage>Container Type must be different!</errorMessage>
+</ValidationRule>

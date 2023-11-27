@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Active1__c</columns>
+    <columns>ExchangeRateType__c</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <columns>ExchangeCurrencyFrom1__c</columns>
+    <columns>BuyingFxRatetoUSD__c</columns>
+    <columns>BuyingFxRatetoVND__c</columns>
+    <columns>SellingFxRatetoUSD__c</columns>
+    <columns>SellingFxRatetoVND__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

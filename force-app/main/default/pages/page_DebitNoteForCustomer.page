@@ -1,0 +1,721 @@
+<apex:page controller="DebitNoteForCustomerController" contentType="text/html" sidebar="false" applyBodyTag="false" cache="true" showHeader="true"
+docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    </html>
+    <head>
+        <style type="text/css">
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            @page {
+                margin-left: 10px;
+                margin-right: 10px;
+                size:  auto;   /* auto is the initial value */
+                margin: 0mm;   /* this affects the margin in the printer settings */
+            }
+            body {
+                /* font-size: 12px; */
+                font-size: 13px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                /* font-family: "Calibri", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+                margin: 10mm 10mm 10mm 10mm !important; /* margin you want for the content */
+            }
+            .fontBold { 
+                font-weight: bold;
+            }
+            table td {
+                line-height: 15px;
+                padding: 3px;
+                font-size: 13px;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            table th {
+                padding: 3px;
+                line-height: 15px;
+            }
+            table th {
+                text-align: center;
+                font-size: 13px;
+            }
+            table tr {
+                min-height: 25px;
+            }
+            .report-header {
+                width: 100%;
+                display: flex;
+            }
+            .logo-company {
+                float: left;
+                width: 50%;
+                padding-left: 20px;
+            }
+            .info-company {
+                float: left;
+                margin-left:60px;
+                text-align:left;
+            }
+            .name-company {
+                font-weight: bolder;
+                font-size: 16px;
+                white-space: nowrap;
+            }
+            .address-company {
+                font-size: 16px;
+                white-space: nowrap;
+            }
+            .infor-company {
+                font-size: 16px;
+                white-space: nowrap;
+            }
+            .report-tittle {
+                font-size: 24px;
+                /* padding-left: -100px; */
+                padding-top: 5px;
+                clear: both;
+                font-weight: bold;
+                text-align: center;
+            }
+            
+        </style>
+                 <script type="text/javascript">
+
+                    window.onload = function () {
+                        window.print();
+                        return false;
+                    }
+                </script>
+    </head>
+    <body>
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to move</div>
+            
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">PRINT</a>
+        </div>
+        <div class="report-header">
+            <div style="width: 40%"> 
+                <img align="middle" src="{!$Setup.SiteCustomSettings__c.Logo_URL__c}" width="80%" height="auto" />
+            </div>
+            <div style="padding-top: 30px;">
+                <div class="name-company">
+                    <strong>{!Company.Name}</strong>
+                </div>
+                <div>
+                    <apex:outputText value="{!Company.Address__c}"/>
+                </div>
+                <div>
+                    <apex:outputText value="Tel: {!Company.Tel__c}"/>
+                    <br/>
+                    <apex:outputText value="Fax: {!Company.Fax__c}"/>
+                </div>
+                <div>
+                    Website: asapfreight.vn
+                </div>
+                <br/>          
+            </div>
+        </div>
+        <div style="border-top: 1.5px solid black; border-bottom: 1.5px solid black; width: 100%; height: 1.5px;"></div>
+        <br/>
+        <!-- Shipment Information -->
+        <div>
+            <table style="border: none;">
+                <col width="7%"/>
+                <col width="63%"/>
+                <col width="5%"/>
+                <col width="25%"/>
+                <tr>
+                    <td style="vertical-align: top;">
+                        <apex:outputText value="To: "/>
+                    </td>
+                    <td style="font-size: 13px;">
+                        <b><apex:outputText value="{!bill.InvoiceTo__r.Name}"/></b>
+                    </td>
+                    <td style="text-align: right; vertical-align: top;">
+                        <apex:outputText value="Invoice#:"/>
+                    </td>
+                    <td style="font-size: 13px; vertical-align: top;">
+                        <apex:outputText value="{!outboundVATInvNo}"/>
+                        <!-- <apex:outputText value="{!shipment.Date_of_issue__c}"/> -->
+                        <!-- <apex:outputText value="{0, date, dd'/'MM'/'yyyy}">
+                            <apex:param value="{!shipment.Date_of_issue__c}"/>
+                        </apex:outputText> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td rowspan="2" style="vertical-align: top;">
+                        <apex:outputText value="Address:"/>
+                    </td>
+                    <td rowspan="2" style="font-size: 13px; vertical-align: top;">
+                        <!-- <apex:outputText value="{!bill.InvoiceTo__r.Name}"/> -->
+                        <apex:outputText escape="false" style="white-space: pre-line" value="{!bill.InvoiceTo__r.EnglishAddress__c}"/>
+                    </td>
+                    <td style="text-align: right;">
+                        <apex:outputText value="Ref:"/>
+                    </td>
+                    <td style="font-size: 13px;">
+                        <apex:outputText value="{!shipment.JobRequestID__c}"/>
+                        <!-- <apex:outputText value="{0, date, dd'/'MM'/'yyyy}">
+                            <apex:param value="{!shipment.ETD__c}"/>
+                        </apex:outputText> -->
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: right;">
+                        <apex:outputText value="Date:"/>
+                    </td>
+                    <td style="font-size: 13px;">
+                        <apex:outputText value="{0,date,dd-MMM-yyyy}">
+                                    <apex:param value="{!today()}"/>
+                            </apex:outputText>
+                        <!-- <apex:outputText value="{0, date, dd-Mmm-yyyy}">
+                        
+                        </apex:outputText> -->
+                        <!-- <apex:outputText value="{!shipment.HBLNumber__c}"/> -->
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="report-tittle">
+            <span class="report-tittle-underline"><strong>DEBIT NOTE</strong></span>
+        </div>
+        <br/>
+        <br/>
+        <table style="width:100%;">
+            <col width="15%"/>
+            <col width="35%"/>
+            <col width="15%"/>
+            <col width="35%"/>
+            <tr>
+                <td>Vessel / Voy</td>
+                <td>:&nbsp;<apex:outputText value="{!shipment.VesselFlight__c} / {!shipment.Voyage__c}"/></td>
+                <td>ETD/ ETA</td>
+                <td>
+                    :
+                    <apex:outputText value="{0, date, dd-MMM-yyyy}">
+                        <apex:param value="{!shipment.ETD__c}"/>
+                    </apex:outputText>
+                    <apex:outputText value="/ {0, date, dd-MMM-yyyy}">
+                        <apex:param value="{!shipment.ETA__c}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+            <tr>
+                <td>Origin</td>
+                <td>:&nbsp;<apex:outputText style="text-transform: uppercase;" value="{!shipment.POLAODsDetailInformation__c}"/></td>
+                <td>Dest.</td>
+                <td>:&nbsp;<apex:outputText style="text-transform: uppercase;" value="{!shipment.PODAOAsDetailInformation__c}"/></td>
+            </tr>
+            <tr>
+                <td>H.B/L No.</td>
+                <td>
+                    :&nbsp;
+                    <apex:outputText value="{!shipment.HBLNumber__c}" rendered="{!shipment.RecordType.Name == 'Ocean Export' || shipment.RecordType.Name == 'Ocean Import'}"/>
+                    <apex:outputText value="{!shipment.HAWBNumber__c}" rendered="{!shipment.RecordType.Name == 'Air Export' || shipment.RecordType.Name == 'Air Import'}"/>
+                </td>
+                <td>M.B/L No.</td>
+                <td>:&nbsp;
+                    <apex:outputText value="{!shipment.MBLNumber__c}" rendered="{!shipment.RecordType.Name == 'Ocean Export' || shipment.RecordType.Name == 'Ocean Import'}"/>
+                    <apex:outputText value="{!shipment.MAWBNumber__c}" rendered="{!shipment.RecordType.Name == 'Air Export' || shipment.RecordType.Name == 'Air Import'}"/>
+                </td>
+            </tr>
+            <tr>
+                <td>G.W</td>
+                <td>:&nbsp;<apex:outputText value="{!shipment.GrossWeight__c} KGS"/></td>
+                <td>Means.</td>
+                <td>:&nbsp;<apex:outputText value="{!shipment.MeasurementTotalCBM__c} CBM"/></td>
+            </tr>
+            <tr>
+                <td>Container No.</td>
+                <td>:&nbsp;<apex:outputText value="{!Container.Container_Number__c}/ {!Container.Seal_Number__c}/ {!Container.Container_Type__c}"/></td>
+                <td>Packages</td>
+                <td>:&nbsp;<apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.Plural_Cargo_Unit__c}"/></td>
+            </tr>
+        </table>
+        <br/>
+        <!-- Bill Information -->
+        <div>
+            <table border="1" style="border-collapse: collapse; border: 1.1px solid black; width: 100%">
+                <tr style="background-color: #95B3D7">
+                    <td colspan="11" style="border-bottom: 1.1px solid black;font-weight: bold;">
+                        <apex:outputText value="PART I: ASAP ISSUES INVOICE"/>
+                    </td>
+                </tr>
+                <tr style="background-color: #ffff73">
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="No."/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Description"/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Q'ty"/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Unit"/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Unit Price"/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Curr."/>
+                    </td>
+                    <td rowspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="VAT %"/>
+                    </td>                   
+                    <td colspan="2" style="text-align: center;border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="VAT"/>
+                    </td>
+                    <td colspan="2" style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Amount (Ex VAT)"/>
+                    </td>
+                </tr>
+                <tr style="background-color: #ffff73">
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="USD"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="VND"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="USD"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="VND"/></td>
+                    <!-- <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="RATE"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="USD"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="VND"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="USD"/></td>
+                    <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;font-weight: bold;text-align: center;"><apex:outputText value="VND"/></td> -->
+                </tr>
+                <apex:variable value="{!0}" var="co"/>
+                <apex:repeat value="{!lstBill}" var="item">
+                    <apex:variable value="{!co+1}" var="co"/>
+                    <tr style="font-size: 13px;">
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: center;">
+                            <apex:outputText value="{!co}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: left;">
+                            <apex:outputText value="{!item.BillNameatPrintENG__c}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <apex:outputText value="{!item.ChargeQuantity__c}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: center;">
+                            <apex:outputText value="{!item.ChargeUnit__c}"/>
+                            <apex:outputText style="padding-left: 3px;" value=" {!item.ContainerType__c}" rendered="{!item.ChargeUnit__c == 'Container'}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!item.CurrencySelling__c == 'USD'}">
+                                <apex:param value="{!item.UnitPriceFCY__c}"/>
+                            </apex:outputText>
+
+                            <apex:outputText value="{0,number,###,###,###,###}" rendered="{!item.CurrencySelling__c == 'VND'}">
+                                <apex:param value="{!item.UnitPriceofSellingLocal__c}"/>
+                            </apex:outputText>
+                            <!-- <apex:outputText value="-" rendered="{!item.UnitPriceFCY__c == null}"/> -->
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: center;">
+                            <apex:outputText value="{!item.CurrencySelling__c}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;;">
+                            <apex:outputText value="{0, number, ###,###,###}%" rendered="{!item.TaxRateSelling__c != null}">
+                                <apex:param value="{!item.TaxRateSelling__c}"/>
+                            </apex:outputText>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <!-- <apex:outputText value="{!item.AmountTaxSellingFCY__c}"/> -->
+                            <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!item.AmountTaxSellingFCY__c != 0}">
+                                <apex:param value="{!item.AmountTaxSellingFCY__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="-" rendered="{!item.AmountTaxSellingFCY__c == 0}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <!-- <apex:outputText value="{!item.AmountTaxSellingLocal__c}"/> -->
+                            <apex:outputText value="{0,number,###,###,###,###}" rendered="{!item.AmountTaxSellingLocal__c != 0}">
+                                <apex:param value="{!item.AmountTaxSellingLocal__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="-" rendered="{!item.AmountTaxSellingLocal__c == 0}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <!-- <apex:outputText value="{!item.TotalAmountofSellingFCY__c}"/> -->
+                            <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!item.TotalAmountofSellingFCY__c != 0}">
+                                <apex:param value="{!item.TotalAmountofSellingFCY__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="-" rendered="{!item.TotalAmountofSellingFCY__c == 0}"/>
+                        </td>
+                        <td style="border-right: 1.1px solid black;border-bottom: 1.1px solid black;text-align: right;">
+                            <!-- <apex:outputText value="{!item.TotalAmountofSellingLocal__c}"/> -->
+                            <apex:outputText value="{0,number,###,###,###,###}" rendered="{!item.TotalAmountofSellingLocal__c != 0}">
+                                <apex:param value="{!item.TotalAmountofSellingLocal__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="-" rendered="{!item.TotalAmountofSellingLocal__c == 0}"/>
+                        </td>
+
+                    </tr>
+
+                </apex:repeat>
+                <tr style="background-color: #ffff73">
+                    <td colspan="9" style="text-align: center;font-weight: bold;border-right: 1.1px solid black;">
+                        <apex:outputText value="Total (Ex VAT)"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,###.000}" rendered="{!TotalExVATfcy != 0}">
+                            <apex:param value="{!TotalExVATfcy}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!TotalExVATfcy == 0}"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,###}" rendered="{!TotalExVATlocal != 0}">
+                            <apex:param value="{!TotalExVATlocal}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!TotalExVATlocal == 0}"/>
+                    </td>
+                  
+                </tr>
+                <tr style="background-color: #ffff73">
+                    <td colspan="9" style="text-align: center;font-weight: bold;border-right: 1.1px solid black;">
+                        <apex:outputText value="VAT"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!VATfcy != 0}">
+                            <apex:param value="{!VATfcy}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!VATfcy == 0}"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,###}" rendered="{!VATlocal != 0}">
+                            <apex:param value="{!VATlocal}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!VATlocal == 0}"/>
+                    </td>
+                </tr>
+                <tr style="background-color: #ffff73">
+                    <td colspan="9" style="text-align: center;font-weight: bold;border-right: 1.1px solid black;">
+                        <apex:outputText value="Grand Total"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!GrandTotalFCY != 0}">
+                            <apex:param value="{!GrandTotalFCY}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!GrandTotalFCY == 0}"/>
+                    </td>
+                    <td style="text-align: right;border-right: 1.1px solid black;">
+                        <apex:outputText value="{0,number,###,###,###,###}" rendered="{!GrandTotalLocal != 0}">
+                            <apex:param value="{!GrandTotalLocal}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!GrandTotalLocal == 0}"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <!-- EXCHANGE RATE -->
+        <div style="font-size: 13px;">
+            <apex:outputText style="font-weight: bold;" value="EXCHANGE RATE :"/>
+            <!-- <apex:outputText value="{!bill.ExchangeRateSelling__c}"/> -->
+            <apex:outputText value=" {0,number,###,###,###,###.00}">
+                <apex:param value="{!bill.ExchangeRateSelling__c}"/>
+            </apex:outputText>
+        </div> 
+        <div>
+            (Tỷ giá trên chỉ là tham khảo, tỷ giá thanh toán sẽ áp dụng theo tỷ giá hiện hành)
+        </div>
+        <br/>
+        <!-- THIRD PARTY ISSUES INVOICE -->
+        <div>
+            <table border="1" style="border-collapse: collapse;width: 60%;border: 1.1px solid black;">
+                <tr  style="background-color: #95B3D7">
+                    <td colspan="5" style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;">
+                        <apex:outputText value="PART II: THIRD PARTY ISSUES INVOICE"/>
+                    </td>
+                </tr>
+                <tr style="background-color: #ffff73">
+                    <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="No."/>
+                    </td>
+                    <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Invoice No."/>
+                    </td>
+                    <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Fees"/>
+                    </td>
+                    <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Amount (In VAT)"/>
+                    </td>
+                    <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;text-align: center;">
+                        <apex:outputText value="Curr."/>
+                    </td>
+                </tr>
+                <tr style="{! IF(lstBill2.size < 1, 'height: 18px;', 'display: none; ')}">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr style="{! IF(lstBill2.size < 1, 'height: 18px;', 'display: none; ')}">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <apex:variable value="{!0}" var="count"/>
+                <apex:repeat value="{!lstBill2}" var="item2">
+                    <apex:variable value="{!count+1}" var="count"/>
+                    <tr style="height: 18px;">
+                        <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black; text-align: center;">
+                            <apex:outputText value="{!count}"/></td>
+                        <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;">
+                            <apex:outputText value="{!item2.InvNoonCreditfromCompany__c}"/>
+                            <apex:outputText value="{!item2.InboundVATINVNo__c}"/>
+                        </td>
+                        <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black;">
+                            <apex:outputText value="{!item2.BillNameatPrintENG__c}"/>
+                        </td>
+                        <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black; text-align: right;">
+                            <apex:outputText value="{0,number,###,###,###,###}" rendered="{!item2.CurrencySelling__c == 'VND'}">
+                                <apex:param value="{!item2.TotalSellingInclTaxLocal__c}"/>
+                            </apex:outputText>
+                            <apex:outputText value="{0,number,###,###,###,##0.000}" rendered="{!item2.CurrencySelling__c == 'USD'}">
+                                <apex:param value="{!item2.TotalSellingInclTaxFCY__c}"/>
+                            </apex:outputText>
+                            <!-- <apex:outputText value="-" rendered="{!item.TotalAmountofSellingLocal__c == 0}"/> -->
+                        </td>
+                        <td style="border-bottom: 1.1px solid black;border-right: 1.1px solid black; text-align: center;">
+                            <apex:outputText value="{!item2.CurrencySelling__c}"/>
+                        </td>
+                    </tr>
+                </apex:repeat>
+                <tr style="background-color: #ffff73">
+                    <td colspan="3" style="text-align: center;border-bottom: 1.1px solid black;border-right: 1.1px solid black;font-weight: bold;">
+                        <apex:outputText value="TOTAL"/>
+                    </td>
+                    <td style="text-align: right;border-bottom: 1.1px solid black;border-right: 1.1px solid black;">
+                        <!-- <apex:outputText value="{!AmountSellingInclLocal}" rendered="{!AmountSellingInclLocal != 0}"/>
+                        <apex:outputText value="-" rendered="{!AmountSellingInclLocal == 0}"/> -->
+                        <apex:outputText value="{0,number,###,###,###,###}" rendered="{!AmountSellingInclLocal != 0}">
+                            <apex:param value="{!AmountSellingInclLocal}"/>
+                        </apex:outputText>
+                        <apex:outputText value="-" rendered="{!AmountSellingInclLocal == 0}"/>
+                    </td>
+                    <td style="text-align: center;border-bottom: 1.1px solid black;border-right: 1.1px solid black;">
+                        <apex:outputText value="VND"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <div style="font-size: 13px;">
+            <apex:outputText style="font-weight: bold;" value="TOTAL IN AMOUNT YOU HAVE TO PAY FOR US (PART I + PART II):"/>
+            <apex:outputText style="margin-left: 20px;font-weight: bold;" value="{0,number,###,###,###,###} VND">
+                <apex:param value="{!TotalAmount}"/>
+            </apex:outputText>
+        </div>
+        <div style="font-size: 13px;">
+            <apex:outputText style="font-weight: bold;" value="IN WORD:"/>
+            <apex:outputText style="padding-left: 20px; font-weight: bold;" value="{!readTotalAmountVND}"/>
+        </div>
+        <br/>
+        <!-- Bank -->
+        <div style="font-size: 12px;">
+            <apex:outputText style="font-weight: bold" value="Part I: kindly send us remittance as detail:"/>
+        </div>
+        <!-- bank1 -->
+        <div>
+            <table style="width: 100%">
+                <!-- <col width="10%"/>
+                <col width="38%"/>
+                <col width="2%"/>
+                <col width="2%"/>
+                <col width="9%"/>
+                <col width="39%"/> -->
+                <tr>
+                    <td>
+                        <apex:outputText value="Benefication:"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="CÔNG TY TNHH ASAP QUỐC TẾ"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <apex:outputText value="OR"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="CÔNG TY TNHH ASAP QUỐC TẾ"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputText value="Bank name:"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="VIETCOMBANK - CN THÀNH CÔNG"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <!-- <apex:outputText value="Bank name:"/> -->
+                    </td>
+                    <td>
+                        <apex:outputText value="ACB - CN TRÀNG THI"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputText value="Account number:"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="0451001844644"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <!-- <apex:outputText value="Account number:"/> -->
+                    </td>
+                    <td>
+                        <apex:outputText value="73258049"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputText value="Swift code:"/>
+                    </td>
+                    <td>
+                        <apex:outputText value="BFTVVNVX045"/>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <!-- <apex:outputText value="Swift code:"/> -->
+                    </td>
+                    <td>
+                        <apex:outputText value="ASCB VNVX"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <br/>
+        <div style="font-size: 12px;">
+            <apex:outputText style="font-weight: bold" value="Part II: kindly send us remittance as detail:"/>
+        </div>
+        <!-- bank2 -->
+        <div>
+            <table>
+                <tr>
+                    <td>
+                        <apex:outputText value="Benefication:"/>
+                    </td>
+                    <td>
+                        <apex:outputText style="margin-left: 10px;" value="VI THI KIM THOA"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputText value="Bank name:"/>
+                    </td>
+                    <td>
+                        <apex:outputText style="margin-left: 10px;" value="TIENPHONG BANK - HÀ NỘI"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <apex:outputText value="Account number:"/>
+                    </td>
+                    <td>
+                        <apex:outputText style="margin-left: 10px;" value="19751801001"/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br/>
+        <div style="display: inline-flex; width: 100%;">
+            <div style="width: 60%"><apex:outputText value="Yours truly!"/></div>
+            <!-- <div style="width: 40%">
+                Print Date: <apex:outputText value="{0, date, MM/dd/yyyy}">
+                                <apex:param value="{!Today()}"/>
+                            </apex:outputText>
+                by&nbsp;<apex:outputText value="{!UserName}"/>
+            </div> -->
+        </div>
+        <div style="width: 100%; text-align: right;">
+            Print Date: <apex:outputText value="{0, date, MM/dd/yyyy}">
+                            <apex:param value="{!Today()}"/>
+                        </apex:outputText>
+            by&nbsp;<apex:outputText value="{!UserName}"/>
+        </div>
+    </body>
+    <script>
+        dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</apex:page>

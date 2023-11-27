@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_editing_field</fullName>
+    <active>true</active>
+    <errorConditionFormula>if(
+ and(isblank(PRIORVALUE(Location__c)),isblank(Location__c)),
+false,
+and(
+or(
+PRIORVALUE(Location__c)&lt;&gt; Location__c,
+PRIORVALUE(Product__c)&lt;&gt; Product__c)
+)
+)</errorConditionFormula>
+    <errorMessage>If you want to update Location of Product/Asset, please use &quot;Product Transfer&quot;</errorMessage>
+</ValidationRule>

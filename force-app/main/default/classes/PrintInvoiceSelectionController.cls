@@ -1,0 +1,73 @@
+public with sharing class PrintInvoiceSelectionController {
+    public String shipmentID {get; set;}
+    public String selectedCustomerId {get; set;}
+    public String openUrl {get; set;}
+    public String errorMessage {get; private set;}
+    public Boolean requiredAttachmentCreation {get; set;}
+    public PrintInvoiceSelectionController() {
+        shipmentID = ApexPages.currentPage().getParameters().get('id');
+        errorMessage = null;
+    }
+    public List<SelectOption> getCustomers() {
+        List<FTMSBill__c> bills = [SELECT InvoiceTo__c, InvoiceTo__r.Name FROM FTMSBill__c WHERE FTMSSO__c =: shipmentId];
+        List<SelectOption> options = new List<SelectOption>();
+        Set<String> lstCus = new Set<String>();
+        for (FTMSBill__c bill : bills){
+            if (!lstCus.contains(bill.InvoiceTo__c) && bill.InvoiceTo__c != null){
+                lstCus.add(bill.InvoiceTo__c);
+                options.add(new SelectOption(bill.InvoiceTo__c, bill.InvoiceTo__r.Name));
+            }
+        }
+        return options;
+    }
+    public void generateReport() {
+        errorMessage = null;
+        if (StringUtils.isEmpty(selectedCustomerId)) {
+            errorMessage = 'You have not selected any customer/partner or no customer/partner is applicable.';
+        }  else {
+            if (requiredAttachmentCreation) {
+                String attachmentId = createAttachment(shipmentID,selectedCustomerId);
+                openUrl = '/servlet/servlet.FileDownload?file=' + attachmentId;
+            } else {
+                openUrl = '/apex/PrintInvoicePage?Id=' + shipmentID+ '&customerValue=' + selectedCustomerId;
+
+            }
+        }      
+    }
+    private String createAttachment(String shipid, String customerId) {
+        if (PermissionValidationUtil.isCreatableAttachment()) {
+            PageReference pageRef = new PageReference('/apex/PrintInvoicePage');
+            pageRef.getParameters().put('Id',shipid);
+            pageRef.getParameters().put('customerValue',customerId);
+            String attachName = 'Invoices' + ' v';
+	        String attachNameSearch = attachName + '%';
+	        // get exist file Name
+	        List<Attachment> attachments = [SELECT Id, Name, ParentId 
+	                                        FROM Attachment 
+	                                        WHERE Name LIKE : attachNameSearch 
+	                                        ORDER BY CreatedDate DESC LIMIT 1];
+	        if(attachments.isEmpty()){
+	            attachName += '1.1';
+	        }else{
+	            String attachNameExist = attachments[0].Name;
+	            attachNameExist = attachNameExist.substringAfter(attachName);
+	            attachNameExist = attachNameExist.substringBefore('.pdf');
+	            Decimal versionNumber = Decimal.valueOf(attachNameExist);
+	            versionNumber += 0.1;
+	            attachName += String.valueOf(versionNumber);
+	        }
+	        Attachment attach = new Attachment();
+	        Blob body;
+	        attach.Name = attachName + '.pdf'; 
+	        attach.IsPrivate = false;
+            attach.ParentId = shipid;
+	        if(!Test.isRunningTest()){
+	            body = pageRef.getContentAsPDF();
+	            attach.Body = body;
+	            FlsService.doInsert(attach);
+	        }
+            return attach.Id;
+        }
+        return null;
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lockrecord</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (Lock__c = TRUE,
+OR (Ischanged(RecruitmentPlan__c),
+Ischanged(Recruitment_Request__c),
+Ischanged(RecruitmentPlanLine__c),
+Ischanged(Reporttouser__c),
+Ischanged(Position__c),
+Ischanged(JobDescription__c),
+Ischanged(Branch__c),
+Ischanged(Status__c)))</errorConditionFormula>
+    <errorMessage>The record is locked. You cannot edit this record.</errorMessage>
+</ValidationRule>

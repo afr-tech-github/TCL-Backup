@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>AdvancedShipment__c</entityName>
+    <fieldName>Advance_Shipment_Status__c</fieldName>
+    <masterLabel>STATUS - SEA - EXPORT - LCL</masterLabel>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HCM Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Get booking confirmation (cus)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;DAD Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Get booking confirmation (from pricing)&lt;/li&gt;&lt;li&gt;Cus-Send booking info customer confirm&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HPH Branch:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Cs upload attachments&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Booking Process</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HCM Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Notify cho Cs/Doc/OP manager&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;DAD Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Send Debit note to the customer for confirming&lt;/li&gt;&lt;li&gt;Make payment to the carrier&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HPH Branch:&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Notify cho Cs/Doc/OP manager&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Debit &amp; Credit</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HCM Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Check release hàng (Ms.Zenda)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;DAD Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Check if the carrier received payment.&lt;/li&gt;&lt;li&gt;Check if we received the payment from the customer.&lt;/li&gt;&lt;li&gt;Check if the shipper, customer, and carrier released the bill. &lt;/li&gt;&lt;li&gt;MBL released &amp;amp; HBL released&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;--&amp;gt; (All check before ETA at least 10 days)&lt;/p&gt;</info>
+        <picklistValueName>Double Check -&gt; Release cargo</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;HCM Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Declaring AMS/ACI and sending ISF (doc)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;DAD Branch: &lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;File AMS/ACI/AFR before the deadline (Docs HCM)&lt;/li&gt;&lt;li&gt;Check matched (if any)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Submit AMS/ACI/ISF</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;p&gt;&lt;strong style=&quot;font-size: 13px;&quot;&gt;DAD Branch:​&lt;/strong&gt;&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;span style=&quot;font-family: docs-Calibri; font-size: 15px;&quot;&gt;Issue HBL and send HBL to the customer to confirm&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Submit SI/ VGM</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>EXPORTLCLSEA</recordTypeName>
+</PathAssistant>

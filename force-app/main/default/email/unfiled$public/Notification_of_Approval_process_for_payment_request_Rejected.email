@@ -1,0 +1,5 @@
+Hi {!Quote__c.OwnerLastName},
+
+Your quote request has been rejected
+Quote ID: {!Quote__c.Name}
+Let check it in Quote

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>Transportation__c</entityName>
+    <fieldName>Transport_Status__c</fieldName>
+    <masterLabel>Truck Export Path</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>ReasonForCancellation__c</fieldNames>
+        <fieldNames>CancellationTime__c</fieldNames>
+        <fieldNames>Lock__c</fieldNames>
+        <picklistValueName>Cancelled</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>WarehouseDeparturedDate__c</fieldNames>
+        <picklistValueName>Cargo Arrived At Warehouse/Factory</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>LoadingDate__c</fieldNames>
+        <picklistValueName>Cargo Loading Completed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>CrossBorderDate__c</fieldNames>
+        <picklistValueName>Cross Border Completed</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Delivery_Date__c</fieldNames>
+        <picklistValueName>Delivery Completed</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>Export</recordTypeName>
+</PathAssistant>

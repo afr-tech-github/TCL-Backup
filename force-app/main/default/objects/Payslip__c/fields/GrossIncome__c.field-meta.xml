@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GrossIncome__c</fullName>
+    <externalId>false</externalId>
+    <formula>SalaryTaxableWorkDay__c + Bonus__c + TaxableAllowances__c  -  WithholdingViolation__c +  SalaryTaxableOTHour__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Gross Income = Salary by Taxable Work Day + Salary by Taxable OT (Hour) + Taxable Allowances +/- Adjust Salary from Last Payslip + Bonus Amount - Withholding by Violation</inlineHelpText>
+    <label>Gross Income</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

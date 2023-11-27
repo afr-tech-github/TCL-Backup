@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CustomsJudgment__c</fullName>
+    <externalId>false</externalId>
+    <label>Customs Judgment</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>No inspection</fullName>
+                <default>false</default>
+                <label>No inspection</label>
+            </value>
+            <value>
+                <fullName>Documents Inspection</fullName>
+                <default>false</default>
+                <label>Documents Inspection</label>
+            </value>
+            <value>
+                <fullName>Inspection(such as X-ray, check a sample, check all cargo)</fullName>
+                <default>false</default>
+                <label>Inspection(such as X-ray, check a sample, check all cargo)</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

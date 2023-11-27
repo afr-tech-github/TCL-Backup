@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>No_Weekend</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR (
+ Weekday(Start_Date__c) = 7, 
+ Weekday(End_Date__c) = 7,
+ Weekday(Start_Date__c) = 1, 
+ Weekday(End_Date__c) = 1)</errorConditionFormula>
+    <errorMessage>Leave Request cannot be on Weekend!</errorMessage>
+</ValidationRule>

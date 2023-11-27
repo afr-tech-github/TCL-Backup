@@ -1,0 +1,128 @@
+<aura:component controller="AllocatePaymentController" implements="force:hasSObjectName,force:hasRecordId,force:lightningQuickActionWithoutHeader" access="global">
+    <!-- Display a header with details about the account -->
+    <aura:html tag="style">
+        .slds-modal__container {
+            max-width: 250rem;
+            min-width: 75rem;
+            overflow-y: hidden;
+            overflow-x: hidden;
+        }
+    </aura:html>
+    <aura:attribute name="paymentVoucher" type="Payment_Voucher__c" default="
+        {
+            'sobjectType': 'Payment_Voucher__c',
+            'Payment_Currency__c': 'VND',
+            'Payment_Amount__c': 'HMM',
+            'paymentVoucher.Payment_To__r.Id':'0123'
+        }" />
+
+    <aura:attribute name="connectBillList"       type="Connectbill__c[]" default="[]"/>
+    <aura:attribute name="paymentVoucherList"    type="String"           default="123"/>
+    <aura:attribute name="selectedIndexes"       type="String[]"         default="[]"/>
+    <aura:attribute name="CurrentAllocationInit" type="Decimal"          default="0.0"/>
+    <aura:attribute name="CurrentAllocation"     type="Decimal"          default="0.0"/>
+    <aura:attribute name="Balance"               type="Decimal"          default="0.0"/>
+    <aura:attribute name="listValue"             type="Decimal[]"        default="[]"/>
+
+    <!-- for create new payment allocation -->
+    <aura:attribute name="AmountList" type="Decimal[]" default="[]"/>
+    <aura:attribute name="AllocateTo" type="String[]" default="[]"/>
+    <aura:attribute name="AllocatedToPr" type="String[]" default="[]"/> 
+
+
+    <aura:handler name="init" value="{!this}" action="{!c.findPaymentVoucher}"/>
+ 
+<div style="overflow-y: hidden;max-height:700px; overflow-x:hidden">
+    <div style="margin-bottom: 10px;">
+        <h1 style="font-size: 40px;color:#2874ba">Payment Allocation</h1>
+        <h2 style="font-size: 18px;color:red;left:15px;position:relative;display:flex">
+            <p>Payment to:&nbsp;</p>
+            <p style="font-weight: bold;"> {!v.paymentVoucher.Payment_To__r.AccountNameENG__c}</p>
+        </h2>
+        <h2 style="font-size: 18px;color:red;left:15px;position:relative;display:flex">
+            <p>Currency:&nbsp;</p>
+            <p style="font-weight: bold;">{!v.paymentVoucher.Payment_Currency__c}</p>
+        </h2>
+    </div>
+    <div style="display:flex; flex-wrap:wrap;width:100%;margin-bottom:30px">
+        <div class="slds-box slds-theme_default" style="background-color: #f2f2f2; margin-right: 10px; border-radius:0px; width:25%">
+            <div style="display: flex;">
+                <p style="font-size:18px;">Amount: </p>
+                <p style="font-size:18px;font-weight:bold; margin-left: 5px; display: inline-block;">
+                    <lightning:formattedNumber value="{!v.paymentVoucher.Payment_Amount__c}"/>
+                </p>
+            </div>
+        </div>
+        <div class="slds-box slds-theme_default" style="background-color: #f2f2f2; margin-right: 10px; border-radius:0px; width:25%">
+            <div style="display: flex;">
+                <p style="font-size:18px;">Current Allocation: </p>
+                <p style="font-size:18px;font-weight:bold; margin-left: 5px; display: inline-block;color:crimson">
+                    <lightning:formattedNumber value="{!v.CurrentAllocation}"/>
+                </p>
+            </div>
+        </div>
+        <div class="slds-box slds-theme_default" style="background-color: #f2f2f2; margin-right: 10px; border-radius:0px; width:25%">
+            <div style="display: flex;">
+                <p style="font-size:18px;">Balance: </p>
+                <p style="font-size:18px;font-weight:bold; margin-left: 5px; display: inline-block;color:#2874ba">
+                    <lightning:formattedNumber value="{!v.Balance}"/>
+                </p>
+            </div>
+        </div>
+        <button class="slds-button slds-button_brand" style="background-color:#2874ba; border-color: #2874ba;width:150px;border-radius:0px;width:22%" 
+                onclick="{!c.handleConfirm}">
+            <p style="font-size: 18px;"> Confirm </p>
+        </button>
+        <br/>
+        <br/>
+    </div>
+
+    <div style="overflow-y:auto;max-height:300px;overflow-x:auto">
+        <table class="slds-table slds-table_bordered slds-table_cell-buffer" style="text-align: left;font-size:18px">
+            <!-- <thead style="position: sticky;top:0px"> -->
+
+                <!-- <tr style="z-index:9999;" > -->
+                <tr class="headertr" style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;position: sticky;top: 0px;z-index: 10;border-top: 1px solid #c9c9c9">
+                    <td class="th-color" scope="col">
+                        <lightning:input style="text-align:center" type="checkbox" name="checkboxAll" aura:id="checkboxAll_id" id="checkboxAll"
+                             onchange="{!c.handleCheckboxAllChange}" checked="false"/>
+                    </td>
+                    <th class="th-color" scope="col">PR ID</th>
+                    <th class="th-color" scope="col">Service</th>
+                    <th class="th-color" scope="col">Requested</th>
+                    <th class="th-color" scope="col">Total Paid</th>
+                    <th class="th-color" scope="col">Balance</th>
+                    <th class="th-color" scope="col">Current Allocation</th>
+                </tr>
+            <!-- </thead> -->
+            <tbody>
+                <aura:iteration items="{!v.connectBillList}" var="bill" indexVar="index">
+                    <tr style="height: 15px;">
+                        <td>
+                            <lightning:input style="text-align:center" type="checkbox" name="{!index}" aura:id="bill" onchange="{!c.handleCheckboxChange}" checked="false"/>
+                        </td>
+                        <td data-label="PR ID">{!bill.Payment_Request__r.Name}</td>
+                        <td data-label="Service">{!bill.Service_Name__c}</td>
+                        <td data-label="Amount">{!bill.Request_Payment_Amount__c}</td>
+                        <td data-label="Allocated Amount">
+                            <aura:if isTrue="{!v.paymentVoucher.Payment_Currency__c=='USD'}">
+                                {!bill.Total_Paid_USD__c}
+                            </aura:if>
+                            <aura:if isTrue= "{!v.paymentVoucher.Payment_Currency__c=='VND'}">
+                                {!bill.Total_Paid_VND__c}
+                            </aura:if>
+                        </td>
+                        <td data-label="Balance">{!bill.Unpaid_Balance__c}</td>
+                        <td class="slds-p-vertical_none" style="margin-bottom: 10px !important;">
+                            <lightning:input type="number" aura:id="Allocation-{!index}" id="{!index}" min="0" max="{!bill.Request_Payment_Amount__c}" variant="label-hidden" 
+                            onchange="{!c.handleInputChange}"/>
+                        </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+        
+</div>
+    
+</aura:component>

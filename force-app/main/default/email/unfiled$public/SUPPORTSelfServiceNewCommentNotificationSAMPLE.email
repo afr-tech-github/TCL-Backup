@@ -1,0 +1,1 @@
+您的個案號碼 {!Case.CaseNumber}：{!Case.Subject} 已經更新。請按下列連結在「自助式服務」入口網頁上檢視此個案。<將您的「自助式服務」入口網頁登入頁面連結插入這裡>  {!Organization.Name} 客戶支援

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnimationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <animationFrequency>often</animationFrequency>
+    <developerName>Creating_path_for_F</developerName>
+    <isActive>true</isActive>
+    <masterLabel>Creating path for F/TMS</masterLabel>
+    <recordTypeContext>Custom</recordTypeContext>
+    <recordTypeName>DOMESTICFCLAIR</recordTypeName>
+    <sobjectType>FTMSSO__c</sobjectType>
+    <targetField>CargoStatus__c</targetField>
+    <targetFieldChangeToValues>Received Money</targetFieldChangeToValues>
+</AnimationRule>

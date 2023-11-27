@@ -1,0 +1,297 @@
+<apex:page controller="PrintHBLController" showHeader="false" applyHtmlTag="false" renderAs="advanced_pdf">
+
+    <head>
+        <style type="text/css">
+            body {
+                font-family: Arial Unicode MS;
+                font-size: 9pt;
+                text-transform: uppercase;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+
+            .bold-text{
+                font-weight: bold;
+                font-family: Arial,Helvetica,sans-serif;
+            }
+            .bold-text h6{
+                font-size: 8.5px;
+            }
+            
+        </style>
+        <!-- <script type="text/javascript">
+                  
+            window.onload = function() {
+                
+                var a = document.getElementById('myDiv');
+            var he = a.offsetHeight;
+            console.log("a: "+he);
+                
+            }
+        </script> -->
+    </head>
+
+    <body>
+        <!-- hbl -->
+        <div style="position:absolute; left:4mm; top: 4mm; right: 4mm;">
+            <!-- <div style="{! if(shipment.clofor_com_cfs__BLtype__c == null, '', 'display: none; ')}position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.clofor_com_cfs__Site_Custom_Settings__c.clofor_com_cfs__HBLTemplateURL__c}" width="202mm"
+                    height="287mm" />
+            </div>
+            <div style="{! if(shipment.clofor_com_cfs__BLtype__c == 'ORIGINAL', '', 'display: none; ')}position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.clofor_com_cfs__Site_Custom_Settings__c.clofor_com_cfs__HBLTemplateURLOriginal__c}" width="202mm"
+                    height="287mm" />
+            </div>
+            <div style="{! if(shipment.clofor_com_cfs__BLtype__c == 'SURRENDERED', '', 'display: none; ')}position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.clofor_com_cfs__Site_Custom_Settings__c.clofor_com_cfs__HBLTemplateURLSurrendered__c}" width="202mm"
+                    height="287mm" />
+            </div>
+            <div style="{! if(shipment.clofor_com_cfs__BLtype__c == 'WAYBILL', '', 'display: none; ')}position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.clofor_com_cfs__Site_Custom_Settings__c.clofor_com_cfs__HBLTemplateURLWaybill__c}" width="202mm"
+                    height="287mm" />
+            </div>
+            <div style="{! if(shipment.clofor_com_cfs__BLtype__c == 'DRAFT', '', 'display: none; ')}position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.clofor_com_cfs__Site_Custom_Settings__c.clofor_com_cfs__HBLTemplateURLDraft__c}" width="202mm"
+                    height="287mm" />
+            </div> -->
+            <div style="position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.SiteCustomSettings__c.HBLTemplateURL__c}" width="202mm"
+                    height="287mm" />
+            </div>
+            <!-- Shipment -->
+            <h6 style="position:absolute; left: 11mm; top:12mm; width: 85mm;"> <apex:outputText style="white-space: pre-line;" value="{!shipment.ShipperDetailInformation_text__c}"/></h6>
+            <!-- Consignee -->
+            <h6 style="position:absolute; left: 11mm; top:36mm; width: 85mm; "><apex:outputText style="white-space: pre-line;" value="{!shipment.ConsigneeDetailInformation_text__c}"/></h6>
+            <!-- Notify Address  -->
+            <h6 style="position:absolute; left: 11mm; top:61mm; width: 85mm; "><apex:outputText style="white-space: pre-line;" value="{!shipment.HouseNotifyDetailInformation_text__c}"/></h6>
+            <!-- Bill of Lagind No. -->
+            <h4 style="position:absolute; left: 138mm;top:19.8mm;font-size: 8pt;"><apex:outputText style="font-weight: bolder;font-family: Arial sans-serif;" value="{!shipment.HBLNumber__c}"/></h4>
+
+            <!-- Place of reciept -->
+            <h6 style="position:absolute; left: 11mm; top:85mm; width:100mm; text-align: left;"><apex:outputField value="{!shipment.PlaceofReceiptDetailInformation__c}"/></h6>
+            <!-- Port of Loading  -->
+            <h6 style="position:absolute; left: 57mm; top:85mm; width:80mm; text-align: left;"><apex:outputField value="{!shipment.POLAODsDetailInformation__c}"/></h6>
+            <!-- Pre-carriage by -->
+            <!-- <h6 style="position:absolute; left: 100mm; top:85mm; width:100mm; text-align: left;"><apex:outputText value="{!shipment.VesselFlight__c} {!shipment.Voyage__c}"/></h6> -->
+            <h6 style="position:absolute; left: 100mm; top:85mm; width:100mm; text-align: left;"><apex:outputText value="{!shipment.Precarriagevoyage__c}"/></h6>
+            <!-- Number of Originals  -->
+            <h6 style="position:absolute; left: 150mm; top:85mm; width:80mm; text-align: left;"><apex:outputField rendered="{!shipment.HBLType__c != 'SURRENDERED'}" value="{!shipment.NumberofOriginalHBLIssued__c }"/></h6>
+            <h6 style="position:absolute; left: 150mm; top:85mm; width:80mm; text-align: left;"><apex:outputText rendered="{!shipment.HBLType__c == 'SURRENDERED'}" value="ZERO (0)"/></h6>
+
+            <!-- Ocean Vessel -->
+            <h6 style="position:absolute; left: 11mm; top:93mm; width:80mm; text-align: left;"><apex:outputText value="{!shipment.VesselFlight__c} {!shipment.Voyage__c}"/></h6>
+            <!-- Port of discharge -->
+            <h6 style="position:absolute; left: 57mm; top:93mm; width:80mm; text-align: left;"><apex:outputField value="{!shipment.PODAOAsDetailInformation__c}"/></h6>
+            <!-- Place of delivery  -->
+            <h6 style="position:absolute; left: 100mm; top:93mm; width:100mm; text-align: left;"><apex:outputField value="{!shipment.PlaceofDeliveryDetailInformation__c}"/></h6>
+            <!-- Freight Payable -->
+            <h6 style="position:absolute; left: 150mm; top:93mm; width:80mm; text-align: left;"><apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Prepaid'}" value="{!shipment.POLAODsDetailInformation__c}"/> <apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Collected'}" value="{!shipment.PODAOAsDetailInformation__c}"/></h6>
+            
+
+
+            <!-- Marks and Nos -->
+            <h6 style="position:absolute; left: 11mm; top:103mm; width:80mm; text-align: left;"><apex:outputField value="{!shipment.CargoType__c}"/></h6>
+            <!-- Particulars Furnished by Merchant -->
+            <img style="position:absolute; left: 7mm; top:126mm; width:15px; color: red;height: auto;display: block" align="middle" src="https://asapsystem--asap.sandbox.file.force.com/servlet/servlet.FileDownload?file=0150T000000Ergu"/>
+            <!-- Gross Weight -->
+            <h6 style="position:absolute; left: 149mm; top:103mm; width:20mm; text-align: right;font-family: 'Times New Roman', Times, serif;font-weight: normal"><apex:outputText value="KGS"/></h6>
+            <!-- Measurement -->
+            <h6 style="position:absolute; left: 173mm; top:103mm; width:20mm; text-align: right;font-family: 'Times New Roman', Times, serif;font-weight: normal"><apex:outputText value="CBM"/></h6>
+            <!-- Read Container -->       
+            <!-- <h6 style="position:absolute; left: 81mm; top:103mm; width:60mm; text-align: left;"><u><apex:outputText value="{!readCon}"/></u></h6> -->
+            
+             <!-- Quantity -->
+             <!-- <h6 style="position:absolute; left: 62mm; top:107mm; width:18mm; text-align: left;"><apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.CargoUnit__c}" rendered="{!shipment.CargoQuantity__c < 2}"/> <apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.CargoUnit__c}S" rendered="{!shipment.CargoQuantity__c >= 2}"/></h6> -->
+            <!-- Description Of Goods -->
+            <!-- <h6 style="padding-top: 9mm;{!typeDescrip}"><apex:outputField style="{! IF(!isCreateAttachment, '', 'display: none;')}" value="{!shipment.DescriptionofGoods__c}"/></h6> -->
+            <div id="myDiv" style="position:absolute; left: 81mm; top:103mm; width:60mm; text-align: left;display: table;">
+                <div style="display: table-cell;width:60mm;">
+                    <h6 style="text-align: left;width:60mm;"><u><apex:outputText rendered="{!read != ''}" value="{!readCon}"/></u></h6>
+                    <h6 style="text-align: left;white-space: pre-line;">
+                        <apex:outputText value="{!shipment.DescriptionofGoods__c}" rendered="{!checkLine == false}"/>
+                        <apex:outputText value="as attached sheet" rendered="{!checkLine != false}"/>
+                    </h6>
+                </div>
+            </div>
+            <!-- Gross Weight -->
+            <!-- <h6 style="position:absolute; left: 149mm; top:107mm; width:20mm; text-align: right;"><apex:outputField value="{!shipment.GrossWeight__c}"/></h6> -->
+            <!-- Measurement -->
+            <!-- <h6 style="position:absolute; left: 173mm; top:107mm; width:20mm; text-align: right;"><apex:outputField value="{!shipment.MeasurementTotalCBM__c}"/></h6> -->
+
+            <!-- Marks Numbers Attachment -->
+            <h6 style="{!typeMarks}">
+                <apex:outputText style="white-space: pre-line;" value="{!shipment.MarksNumbersAttachment__c}" rendered="{!checkLine2 == false}"/>
+                <apex:outputText value="as attached sheet" rendered="{!checkLine2 != false}"/>
+            </h6>
+            
+             <!-- Quantity -->
+            <!-- <h6 style="position:absolute; left: 62mm; top:111mm; width:18mm; text-align: left; border-top: dashed black 1px"><apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.CargoUnit__c}" rendered="{!shipment.CargoQuantity__c < 2}"/> <apex:outputText value="{!shipment.CargoQuantity__c} {!shipment.CargoUnit__c}S" rendered="{!shipment.CargoQuantity__c >= 2}"/></h6> -->
+            <!-- Gross Weight -->
+            <!-- <h6 style="position:absolute; left: 149mm; top:111mm; width:20mm; text-align: right; border-top: dashed black 1px"><apex:outputField value="{!shipment.GrossWeight__c}"/></h6> -->
+            <!-- Measurement -->
+            <!-- <h6 style="position:absolute; left: 173mm; top:111mm; width:20mm; text-align: right; border-top: dashed black 1px"><apex:outputField value="{!shipment.MeasurementTotalCBM__c}"/></h6> -->
+            
+            <!-- Container -->
+            <div>
+                <apex:repeat value="{!lstConOutput}" var="con">            
+                    <h6 style="{!con.type}"><apex:outputText style="{! IF((isShowCont && shipment.Shipment_Type__c != 'FCL') || (shipment.Shipment_Type__c == 'FCL'), '', 'display: none;')};" escape="false" value="{!con.conNo} / {!con.sealNo} / {!con.conType}"/></h6>
+                    <!-- Quantity -->
+                    <h6 style="position:absolute; left: 43mm; top:{!con.top}mm; width:18mm; text-align: right;"><apex:outputText value="{!con.quantity}"/></h6>
+                    <h6 style="position:absolute; left: 62mm; top:{!con.top}mm; width:18mm; text-align: left;"><apex:outputText value="{!con.unit}"/></h6>
+                    <!-- Gross Weight -->
+                    <h6 style="position:absolute; left: 149mm; top:{!con.top}mm; width:20mm; text-align: right;">
+                        <apex:outputText value="{0,number,###,###,###,##0.000}">
+                            <apex:param value="{!con.grossWeight}"/>
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!con.grossWeight}"/> -->
+                    </h6>
+                    <!-- Measurement -->
+                    <h6 style="position:absolute; left: 173mm; top:{!con.top}mm; width:20mm; text-align: right;">
+                        <apex:outputText value="{0,number,###,###,###,##0.000}">
+                            <apex:param value="{!con.measurement}"/>
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!con.measurement}"/> -->
+                    </h6>
+                </apex:repeat>
+            </div>
+
+             <!-- Quantity -->
+             <!-- <h6 style="position:absolute; left: 62mm; top:{!finaltop}mm; width:18mm; text-align: left; border-top: dashed black 1px"><apex:outputText value="{!totalQuantity} {!shipment.CargoUnit__c}" rendered="{!totalQuantity < 2 && totalQuantity != 0}"/> <apex:outputText value="{!totalQuantity} {!shipment.CargoUnit__c}S" rendered="{!totalQuantity >= 2 && totalQuantity != 0}"/></h6> -->
+             <div style="position:absolute; left: 57mm; top:{!finaltop+4.2}mm; width:4mm;border-top: dashed black 1px;">
+            </div>
+             <h6 style="position:absolute; left: 43mm; top:{!finaltop+1.5}mm; width:18mm; text-align: right; "><apex:outputText value="{!totalQuantity} "/></h6>
+             <div style="position:absolute; left: 62mm; top:{!finaltop+4.2}mm; width:14mm;border-top: dashed black 1px;">
+             </div>
+             <h6 style="position:absolute; left: 62mm; top:{!finaltop+1.5}mm; width:18mm; text-align: left; "><apex:outputText value=" {!cargoUnit}"/></h6>
+             <!-- Gross Weight -->
+             <div style="position:absolute; left: 159mm; top:{!finaltop+4.2}mm; width:10mm;border-top: dashed black 1px;">
+            </div>
+            <h6 style="position:absolute; left: 149mm; top:{!finaltop+1.5}mm; width:20mm; text-align: right;">
+                <apex:outputText value="{0,number,###,###,###,##0.000}">
+                    <apex:param value="{!totalGrossWeight}"/>
+                </apex:outputText>
+                <!-- <apex:outputText value="{!totalGrossWeight}"/> -->
+            </h6>
+            <!-- Measurement -->
+            <div style="position:absolute; left: 185mm; top:{!finaltop+4.2}mm; width:8mm;border-top: dashed black 1px;">
+            </div>
+            <h6 style="position:absolute; left: 173mm; top:{!finaltop+1.5}mm; width:20mm; text-align: right; ">
+                <apex:outputText value="{0,number,###,###,###,##0.000}">
+                    <apex:param value="{!totalMeasurement}"/>
+                </apex:outputText>
+                <!-- <apex:outputText value="{!totalMeasurement}"/> -->
+            </h6>
+
+            <!-- Freight -->
+            <!-- <h6 style="position:absolute; left: 83mm; top:175mm; width:30mm; text-align: left;"></h6> -->
+            <!-- <h6 style="position:absolute; left: 83mm; top:180mm; width:70mm; text-align: left;"><apex:outputText value="SAY: {!readUnit}"/></h6> -->
+
+            <!-- Surrender -->
+            <div style="{! IF(shipment.HBLType__c == 'SURRENDERED','','display: none;')}">
+                <!-- <img style="position:absolute; left: 149mm; top:150mm; width:55mm; color: red;" align="middle" src="https://asapsystem--asap.sandbox.file.force.com/servlet/servlet.FileDownload?file=0150T000000ErdW" width="55mm" height="17mm" /> -->
+                <apex:outputText style="position:absolute; left: 160mm; top:150mm; width:55mm; color: rgb(19, 15, 255);font-size: 12pt;font-weight: bolder;font-family: 'Times New Roman', Times, serif" value="SURRENDERED"/>
+            </div>
+            <!-- <h6 style="position:absolute; left: 83mm; top:165mm; width:66mm; text-align: left;"><apex:outputText value="PARTICULARS DECLARED BY SHIPPERBUT NOT ACKNOWLEDGED BY THE CARRIER"/></h6> -->
+            <div style="position:absolute; left: 83mm; top:157mm; width:70mm; text-align: left;display: table;vertical-align: bottom;height: 35mm;">
+                <div style="display: table-cell;width:60mm;vertical-align: bottom;height: 35mm;">
+                    <!-- <h6 style="text-align: left;border: 1px solid red;"><apex:outputText value="SHIPPER'S LOAD, STOW, COUNT & SEAL"/></h6> -->
+                    <h6 style="text-align: left;"><apex:outputText value="PARTICULARS DECLARED BY SHIPPERBUT NOT ACKNOWLEDGED BY THE CARRIER"/><br/><apex:outputText escape="false" rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Prepaid'}" value="'FREIGHT PREPAID'<br/>"/> <apex:outputText escape="false" rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Collected'}" value="'FREIGHT COLLECT'<br/>"/><apex:outputText value="SAY: {!readUnit}"/></h6>
+                </div>
+            </div>
+            <!-- Shipper on board -->
+            <h6 style="position:absolute; left: 163mm; top:175mm; width:30mm; text-align: right;"><apex:outputText value="Shipped on board"/></h6>
+            <!-- Date of issue -->
+            <h6 style="position:absolute; left: 163mm; top:180mm; width:30mm; text-align: right;">
+                <apex:outputText value="{0,date,dd'-'MMM'-'yyyy}">
+                    <apex:param value="{!shipment.DateofHouseBLIssued__c}"/>
+                </apex:outputText>
+            </h6>
+
+            <!-- Delivery of Goods -->
+            <h6 style="position:absolute; left: 11mm; top:192.5mm; width:84mm; text-align: left;"><apex:outputText style="white-space: pre-line;" value="{!shipment.AgentDetailInformation_text__c}"/></h6>
+
+            <!-- Freight and Charges -->
+            <h6 style="position:absolute; left: 11mm; top:223mm; width:40mm; text-align: left;"><apex:outputText value="OCEAN FREIGHT: "/></h6>
+            <h6 style="position:absolute; left: 11mm; top:227mm; width:40mm; text-align: left; font-size: 9.5px;"><apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Prepaid'}" value="PREPAID AS ARRANGED"/> <apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Collected'}" value="COLLECT AS ARRANGED"/></h6>
+            <h6 style="position:absolute; left: 65mm; top:223mm; width:40mm; text-align: left;"><apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Prepaid'}" value="X"/></h6>
+            <h6 style="position:absolute; left: 86mm; top:223mm; width:40mm; text-align: left;"><apex:outputText rendered="{!shipment.HouseFreightCollectPrepaid__c == 'Collected'}" value="X"/></h6>
+
+            <!-- Place of delivery  -->
+            <h6 style="position:absolute; left: 100mm; top:225mm; width:100mm; text-align: left;">
+                <apex:outputText value="{!shipment.PlaceofHouseBLIssued__c} {0,date,dd'-'MMM'-'yyyy}">
+                    <apex:param value="{!shipment.DateofHouseBLIssued__c}"/>
+                </apex:outputText> 
+            </h6>
+        </div>
+        <apex:outputPanel rendered="{!checkLine != false || checkLine2 != false}">
+            <div style="position:absolute; top: 297mm;left: 0mm; right: 0mm; padding: 40px;">
+                <h2 style="padding-top: 10px; text-align: center;font-family: 'Times New Roman', Times, serif;">attached sheet</h2>
+                <h3 style="text-align: right; width: 100%; border-bottom: 1px solid black;font-family: 'Times New Roman', Times, serif;font-size: 8pt;padding-bottom: 3px;">HBL No: {!shipment.HBLNumber__c}</h3>
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 50%;font-family: 'Times New Roman', Times, serif;font-size: 8pt;">
+                            <h4>Mark &amp; Nos</h4>
+                        </td>
+                        <td style="width: 50%;font-family: 'Times New Roman', Times, serif;font-size: 8pt;">
+                            <h4>Description of Goods</h4>
+                        </td>
+                    </tr>
+                    <tr style="vertical-align:top; font-size: 9.5px;">
+                        <td >
+                            <span style="width:80mm;  "> <apex:outputText style="white-space: pre-line;" value="{!shipment.MarksNumbersAttachment__c}" rendered="{!checkLine2 != false}"/> 
+    
+                                <!-- {!shipment.clofor_com_cfs__MARKS_NUMBERS_ATTACHMENT__c} -->
+                            </span>
+                        </td>
+                        <td>
+                            <div>
+                                <span style=""><apex:outputText style="white-space: pre-line" value="{!shipment.DescriptionofGoods__c}" rendered="{!checkLine != false}"/> <br/></span>
+                                <!-- <span style="{! IF(shipment.clofor_com_cfs__S_I_PASSWORD__c != null, '', 'display: none; ')}">SCAC CODE: {!shipment.clofor_com_cfs__S_I_PASSWORD__c}<br/></span>
+                                <span style="{! IF(shipment.clofor_com_cfs__CustomizedShipOrderID__c != null, '', 'display: none; ')}">AMS HBL: {!shipment.clofor_com_cfs__CustomizedShipOrderID__c}<br/></span>
+                                <span style="{! IF(shipment.clofor_com_cfs__A_N_PASSWORD__c != null, '', 'display: none; ')}">ACI CCN Code: {!shipment.clofor_com_cfs__A_N_PASSWORD__c}<br/></span>
+                                <span style="{! IF(shipment.clofor_com_cfs__HBL__c != null, '', 'display: none; ')}">HBL: {!shipment.HBL__c}</span> -->
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+           </apex:outputPanel>
+        <!-- <div style="{! IF(and(billing == 'hbl', isCreateAttachment), '', 'display: none;')} position:absolute; top: 297mm;left: 0mm; right: 0mm; padding: 40px;">
+            <h2 style="padding-top: 10px; text-align: center;">ATTACHMENT</h2>
+            <h3 style="text-align: right; width: 100%; border-bottom: 1px solid black;">HBL No: {!shipment.clofor_com_cfs__HBL__c}</h3>
+            <table style="width: 100%;">
+                <tr>
+                    <td style="width: 50%;">
+                        <h4>Mark &amp; Number</h4>
+                    </td>
+                    <td style="width: 50%;">
+                        <h4>Description of Goods</h4>
+                    </td>
+                </tr>
+                <tr style="vertical-align:top; font-size: 9.5px;">
+                    <td >
+                        <span style="width:80mm;  "> {!shipment.clofor_com_cfs__Container_Measurement_Details__c} 
+
+                            {!shipment.clofor_com_cfs__MARKS_NUMBERS_ATTACHMENT__c}
+                        </span>
+                    </td>
+                    <td>
+                        <div>
+                            <span style="">{!shipment.clofor_com_cfs__GOODS_ATTACHMENT__c} <br/></span>
+                            <span style="{! IF(shipment.clofor_com_cfs__S_I_PASSWORD__c != null, '', 'display: none; ')}">SCAC CODE: {!shipment.clofor_com_cfs__S_I_PASSWORD__c}<br/></span>
+                            <span style="{! IF(shipment.clofor_com_cfs__CustomizedShipOrderID__c != null, '', 'display: none; ')}">AMS HBL: {!shipment.clofor_com_cfs__CustomizedShipOrderID__c}<br/></span>
+                            <span style="{! IF(shipment.clofor_com_cfs__A_N_PASSWORD__c != null, '', 'display: none; ')}">ACI CCN Code: {!shipment.clofor_com_cfs__A_N_PASSWORD__c}<br/></span>
+                            <span style="{! IF(shipment.clofor_com_cfs__HBL__c != null, '', 'display: none; ')}">HBL: {!shipment.HBL__c}</span>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div> -->
+        
+       
+        
+    </body>
+</apex:page>

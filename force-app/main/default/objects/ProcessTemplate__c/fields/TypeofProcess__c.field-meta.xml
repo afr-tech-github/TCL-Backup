@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TypeofProcess__c</fullName>
+    <externalId>false</externalId>
+    <label>Type of Template</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Recruitment Process</fullName>
+                <default>false</default>
+                <label>Recruitment Process</label>
+            </value>
+            <value>
+                <fullName>Check List</fullName>
+                <default>false</default>
+                <label>Check List</label>
+            </value>
+            <value>
+                <fullName>Intern Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Intern Process</label>
+            </value>
+            <value>
+                <fullName>Offboarding Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Offboarding Process</label>
+            </value>
+            <value>
+                <fullName>Probation Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Probation Process</label>
+            </value>
+            <value>
+                <fullName>Promotion Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Promotion Process</label>
+            </value>
+            <value>
+                <fullName>Renew Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Renew Process</label>
+            </value>
+            <value>
+                <fullName>Review Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Review Process</label>
+            </value>
+            <value>
+                <fullName>Rotation Process</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Rotation Process</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

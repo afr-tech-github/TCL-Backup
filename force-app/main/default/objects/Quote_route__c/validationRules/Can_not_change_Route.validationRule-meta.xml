@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Can_not_change_Route</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISCHANGED(  Route__c )</errorConditionFormula>
+    <errorMessage>You can not change Route. Please use the button &quot;Add Route&quot; to add a new Quote Route or delete it if this is an incorrect Route. Thank you!</errorMessage>
+</ValidationRule>

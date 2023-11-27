@@ -1,0 +1,441 @@
+<apex:page controller="printSeaManifestController"  contentType="application/vnd.ms-excel"  showHeader="false" applyHtmlTag="false" renderAs="">
+    <head>
+        <style type="text/css">
+        
+        /* contentType="application/vnd.ms-excel" */
+    
+          
+           
+            .custom{
+                /* font-family: "Times New Roman", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 11px;
+                width: 100%;
+                border: none;
+                border-collapse: collapse;
+            }
+         
+            .custom td{
+                /* border: none; */
+            }
+            .custom1{
+                /* font-family: "Times New Roman", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+                font-size: 11px;
+                border-collapse: collapse;
+                /* border: 1px !Solid black; */
+                width: 100%
+            }
+             .custom1 th{
+                border: 1px Solid black ;
+                text-align: left;
+               
+
+            }
+            .custom1 td{
+                /* border-top: dotted; */
+                /* border-bottom: dotted; */
+                /* font-family: "Times New Roman", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+                /* border-left: hidden;
+                border-right: hidden; */
+                border: 1px  Solid black;
+                /* border-right: 1px Solid black ;border-left: 1px Solid black ;border-bottom: 1px Solid black ; */
+            }
+            .custom1 tr{
+               height: 20px;
+            }
+            .customtd{
+                border: 1px  Solid black;border-bottom: 1px  Solid black;
+            }
+            body {
+                font-size: 11px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                /* font-family: "Times New Roman", sans-serif; */
+                font-family: 'Times New Roman', Times, serif
+                 /* margin you want for the content */
+            }
+            .tr-total td{
+                border: none;
+               
+            }
+            .tr-total td{
+                font-weight: normal;
+               
+            }
+
+
+            td{
+                /* font-family: "Times New Roman", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .page-break {
+                display:block;
+                page-break-after:always;
+            }
+        </style>
+       
+    </head>
+   
+    <body>
+        <apex:form >
+        
+        <table class="custom1">
+            <tr>
+                <td colspan="8"  style="border: none">
+                    <div style=" text-align: center"><b>DANH SÁCH VẬN ĐƠN GOM HÀNG</b>  </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td  colspan="8" style="border: none">
+                    <div style="text-align: center"> (List of House bill of lading) </div>
+
+                </td>
+            </tr>
+            <tr  >
+                <!-- <th class="cell_border" width="1%">
+                    <apex:outputText value="STT (*)<br/>No" escape="false"/>
+                </th> -->
+                <th  >
+                    <apex:outputText value="STT(*)<br/> No" escape="false"/>
+                    <!-- <pre>
+                        STT (*)
+                        No
+                    </pre> -->
+                    
+                    <!-- <p>
+                    <apex:outputText escape="false" value="STT &nbsp; <br/> &nbsp;  No"></apex:outputText>
+                    </p> -->
+                    <!-- <p style="margin: 0">STT (*) </p>
+                    <p style="margin: 0">No</p> -->
+         
+                </th>
+                <th>
+                    Số hồ sơ
+                    <br/>
+                    Document's No
+                </th>
+                <th>
+                    Năm đăng ký hồ sơ
+                    <br/>
+Document's Year
+                </th>
+                <th>
+                    Chức năng của chứng từ
+                    <br/>
+Document's function
+                </th>
+                <th>
+                    Người gửi hàng*
+                    <br/>
+Shipper
+                </th>
+                <th>
+                    Người nhận hàng*
+                    <br/>
+Consignee
+                </th>
+                <th>
+                    Người được thông báo 1
+                    <br/>
+Notify Party 1
+                </th>
+                <th>
+                    Người được thông báo 2
+                    <br/>
+Notify Party 2
+                </th>
+                <th>
+                    Mã Cảng chuyển tải/quá cảnh
+                    <br/>
+Code of Port of transhipment/transit
+                </th>
+                <th>
+                    Mã Cảng giao hàng/cảng đích
+                    <br/>
+Final destination
+                </th>
+                <th>
+                    Mã Cảng xếp hàng
+                    <br/>
+Code of Port of Loading
+                </th>
+                <th>
+                    Mã Cảng dỡ hàng
+                    <br/>
+                    Port of unloading/discharging 
+                </th>
+                <th>
+                    Địa điểm giao hàng*
+                    <br/>
+                    Place of Delivery 
+                </th>
+                <th>
+                    Loại hàng*
+                    <br/>
+Cargo Type/Terms of Shipment
+                </th>
+                <th>
+                    Số vận đơn *
+                    <br/>
+                    Bill of lading number
+                </th>
+                <th>
+                    Ngày phát hành vận đơn*
+                    <br/>
+Date of house bill of lading
+                </th>
+                <th>
+                    Số vận đơn gốc*
+                    <br/>
+Master bill of lading number
+                </th>
+                <th>
+                    Ngày phát hành vận đơn gốc*
+                    <br/>
+                    Date of master bill of lading  
+                </th>
+                <th>
+                    Ngày khởi hành*
+                    <br/>
+Departure date
+                </th>
+                <th>
+                    Tổng số kiện*
+                    <br/>
+Number of packages
+                </th>
+                <th>
+                    Loại kiện*
+                    <br/>
+Kind of packages
+                </th>
+                <th>
+                    Tổng trọng lượng*
+                    <br/>
+                    Total gross weight 
+                </th>
+                <th>
+                    Đơn vị tính trọng lượng*
+                    <br/>
+Total gross weight unit
+                </th>
+                <th>
+                    Ghi chú
+                    <br/>
+Remark
+                </th>
+                
+            </tr>
+            <tr style="vertical-align: top;height: 100px">
+                <td>
+                    1
+                </td>
+                <td>
+
+                </td>
+                <td>
+                    {!YEAR(TODAY())}
+                    <!-- <apex:outputText value="{'yyyy'}">
+                    <apex:param value="{! NOW() }" />
+                    </apex:outputText> -->
+                </td>
+                <td>
+
+                    CN01
+                </td>
+                <td>
+                    <span>
+                        <div style="display: flex">
+
+                            <apex:outputField style="white-space: pre-line" value="{!So.ShipperDetailInformation__c}"></apex:outputField>
+                        </div>
+
+                    </span>
+                    
+                </td>
+                <td>
+                    <apex:outputField style="white-space: pre-line" value="  {!So.ConsigneeDetailInformation__c}"></apex:outputField>
+
+                  
+
+                </td>
+                <td>
+                    <apex:outputField value="{!So.HouseNotifyPartyDetail_Information__c}"></apex:outputField>
+
+                    
+
+                </td>
+                <td>
+                    <apex:outputField value="{!So.SecondNotifyPartyDetailInformation__c}"></apex:outputField>
+
+
+                </td>
+                <td>
+                    {!So.TransitPortCode__c}
+
+                </td>
+                <td>
+
+                    {!So.FinalDestination__r.Standard_Port_Code__c}
+
+                </td>
+                <td>
+                    {!So.POLAOD__r.Standard_Port_Code__c}
+
+                </td>
+                <td>
+                    {!So.PODAOA__r.Standard_Port_Code__c}
+
+                </td>
+                <td>
+                    {!So.PlaceofDelivery__r.Name}
+
+                </td>
+                <td>
+                    {!So.CargoType__c}
+
+                </td>
+                <td>
+                    {!So.HBLNumber__c}
+
+                </td>
+                <td>
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                  <apex:param value="{!So.DateofHouseBLIssued__c }" />
+                    </apex:outputText>
+                   
+
+                </td>
+                <td>
+                    {!So.MBLNumber__c}
+
+                </td>
+                <td>
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    <apex:param value="{!So.DateofMasterBLIssued__c }" />
+                      </apex:outputText>
+                </td>
+                
+                <td>
+                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                    <apex:param value="{!So.ETD__c}" />
+                      </apex:outputText>
+                    
+
+                </td>
+
+                <td>
+                    {!So.CargoQuantity__c}
+
+                </td>
+                <td>
+                    {!So.PackageUnitCode__c}
+
+                </td>
+                 <td style="text-align: right">
+                    {!So.GrossWeight__c}
+
+                </td>
+                 <td>
+                    {!So.GrossWeightUnit__c}
+
+                </td>
+                <td>
+                    {!So.RemarkonManifest__c}
+
+                </td>
+                
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+
+            </tr>
+            <tr class="tr-total" style="height: 40px">
+                <td></td>
+                <th>
+                    Mã hàng
+                    <br/>
+HS code if avail
+                </th>
+                <th>
+                    Mô tả hàng hóa*
+                    <br/>
+                    Description of Goods
+                </th>
+                <th>
+                    Tổng trọng lượng*
+                    <br/>
+                    Gross weight
+                </th>
+                <th>
+                    Kích thước/thể tích *
+                    <br/>
+                    Demension/tonnage
+                </th>
+                <th>
+                    Số hiệu cont
+                    <br/>
+                    Cont. number
+                </th>
+                <th>
+                    Số Seal cont
+                    <br/>
+                    Seal number
+                </th> 
+            </tr>
+            <apex:repeat value="{!CNTRList}" var="cntr">
+            <tr  class="tr-total">
+                <td></td>
+                <th>{!so.HSCode__c}</th>
+                <th style="font-weight: normal">
+                    <apex:outputField value=" {!cntr.Description_of_Goods__c}"></apex:outputField>
+                </th>
+                <th style="text-align: right;font-weight: normal">
+                    {!cntr.Gross_Weight_Kg__c}
+                    
+                </th>
+                <th style="text-align: right;font-weight: normal">
+                    {!cntr.Measurement_CBM__c}
+                    
+                </th>
+                <th style="font-weight: normal">
+                    {!cntr.Container_Number__c}
+                    
+                </th>
+                <th style="font-weight: normal">
+                    {!cntr.Seal_Number__c}
+                    
+                </th>
+            </tr>
+        </apex:repeat>
+        </table>
+    </apex:form>
+
+  
+    </body>
+</apex:page>

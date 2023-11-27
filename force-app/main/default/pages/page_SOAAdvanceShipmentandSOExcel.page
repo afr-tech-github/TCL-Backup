@@ -1,0 +1,218 @@
+<apex:page controller="SOAAdvancedShipmentController" contentType="application/vnd.ms-excel#Baocaosanluong.xls" sidebar="false"  applyBodyTag="false" cache="true" title="Báo cáo sản lượng" showHeader="false">
+    <head>
+        <style>
+            @page{
+                size:landscape;
+            }
+            .companyInfo {
+                text-align: center;
+                font-size: 10px;
+            }
+            body {
+                font-size: 10px;
+                font-family: "Times New Roman", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif;
+                /*font-family: Arial Unicode MS;*/
+            	text-transform: uppercase;
+            }
+            th {
+                text-align: center;
+                font-weight: bold;
+            }
+            .title {
+                font-size: 20px;
+                text-align: center;
+            }
+            
+            .dataTable {
+                width: 100%;
+                border-collapse: collapse;
+                border: thin solid;
+            }
+            .dataTable th, .dataTable td{
+                border-collapse: collapse;
+                border: thin solid;
+            }
+            .dataTable tr {
+                border: thin solid ;
+                border-collapse: collapse;
+            }
+            
+            .dataTable td {
+                font-size: 10px;
+                text-align:center;
+                border-collapse: collapse;
+                border: thin solid ;
+                line-height: 20px;
+            }
+            .hideColumn{
+            display: none;
+            }
+            .showColumn{
+                display: table-cell;
+            }
+            .fontBold{
+                font-weight: bold
+            }
+            table tr td{
+                 page-break-inside: avoid;
+            }
+        </style>
+    </head>
+    <body>
+        <p/>
+        <div class='title'>
+            <apex:outputLabel value="SẢN LƯỢNG " rendered="{!period <> null}"/>
+            <apex:outputLabel value="{!period}" rendered="{!period <> null}"/>
+        </div>
+        <p/>       
+        <p/>
+        <table class='dataTable' style="font-size: 10px" cellPadding="4" border="0" width="100%">
+            <tr bgcolor="#bfc4d4">
+                <!-- <th class="cell_border">No.</th>
+                <th class="cell_border">Branch</th>
+                <th class="cell_border">Department</th>
+                <th class="cell_border">File No</th>
+                <th class="cell_border">Agent</th>
+                <th class="cell_border">Shipper</th>
+                <th class="cell_border">Consignee</th>
+                <th class="cell_border">MBL</th>
+                <th class="cell_border">MBL's Dest</th>
+                <th class="cell_border">Amt.of HBL</th>
+                <th class="cell_border">Date</th>
+                <th class="cell_border">ETD</th>
+                <th class="cell_border">ETA</th>
+                <th class="cell_border">Shipment Type</th>
+                <th class="cell_border">Container Quantity 1</th>
+                <th class="cell_border">Container Type 1</th>
+                <th class="cell_border">Conseal</th>
+                <th class="cell_border">BILLING (VND)</th>
+                <th class="cell_border">COSTING (VND)</th>
+                <th class="cell_border">PROFIT</th>
+                <th class="cell_border">Sales Man</th>
+                <th class="cell_border">Sales Support</th> -->
+                <th class="cell_border">No.</th>
+                <th class="cell_border">Branch</th>
+                <th class="cell_border">File No</th>
+                <th class="cell_border">M B/L or M AWB Number</th>
+                <th class="cell_border">Customer</th>
+                <th class="cell_border">M-Agent</th>
+                <th class="cell_border">Consignee</th>
+                <th class="cell_border">Number of House B/L</th>
+                <th class="cell_border">ETD</th>
+                <th class="cell_border">ETA</th>
+                <th class="cell_border">P.O.L(A.O.D)</th>
+                <th class="cell_border">P.O.D(A.O.A)</th>
+                <th class="cell_border">Gross Weight</th>
+                <th class="cell_border">Measurement(CBM)</th>
+                <th class="cell_border">Description of Goods</th>
+            </tr>
+            <apex:variable value="{!0}" var="count"/>
+            <apex:repeat value="{!listReport}" var="report" >
+                <apex:variable var="count" value="{!count + 1}"/>
+                <tr bgcolor="#d4dadc">
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!count}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.branch}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.fileNo}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.mbl}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.customer}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.agent}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.consignee}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.NumOfHouseBill}"/>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!report.eTD}"/>
+                        </apex:outputText>
+                        <!-- <apex:outputText escape="false" value="{!report.delivery}"/> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!report.eTA}"/>
+                        </apex:outputText>
+                        <!-- <apex:outputText escape="false" value="{!report.lstItem.size}" rendered="{!report.lstItem.size > 0}"/>
+                        <apex:outputText escape="false" value="1" rendered="{!report.lstItem.size == 0}"/> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.MPOL}"/>
+                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!report.createDate}"/>
+                        </apex:outputText> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.MPOD}"/>
+                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!report.eTD}"/>
+                        </apex:outputText> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <!-- <apex:outputText escape="false" value="{!report.GrossWeight}"/> -->
+                        <apex:outputText value="{0,number,###,###,###,##0.####}">
+                            <apex:param value="{!report.GrossWeight}" />
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                            <apex:param value="{!report.eTA}"/>
+                        </apex:outputText> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <!-- <apex:outputText escape="false" value="{!report.MeasurementCBM}"/> -->
+                        <apex:outputText value="{0,number,###,###,###,##0.####}">
+                            <apex:param value="{!report.MeasurementCBM}" />
+                        </apex:outputText>
+                    </td> 
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.description}"/>
+                        <!-- <apex:outputText value="-" rendered="{!report.contQuan == 0}"/>
+                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.contQuan <> 0}">
+                            <apex:param value="{!report.contQuan}" />
+                        </apex:outputText> -->
+                    </td> 
+                    <!-- <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.contType}"/>
+                    </td>  -->
+                    <!-- <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.conSeal}"/>
+                    </td>   
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="-" rendered="{!report.totalSelling == 0}"/>
+                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalSelling <> 0}">
+                            <apex:param value="{!report.totalSelling}" />
+                        </apex:outputText>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="-" rendered="{!report.totalBuying == 0}"/>
+                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalBuying <> 0}">
+                            <apex:param value="{!report.totalBuying}" />
+                        </apex:outputText>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="-" rendered="{!report.totalAmount == 0}"/>
+                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalAmount <> 0}">
+                            <apex:param value="{!report.totalAmount}" />
+                        </apex:outputText>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.salesMan}"/>
+                    </td>  
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText escape="false" value="{!report.salesSupport}"/>
+                    </td>  -->
+                </tr>
+            </apex:repeat>
+        </table>
+    </body>
+</apex:page>

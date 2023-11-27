@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Filter_by_Win_Rate</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Contact__c</columns>
+    <columns>PODAOA1__c</columns>
+    <columns>POL__c</columns>
+    <columns>EstimatedWinRate__c</columns>
+    <columns>Priority__c</columns>
+    <columns>Type_of_Cargo__c</columns>
+    <columns>Container_Mode__c</columns>
+    <columns>Valid_Start_Date__c</columns>
+    <columns>Valid_End_Date__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>EstimatedWinRate__c</field>
+        <operation>greaterThan</operation>
+        <value>60.0</value>
+    </filters>
+    <label>Filter by Win Rate</label>
+</ListView>

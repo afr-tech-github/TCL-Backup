@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>QUOTE_WON</fullName>
+    <columns>NAME</columns>
+    <columns>QuoteName__c</columns>
+    <columns>RequesterCompany__c</columns>
+    <columns>ApprovalStatus__c</columns>
+    <columns>TotalAmountofSellingFCY__c</columns>
+    <columns>TotalAmountofSellingLocal__c</columns>
+    <columns>TotalSellingInclTaxFCY__c</columns>
+    <columns>TotalSellingInclTaxLocal__c</columns>
+    <columns>TypeOfCargo1__c</columns>
+    <columns>ETA__c</columns>
+    <columns>ETD__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>QuoteStatus__c</field>
+        <operation>equals</operation>
+        <value>Closed Won</value>
+    </filters>
+    <label>QUOTE WON</label>
+</ListView>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnimationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <animationFrequency>sometimes</animationFrequency>
+    <developerName>JobContainer</developerName>
+    <isActive>true</isActive>
+    <masterLabel>Job Container</masterLabel>
+    <recordTypeContext>Master</recordTypeContext>
+    <recordTypeName>__MASTER__</recordTypeName>
+    <sobjectType>ConsolCNTR__c</sobjectType>
+    <targetField>ContainerStatus__c</targetField>
+    <targetFieldChangeToValues>Created,Waiting for Pick-up,Cargo Stuffing,Transported to Warehouse,In use,Cargo Unloading,Empty Container Return,Container Returned</targetFieldChangeToValues>
+</AnimationRule>

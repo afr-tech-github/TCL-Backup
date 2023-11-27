@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PathAssistant xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <entityName>AdvancedShipment__c</entityName>
+    <fieldName>Advance_Shipment_Status__c</fieldName>
+    <masterLabel>Export - FCL - Air</masterLabel>
+    <pathAssistantSteps>
+        <fieldNames>Field1__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Nhận SI từ KH, issue HAWB gửi KH check và confirm.&lt;/li&gt;&lt;li&gt;Submit SI, CARGO MANIFEST cho coloader.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Bill, Cargo Manifest Process</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Field1__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li style=&quot;text-align: justify;&quot;&gt;Nhận thông tin SO từ sales, push Co-loader ra booking và release Booking cho khách hàng.&lt;/li&gt;&lt;/ul&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Booking Process</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>Field1__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li style=&quot;text-align: justify;&quot;&gt;Docs issue và gửi Debit Note cho khách hàng. Nhận thanh toán từ khách hàng theo công nợ.&lt;/li&gt;&lt;li style=&quot;text-align: justify;&quot;&gt;Nhận Debit Note từ coloader, request thanh toán với kế toán theo thời hạn công nợ.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Debit &amp; Credit</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <fieldNames>ATA__c</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Theo dõi ATA, update tình hình lô hàng cho KH.&lt;/li&gt;&lt;li&gt;Push agent mở tờ khai và lấy hàng sớm nhất có thể để tránh lưu kho.&lt;/li&gt;&lt;li&gt;Agent gửi POD ( biên bản giao hàng) sau khi giao hàng và debit note.&lt;/li&gt;&lt;li&gt;Check debit note của agent so với báo giá của pricing.&lt;/li&gt;&lt;/ul&gt;</info>
+        <picklistValueName>Follow Shipment (Until Cnee Received Cargo)</picklistValueName>
+    </pathAssistantSteps>
+    <pathAssistantSteps>
+        <info>&lt;ul&gt;&lt;li style=&quot;text-align: justify;&quot;&gt;Xuất Pre-alert từ hệ thống + điền thêm thông tin note khi làm hàng DDU ( địa chỉ giao hàng, contact consignee, tên hàng, hs code...) gửi agent TCL.&lt;/li&gt;&lt;/ul&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: justify;&quot;&gt;&lt;br&gt;&lt;/p&gt;</info>
+        <picklistValueName>Pre Alert</picklistValueName>
+    </pathAssistantSteps>
+    <recordTypeName>EXPORTFCLAIR</recordTypeName>
+</PathAssistant>

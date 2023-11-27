@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Air_import</fullName>
+    <columns>NAME</columns>
+    <columns>JobRequestID__c</columns>
+    <columns>Consignee__c</columns>
+    <columns>HAWBNumber__c</columns>
+    <columns>POLAOD__c</columns>
+    <columns>PODAOA__c</columns>
+    <columns>VesselFlight__c</columns>
+    <columns>ETA__c</columns>
+    <columns>Agent__c</columns>
+    <columns>CargoStatus__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>0128d0000006EtG</value>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>0128d0000006EtG</value>
+    </filters>
+    <label>Air import</label>
+</ListView>

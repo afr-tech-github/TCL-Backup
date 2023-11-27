@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>58.0</apiVersion>
+    <decisions>
+        <name>Export</name>
+        <label>Export</label>
+        <locationX>669</locationX>
+        <locationY>335</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Ocean</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>OceanExport</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Trigger</targetReference>
+            </connector>
+            <label>Ocean</label>
+        </rules>
+        <rules>
+            <name>Air</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.RecordType.DeveloperName</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>AirExport	</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Trigger</targetReference>
+            </connector>
+            <label>Air</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>F/TMS S/O| Update blank hbl/hawb {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>F/TMS S/O| Update blank hbl/hawb</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Trigger</name>
+        <label>Update Trigger</label>
+        <locationX>694</locationX>
+        <locationY>447</locationY>
+        <inputAssignments>
+            <field>HAWBNumber__c</field>
+        </inputAssignments>
+        <inputAssignments>
+            <field>HBLNumber__c</field>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>543</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Export</targetReference>
+        </connector>
+        <object>FTMSSO__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Draft</status>
+</Flow>

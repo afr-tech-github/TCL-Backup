@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TransportationWay__c</fullName>
+    <externalId>false</externalId>
+    <label>Transportation Way</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>TypeofTrade__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Transportation_Way</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <controllingFieldValue>IMPORT</controllingFieldValue>
+            <controllingFieldValue>EXPORT</controllingFieldValue>
+            <controllingFieldValue>ENTREPOT</controllingFieldValue>
+            <controllingFieldValue>THIRD COUNTRY</controllingFieldValue>
+            <valueName>SEA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <controllingFieldValue>IMPORT</controllingFieldValue>
+            <controllingFieldValue>EXPORT</controllingFieldValue>
+            <controllingFieldValue>ENTREPOT</controllingFieldValue>
+            <controllingFieldValue>THIRD COUNTRY</controllingFieldValue>
+            <valueName>AIR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <controllingFieldValue>IMPORT</controllingFieldValue>
+            <controllingFieldValue>EXPORT</controllingFieldValue>
+            <controllingFieldValue>ENTREPOT</controllingFieldValue>
+            <controllingFieldValue>THIRD COUNTRY</controllingFieldValue>
+            <valueName>TRUCKING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <controllingFieldValue>IMPORT</controllingFieldValue>
+            <controllingFieldValue>EXPORT</controllingFieldValue>
+            <controllingFieldValue>ENTREPOT</controllingFieldValue>
+            <controllingFieldValue>THIRD COUNTRY</controllingFieldValue>
+            <valueName>RAIL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <valueName>INLAND WATERWAY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>DOMESTIC</controllingFieldValue>
+            <controllingFieldValue>IMPORT</controllingFieldValue>
+            <controllingFieldValue>EXPORT</controllingFieldValue>
+            <controllingFieldValue>ENTREPOT</controllingFieldValue>
+            <controllingFieldValue>THIRD COUNTRY</controllingFieldValue>
+            <valueName>MULTIMODAL</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

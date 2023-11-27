@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Check candidate CV</fullName>
+        <default>false</default>
+        <label>Check candidate CV</label>
+    </customValue>
+    <customValue>
+        <fullName>Schedule the interview</fullName>
+        <default>false</default>
+        <label>Schedule the interview</label>
+    </customValue>
+    <customValue>
+        <fullName>Email candidate on upcoming interview</fullName>
+        <default>false</default>
+        <label>Email candidate on upcoming interview</label>
+    </customValue>
+    <customValue>
+        <fullName>Interview</fullName>
+        <default>false</default>
+        <label>Interview</label>
+    </customValue>
+    <customValue>
+        <fullName>Send offer letter</fullName>
+        <default>false</default>
+        <label>Send offer letter</label>
+    </customValue>
+    <customValue>
+        <fullName>Finalize onboard date and prepare document</fullName>
+        <default>false</default>
+        <label>Finalize onboard date and prepare document</label>
+    </customValue>
+    <customValue>
+        <fullName>Welcome candidate onboard</fullName>
+        <default>false</default>
+        <label>Welcome candidate onboard</label>
+    </customValue>
+    <description>Action item used in HR recruitment process</description>
+    <masterLabel>Action item</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

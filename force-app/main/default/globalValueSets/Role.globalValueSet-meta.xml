@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Accountant</fullName>
+        <default>false</default>
+        <label>Accountant</label>
+    </customValue>
+    <customValue>
+        <fullName>Salesman</fullName>
+        <default>false</default>
+        <label>Salesman</label>
+    </customValue>
+    <customValue>
+        <fullName>Doc</fullName>
+        <default>false</default>
+        <label>Doc</label>
+    </customValue>
+    <customValue>
+        <fullName>CS</fullName>
+        <default>false</default>
+        <label>CS</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing</fullName>
+        <default>false</default>
+        <label>Pricing</label>
+    </customValue>
+    <customValue>
+        <fullName>Cross Border</fullName>
+        <default>false</default>
+        <label>Cross Border Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Sale Manager</fullName>
+        <default>false</default>
+        <label>Sale Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Operation Manager</fullName>
+        <default>false</default>
+        <label>Operation Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>BOD</fullName>
+        <default>false</default>
+        <label>BOD</label>
+    </customValue>
+    <customValue>
+        <fullName>GM</fullName>
+        <default>false</default>
+        <label>GM</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing Manager</fullName>
+        <default>false</default>
+        <label>Pricing Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Pricing Supervisor</fullName>
+        <default>false</default>
+        <label>Pricing Supervisor</label>
+    </customValue>
+    <customValue>
+        <fullName>Sales Support</fullName>
+        <default>false</default>
+        <label>Sales Support</label>
+    </customValue>
+    <customValue>
+        <fullName>Operation Supervisor</fullName>
+        <default>false</default>
+        <label>Operation Supervisor</label>
+    </customValue>
+    <customValue>
+        <fullName>Logistics &amp; Messenger Staff</fullName>
+        <default>false</default>
+        <label>Logistics &amp; Messenger Staff</label>
+    </customValue>
+    <customValue>
+        <fullName>Customs Leader</fullName>
+        <default>false</default>
+        <label>Customs Leader</label>
+    </customValue>
+    <customValue>
+        <fullName>Customs Staff</fullName>
+        <default>false</default>
+        <label>Customs Staff</label>
+    </customValue>
+    <customValue>
+        <fullName>HR Manager</fullName>
+        <default>false</default>
+        <label>HR Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>HR Executive</fullName>
+        <default>false</default>
+        <label>HR Executive</label>
+    </customValue>
+    <customValue>
+        <fullName>Admin Officer</fullName>
+        <default>false</default>
+        <label>Admin Officer</label>
+    </customValue>
+    <customValue>
+        <fullName>IT</fullName>
+        <default>false</default>
+        <label>IT</label>
+    </customValue>
+    <customValue>
+        <fullName>Driver/Cleaner</fullName>
+        <default>false</default>
+        <label>Driver/Cleaner</label>
+    </customValue>
+    <customValue>
+        <fullName>BCI Manager</fullName>
+        <default>false</default>
+        <label>BCI Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>DA</fullName>
+        <default>false</default>
+        <label>DA</label>
+    </customValue>
+    <customValue>
+        <fullName>Business Stratery Manager</fullName>
+        <default>false</default>
+        <label>Business Stratery Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Marketing Executive</fullName>
+        <default>false</default>
+        <label>Marketing Executive</label>
+    </customValue>
+    <customValue>
+        <fullName>Financial Manager</fullName>
+        <default>false</default>
+        <label>Financial Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Chief Accountant</fullName>
+        <default>false</default>
+        <label>Chief Accountant</label>
+    </customValue>
+    <customValue>
+        <fullName>Deputy Chief Accountant</fullName>
+        <default>false</default>
+        <label>Deputy Chief Accountant</label>
+    </customValue>
+    <customValue>
+        <fullName>Branch Manager</fullName>
+        <default>false</default>
+        <label>Branch Manager</label>
+    </customValue>
+    <customValue>
+        <fullName>Assistant GM</fullName>
+        <default>false</default>
+        <label>Assistant GM</label>
+    </customValue>
+    <customValue>
+        <fullName>Assistant Branch Manager</fullName>
+        <default>false</default>
+        <label>Assistant Branch Manager</label>
+    </customValue>
+    <masterLabel>Role</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

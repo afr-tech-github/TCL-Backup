@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>New</fullName>
+    <availability>online</availability>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>New</masterLabel>
+    <openType>noSidebar</openType>
+    <protected>false</protected>
+    <requireRowSelection>false</requireRowSelection>
+    <url>{!URLFOR(&apos;/lightning/o/RecruitmentPlan__c/new?&amp;defaultFieldValues=&apos;
++&apos;ApproverBOD__c=&apos; +  User.ManagerId__c   
++&apos;,StartDate__c=&apos; + Text(today())
++&apos;,Budget__c=&apos; + &quot;50000000&quot;
++&apos;,Year__c=&apos; + Text(Year(Today()))
++&apos;,Status__c=&apos; + &quot;Created&quot;
++&apos;,EndDate__c=&apos; + Text(YEAR( Today())+ 1)+&quot;-&quot; + Text(MONTH( Today()))+&quot;-&quot;+Text(DAY( Today()))
+)}</url>
+</WebLink>

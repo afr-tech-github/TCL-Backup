@@ -1,0 +1,34 @@
+<!-- currencySelector.cmp -->
+<aura:component access="global" controller="TT_HT_CheckAttmentController" 
+implements="force:hasSObjectName,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="selectedCurrency" type="String" default="usd" />
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isChecked" type="Boolean" default="false"/>
+    
+    <div>
+        <span style="
+        font-size: 16px;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: flex;
+        margin-bottom: 20px;
+    ;">Choose currency for this document</span>
+    <div style="display: flex;">
+
+      
+
+            <lightning:input style="width: 150px;"  type="radio" label="USD" name="currency" value="usd" 
+            onchange="{!c.handleCurrencyChange}" checked="{!v.selectedCurrency=='usd'}"/>
+       
+        <lightning:input  style="width: 150px;" type="radio" label="VND" name="currency" value="vnd" 
+                         onchange="{!c.handleCurrencyChange}" checked="{!v.selectedCurrency=='vnd'}"/>
+    </div>
+    </div>
+    <div style="margin-top: 25px;">
+
+        <lightning:input type="checkbox" style="font-weight: bold;" label="Create Attachments" aura:id="checkbox" checked="{!v.isChecked}" />
+    </div>
+    <div style="margin-top: 45px;">
+        <lightning:button  class="slds-button slds-button_destructive" label="Print Document" onclick="{!c.printDocument}"/>
+    </div>
+</aura:component>

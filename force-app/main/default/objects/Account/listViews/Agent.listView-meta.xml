@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Agent</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>AccountNameENG__c</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <columns>Active__c</columns>
+    <columns>TaxCode__c</columns>
+    <columns>EnglishAddress__c</columns>
+    <columns>Salesman__c</columns>
+    <columns>ACCOUNT.CREATED_DATE</columns>
+    <columns>BusinessRelationship__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.Partner</value>
+    </filters>
+    <label>Agent</label>
+</ListView>

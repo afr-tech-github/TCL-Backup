@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventRefPriceandPriceOptionNull</fullName>
+    <active>false</active>
+    <errorConditionFormula>ISBLANK( PriceOptionID__c)&amp;&amp; ISBLANK( ReferencePrice__c )</errorConditionFormula>
+    <errorMessage>This quote line is not based on any Reference price or Price Option. Please check again!</errorMessage>
+</ValidationRule>

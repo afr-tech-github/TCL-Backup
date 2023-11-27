@@ -1,0 +1,12 @@
+<apex:page >
+    <script>
+
+
+        // Tạo URL mới cho trang /apex/page_printSeaManifest?id=<recordId>
+        var newUrl = '/apex/page_printSeaManifest';
+
+        // Mở tab mới
+        window.open(newUrl, '_blank');
+
+    </script>
+</apex:page>

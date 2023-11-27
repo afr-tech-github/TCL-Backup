@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_delete_Bill_when_form_No_exist</fullName>
+    <active>true</active>
+    <errorConditionFormula>Forbid_Deleted_checkbox__c = True</errorConditionFormula>
+    <errorMessage>Could not delete this F/TMS Bills since it already had Debit/Credit No. Please contact to Accountant/Administrator for more information!</errorMessage>
+</ValidationRule>

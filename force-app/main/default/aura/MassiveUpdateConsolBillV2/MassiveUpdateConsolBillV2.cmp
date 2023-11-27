@@ -1,0 +1,104 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global"
+  controller="MassUpdateConsolBillControllerV2"
+>
+  <aura:attribute name="recordTypeId" type="String" />
+  <aura:attribute name="showForm" type="Boolean" default="true" />
+  <aura:attribute name="isShowTable" type="Boolean" default="true" />
+  <aura:attribute name="showMassUpdateRow" type="Boolean" default="true" />
+  <aura:attribute name="numberOfDisplayRecord" type="Integer" default="0" />
+  <aura:attribute name="overflowY" type="Boolean" default="false" />
+  <aura:attribute name="listIds" type="String[]" default="[]"/>
+  <aura:attribute
+    name="isSelling"
+    type="Boolean"                    
+    default="true"
+    access="global"
+  />
+  <aura:attribute name="changedFields" type="List" default="[]" />
+  <aura:attribute name="isMultiCurrency" type="Boolean" default="false"/>
+
+  <aura:attribute name="isUpdateable" type="Boolean" default="true" />
+  <aura:attribute name="isCreateable" type="Boolean" default="true" />
+  <aura:attribute name="isAccessible" type="Boolean" default="true" />
+  <aura:attribute name="isDeletable" type="Boolean" default="true" />
+  <aura:attribute name="listBillId" type="List" default="[]" />
+  <aura:method name="getDeleteItem" action="{!c.onDelete}" access="public">
+    <aura:attribute name="itemId" type="String" default=""/>
+  </aura:method>
+
+  <aura:attribute
+    name="labels"
+    type="List"
+    default="[
+    {name: 'Master Billing', style: 'width: 130px !important'},
+  
+    {name: 'Name', style: 'width: 130px'},
+    {name: 'Pricing Name', style: 'width: 130px'},
+    {name: 'F/TMS S/O', style: 'width: 130px'},
+    {name: 'Charge Unit', style: 'width: 120px'},
+          
+    {name: 'Quantity', style: 'width: 130px'},
+    {name: 'Container Type', style: 'width: 130px'},
+    {name: 'Invoice to', style: 'width: 130px;'},
+    {name: 'Currency-Selling', style: 'width: 100px;'},
+    {name: 'Unit Price of Selling (Actual)', style: 'width: 100px;'},
+    {name: 'Tax Ratio-Selling', style: 'width: 100px;'},
+    {name: 'Tax Included-Selling', style: 'width: 60px;'},
+    {name: 'Payment To', style: 'width: 160px'},
+    {name: 'Unit Price of Buying (Actual)', style: 'width: 130px;'},
+    {name: 'Tax Ratio-Buying', style: 'width: 110px'},
+    {name: 'Tax Included-Buying', style: 'width: 60px'},
+    ]"
+  />
+
+  <aura:attribute
+    name="fields"
+    type="List"
+    default="[
+    {name: 'MasterBilling__c', style: 'width: 130px !important;'},
+  
+    {name: 'Name', style: 'width: 130px !important;'},
+    {name: 'PricingName__c', style: 'width: 130px !important;'},
+    {name: 'FTMSSO__c', style: 'width: 130px !important;'},
+    {name: 'ChargeUnit__c', style: 'width: 120px !important'},
+  
+    {name: 'Quantity__c', style: 'width: 130px'},
+    {name: 'Container_Type__c', style: 'width: 130px'},
+    {name: 'Invoiceto__c', style: 'width: 130px'},
+    {name: 'CurrencySelling__c', style: 'width: 100px'},
+    {name: 'UnitPriceofSellingActual__c', style: 'width: 100px'},
+    {name: 'TaxRatioSelling__c', style: 'width: 100px;'},
+    {name: 'Tax_Included_Selling__c', style: 'width: 60px;'},
+    {name: 'PaymentTo__c', style: 'width: 160px'},
+    {name: 'UnitPriceofBuyingActual__c', style: 'width: 130px'},
+    {name: 'TaxRatioBuying__c', style: 'width: 110px'},
+    {name: 'Tax_Included__c', style: 'width: 60px'},
+    ]"
+  />
+
+  <aura:handler name="change" value="{!v.numberOfDisplayRecord}" action="{!c.changeNumberOfDisplayRecord}" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <aura:handler event="c:addBillUpdateEvt" action="{!c.addUpdateBill}"/>
+
+  <lightning:spinner aura:id="spinner" class="slds-hide" />
+  <div style="overflow-x: auto; overflow-y: hidden;">
+    <div style="{! v.isMultiCurrency ? 'display: inline-block; width: 2222px;' : 'display: inline-block; width: 1922px;'}">
+
+      <!-- <span style="font-size: 15px">Update Mass Consol Bill</span> -->
+      <aura:if isTrue="{!v.isShowTable}">
+        <div style="max-height: 352px; overflow-y: auto;">
+          <table id="massive-update-table">
+            {!v.body}
+          </table>
+        </div>
+      </aura:if>
+      <div class="slds-clearfix">
+            <div class="slds-float_right" >
+            	<lightning:button class="slds-m-bottom_small" onclick="{!c.onSaveAll}" variant="brand" type="button" name="Save" label="Save All" />
+            </div>
+        </div>
+    </div>
+  </div>
+</aura:component>

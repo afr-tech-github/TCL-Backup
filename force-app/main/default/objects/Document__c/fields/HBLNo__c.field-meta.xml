@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>HBLNo__c</fullName>
+    <externalId>false</externalId>
+    <formula>if(ISNULL(FTMSSO__r.HBLNumber__c)=true,  FTMSSO__r.HAWBNumber__c, FTMSSO__r.HBLNumber__c)</formula>
+    <label>H-B/L No</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

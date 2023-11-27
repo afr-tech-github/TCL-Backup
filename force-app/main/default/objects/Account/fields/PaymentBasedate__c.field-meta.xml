@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PaymentBasedate__c</fullName>
+    <externalId>false</externalId>
+    <label>Payment Base Date</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>ETD</fullName>
+                <default>true</default>
+                <label>ETD</label>
+            </value>
+            <value>
+                <fullName>ETA</fullName>
+                <default>false</default>
+                <label>ETA</label>
+            </value>
+            <value>
+                <fullName>Original VAT Issue Date</fullName>
+                <default>false</default>
+                <label>Original VAT Issue Date</label>
+            </value>
+            <value>
+                <fullName>Original VAT Sent Date</fullName>
+                <default>false</default>
+                <label>Original VAT Sent Date</label>
+            </value>
+            <value>
+                <fullName>Original VAT Arrived Date</fullName>
+                <default>false</default>
+                <label>Original VAT Arrived Date</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Holiday_Attendance__c</fullName>
+    <externalId>false</externalId>
+    <label>Holiday Attendance</label>
+    <summarizedField>Attendance__c.WorkDay__c</summarizedField>
+    <summaryFilterItems>
+        <field>Attendance__c.Holiday__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>Attendance__c.Type__c</field>
+        <operation>equals</operation>
+        <value>Normal</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Attendance__c.Work_cycle__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Booking_Status__c</columns>
+    <columns>Cargo_Closing_Time__c</columns>
+    <columns>Container_Qty_1__c</columns>
+    <columns>POLAOD__c</columns>
+    <columns>PODAOD__c</columns>
+    <columns>Carrier__c</columns>
+    <columns>VesselFlight__c</columns>
+    <columns>Voyage__c</columns>
+    <columns>AdvancedShipment__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

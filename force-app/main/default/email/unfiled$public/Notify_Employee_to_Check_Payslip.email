@@ -1,0 +1,8 @@
+Dear {!Payslip__c.OwnerFullName},
+<br>
+<br>We write this Email to inform you that you Payslip {!Payslip__c.Name} in {!Payslip__c.Salarycycle__c} of {!Payslip__c.Year__c} is now available.
+<br>
+<br>Please check and response us if there is anything to concern.
+<br>
+<br>Dearest Regards,
+<br>TCL HR Department

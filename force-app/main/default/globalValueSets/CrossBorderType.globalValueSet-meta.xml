@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Xuất kinh doanh</fullName>
+        <default>false</default>
+        <label>Xuất kinh doanh</label>
+    </customValue>
+    <customValue>
+        <fullName>Nhập kinh doanh</fullName>
+        <default>false</default>
+        <label>Nhập kinh doanh</label>
+    </customValue>
+    <customValue>
+        <fullName>Xuất quá cảnh</fullName>
+        <default>false</default>
+        <label>Xuất quá cảnh</label>
+    </customValue>
+    <customValue>
+        <fullName>Nhập quá cảnh</fullName>
+        <default>false</default>
+        <label>Nhập quá cảnh</label>
+    </customValue>
+    <masterLabel>Cross Border Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

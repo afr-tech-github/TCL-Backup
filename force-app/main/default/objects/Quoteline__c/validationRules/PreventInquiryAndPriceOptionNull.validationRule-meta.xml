@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventInquiryAndPriceOptionNull</fullName>
+    <active>false</active>
+    <errorConditionFormula>NOT(ISBLANK(QuoteID__r.InquiryID__c))  &amp;&amp;  ISBLANK( PriceOptionID__c )</errorConditionFormula>
+    <errorMessage>This quote line is not based on any Reference Price in Inquiry. Please check again!</errorMessage>
+</ValidationRule>

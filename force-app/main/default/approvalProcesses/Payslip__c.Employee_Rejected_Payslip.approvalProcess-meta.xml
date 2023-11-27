@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>false</allowRecall>
+    <allowedSubmitters>
+        <type>owner</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>Salarycycle__c</field>
+        <field>Branch__c</field>
+        <field>Year__c</field>
+        <field>GrossSalary__c</field>
+        <field>GrossIncome__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>true</allowDelegate>
+        <assignedApprover>
+            <approver>
+                <name>TCL_HR_for_Employee_Process_and_Salary</name>
+                <type>queue</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>HR Decision to Fix</label>
+        <name>HR_Decision_to_Fix</name>
+    </approvalStep>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <formula>AND ( Text(Status__c) = &apos;Employee Rejected&apos;, 
+
+OR( Text( ReasonofRejection__c) = &apos;Payslip&apos;,
+
+AND(Text( ReasonofRejection__c) = &apos;Both&apos;),
+
+OR ( WorkCycleStatus__c = &apos;Rejected to Fix&apos;,
+WorkCycleStatus__c = &apos;Final Approval&apos;,
+WorkCycleStatus__c = &apos;Final Rejection&apos;)))</formula>
+    </entryCriteria>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <label>Employee Rejected Payslip</label>
+    <processOrder>2</processOrder>
+    <recordEditability>AdminOrCurrentApprover</recordEditability>
+    <showApprovalHistory>false</showApprovalHistory>
+</ApprovalProcess>

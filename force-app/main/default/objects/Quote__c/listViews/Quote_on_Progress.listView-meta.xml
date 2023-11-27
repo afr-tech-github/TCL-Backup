@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quote_on_Progress</fullName>
+    <columns>QuoteStatus__c</columns>
+    <columns>NAME</columns>
+    <columns>QuoteName__c</columns>
+    <columns>RequesterCompany__c</columns>
+    <columns>ApprovalStatus__c</columns>
+    <columns>TotalAmountofSellingFCY__c</columns>
+    <columns>TotalAmountofSellingLocal__c</columns>
+    <columns>TotalSellingInclTaxFCY__c</columns>
+    <columns>TotalSellingInclTaxLocal__c</columns>
+    <columns>TypeOfCargo1__c</columns>
+    <columns>ETA__c</columns>
+    <columns>ETD__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>QuoteStatus__c</field>
+        <operation>equals</operation>
+        <value>Inquiry Received,Under Quotation,Quote Issued,Under Quotation Revision,Quote Reissued,Expired,Completed</value>
+    </filters>
+    <label>Quote on Progress</label>
+</ListView>

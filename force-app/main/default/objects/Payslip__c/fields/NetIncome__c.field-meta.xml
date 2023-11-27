@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NetIncome__c</fullName>
+    <externalId>false</externalId>
+    <formula>(GrossIncome__c -   BasicSalary__c *(HealthInsurancePercentage__c +  UnemploymentInsurancePercentage__c +  Social_Insurance_Percentage__c ) -  PITAmount__c)  - SalaryAdvanceAmount__c +  SalaryTaxfreeWorkDay__c +  SalaryTaxfreeOTHour__c +  TaxfreeAllowance__c</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Net Income = Income After Tax + Salary by Tax-free OT (Hour) + Salary by Tax-free Work Day + Apprenticeship Allowance Amount + Tax-free Allowance - Salary Advance Amount</inlineHelpText>
+    <label>Net Income</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AnnualLeavewillUseFull__c</fullName>
+    <externalId>false</externalId>
+    <label>Annual Leave will Use (Full)</label>
+    <summaryFilterItems>
+        <field>LeaveDay__c.BusinessDay__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>LeaveDay__c.Half_Day__c</field>
+        <operation>notEqual</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>LeaveDay__c.Paid_Type__c</field>
+        <operation>equals</operation>
+        <value>Annual Leave</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>LeaveDay__c.Status__c</field>
+        <operation>notEqual</operation>
+        <value>Used</value>
+    </summaryFilterItems>
+    <summaryFilterItems>
+        <field>LeaveDay__c.InCycle__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>LeaveDay__c.LeaveRequest__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

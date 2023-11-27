@@ -1,0 +1,298 @@
+<aura:component  access="global" controller="CDI_TableController" implements="force:hasSObjectName,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader"
+>
+
+<aura:attribute name="ListWapper" type="List" />
+<aura:attribute name="isLoading" type="Boolean" default="false"/>
+<aura:attribute name="selectedPK" type="List" />
+
+<aura:handler name="init" value="{!this}" action="{!c.init}" />
+<aura:attribute name="listDetail" type="List" />
+<aura:attribute name="searchValue" type="String" default="" />
+  
+<aura:attribute name="iconDown" type="String" default="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R35O&amp;oid=00D5i00000CHEMI&amp;lastMod=1689847786000" />
+  
+    <div> 
+    <div  style="overflow-x: auto;
+    border-radius: 5px;
+    /* min-height: 457px; */
+    max-height: 500px;" class="LH_ALL1">
+        <div  style="padding: 16px;
+        background: #f3f3f3;
+        min-width: 1000px;
+        display: flex;
+        align-items: center;
+        position: sticky;
+        width: 100%;
+        top: 0;
+        z-index: 10;" class="header smallMobiex" >
+         
+
+                <span   style="width: 24px; height: 24px;border-radius: 3px;background-color: #ea70b1">
+                    <img  src="https://tcl-02-dev-ed.develop.my.salesforce.com/img/icon/t4v35/custom/custom54_120.png" title="Packages detail" alt=""/>
+                </span>
+                <p  style="font-weight: 700; font-size: 16px;display: inline-block; margin-left: 10px;"  >Debit Note Details
+               
+                </p>
+               
+              
+
+            <div style="display: inline-block;" class="inputSearch">           
+           <lightning:input placeholder="Ref no" value="{!v.searchValue}"    style="width: 200px;display: inline-block;margin-left: 15px; margin-right: 5px;"   onchange="{!c.deleteSearch}" />
+            
+            <div style="display: inline-block;
+            padding: 2px 10px;
+            background-color:white;
+            font-size: 15px;
+              font-weight: 700;
+              color: white;
+              border: 1px solid #747474;
+              border-radius: 6px;
+            cursor: pointer;"
+            onclick="{!c.handleSearch}"
+            > 
+
+            <img style="width: 25px; height: 25px;"
+            src="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R3ZO&amp;oid=00D5i00000CHEMI&amp;lastMod=1689926772000"/></div>
+
+         
+             
+                </div>
+               
+        <div>
+            <button class="reload-btn" onclick="{!c.init}" >
+            <img  style="width: 20px;" src="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R3o0&amp;oid=00D5i00000CHEMI&amp;lastMod=1690254077000" title="Packages detail" alt=""/>
+               
+            </button> 
+           
+       
+        </div>
+        <aura:if isTrue="{! v.selectedPK.length> 0 }"> 
+                <lightning:button variant="destructive"  onclick="{!c.deletePackage}" label="Delete" title="Destructive action" class="slds-m-left_x-small"></lightning:button>
+        </aura:if>
+    </div>    
+    
+    <div aura:id="loadingSection" class="{!'slds-spinner_container' + (v.isLoading ? '' : ' slds-hide')}">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+    </div>
+    
+    <table id="myTableDebit" style="border: 1px solid #c9c9c9; border-bottom: none; min-width: 1000px;" class="smallMobie" >
+        
+        
+        <tr class="headertr"  style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;position: sticky;top: 65px;z-index: 10;">
+             <th style="padding: 15px 10px; "></th>
+             <th style="padding: 15px 10px; "></th>
+
+           
+             <th style="padding: 15px 10px; " class="width5">STT</th>
+           
+                   
+                 <th>Ref No. </th>
+                <th >Bill to</th>
+                <th >Total Selling Incl Tax (VND)</th>
+                <th >Total Selling Incl Tax (USD)</th>
+
+
+                
+          
+        </tr>
+        <tbody>
+            <aura:if isTrue="{! v.ListWapper.length == 0 }"> 
+                <tr>
+                    <td colspan="10" style="text-align: center;">No Record</td>
+                </tr>
+
+         </aura:if>
+        <aura:iteration  items="{!v.ListWapper}" var="wapperItem" indexVar="index">
+            <tr>
+                <aura:if isTrue="{!wapperItem.DocDT.length > 0}">
+                    <td style="width: 50px;cursor: pointer;"  onclick="{!c.togglePackageList}" data-index="{!wapperItem.Doc.Id}" >
+                          <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto" class="imageDown" />    
+                    </td>
+                    <aura:set attribute="else">
+                        <td style="width: 50px" >
+                            <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto;opacity: .3;"  />    
+                         </td>
+                    </aura:set>
+                </aura:if>
+                   
+               <aura:if isTrue="{! wapperItem.Doc.Status__c == 'Draft'}">
+                    <td>
+                        <input id="{!wapperItem.Doc.Id}"  data-id="{!wapperItem.Doc.Id}"  type="checkbox" onchange="{!c.AddOneOder}" value="{!wapperItem.Doc.Id}" />
+                    </td>
+                    <aura:set attribute="else">
+                        <td>
+
+                            <input  disabled="true"  type="checkbox"  />
+                        </td>
+                    </aura:set>
+                </aura:if>
+                <td  > 
+                  {!index + 1}   
+                </td>
+                
+                <td  data-index="{!wapperItem.Doc.Id}" style="cursor: pointer; color: #0176d3;" >
+                    <a href="{! '/'+ wapperItem.Doc.Id}" target="_blank">{!wapperItem.Doc.Name}</a>
+                   
+                </td>
+                <td  class="hideOnMobie">
+                    {!wapperItem.Doc.Billto__r.Name}
+                </td>
+                <td  >
+                    <lightning:formattedNumber value="{!wapperItem.Doc.TotalSellingInclTaxLocal__c}"></lightning:formattedNumber>
+
+                    <!-- {!wapperItem.Doc.TotalSellingInclTaxLocal__c} -->
+                </td>
+
+                <td  >
+                    <lightning:formattedNumber value="{!wapperItem.Doc.TotalSellingInclTaxFCY__c}" minimumFractionDigits="2"></lightning:formattedNumber>
+
+                    <!-- {!wapperItem.Doc.TotalSellingInclTaxFCY__c} -->
+                </td>
+            </tr>
+            <tr >
+              
+                <td colspan="10" style="padding: 0; border: none;">
+                    
+              <div class="{!wapperItem.Doc.Id}" style="height: 0; overflow: hidden; transition: all ease .3s;position: relative; box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.1);">
+
+              
+       
+            <table style="width: calc(100% - 50px);margin-left: auto" class="subtable">
+
+
+              
+             <tr  style="background-color:   #f7f7f7;position: relative;">
+
+               
+               <!-- <aura:if isTrue="{! v.alowDelete == 1}"> -->
+
+                    <th>
+                       
+                    </th>
+                <!-- </aura:if> -->
+                <th>
+                    STT
+                 </th>
+                 <th>Pricing Name</th>
+                <!-- <th class="hideOnMobie">Bill to</th> -->
+                <th>Quantity</th>
+                <th class="hideOnMobie">Charge Unit</th>
+                <th>Currency Selling</th>
+                 <th>Tax Ratio-Selling</th>
+                 <th>Unit Price of Selling (VND)</th>
+                 <th>Total Selling Incl Tax (VND)</th>
+                 <th>Unit Price of Selling (USD)</th>
+                 <th>Total Selling Incl Tax (USD)</th>
+
+                <div style="position: absolute;
+                width: 1px;
+                height: 100%;
+                background: #ba0517;
+                left: -38px;
+                top: -12px;"></div> 
+                
+                </tr>
+
+               
+                <aura:iteration  items="{!wapperItem.DocDT}" var="DocDt" indexVar="index" >
+                    
+                    
+                  
+                        <tr  style="position: relative;" >
+
+                            <aura:if isTrue="{! wapperItem.Doc.Status__c == 'Draft'}">
+                                <td>
+                                    <input onchange="{!c.handleCheck}"  class="{!wapperItem.Doc.Id}" data-parent="{!wapperItem.Doc.Id}" id="{!DocDt.Id}"  type="checkbox"  value="{!DocDt.Id}" />
+                                </td>
+                                <aura:set attribute="else">
+                                    <td>
+
+                                        <input  disabled="true"  type="checkbox"  />
+                                    </td>
+                                </aura:set>
+                            </aura:if>
+
+                           
+                          
+                            <td  > 
+                                {!index + 1}   
+                              </td>
+                    <td  style="cursor: pointer; color: #0176d3;" >
+                        <a href="{! '/' +  DocDt.Id}" target="_blank">{!DocDt.PricingNamePrinted__c}</a>
+                        <!-- {! '/'+ v.wapperItem.Doc.Id} -->
+
+                       </td>
+
+                       <!-- <td >{!DocDt.Billto__r.Name}</td> -->
+
+                       <td>{!DocDt.Quantity__c}</td>
+
+                       <td>{!DocDt.ChargeUnit__c}</td>
+
+                       <td>{!DocDt.CurrencySelling__c}</td>
+                       
+
+                       <td>
+                                <lightning:formattedNumber value="{!DocDt.TaxRatioSelling__c}"  minimumFractionDigits="2"/>
+                            %
+
+                       </td>
+
+                       <!-- <td>{!DocDt.UnitPriceofSellingLocal__c}</td> -->
+
+                       <td>
+                           <lightning:formattedNumber value="{!DocDt.UnitPriceofSellingLocal__c}" ></lightning:formattedNumber>
+                       </td>
+                       
+                       <td>
+                        <lightning:formattedNumber value="{!DocDt.Total_Selling_Incl_Tax_Local__c}" ></lightning:formattedNumber>
+
+                    </td>
+                    <td>
+                        <lightning:formattedNumber value="{!DocDt.UnitPriceofSellingFCY__c}" minimumFractionDigits="2"></lightning:formattedNumber>
+
+                    </td>
+                    <td>
+                        <lightning:formattedNumber value="{!DocDt.Total_Selling_Incl_Tax_FCY__c}" minimumFractionDigits="2"></lightning:formattedNumber>
+
+                    </td>
+
+                       
+                    
+
+                           
+
+                            <div style=" 
+                            position: absolute;
+                            width: 38px;
+                            height: 120%;
+                            border-bottom-left-radius: 10px;
+                            top: -70%;
+                            left: -40px;
+                            border-left: 1px solid #ba0517;
+                            border-bottom: 1px solid #ba0517">
+                        </div>
+                        </tr>  
+                      
+                 
+
+                </aura:iteration>
+             
+            </table>
+        </div>
+        </td>
+            </tr>
+
+        </aura:iteration>
+    </tbody>
+    </table>
+    
+    
+        
+</div>
+</div>
+</aura:component>

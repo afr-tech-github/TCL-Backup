@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WorkDay__c</fullName>
+    <externalId>false</externalId>
+    <label>Work Day</label>
+    <summarizedField>Attendance__c.WorkDay__c</summarizedField>
+    <summaryFilterItems>
+        <field>Attendance__c.Type__c</field>
+        <operation>equals</operation>
+        <value>Normal</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Attendance__c.Work_cycle__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

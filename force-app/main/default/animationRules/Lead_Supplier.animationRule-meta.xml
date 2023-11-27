@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnimationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <animationFrequency>rarely</animationFrequency>
+    <developerName>Lead_Supplier</developerName>
+    <isActive>true</isActive>
+    <masterLabel>Lead - Supplier</masterLabel>
+    <recordTypeContext>Custom</recordTypeContext>
+    <recordTypeName>Supplier</recordTypeName>
+    <sobjectType>Lead__c</sobjectType>
+    <targetField>Lead_Status__c</targetField>
+    <targetFieldChangeToValues>Converted to Account</targetFieldChangeToValues>
+</AnimationRule>

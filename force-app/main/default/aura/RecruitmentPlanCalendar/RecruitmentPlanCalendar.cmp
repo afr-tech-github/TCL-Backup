@@ -1,0 +1,51 @@
+<aura:component controller="RecruitmentPlanCalendarController" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction,lightning:availableForFlowScreens,lightning:availableForFlowActions" access="global">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="curentRPL" type="RecruitmentPlan__c" />
+    <aura:attribute name="targetYear" type="Integer" />
+    <aura:attribute name="tableLine" type="Integer" />
+    <aura:attribute name="listRPLLine" type="RecruitmentPlanLine__c[]" />
+    <aura:attribute name="listRPLLineAdditional" type="RecruitmentPlanLine__c[]" />
+    <aura:handler name="init" value="{! this }" action="{! c.init }"/>
+    <div style="background-color: white;">
+        <div style="margin: 20px 0px;">
+            <label for="timeType">Select type:</label>
+            <select name="timeType" id="timeType" onchange="{!c.selectType}">
+                <option value="annualy">Annualy</option>
+                <option value="quarterly">Quarterly</option>
+                <option value="monthly">Monthly</option>
+            </select>
+            <div class="month-select-div hide" style="margin: 10px 0;">
+                <label for="month-select">Select month:</label>
+                <select name="month-select" id="month-select" onchange="{!c.selectMonth}">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                </select>
+            </div>
+            <div class="quarter-select-div hide" style="margin: 10px 0;">
+                <label for="quarter-select">Select quarter:</label>
+                <select name="quarter-select" id="quarter-select" onchange="{!c.selectQuarter}">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+        </div>
+        <div style="overflow: auto;">
+            <table style="width: fit-content; border: 1px solid black;">
+                <tbody class="data-tbody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+</aura:component>

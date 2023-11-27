@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <decisions>
+        <name>Is_Blank</name>
+        <label>Is Blank</label>
+        <locationX>475</locationX>
+        <locationY>426</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Is_Blank1</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Quantity__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_record</targetReference>
+            </connector>
+            <label>Is Blank</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>QuantityCBM</name>
+        <dataType>Number</dataType>
+        <expression>	IF({!Get_Advanced_Shipment.MeasurementCBM__c}*1000&gt;{!Get_Advanced_Shipment.GrossWeight__c},
+		IF({!Get_Advanced_Shipment.MeasurementCBM__c}&lt;1,1,{!Get_Advanced_Shipment.MeasurementCBM__c}),
+			IF({!Get_Advanced_Shipment.GrossWeight__c}/1000&lt;1,1,{!Get_Advanced_Shipment.GrossWeight__c}/1000))</expression>
+        <scale>3</scale>
+    </formulas>
+    <formulas>
+        <name>QuantityFormula</name>
+        <dataType>Number</dataType>
+        <expression>CASE({!$Record.ChargeUnit__c},&apos;CBM&apos;,{!QuantityCBM},
+&apos;Shipment&apos;,1,
+&apos;Set&apos;,1,
+&quot;B/L&quot;,1,
+&quot;Kg&quot;,{!Get_Advanced_Shipment.GrossWeight__c},NULL)</expression>
+        <scale>3</scale>
+    </formulas>
+    <interviewLabel>Consol Bills | Update Quantity in when created {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Consol Bills | Update Quantity in when created</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Advanced_Shipment</name>
+        <label>Get Advanced Shipment</label>
+        <locationX>770</locationX>
+        <locationY>380</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Is_Blank</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.ConsolidationShipmentName__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>AdvancedShipment__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_record</name>
+        <label>Update record</label>
+        <locationX>769</locationX>
+        <locationY>552</locationY>
+        <inputAssignments>
+            <field>Quantity__c</field>
+            <value>
+                <elementReference>QuantityFormula</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Advanced_Shipment</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>B/L</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>B/L</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>CBM</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Shipment</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ChargeUnit__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Set</stringValue>
+            </value>
+        </filters>
+        <object>ConsolBill__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

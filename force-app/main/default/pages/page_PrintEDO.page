@@ -1,0 +1,321 @@
+<apex:page controller="EDOController" contentType="text/html" showHeader="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0">
+    <html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"> </html>
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin: 10mm 20mm 0mm 20mm;
+                
+            } 
+            body{
+                /* font-family: "Arial",sans-serif; */
+                /* font-family:  sans-serif; */
+                font-size: 12px;
+                margin-top: 10px;
+                font-family: 'Times New Roman', Times, serif;
+                
+            }
+            table{
+                font-size: 12px;
+                border-collapse: collapse;
+                font-family: 'Times New Roman', Times, serif;
+            }
+            table td{
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .nav-small{
+                font-size: 8px;
+                font-weight: bold;
+            }  
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: #f1f1f1;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+            }
+            @media print {
+                .table-striped tr:not(.not-stripe):nth-child(even){
+                    background-color: #e3dddb !important;
+                    -webkit-print-color-adjust: exact;
+                }
+                #mydiv{
+                    display: none;
+                }
+            }
+            .table-striped tr:not(.not-stripe):nth-child(even){
+                background-color: #e3dddb;
+            }
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            } 
+            .footer {   position:fixed;   bottom:0;   left:0;   width:100%; }
+        </style>
+        <script type="text/javascript">
+
+            window.onload = function () {
+                //window.top.document.title = "Your Title";
+                window.print();
+                return false;
+            }
+        </script>
+    </head>
+    <body>
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to move</div>
+            
+            <a id="print-btn" type="button" onclick="window.print()">PRINT</a>
+        </div>
+        <div style="text-align: center;">
+            <apex:outputText style="font-size: 14px;font-weight: bold;" value="{!comp.Name}"/>
+            <br/>
+            <apex:outputText style="font-size: 14px" value="Địa chỉ: {!comp.Address__c}"/>
+            <br/>
+            <apex:outputText style="font-size: 14px" value="Email: {!comp.Email__c}"/>
+        </div>
+        <br/>
+        <div style="border-top: 1px solid black;">
+            <div>
+                <div style="float: right;">
+                    <apex:outputText value="Ngày PH: "/>
+                    <apex:outputText value="{0, date, dd'/'MM'/'yyyy}">
+                        <apex:param value="{!shipment.CreatedDate}"/>
+                    </apex:outputText>
+                </div>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <div style="text-align: center;">
+                <img style="width: 140px;height: 140px;position: absolute;top: 80px;left: 8px;" src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000000zAlp&oid=00D8d00000AXMQJ&lastMod=1697160335000"/>
+                <apex:outputText style="font-size: 20px;font-weight: bold;" value="GIẤY ỦY QUYỀN GIAO HÀNG"/>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div>
+                <table style="border-collapse: collapse;width: 100%">
+                    <col width="20%" />
+                    <col width="80%" />
+                    <tr>
+                        <td style="vertical-align: top;font-weight: bold;">
+                            <apex:outputText value="Kính gửi: "/>
+                        </td>
+                        <td style="font-family: 'Times New Roman', Times, serif;font-weight: bold;">
+                            CHI CỤC HẢI QUAN SÂN BAY TÂN SƠN NHẤT
+                            <br/>
+                            CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA SÀI GÒN (SCSC)
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div>
+                <p>
+                    Chúng tôi Công ty <apex:outputText style="font-weight: bold;" value=" {!comp.Name} "/> có 01 lô hàng nhập về Việt Nam với chi tiết như sau:
+                </p>
+            </div>
+            <br/>
+            <div>
+                <table style="border-collapse: collapse;width: 100%">
+                    <col width="15%" />
+                    <col width="30%" />
+                    <col width="10%" />
+                    <col width="15%" />
+                    <col width="30%" />
+                    <tr>
+                        <td>
+                            <apex:outputText style="font-weight: bold;" value="Chuyến bay: "/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{!shipment.VesselFlight__c}"/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <apex:outputText style="font-weight: bold;" value="Ngày đến: "/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{!shipment.ETA__c}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <apex:outputText style="font-weight: bold;" value="Nơi đi: "/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{!shipment.POLAOD__r.Standard_Port_Code__c}"/>
+                        </td>
+                        <td></td>
+                        <td>
+                            <apex:outputText style="font-weight: bold;" value="Nơi đến: "/>
+                        </td>
+                        <td>
+                            <apex:outputText value="{!shipment.PODAOA__r.Standard_Port_Code__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <div>
+                <table style="border: 1px solid black;border-collapse: collapse;width: 100%;">
+                    <col width="20%" />
+                    <col width="15%" />
+                    <col width="15%" />
+                    <col width="20%" />
+                    <col width="30%" />
+                    <tr>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText style="font-weight: bold;" value="Không vận đơn"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText style="font-weight: bold;" value="Hawb No."/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText style="font-weight: bold;" value="Số Lượng"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText style="font-weight: bold;" value="Trọng lượng"/>
+                            <br/>
+                            <apex:outputText style="font-weight: bold;" value="(Kgs)"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText style="font-weight: bold;" value="Tên hàng"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText value="{!shipment.MAWBNumber__c}"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText value="{!shipment.HAWBNumber__c}"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText value="{!shipment.CargoQuantity__c}"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText value="{!shipment.GrossWeight__c}"/>
+                        </td>
+                        <td style="text-align: center;border: 1px solid black;">
+                            <apex:outputText value="{!shipment.DescriptionofGoods__c}"/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <br/>
+            <div>
+                <table style="border-collapse: collapse;width: 90%;">
+                    <col width="30%" />
+                    <col width="70%" />
+                    <tr>
+                        <td>
+                            <apex:outputText style="font-family: 'Times New Roman', Times, serif;" value="Nay chúng tôi xin ủy quyền"/>
+                            <br/>
+                            <apex:outputText style="font-family: 'Times New Roman', Times, serif;" value="cho"/>
+                        </td>
+                        <td>
+                            <apex:outputText style="font-size: 17px;font-weight: bold;font-family: 'Times New Roman', Times, serif;" value="{!shipment.Consignee__r.Name}"/>
+                            <br/>
+                            <apex:outputText style="font-size: 17px;font-family: 'Times New Roman', Times, serif;" value=" {!shipment.Consignee__r.Company_Address__c} "/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: left;">
+                            <apex:outputText style="font-family: 'Times New Roman', Times, serif;" value="liên hệ đến SCSC để làm các thủ tục để nhận hàng."/>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <br/>
+            <br/>
+           
+            <div>
+                <p style="font-family: 'Times New Roman', Times, serif;">Kính mong quý cơ quan tạo điều kiện thuận lợi cho <apex:outputText style="font-size: 17px;font-weight: bold;font-family: 'Times New Roman', Times, serif;" value=" {!shipment.Consignee__r.Name} "/> được hoàn thành thủ tục mà nhận hàng.</p>
+            </div>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            
+            <div>
+                <apex:outputText style="float: right; padding-right: 10px;text-transform: uppercase;font-size: 17px;font-weight: bold;" value="TIMES CARGO LOGISTICS CO LTD"/>
+            </div>
+            <div class="footer" style="vertical-align: bottom; padding-bottom: 50px;text-align: center;border-top: 1px solid black;">
+                <p>eDo được phát triển bới SCSC - eCargo ngày
+                    <apex:outputText value=" {0, date, dd'/'MM'/'yyyy hh:mm:ss} ">
+                        <apex:param value="{!shipment.CreatedDate}"/>
+                    </apex:outputText>
+                </p>
+            </div>
+        </div>
+    </body>
+    <script>
+        dragElement(document.getElementById("mydiv"));
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</apex:page>

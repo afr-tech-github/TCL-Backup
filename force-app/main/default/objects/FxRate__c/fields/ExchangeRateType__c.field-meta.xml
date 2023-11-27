@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ExchangeRateType__c</fullName>
+    <externalId>false</externalId>
+    <label>Exchange Rate Type</label>
+    <required>false</required>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Tỷ giá buổi sáng của VCB</fullName>
+                <default>false</default>
+                <label>Tỷ giá buổi sáng của VCB</label>
+            </value>
+            <value>
+                <fullName>Tỷ giá trả theo KB</fullName>
+                <default>false</default>
+                <label>Tỷ giá trả theo KB</label>
+            </value>
+            <value>
+                <fullName>Tỷ giá Vendor</fullName>
+                <default>false</default>
+                <label>Tỷ giá Vendor</label>
+            </value>
+            <value>
+                <fullName>Tỷ giá tính profit cho lô hàng</fullName>
+                <default>false</default>
+                <label>Tỷ giá tính profit cho lô hàng</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

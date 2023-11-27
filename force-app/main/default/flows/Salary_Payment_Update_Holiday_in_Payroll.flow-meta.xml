@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Assign_dif_month_start_day</name>
+        <label>Assign diff month start day</label>
+        <locationX>1009</locationX>
+        <locationY>706</locationY>
+        <assignmentItems>
+            <assignToReference>HoldayLeave</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>diffmonthstartdaytotal</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>each_Holiday</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_diff_month_last_day</name>
+        <label>Assign diff month last day</label>
+        <locationX>564</locationX>
+        <locationY>795</locationY>
+        <assignmentItems>
+            <assignToReference>HoldayLeave</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>diffmonthlastday</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>each_Holiday</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_in_month_day</name>
+        <label>Assign in month day</label>
+        <locationX>781</locationX>
+        <locationY>795</locationY>
+        <assignmentItems>
+            <assignToReference>HoldayLeave</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>inmonthday</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>each_Holiday</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>Check_Holiday_Month_and_year</name>
+        <label>Check Holiday Month and year</label>
+        <locationX>891</locationX>
+        <locationY>506</locationY>
+        <defaultConnector>
+            <targetReference>each_Holiday</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>In_month</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>each_Holiday.Month_Start_Day__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>each_Holiday.Month_End_Day__c</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_in_month_day</targetReference>
+            </connector>
+            <label>In month</label>
+        </rules>
+        <rules>
+            <name>Diff_month_end</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>each_Holiday.Month_Start_Day__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>each_Holiday.Month_End_Day__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>each_Holiday.Month_Start_Day__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>payroll_cycle</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_diff_month_last_day</targetReference>
+            </connector>
+            <label>Diff month end</label>
+        </rules>
+        <rules>
+            <name>Diff_month_start</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>each_Holiday.Month_Start_Day__c</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>each_Holiday.Month_End_Day__c</elementReference>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>each_Holiday.Month_End_Day__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>payroll_cycle</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_dif_month_start_day</targetReference>
+            </connector>
+            <label>Diff month start</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>diffmonthlastday</name>
+        <dataType>Number</dataType>
+        <expression>{!each_Holiday.Leave_Day_Dif_Month_Last__c} + {!each_Holiday.LeaveDayDifMonthSingleLast__c}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>diffmonthstartday</name>
+        <dataType>Number</dataType>
+        <expression>IF (AND( {!each_Holiday.Start_Date__c} &lt;&gt; {!each_Holiday.End_Date__c} , month({!each_Holiday.Start_Date__c} ) &lt;&gt; month({!each_Holiday.End_Date__c} ), {!each_Holiday.End_Date__c} &lt;&gt; {!each_Holiday.First_Date_of_month__c} ),
+
+IF(AND((5 - (CASE(MOD( {!each_Holiday.First_Date_of_month__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 5, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 0)) &lt; (CASE(MOD( {!each_Holiday.End_Date__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 0)) ),
+
+((( {!each_Holiday.End_Date__c} - {!each_Holiday.First_Date_of_month__c} ) + 1) &lt; 7)),
+
+((CASE(MOD( {!each_Holiday.End_Date__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 0)) - (5 - (CASE(MOD( {!each_Holiday.First_Date_of_month__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 5, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 0)))),
+
+(((FLOOR((( {!each_Holiday.End_Date__c} - {!each_Holiday.First_Date_of_month__c} ) - (CASE(MOD( {!each_Holiday.First_Date_of_month__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 6, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 0))) / 7)) * 5) +
+
+(CASE(MOD( {!each_Holiday.First_Date_of_month__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 5, 2, 5, 3, 4, 4, 3, 5, 2, 6, 1, 0)) +
+
+(CASE(MOD( {!each_Holiday.End_Date__c} - DATE(1900, 1, 6), 7), 0, 0, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 0)))), 0)</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>diffmonthstartdaytotal</name>
+        <dataType>Number</dataType>
+        <expression>{!diffmonthstartday} + {!each_Holiday.Leave_Day_Dif_Month_Single_Start__c}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>inmonthday</name>
+        <dataType>Number</dataType>
+        <expression>{!each_Holiday.Leave_Day_In_month__c} + {!each_Holiday.Leave_Day_Single_Day__c}</expression>
+        <scale>0</scale>
+    </formulas>
+    <formulas>
+        <name>payroll_cycle</name>
+        <dataType>Number</dataType>
+        <expression>Case ({!$Record.Salary_Cycle__c},
+&apos;January&apos; , 1,
+&apos;February&apos; , 2,
+&apos;March&apos; , 3,
+&apos;April&apos; , 4,
+&apos;May&apos; , 5,
+&apos;June&apos; , 6,
+&apos;July&apos; , 7,
+&apos;August&apos; , 8,
+&apos;September&apos; , 9,
+&apos;October&apos; , 10,
+&apos;November&apos; , 11, 12)</expression>
+        <scale>0</scale>
+    </formulas>
+    <interviewLabel>Salary Payment | Update Holiday in Payroll {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Salary Payment | Update Holiday in Payroll</label>
+    <loops>
+        <name>each_Holiday</name>
+        <label>each Holiday</label>
+        <locationX>584</locationX>
+        <locationY>496</locationY>
+        <collectionReference>Get_Holiday</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Check_Holiday_Month_and_year</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Payroll</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_Holiday</name>
+        <label>Get Holiday</label>
+        <locationX>584</locationX>
+        <locationY>371</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>each_Holiday</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 AND 3) OR (4 AND 5)</filterLogic>
+        <filters>
+            <field>Branch__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Branch__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Month_End_Day__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>payroll_cycle</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Year_End_Date__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Year__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Month_Start_Day__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>payroll_cycle</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Year_Start_Day__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Year__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Holiday__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Payroll</name>
+        <label>Update Payroll</label>
+        <locationX>411</locationX>
+        <locationY>492</locationY>
+        <inputAssignments>
+            <field>Holiday__c</field>
+            <value>
+                <elementReference>HoldayLeave</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>458</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Get_Holiday</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Created</stringValue>
+            </value>
+        </filters>
+        <object>Payroll__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>HoldayLeave</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+</Flow>

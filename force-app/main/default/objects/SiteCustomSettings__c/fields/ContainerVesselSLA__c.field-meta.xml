@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContainerVesselSLA__c</fullName>
+    <defaultValue>240</defaultValue>
+    <description>ETA Monday Ferry is the ferry arrives on Monday</description>
+    <externalId>false</externalId>
+    <inlineHelpText>ETA Monday Ferry is the ferry arrives on Monday</inlineHelpText>
+    <label>Container Vessel and ETA Monday Ferry SL</label>
+    <precision>5</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Uniform_Allowance_Limit</fullName>
+    <active>true</active>
+    <errorConditionFormula>TaxfreeUniformAllowanceperMonth__c &gt; 416667</errorConditionFormula>
+    <errorMessage>Uniform Allowance cannot be higher than 416,000đ per month OR 5,000,000 per year!</errorMessage>
+</ValidationRule>

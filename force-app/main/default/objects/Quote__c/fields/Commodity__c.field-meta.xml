@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commodity__c</fullName>
+    <externalId>false</externalId>
+    <label>Commodity (not used)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Coffee</fullName>
+                <default>false</default>
+                <label>Coffee</label>
+            </value>
+            <value>
+                <fullName>Davit System</fullName>
+                <default>false</default>
+                <label>Davit System</label>
+            </value>
+            <value>
+                <fullName>Electtronics &amp; Electrical material</fullName>
+                <default>false</default>
+                <label>Electtronics &amp; Electrical material</label>
+            </value>
+            <value>
+                <fullName>Food &amp; Beverages</fullName>
+                <default>false</default>
+                <label>Food &amp; Beverages</label>
+            </value>
+            <value>
+                <fullName>Funiture, Frames, Wood Articles</fullName>
+                <default>false</default>
+                <label>Funiture, Frames, Wood Articles</label>
+            </value>
+            <value>
+                <fullName>Glass, Ceramic and Plasticware</fullName>
+                <default>false</default>
+                <label>Glass, Ceramic and Plasticware</label>
+            </value>
+            <value>
+                <fullName>Machinery, Utensils &amp; Metalware</fullName>
+                <default>false</default>
+                <label>Machinery, Utensils &amp; Metalware</label>
+            </value>
+            <value>
+                <fullName>Marble &amp; Tiles</fullName>
+                <default>false</default>
+                <label>Marble &amp; Tiles</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Paper &amp; Chemical Products</fullName>
+                <default>false</default>
+                <label>Paper &amp; Chemical Products</label>
+            </value>
+            <value>
+                <fullName>Rescue Boat</fullName>
+                <default>false</default>
+                <label>Rescue Boat</label>
+            </value>
+            <value>
+                <fullName>Rice</fullName>
+                <default>false</default>
+                <label>Rice</label>
+            </value>
+            <value>
+                <fullName>Seafood</fullName>
+                <default>false</default>
+                <label>Seafood</label>
+            </value>
+            <value>
+                <fullName>Spare Part</fullName>
+                <default>false</default>
+                <label>Spare Part</label>
+            </value>
+            <value>
+                <fullName>Textiles, Gaments and accesssories</fullName>
+                <default>false</default>
+                <label>Textiles, Gaments and accesssories</label>
+            </value>
+            <value>
+                <fullName>Value1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Value1</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

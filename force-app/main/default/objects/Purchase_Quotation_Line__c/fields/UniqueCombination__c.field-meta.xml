@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UniqueCombination__c</fullName>
+    <caseSensitive>true</caseSensitive>
+    <description>BAO NK: No same product on one Purchase Quotation</description>
+    <externalId>false</externalId>
+    <label>UniqueCombination</label>
+    <length>255</length>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>true</unique>
+</CustomField>

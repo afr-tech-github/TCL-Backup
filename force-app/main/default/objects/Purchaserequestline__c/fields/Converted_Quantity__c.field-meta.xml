@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Converted_Quantity__c</fullName>
+    <externalId>false</externalId>
+    <label>Converted Quantity</label>
+    <summarizedField>PRLtoPOL__c.Allocated_Quantity__c</summarizedField>
+    <summaryFilterItems>
+        <field>PRLtoPOL__c.POL_Status__c</field>
+        <operation>equals</operation>
+        <value>Processing, Invoiced, Created, Processing, Converted to PTL</value>
+    </summaryFilterItems>
+    <summaryForeignKey>PRLtoPOL__c.Purchase_request_line__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

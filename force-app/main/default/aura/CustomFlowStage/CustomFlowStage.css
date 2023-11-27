@@ -1,0 +1,274 @@
+.THIS .show-more-btn{
+    border: 1px solid #9c9c9c;
+    padding: 6px 8px;
+    border-radius: 4px;
+    width: fit-content;
+    height: fit-content;
+}
+.THIS .show-more-btn__icon path{
+    fill: #d0d0d0;
+}
+.THIS .mark-btn__icon{
+    margin-right: 8px;
+}
+.THIS .mark-btn.show{
+    display: block;
+    display: flex;
+}
+.THIS .mark-btn.disabled{
+    pointer-events: none;
+    background-color: #c9c9c9;
+}
+.THIS .show-more-btn__icon svg,
+.THIS .mark-btn__icon svg{
+    width: 14px;
+    height: 14px;
+}
+.THIS .mark-btn__icon path{
+    fill: #fff;
+}
+.THIS .mark-btn{
+    color: #fff;
+    border-radius: 4px;
+    background-color: #b41e10;
+    width: 208px;
+    height: fit-content;
+    padding: 6px 0px;
+    border-radius: 4px;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+.THIS .mark-btn:hover,
+.THIS .mark-btn:focus{
+    background-color: #891409;
+}
+.THIS .stage-item:first-child{
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    background-color: #f3f3f3;
+}
+.THIS .stage-item:first-child::before,
+.THIS .stage-item:first-child::after{
+    left: calc(tan(28deg)*32px);
+}
+.THIS .stage-item:last-child::before,
+.THIS .stage-item:last-child::after{
+    left: calc(tan(28deg)*12px*-1);
+    right: calc(tan(28deg)*16px);
+}
+.THIS .stage-item:last-child{
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    background-color: #f3f3f3;
+    margin-right: 0px;
+    margin-left: 14px;
+}
+.THIS .stage-item{
+    position: relative;
+    flex: 1;
+    margin-right: 0px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.THIS .stage-item:hover::before,
+.THIS .stage-item:hover::after{
+    background-color: #c9c9c9;
+    cursor: pointer;
+    user-select: none;
+    color: black;
+}
+.THIS .stage-item:last-child:hover,
+.THIS .stage-item:last-child:hover::before,
+.THIS .stage-item:last-child:hover::after,
+.THIS .stage-item:first-child:hover,
+.THIS .stage-item:first-child:hover::before,
+.THIS .stage-item:first-child:hover::after{
+    cursor: pointer;
+    user-select: none;
+}
+.THIS .stage-item::before{
+    content: "";
+    position: absolute;
+    left: calc(tan(28deg)*16px);
+    right: calc(tan(28deg)*8px*-1);
+    top: 0px;
+    height: 50%;
+    transform: skew(28deg) translate3d(0, 0, 0);
+    background-color: #f3f3f3;
+}
+.THIS .stage-item::after{
+    content: "";
+    position: absolute;
+    left: calc(tan(28deg)*16px);
+    right: calc(tan(28deg)*8px*-1);
+    bottom: 0px;
+    height: 50%;
+    transform: skew(-28deg) translate3d(0, 0, 0);
+    background-color: #f3f3f3;
+}
+.THIS .stage-item-content{
+    position: relative;
+    z-index: 3;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+/* CURRENT */
+.THIS .stage-item:not(.current):not(.checked):not(.selected):last-child:hover,
+.THIS .stage-item:not(.current):not(.checked):not(.selected):last-child:hover::before,
+.THIS .stage-item:not(.current):not(.checked):not(.selected):last-child:hover::after,
+.THIS .stage-item:not(.current):not(.checked):not(.selected):first-child:hover,
+.THIS .stage-item:not(.current):not(.checked):not(.selected):first-child:hover::before,
+.THIS .stage-item:not(.current):not(.checked):not(.selected):first-child:hover::after{
+    background-color: #c9c9c9;
+}
+.THIS .stage-item.current:not(.selected){
+    color: #5b1407;
+}
+.THIS .stage-item.current:not(.selected)::before,
+.THIS .stage-item.current:not(.selected)::after{
+    background-color: #fff;
+}
+.THIS .stage-item.current:not(.selected):first-child,
+.THIS .stage-item.current:not(.selected):last-child{
+    background-color: transparent;
+    color: #5b1407;
+}
+.THIS .stage-item.current:not(.selected):first-child::before,
+.THIS .stage-item.current:not(.selected):first-child::after{
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-size: 2px 100%,2px 100%,100% 2px;
+}
+.THIS .stage-item.current:not(.selected):first-child{
+    border-left: 2px solid #5b1407;
+    border-top: 2px solid #5b1407;
+    border-bottom: 2px solid #5b1407;
+}
+.THIS .stage-item.current:not(.selected):first-child::before,
+.THIS .stage-item.current:not(.selected):first-child::after{
+    height: 58%;
+    
+}
+.THIS .stage-item.current:not(.selected):first-child::before{
+    top: -2px;
+    background-image: linear-gradient(90deg, #5b1407, #5b1407 2px, transparent 2px);
+    
+}
+.THIS .stage-item.current:not(.selected):last-child::before{
+    border-top: 2px solid #5b1407;
+    border-left: 2px solid #5b1407;
+    border-right: 2px solid #5b1407;
+    
+}
+.THIS .stage-item.current:not(.selected):last-child::after{
+    border-bottom: 2px solid #5b1407;
+    border-left: 2px solid #5b1407;
+    border-right: 2px solid #5b1407;
+}
+.THIS .stage-item.current:not(.selected):first-child::after{
+    bottom: -2px;
+    background-image: linear-gradient(90deg, #5b1407, #5b1407 2px, transparent 2px);
+}
+.THIS .stage-item.current:not(.selected):first-child::before{
+    background-position: top right,top left,top left;
+}
+.THIS .stage-item.current:not(.selected):first-child::after{
+    background-position: top right,top left,bottom left;
+}
+.THIS .stage-item.current:not(.selected):not(:first-child):not(:last-child)::before{
+    border-left: 2px solid #5b1407;
+    border-top: 2px solid #5b1407;
+    border-right: 2px solid #5b1407;
+}
+.THIS .stage-item.current:not(.selected):not(:first-child):not(:last-child)::after{
+    border-left: 2px solid #5b1407;
+    border-bottom: 2px solid #5b1407;
+    border-right: 2px solid #5b1407;
+}
+/* CHECKED */
+.THIS .stage-item.checked:not(.selected){
+    color: #fff;
+}
+.THIS .stage-item.checked:not(.selected):first-child,
+.THIS .stage-item.checked:not(.selected):last-child{
+    background-color: #f66448;
+}
+.THIS .stage-item.checked:not(.selected):hover:first-child,
+.THIS .stage-item.checked:not(.selected):hover:last-child{
+    background-color: #891409;
+}
+.THIS .stage-item.checked:not(.selected):hover .stage-item-wrap{
+    transform: rotateX(180deg);
+}
+.THIS .stage-item.checked:not(.selected)::before,
+.THIS .stage-item.checked:not(.selected)::after{
+    background-color: #f66448;
+}
+.THIS .stage-item:hover.checked:not(.selected)::before,
+.THIS .stage-item:hover.checked:not(.selected)::after{
+    background-color: #891409;
+}
+.THIS .stage-item__icon{
+    display: none;
+}
+.THIS .stage-item.checked:not(.selected) .stage-item__icon{
+    display: block;
+}
+.THIS .stage-item.checked:not(.selected) .stage-item__icon path{
+    fill: #fff;
+}
+.THIS .stage-item.checked:not(.selected) .stage-item__icon svg{
+    width: 14px;
+    height: 14px;
+}
+.THIS .stage-item.checked:not(.selected) .stage-item-wrap__back{
+    transform: rotateX(180deg);
+}
+.THIS .stage-item.checked:not(.selected) .stage-item-wrap{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s;
+    transform-style: preserve-3d;
+    z-index: 3;
+}
+.THIS .stage-item-wrap__front, .THIS .stage-item-wrap__back{
+    position: absolute;
+    left: 20px;
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+.THIS .stage-item:last-child .stage-item-wrap__front, .THIS .stage-item:last-child .stage-item-wrap__back{
+    left: 10px;
+}
+/* SELECTED */
+.THIS .stage-item.selected{
+    color: #fff;
+}
+.THIS .stage-item.selected:first-child,
+.THIS .stage-item.selected:last-child{
+    background-color: #5b1407;
+}
+.THIS .stage-item.selected:hover:first-child,
+.THIS .stage-item.selected:hover:last-child{
+    background-color: #2b1004;
+}
+.THIS .stage-item.selected::before,
+.THIS .stage-item.selected::after{
+    background-color: #5b1407;
+}
+.THIS .stage-item:hover.selected::before,
+.THIS .stage-item:hover.selected::after{
+    background-color: #2b1004;
+}

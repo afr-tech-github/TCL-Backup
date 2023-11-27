@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>BOD_user</name>
+        <dataType>String</dataType>
+        <expression>if(isnull({!$Record.ApproverBOD__c})
+,{!$Record.RecruitmentPlanLine__r.Manager__r.Manager__r.Id}
+,{!$Record.ApproverBOD__c})</expression>
+    </formulas>
+    <formulas>
+        <name>Manager_user</name>
+        <dataType>String</dataType>
+        <expression>If(isnull({!$Record.ApproverManager__c})
+,{!$Record.RecruitmentPlanLine__r.Manager__c}
+,{!$Record.ApproverManager__c})</expression>
+    </formulas>
+    <interviewLabel>Recruitment Request | Update field Approver when Recruitment Request record is created {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Recruitment Request | Update field Approver when Recruitment Request record is created</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>UpdateRecruitmentRequest</name>
+        <label>Update Recruitment Request</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>ApproverBOD__c</field>
+            <value>
+                <elementReference>BOD_user</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ApproverManager__c</field>
+            <value>
+                <elementReference>Manager_user</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>UpdateRecruitmentRequest</targetReference>
+        </connector>
+        <filterLogic>(1 OR 2) AND 3</filterLogic>
+        <filters>
+            <field>ApproverBOD__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>ApproverManager__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Reporttouser__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>RecruitmentRequest__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>varQueueID</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

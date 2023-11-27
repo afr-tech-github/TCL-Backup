@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventCreateShipmentwhenreachlimitSOA</fullName>
+    <active>true</active>
+    <errorConditionFormula>Customer__r.CurrentSOA__c &gt;= Customer__r.CreditLimitLocal__c</errorConditionFormula>
+    <errorMessage>SOA&apos;s Account Name is more than Credit Limit on Contract. We can not create any shipments for this one</errorMessage>
+</ValidationRule>

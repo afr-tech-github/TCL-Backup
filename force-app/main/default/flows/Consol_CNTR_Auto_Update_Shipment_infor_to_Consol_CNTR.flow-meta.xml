@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Addtovariables</name>
+        <label>Add to variables</label>
+        <locationX>264</locationX>
+        <locationY>575</locationY>
+        <assignmentItems>
+            <assignToReference>FieldToAdd</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>CurrentRecordInformation</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Add_value_from_S_Os_to_record</targetReference>
+        </connector>
+    </assignments>
+    <environments>Default</environments>
+    <interviewLabel>Consol CNTR| Auto Update Shipment infor to Consol CNTR {!$Flow.CurrentDateTime}</interviewLabel>
+    <isTemplate>true</isTemplate>
+    <label>Consol CNTR| Auto Update Shipment infor to Consol CNTR</label>
+    <loops>
+        <name>Add_value_from_S_Os_to_record</name>
+        <label>Add value from S/Os to record</label>
+        <locationX>176</locationX>
+        <locationY>455</locationY>
+        <collectionReference>Get_all_F_TMS_S_O_information</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Addtovariables</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <name>Get_all_F_TMS_S_O_information</name>
+        <label>Get all F/TMS S/O information</label>
+        <locationX>176</locationX>
+        <locationY>335</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Add_value_from_S_Os_to_record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>ConsolidationID__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.AdvancedShipment__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>FTMSSO__c</object>
+        <sortField>Name</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update</name>
+        <label>Update</label>
+        <locationX>176</locationX>
+        <locationY>791</locationY>
+        <inputAssignments>
+            <field>FTMSSOinAdvancedShipment__c</field>
+            <value>
+                <elementReference>FieldToUpdate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_all_F_TMS_S_O_information</targetReference>
+        </connector>
+        <object>ConsolCNTR__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <name>CurrentRecordInformation</name>
+        <isViewedAsPlainText>false</isViewedAsPlainText>
+        <text>&lt;tr&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.Customer__r.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.Customer__r.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.Shipper__r.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.Shipper__r.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.Consignee__r.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.Consignee__r.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;{!Add_value_from_S_Os_to_record.HBLNumber__c}&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.POLAOD__r.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.POLAOD__r.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;&lt;a href=&quot;{!$Label.URL}/{!Add_value_from_S_Os_to_record.PODAOA__r.Id}&quot;&gt;{!Add_value_from_S_Os_to_record.PODAOA__r.Name}&lt;/a&gt;&lt;/td&gt;
+      &lt;td&gt;{!Add_value_from_S_Os_to_record.ETA__c}&lt;/td&gt;
+      &lt;td&gt;{!Add_value_from_S_Os_to_record.ETD__c}&lt;/td&gt;
+    &lt;/tr&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>FieldToUpdate</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+     &lt;th&gt;Shipment ID&lt;/th&gt;
+      &lt;th&gt;Customer&lt;/th&gt;
+      &lt;th&gt;Shipper&lt;/th&gt;
+      &lt;th&gt;Consignee&lt;/th&gt;
+      &lt;th&gt;HBL No.&lt;/th&gt;
+      &lt;th&gt;POL&lt;/th&gt;
+      &lt;th&gt;POD&lt;/th&gt;
+      &lt;th&gt;ETA&lt;/th&gt;
+      &lt;th&gt;ETD&lt;/th&gt;     
+    &lt;/tr&gt;
+{!FieldToAdd}  
+&lt;/tbody&gt;
+&lt;/table&gt;</text>
+    </textTemplates>
+    <variables>
+        <name>FieldToAdd</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>TestCollection</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

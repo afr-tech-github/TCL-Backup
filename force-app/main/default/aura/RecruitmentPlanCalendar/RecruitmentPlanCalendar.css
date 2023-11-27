@@ -1,0 +1,38 @@
+.THIS .data-tbody th,
+.THIS .data-tbody td{
+    border: 1px solid black;
+}
+.THIS .data-tbody th div,
+.THIS .data-tbody td div{
+    padding: 6px;
+}
+.THIS .data-tbody th div span,
+.THIS .data-tbody td div span{
+    position: relative;
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.THIS .hide{
+    display: none;
+}
+.THIS .more-btn{
+    user-select: none;
+    cursor: pointer;
+    font-weight: 600;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+}
+.THIS .more-btn:hover{
+    background-color: rgb(235, 235, 235);
+}
+.THIS .detail-btn{
+    cursor: pointer;
+    padding: 6px;
+}
+.THIS .detail-btn:hover{
+    filter: brightness(90%);
+}

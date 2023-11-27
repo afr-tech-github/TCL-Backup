@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>FCL</fullName>
+        <default>true</default>
+        <label>FCL</label>
+    </customValue>
+    <customValue>
+        <fullName>LCL</fullName>
+        <default>false</default>
+        <label>LCL</label>
+    </customValue>
+    <customValue>
+        <fullName>CONSOL</fullName>
+        <default>false</default>
+        <label>CONSOL</label>
+    </customValue>
+    <customValue>
+        <fullName>CHARTER</fullName>
+        <default>false</default>
+        <label>CHARTER</label>
+    </customValue>
+    <masterLabel>Shipment Term</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

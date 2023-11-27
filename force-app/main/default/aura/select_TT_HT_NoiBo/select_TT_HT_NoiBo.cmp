@@ -1,0 +1,18 @@
+<aura:component implements="force:hasSObjectName,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader">
+    <aura:attribute name="recordId" type="String" />
+    <aura:attribute name="isChecked" type="Boolean" default="false"/>
+<h1 style="font-size: 30px;margin: 10px 15px 15px;text-align: center;text-transform: uppercase;font-weight: bold;padding: 0 70px;">export Sea Manifest excel file</h1>
+<div style="text-align: center; ">
+    <lightning:input type="checkbox" label="Check this box" aura:id="checkbox" checked="{!v.isChecked}"/>
+
+    <div style="margin-top: 42px;">
+
+        <button class="slds-button slds-button_neutral"  onclick="{!c.close}">CANCEL</button>
+        <button class="slds-button slds-button_brand lfm-center"  style="margin-left: 10px;" onclick="{!c.createBlankMultiTab}"> CREATE</button>
+    </div>
+
+</div>
+
+
+
+</aura:component>

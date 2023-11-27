@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>Customer__c</columns>
+    <columns>Commodity__c</columns>
+    <columns>Route__c</columns>
+    <columns>POL_AOL__c</columns>
+    <columns>POD_AOD__c</columns>
+    <columns>ServiceType__c</columns>
+    <columns>Shipment_Term__c</columns>
+    <columns>TypeofTrade__c</columns>
+    <columns>Transportation_Way__c</columns>
+    <columns>VolumeTeus__c</columns>
+    <columns>Salesman__c</columns>
+    <columns>Prefer_Carrier__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>Salesman__c</field>
+        <operation>contains</operation>
+        <value>Thao</value>
+    </filters>
+    <label>All</label>
+</ListView>

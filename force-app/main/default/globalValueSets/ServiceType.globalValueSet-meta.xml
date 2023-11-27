@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>C/O</fullName>
+        <default>false</default>
+        <label>C/O</label>
+    </customValue>
+    <customValue>
+        <fullName>CONTAINER FEE</fullName>
+        <default>false</default>
+        <label>CONTAINER FEE</label>
+    </customValue>
+    <customValue>
+        <fullName>CUSTOMS</fullName>
+        <default>false</default>
+        <label>CUSTOMS</label>
+    </customValue>
+    <customValue>
+        <fullName>DEPOT</fullName>
+        <default>false</default>
+        <label>DEPOT</label>
+    </customValue>
+    <customValue>
+        <fullName>EXPRESS</fullName>
+        <default>false</default>
+        <label>EXPRESS</label>
+    </customValue>
+    <customValue>
+        <fullName>FREIGHT</fullName>
+        <default>false</default>
+        <label>FREIGHT</label>
+    </customValue>
+    <customValue>
+        <fullName>FUMIGATION</fullName>
+        <default>false</default>
+        <label>FUMIGATION</label>
+    </customValue>
+    <customValue>
+        <fullName>LASHING</fullName>
+        <default>false</default>
+        <label>LASHING</label>
+    </customValue>
+    <customValue>
+        <fullName>LOADING/UNLOAD</fullName>
+        <default>false</default>
+        <label>LOADING/UNLOAD</label>
+    </customValue>
+    <customValue>
+        <fullName>Local charges L/C</fullName>
+        <default>false</default>
+        <label>LOCAL CHARGES L/C</label>
+    </customValue>
+    <customValue>
+        <fullName>PACKING</fullName>
+        <default>false</default>
+        <label>PACKING</label>
+    </customValue>
+    <customValue>
+        <fullName>PORT</fullName>
+        <default>false</default>
+        <label>PORT</label>
+    </customValue>
+    <customValue>
+        <fullName>TRUCKING</fullName>
+        <default>false</default>
+        <label>TRUCKING</label>
+    </customValue>
+    <customValue>
+        <fullName>WAREHOUSE</fullName>
+        <default>false</default>
+        <label>WAREHOUSE</label>
+    </customValue>
+    <customValue>
+        <fullName>COMMISSION</fullName>
+        <default>false</default>
+        <label>COMMISSION</label>
+    </customValue>
+    <customValue>
+        <fullName>INSURANCE</fullName>
+        <default>false</default>
+        <label>INSURANCE</label>
+    </customValue>
+    <masterLabel>Service Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

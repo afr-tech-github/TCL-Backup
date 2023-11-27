@@ -1,0 +1,14 @@
+Dear Accountant,
+
+I am writing to inform you that the payroll for {!Payroll__c.Salary_Cycle__c}/{!Payroll__c.Year__c} has been approved by the Board of Directors (BOD). Please review the payroll and process it for payment as soon as possible.
+
+The following is a summary of the payroll:
+
+Total payroll amount: {!Payroll__c.TotalPayrollAmount__c}
+You can view the detailed payroll report in Salesforce by navigating to {!Payroll__c.Link}.
+
+Please let me know if you have any questions or concerns.
+
+Thank you,
+
+BOD of TCL

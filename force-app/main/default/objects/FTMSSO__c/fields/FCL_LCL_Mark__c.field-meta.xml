@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FCL_LCL_Mark__c</fullName>
+    <externalId>false</externalId>
+    <formula>IF(TEXT(Shipment_Type__c)=&quot;FCL&quot;, &quot;SHIPPER&apos;S LOAD, STOW, COUNT &amp; SEAL&quot;,&quot;PARTICULARS DECLARED BY SHIPPER BUT NOT ACKNOWLEDGED BY CARRIER&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>FCL/LCL Mark</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

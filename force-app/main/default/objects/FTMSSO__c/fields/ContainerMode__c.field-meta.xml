@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContainerMode__c</fullName>
+    <externalId>false</externalId>
+    <label>Container Mode</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>LCL</fullName>
+                <default>false</default>
+                <label>LCL</label>
+            </value>
+            <value>
+                <fullName>FCL</fullName>
+                <default>false</default>
+                <label>FCL</label>
+            </value>
+            <value>
+                <fullName>AIR</fullName>
+                <default>false</default>
+                <label>AIR</label>
+            </value>
+            <value>
+                <fullName>BULK</fullName>
+                <default>false</default>
+                <label>BULK</label>
+            </value>
+            <value>
+                <fullName>MTY</fullName>
+                <default>false</default>
+                <label>MTY</label>
+            </value>
+            <value>
+                <fullName>MTY &amp; FCL</fullName>
+                <default>false</default>
+                <label>MTY &amp; FCL</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

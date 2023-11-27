@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Consol</fullName>
+    <columns>NAME</columns>
+    <columns>RECORDTYPE</columns>
+    <columns>Customer__c</columns>
+    <columns>Master_Record_Type__c</columns>
+    <columns>MBLorMAWBNumber__c</columns>
+    <columns>Branch__c</columns>
+    <columns>Container_Type_1__c</columns>
+    <columns>Container_Qnty_1__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>ShipmentTerm__c</field>
+        <operation>contains</operation>
+        <value>CONSOL</value>
+    </filters>
+    <label>Consol</label>
+</ListView>

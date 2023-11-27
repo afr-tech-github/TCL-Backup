@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TotalAmountofSellingFCY__c</fullName>
+    <externalId>false</externalId>
+    <formula>if (  Tax_Included_Selling__c = FALSE,  UnitPriceofSellingFCY__c * Quantity__c , UnitPriceofSellingFCY__c *Quantity__c - Amount_Tax_Selling_FCY__c)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Total Amount of Selling(USD)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

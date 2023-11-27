@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Annual_Leave_Last_Year_Last_Cycle__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Annual leave of last year remain from last cycle</inlineHelpText>
+    <label>Annual Leave - Last Year Last Cycle</label>
+    <precision>4</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

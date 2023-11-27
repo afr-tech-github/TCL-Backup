@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>可傳送範例電子郵件範本給您的「自助式服務」客戶，通知客戶公用註解已新增到他們的個案。</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>支援：自助式服務新增註解通知（範例）</name>
+    <style>none</style>
+    <subject>Your case {!Case.CaseNumber} has been updated</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

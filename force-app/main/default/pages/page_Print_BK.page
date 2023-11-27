@@ -1,0 +1,469 @@
+<apex:page controller="PrintBK" sidebar="false"  applyBodyTag="false" cache="true" title="12344324" showHeader="false" >    
+    <head>
+        <style type="text/css">
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+                .print-only {
+            page-break-inside: avoid !important;
+              }
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            @page {
+            
+                margin: 8mm 8mm 8mm 8mm;
+
+                size:  a4;   /* auto is the initial value */
+                /* margin: 0mm;   */
+                @bottom-center{
+                    content: element(footer);
+                }
+                
+            }
+            p{
+                margin: 0 0;
+            }
+            
+            div.footer {
+                display: block;
+                position: running(footer);
+            }
+           
+            table td{
+                vertical-align: top;
+            }
+            
+            body {
+              
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                /* font-family: "Calibri", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+               
+            }
+            .fontBold { 
+                font-weight: bold;
+            }
+            table td {
+              
+                padding: 0 3px;
+                font-family: 'Times New Roman', Times, serif;
+                /* border: 1px solid black; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                padding: 0 3px;
+                line-height: 15px;
+                font-family: 'Times New Roman', Times, serif;
+                /* background-color: rgb(179, 175, 175); */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                text-align: center;
+            }
+            table tr {
+                min-height: 15px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .report-header {
+                width: 100%;
+                display: flex;
+                /* align-items: center; */
+            }
+            .logo-company {
+                float: left;
+                width: 32%;
+
+            }
+            .info-company {
+                /* width: 30%; */
+                float: left; 
+                /* font-weight: bolder; */
+                padding-top: 20px;
+                font-size: 15px;
+            }
+            .name-company {
+                font-weight: bolder;
+                font-size: 14px;
+                white-space: nowrap;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .address-company {
+                font-size: 11px;
+                /* white-space: nowrap; */
+                /* font-weight: bold; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .infor-company {
+                font-size: 11px;
+                white-space: nowrap;
+                /* font-weight: bold; */
+                font-family: 'Times New Roman', Times, serif;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .subtable,
+            .subtable td{
+                border: none;
+            }
+            .una{
+                padding: 0;
+                position: relative;
+                width: 10%;
+            }
+            /* .una::after{
+                content: '';
+                width: 100%;
+                height: 100%;
+                border: 1px solid;
+                top: 0;
+                position: absolute;
+                
+            } */
+           	.inforCompany {
+    			border-bottom: 3px double red; /* You can adjust the width and style of the border as needed */
+			}
+         
+            .label {
+        		font-size: 12px; /* Thay đổi kích thước chữ cho các nhãn (labels) */
+        		margin-right: 10px; /* Tạo khoảng cách bên phải */
+    		}
+    
+    		.value {
+        		font-size: 14px; /* Thay đổi kích thước chữ cho giá trị (values) */
+    		}
+			.border-top {
+            	border-top: 1px solid black;
+            }
+            .border-left {
+            	border-left: 1px solid black;
+            }
+            .border-right {
+            	border-right: 1px solid black;
+            }
+            .border-bottom {
+            	border-bottom: 1px solid black;
+            }
+            #table-content{
+                border-collapse: collapse;
+                width :100%;
+                text-align: center;
+               
+                font-size:15px;
+                font-weight:bolder;
+                
+            }
+            #table-content td{
+                border: 1px solid black; 
+                border-right: 1px solid black;
+                border-bottom: 1px solid black;
+                vertical-align: middle;
+            }
+            #content-company{
+                margin-top: 10px;
+                line-height: 1.5;
+                margin-left: 70px;
+                width: 100%;
+                font-size:15px;
+            }
+            #info-company{
+                font-size :15px;
+                padding-left: 50px;
+            }
+            #info-company tr {
+                margin-bottom: 10px;
+            }
+           
+        </style>
+        <script type="text/javascript">
+                  
+            window.onload = function() {
+                //window.top.document.title = "Your Title";
+                window.print();
+                return false; 
+            }
+        </script>
+    </head>
+    <body>
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to move</div>
+            
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">PRINT</a>
+        </div>
+        <div class="inforCompany" style="display:flex; ">
+            <div style="flex:0.1">
+                <img align="left" src="https://tcl-02-dev-ed.develop.file.force.com/file-asset/logo22?v=1" width="150px" height="auto" />
+        	</div>
+        	<div style="flex:0.9;line-height: 2;">
+            	
+            	<div  style="line-height:1.5;">
+                     <apex:outputText escape="false" style="white-space: pre-line;font-weight:bold; font-size:15px; " value="TIMES CARGO LOGISTIC CO.,LTD"/>
+                    <br/>
+                       	<apex:outputText value="HEAD OFFICE: " />
+                    	<apex:outputText style="white-space: pre-line" escape="false" value="{!(companyInfor.Address__c)}" />
+                    <br/>
+                    
+            	</div>
+                <div style="display:flex;width: 550px;">
+                    <div style="flex:1">
+                        <apex:outputText value="Tel:" style="label" />
+    					<apex:outputText value="{!(companyInfor.Tel__c)}" style="value" />
+                    </div>
+    				<div style="flex:1">
+                        <apex:outputText value="Fax:" style="label" />
+    					<apex:outputText value="{!(companyInfor.Fax__c)}" style="value" />
+                    </div>
+    				<div style="flex:1">
+                        <apex:outputText value="Website: " style="label" />
+    					<apex:outputText value="{!(companyInfor.Website__c)}" style="value" />
+                    </div>
+				</div>
+                <div>
+                    <Strong>OUR OFICES: HO CHI MINH | DONG NAI | DA NANG | HAI PHONG | MOC BAI | BAVET | PHNOM PENH</Strong>
+                </div>
+            
+        	</div>
+        </div>
+        <apex:outputText escape="false" value="{!html}" />
+        <!-- <div id="content-company">
+            <div>
+                <strong style="border-bottom:1px solid black">FROM:</strong>&nbsp;
+                <strong>TIMES CARGO LOGISTIC CO., LTD</strong>
+            </div>
+            <div>
+                <strong style="border-bottom:1px solid black">TO:</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <strong>VUONG QUOC SO JSC (VN HUB)</strong>
+            </div>
+            <div>
+                <strong style="border-bottom:1px solid black">ATTN:</strong>&nbsp;
+                <strong> MS. PHUONG – 090.886.5470</strong>
+            </div>
+            <div style="margin-left: 400px;">
+                <strong>Date: </strong>
+                <strong>{!formattedDate}</strong>
+            </div>
+        </div> -->
+        
+       
+        <table id="info-company">
+            <col style="width:10%" />
+            <col style="width:50%" />
+            <col style="width:40%" />
+
+
+            <tr>
+            	<td  colspan="3">
+                    <strong>It is mutually agreed between:</strong>
+                </td>	
+            </tr>
+            <tr>
+            	<td>
+                    <strong style="border-bottom:1px solid black;">Part A:</strong>
+                </td>
+                <td colspan = "2" style="text-transform: upercase">
+                    <strong>TIMES CARGO LOGISTIC CO., LTD</strong><br/>
+                	<apex:outputText style="white-space: pre-line;line-height:1.5;text-transform: uppercase;" escape="false" value="{!(companyInfor.Address__c)}" /><br/>
+                	<apex:outputText value="TEL:" style="label;line-height:1.5" />&nbsp;
+    				<apex:outputText value="{!(companyInfor.Tel__c)}" style="value" /> &nbsp;
+                    <apex:outputText value="|" style="value" />&nbsp;
+                    <apex:outputText value="FAX:" style="label" />&nbsp;
+    				<apex:outputText value="{!(companyInfor.Fax__c)}" style="value" /> <br/>
+                    <apex:outputText value="TAX CODE:" style="label;line-height:1.5" />&nbsp;
+    				<apex:outputText value="{!(companyInfor.TaxCode__c)}" style="value" /> 
+
+                </td>
+            </tr>
+            <tr>
+            	<td >
+                    <strong style="border-bottom:1px solid black;line-height:1.5">Part B:</strong>
+                </td>
+                <td colspan = "2" >
+                    <strong style="white-space: pre-line;line-height:1.5">VUONG QUOC SO JSC (VN HUB)</strong><br/>
+                	<apex:outputText style="white-space: pre-line;line-height:1.5;text-transform: uppercase;" escape="false" value="{!(shipment.ShipperDetailInformation__c)}" />
+                	
+                </td>
+            </tr>
+            <tr>
+            	<td colspan ="3" >
+                    <p style="line-height:1.5">
+                        That <strong>Party B</strong> agreed to book via <strong>Party A</strong> the following shipment:
+                    </p>
+                    
+                </td>
+            </tr>
+            
+        </table>
+        
+        
+        <table id="table-content" >
+            <col style="width :3%" />
+            <col style="width :20%" />
+            <col style="width :77%" />
+            <tr>
+            	<td>1</td>
+                <td>Master Airway Bill Number</td>
+                <td>
+                    <apex:outputText value="{!shipment.PlaceofReceipt__r.Standard_Port_Code__c} - {!shipment.FinalDestination__r.Standard_Port_Code__c}"/>
+                </td>
+            </tr>
+            <tr>
+            	<td>2</td>
+                <td>Origin / Destination</td>
+                <td><Strong>SGN-HKG</Strong></td>
+            </tr>
+            <tr>
+            	<td>3</td>
+                <td>Flight</td>
+                <td>
+                    <Strong>
+                        <apex:outputText value="{!shipment.FlightDetailInformation__c}" />
+                    </Strong>
+                </td>
+            </tr>
+            <tr>
+            	<td>4</td>
+                <td>Gross Weight (kg)</td>
+                <td><Strong><apex:outputText value="{!shipment.GrossWeight__c}" /></Strong><strong> KGS</strong></td>
+            </tr>
+            <tr>
+            	<td>5</td>
+                <td>Volume (cbm)</td>
+                <td>
+                    <Strong>
+                        <apex:outputText value="{!shipment.GrossWeight__c}" />cbm
+                    </Strong>
+                </td>
+            </tr>
+            <tr>
+            	<td>6</td>
+                <td>Closing time</td>
+                <td>
+                    <Strong>
+                        <apex:outputLabel value="{!closingTime}" />
+                    </Strong>
+                </td>
+            </tr>
+            <tr>
+            	<td>7</td>
+                <td>Dimensions</td>
+                <td>
+                    <Strong>
+                        <apex:outputText value="{!shipment.Dimension__c}" />
+                    </Strong>
+                </td>
+            </tr>
+            <tr>
+            	<td>8</td>
+                <td>Remark</td>
+                <td>
+                    
+                       <strong>TERMINAL:</strong>&nbsp;
+                    <Strong>
+                       <apex:outputText value="{!terminal} " /> 
+                    </Strong><br/>
+                    <!-- <Strong>
+                        <apex:outputText value="{!shipment.Terminal__r.CountryCode__c}" /> 
+                    </Strong><br/> -->
+                    <!-- <Strong><apex:outputField value="{!shipment.HouseFreightCollectPrepaid__c}" /></Strong> -->
+                </td>
+            </tr>
+            
+        </table>
+        <ul style="font-size: 15px;">
+            <li style="list-style-type: square;">Please contact our operation at airport: Mr. Nhân OPS – 093.199.9587 or Ms.Linh – 097.6850.995</li>
+            <li style="list-style-type: square;">Documentation: Ngọc (Sara) – 036.3353.165</li>
+            <li style="list-style-type: disc;margin-left: 40px;">Please insert Zip code of consignee on AWB for all AA/US shipment.</li>
+        </ul>
+         <div style="font-size: 15px;display:flex;margin-left: 180px;margin-top: 50px;">
+            <div style="flex:1">Party A</div>
+            <div style="flex:1">Party B</div>
+         </div>
+        
+     
+       	
+        
+        	
+
+        
+    </body>
+  
+      
+    <script>
+        dragElement(document.getElementById("mydiv"));
+        
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+   
+</apex:page>

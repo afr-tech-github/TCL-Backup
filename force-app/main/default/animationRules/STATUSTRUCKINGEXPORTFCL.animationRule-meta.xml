@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<AnimationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <animationFrequency>always</animationFrequency>
+    <developerName>STATUSTRUCKINGEXPORTFCL</developerName>
+    <isActive>true</isActive>
+    <masterLabel>STATUS - TRUCKING - EXPORT - FCL</masterLabel>
+    <recordTypeContext>Custom</recordTypeContext>
+    <recordTypeName>EXPORTFCLTRUCKING</recordTypeName>
+    <sobjectType>AdvancedShipment__c</sobjectType>
+    <targetField>Advance_Shipment_Status__c</targetField>
+    <targetFieldChangeToValues>Close PL Sheet</targetFieldChangeToValues>
+</AnimationRule>

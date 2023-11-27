@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AdjustWorkDay__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Adjust Taxable Work Day: If Taxable Work Day of an employee is 20, but actual it is 19, input -1</inlineHelpText>
+    <label>Adjust Work Day</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

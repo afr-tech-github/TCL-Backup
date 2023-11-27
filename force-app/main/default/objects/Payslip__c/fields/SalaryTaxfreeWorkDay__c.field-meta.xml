@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SalaryTaxfreeWorkDay__c</fullName>
+    <externalId>false</externalId>
+    <formula>TaxfreeWorkDay__c *  ((BasicSalary__c +  ProductivitySalary__c ) /  StandardWorkDay__c  )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Salary by Tax-free Work Day = Tax-free Work Day * (Gross Salary / Standard Work Day)</inlineHelpText>
+    <label>Salary by Tax-free Work Day</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

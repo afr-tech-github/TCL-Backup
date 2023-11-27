@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <columns>
+        <field>AdvancedShipment__c$MAgent__c</field>
+    </columns>
+    <columns>
+        <field>AdvancedShipment__c$Agent2nd__c</field>
+    </columns>
+    <columns>
+        <field>AdvancedShipment__c.F_TMS_S_O__r$Name</field>
+    </columns>
+    <columns>
+        <field>AdvancedShipment__c.F_TMS_S_O__r$Agent__c</field>
+    </columns>
+    <columns>
+        <field>AdvancedShipment__c.F_TMS_S_O__r$Agent2nd__c</field>
+    </columns>
+    <filter>
+        <booleanFilter>1 AND 2</booleanFilter>
+        <criteriaItems>
+            <column>AdvancedShipment__c.F_TMS_S_O__r$CreatedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>greaterThan</operator>
+            <value>6/1/2023 12:00 AM</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>AdvancedShipment__c$CreatedDate</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>lessThan</operator>
+            <value>6/30/2023 12:00 AM</value>
+        </criteriaItems>
+        <language>en_US</language>
+    </filter>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>AdvancedShipment__c$Name</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>AdvancedShipment__c$FileNo__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <name>Agent in Advanced Shipment in this month</name>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Advance_S_O__c</reportType>
+    <scope>organization</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>false</showGrandTotal>
+    <showSubTotals>false</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>AdvancedShipment__c$CreatedDate</dateColumn>
+        <interval>INTERVAL_THISMONTH</interval>
+    </timeFrameFilter>
+</Report>

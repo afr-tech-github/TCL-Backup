@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Input_asset_on_serialized_product</fullName>
+    <active>false</active>
+    <description>Product is serialized then user should input asset field</description>
+    <errorConditionFormula>Product__r.Enable_Serialized_Inventory__c
+&amp;&amp; not(isnull(Quantity__c ))
+&amp;&amp; !IsVRBypassed__c</errorConditionFormula>
+    <errorDisplayField>Asset__c</errorDisplayField>
+    <errorMessage>Product is serialized, please input asset field and leave quantity field blank</errorMessage>
+</ValidationRule>

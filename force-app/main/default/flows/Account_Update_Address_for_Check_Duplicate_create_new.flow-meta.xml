@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>CompanyAddressEng</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.Company_Address__c}, 255)</expression>
+    </formulas>
+    <formulas>
+        <name>CompanyAddressVn</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!$Record.Company_Address_VN__c}, 255)</expression>
+    </formulas>
+    <interviewLabel>Account | Update Address for Check Duplicate (create new) {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Account | Update Address for Check Duplicate (create new)</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_record</name>
+        <label>Update record</label>
+        <locationX>176</locationX>
+        <locationY>287</locationY>
+        <inputAssignments>
+            <field>company_addr_ENG__c</field>
+            <value>
+                <stringValue>de974adb-a856-4f12-a4d3-f9458642f2af</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>company_addr_VN__c</field>
+            <value>
+                <stringValue>aa26dc4b-a285-4497-be1b-a066ef4bef9b</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Update_record</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Company_Address_VN__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Company_Address__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Account</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

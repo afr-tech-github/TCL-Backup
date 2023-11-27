@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>當指派新商機時向商機擁有者傳送內部通知。</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>商機：新指派通知（範例）</name>
+    <style>none</style>
+    <subject>New lead assigned to you:  {!Lead.Name} from {!Lead.Company}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

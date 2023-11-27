@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Meal_Allowance_Limit</fullName>
+    <active>true</active>
+    <errorConditionFormula>TaxfreeMealAllowanceperMonth__c &gt; 730000</errorConditionFormula>
+    <errorMessage>Meal Allowance cannot be higher 730,000đ</errorMessage>
+</ValidationRule>

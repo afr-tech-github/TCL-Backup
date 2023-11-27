@@ -1,0 +1,62 @@
+<apex:page controller="CreditNoteSelectionController" showHeader="false" sidebar="false" docType="html-5.0" title="Invoice">
+    <head>
+        <apex:stylesheet value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.css')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery/jquery.min.js')}"/>
+        <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.min.js')}"/>
+        <script>
+        j$ = jQuery.noConflict();
+        j$(document).ready(function() {
+           
+            j$("span[id$=documentType]").hide();
+           
+        });
+
+        function showReport() {
+            var errorMessageEl = j$('span[id$=afr_ErrorMessage]');
+            var errorMessage = errorMessageEl.text();
+
+            if (errorMessage === undefined || errorMessage === '' || errorMessage === null) {
+                var el = j$('span[id$=afr_PageOpenUrl]');
+                var openUrl = el.text();
+                console.log(openUrl);
+                window.open(openUrl, '_blank').focus();
+            }
+        }
+
+        function closePopupDialog() {
+            window.top.close();
+        }
+        </script>
+    </head>
+    <apex:outputPanel style="display:none;" id="openUrlPlaceholder">
+        <apex:outputText value="{!openUrl}" id="afr_PageOpenUrl"></apex:outputText>
+    </apex:outputPanel>
+    <apex:form >
+        <apex:sectionHeader subtitle="CREDIT/NOTE"/>
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="bottom">
+                <apex:outputPanel id="buttonBlock">
+                    <apex:commandButton value="Gererate" action="{!generateReport}" oncomplete="showReport()" reRender="errorMessageSection,openUrlPlaceholder"/>
+                    <apex:commandButton value="Close" onclick="closePopupDialog()"/>
+                </apex:outputPanel>
+            </apex:pageBlockButtons>
+            <apex:outputPanel id="errorMessageSection">
+                <apex:outputText value="{!errorMessage}" id="afr_ErrorMessage" style="color: red;"></apex:outputText>
+            </apex:outputPanel>
+            <apex:pageBlockSection title="Select Customer/Partner" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Customer/Partner</apex:outputLabel>
+                    <apex:selectList size="1" value="{!selectedCustomerId}" id="available_customer">
+                        <apex:selectOptions value="{!customers}"></apex:selectOptions>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Attachment" columns="1">
+                <apex:pageBlockSectionItem >
+                    <apex:inputCheckbox value="{!requiredAttachmentCreation}"/>
+                    <apex:outputLabel >Create Attachment?</apex:outputLabel>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

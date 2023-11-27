@@ -1,0 +1,209 @@
+<apex:page controller="PrintHBLControllerNew" showHeader="false" applyHtmlTag="false" renderAs="pdf">
+
+    <head>
+        <style type="text/css">
+            body {
+                font-family: Arial Unicode MS;
+                font-size: 10px;
+                text-transform: uppercase;
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 0mm;
+            }
+
+            .bold-text{
+                font-weight: bold;
+                font-family: Arial,Helvetica,sans-serif;
+            }
+            .bold-text h6{
+                font-size: 8.5px;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <!-- hawb -->
+        <div style="{! IF(billing != 'hawb','display: none;', '')}" class="bold-text">
+            <div style="position:absolute; z-index:-2; left:0px; top: 0px; right: 0px;">
+                <img align="middle" src="{!$Setup.SiteCustomSettings__c.HAWB_Blank_Template_URL__c    }" width="210mm"
+                    height="295mm" />
+            </div>
+            <!-- MAWB: -->
+            <!-- <h3 style="position:absolute; left: 15mm; top:5mm;">{!shipment.MAWBNumberonAWB__c}</h3>  -->
+            <!-- HAWB: -->
+            <h3 style="position:absolute; right: 50mm; top:12mm;">{!shipment.HAWBNumber__c}</h3>
+            <!-- Shipment -->
+            <h6 style="position:absolute; left: 13mm; top:28mm; width: 90mm; white-space: pre-line; ">{!shipment.ShipperDetailInformation_text__c}</h6>
+            <!-- Consignee -->
+            <h6 style="position:absolute; left: 13mm; top:53.5mm; width: 90mm; white-space: pre-line;">{!shipment.ConsigneeDetailInformation_text__c}</h6>
+            <!-- Airport of Departure -->
+            <!-- <h6 style="position:absolute; left: 9mm; top:92mm;">{!shipment.PortofLoadingDetail__c}</h6> -->
+            <h6 style="position:absolute; left: 13mm; top:101mm;">{!shipment.POLAODsDetailInformation__c}</h6>
+
+            <h6 style="position:absolute; left: 145mm; top:99mm;">{!shipment.MAWBNumber__c}</h6>
+            <!-- Accounting Information  -->
+            <!-- <h6 style="position:absolute; left: 105mm; top:77mm; width: 100mm; text-align: center;">{!shipment.HouseFreightCollectPrepaid__c}</h6> -->
+            <div style="position:absolute; left: 8mm; top: 108mm;">
+                <!-- To  -->
+                <h6 style="position:absolute; left: 5mm; top: 2mm;">
+                    <!-- {! IF(shipment.Transits__r.size > 0,
+                    shipment.Transits__r[0].TransitPort__r.Port_Code_Short__c, 
+                    shipment.PODAOA__r.PortCode__c)} -->
+                    {!shipment.PODAOA__r.PortCode__c}
+                </h6>
+                <!-- By First Carrier  -->
+                <!-- <h6 style="position:absolute; left: 10mm;">{! IF(shipment.Transits__r.size > 0,
+                    shipment.Transits__r[0].clofor_com_cfs__MasterCarrierConsolidator__r.clofor_com_cfs__Carrier_Code__r.clofor_com_cfs__Carrier_Code__c, 
+                    shipment.MasterCarrierConsolidator__r.clofor_com_cfs__Carrier_Code__r.clofor_com_cfs__Carrier_Code__c)}</h6> -->
+                <!-- to  -->
+                <h6 style="position:absolute; left: 20mm; top: 2mm; white-space: nowrap">
+                    <!-- {! IF(shipment.Transits__r.size > 0, shipment.PODAOA__r.PortCode__c, '')} -->
+                    {!shipment.VesselFlight__c + '/'}<apex:outputText value="{0,date,ddMMM}">
+                        <apex:param value="{!shipment.ETD__c}" />
+                    </apex:outputText>
+                </h6>
+
+                <!-- to 2 -->
+                <h6 style="position:absolute; left: 55mm; white-space: nowrap">
+                    <apex:outputText value="{!shipment.PODAOA2nd__r.PortCode__c}"/>
+                </h6>
+                <!-- to 3 -->
+                <h6 style="position:absolute; left: 74mm; white-space: nowrap">
+                    <apex:outputText value="{!shipment.PODAOA3rd__r.PortCode__c}"/>
+                </h6>
+                <!-- by -->
+                <!-- <h6 style="position:absolute; left: 67.5mm;">{! IF(shipment.Transits__r.size > 0, shipment.MasterCarrierConsolidator__r.clofor_com_cfs__Carrier_Code__r.clofor_com_cfs__Carrier_Code__c, '')}</h6> -->
+                <h6 style="position:absolute; left: 96mm;">USD</h6>
+                <h6 style="position:absolute; left: 102.5mm;">{!IF(shipment.HouseFreightCollectPrepaid__c == 'FREIGHT PREPAID', 'PP', IF(shipment.HouseFreightCollectPrepaid__c == 'FREIGHT COLLECT', 'CC', ''))}</h6>
+                <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'Prepaid', 'left: 111mm;', 'display: none;')}position:absolute;">X</h6>
+                <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'Prepaid', 'left: 121mm;', 'display: none;')}position:absolute;">X</h6>
+                <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'Collected', 'left: 115mm;', 'display: none;')}position:absolute;">X</h6>
+                <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'Collected', 'left: 125mm;', 'display: none;')}position:absolute;">X</h6>
+                <h6 style="position:absolute; left: 142mm;">NVD</h6>
+                <h6 style="position:absolute; left: 174mm;">NCV</h6>
+            </div>
+
+            <div style="position:absolute; left: 8mm; top: 116mm;">
+                <!-- Airport of Destination -->
+                <h6 style="position:absolute; top: 2mm; left: 5mm; width:100mm; white-space: pre-line;">{!shipment.FinalDestinationsDetailInformation__c}</h6>
+                <!-- Flight/Date For Carrier -->
+                <h6 style="position:absolute; top:2mm; left: 50mm; width: 50mm;">
+                    <!-- {!shipment.FlightNumber__c}
+                    {! IF(and(shipment.FlightNumber__c != null, shipment.ETD__c != null), '/', '')} -->
+                    <!-- <apex:outputText value="{0,date,dd.MMM yyyy}">
+                        <apex:param value="{!shipment.ETD__c}" />
+                    </apex:outputText> -->
+                    <apex:outputText value="{!shipment.VesselFlight2nd__c}/" rendered="{!shipment.VesselFlight2nd__c != null}"/>
+                    <apex:outputText value="{0,date,ddMMM}" style="padding-right: 5px;">
+                        <apex:param value="{!shipment.ETD2nd__c}" />
+                    </apex:outputText>
+
+                    <apex:outputText value="{!shipment.VesselFlight3rd__c}/" rendered="{!shipment.VesselFlight3rd__c != null}"/>
+                    <apex:outputText value="{0,date,ddMMM}" >
+                        <apex:param value="{!shipment.ETD3rd__c}" />
+                    </apex:outputText>
+                </h6>
+                <!-- Flight/Date Use Only  -->
+                <h6 style="position:absolute; left: 71mm; width: 25mm;">
+                    {! IF(shipment.Transits__r.size > 0,
+                        shipment.Transits__r[0].TransitVesselFlight__c 
+                        + IF(and(shipment.Transits__r[0].TransitVesselFlight__c != null, shipment.Transits__r[0].ETAatTransitPort__c != null), '/', ''), 
+                        '')}
+                    <apex:outputText value="{0,date,dd.MMM yyyy}">
+                        <apex:param value="{! IF(shipment.Transits__r.size > 0,shipment.Transits__r[0].ETAatTransitPort__c, null)}" />
+                    </apex:outputText>
+                </h6>
+                <h6 style="position:absolute; left: 106mm;">NIL</h6>
+            </div>
+            <!-- Handing Information -->
+            <h6 style="position:absolute; left: 9mm; top:125mm; width:180mm; white-space: pre-line;">{!shipment.AgentDetailInformation_text__c}</h6>
+
+            <div style="position:absolute; left: 9mm; top:146mm; width: 30mm;font-size: 8.5px;">
+                <!-- No of Pieces RCP  -->
+                <h6 style="position:absolute; top: 1mm; left: 9mm">{!shipment.CargoQuantity__c}</h6>
+                <!-- <h6 style="position:absolute; top: 10mm; left: 40mm">SHIPPING MARK:</h6> -->
+                <h6 style="position:absolute; top: 12mm; left: 40.5mm; width: 25mm; white-space: pre-line;">{!shipment.MarksAndNumbers__c}</h6>
+                <!-- Gross Weight -->
+                <h6 style="{! if(shipment.GrossWeight__c != null, '', 'display: none;')}position:absolute; left: 9mm; top: 1mm; width: 18mm; text-align: right;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!shipment.GrossWeight__c}"/>
+                    </apex:outputText>
+                </h6>
+                <h6 style="{! if(shipment.GrossWeight__c != null, '', 'display: none;')}position:absolute; left: 28.5mm; top: 1mm; text-align: right;">KGS</h6>
+                <!-- Chargable Weight  -->
+                <!-- <h6 style="{! if(shipment.ChargeableWeight__c != null, '', 'display: none;')}position:absolute; left: 57mm; top: 6mm; width: 17mm; text-align: right;">{!shipment.ChargeableWeight__c} KGS</h6> -->
+                <h6 style="{! if(shipment.ChargeableWeight__c != null, '', 'display: none;')}position:absolute; left: 51mm; top: 1mm; width: 18mm; text-align: right;">{!shipment.ChargeableWeight__c}</h6>
+                <h6 style="{! if(shipment.ChargeableWeight__c != null, '', 'display: none;')}position:absolute; left: 73.5mm; top: 1mm; text-align: right;">KGS</h6>
+                <h6 style="position:absolute; left: 103mm; top: 0mm; white-space: nowrap;">AS ARRANGED</h6>
+                <!-- Nature and Quality of Goods -->
+                <div style="position:absolute; left: 128mm; top: 5mm; width: 55mm; height: 70mm">
+                    <h6 style="white-space: pre-line;">{!shipment.DescriptionofGoods__c}</h6>
+                    <!-- <h6 style="white-space: pre-line;">{!shipment.GoodsAttachment__c}</h6>  -->
+                </div>
+                <!-- Dimension Detail -->
+                <div style="position:absolute; left: 128mm; top:125px; width: 55mm;height: 300px">
+                    <apex:outputText rendered="{!(shipment.InvoiceNumber__c != null)}">INVOICE: <apex:outputField value="{!shipment.InvoiceNumber__c}"/></apex:outputText> <br/>
+                </div>
+                <div style="position:absolute; left: 128mm; top:130px; width: 55mm;height: 300px">
+                    <apex:outputText rendered="{!(shipment.Dimension__c != null)}">DIM:<apex:outputField value="{!shipment.Dimension__c}"/></apex:outputText> <br/>
+                </div>
+                <!-- Dimension Dev -->
+                <div style="position:absolute; left: 128mm; top:211px; width: 55mm;">
+                    <!-- <apex:outputText style="{!IF(shipment.CWDimension__c != null,'','display : none;')}" value="VOL: {!shipment.CWDimension__c}"/> -->
+                    <!-- <h6>VOL :{!shipment.CWDimension__c}</h6> -->
+                    <apex:outputText style="display: flex" value="VOL: {0,number,###,###,###,##0.000}" rendered="{!shipment.CWDimension__c != 0 && shipment.CWDimension__c != null}">
+                        <!-- <apex:outputText value=""/> -->
+                        <apex:param value="{!shipment.CWDimension__c}"/>
+                    </apex:outputText>
+                </div>
+                <!-- CBM -->
+                <div style="position:absolute; left: 172mm; top:211px; width: 55mm;"> 
+                    <apex:outputText style="display: flex" value="CBM: {0,number,###,###,###,##0.000}" rendered="{!shipment.Measurement__c != null}">
+                        <!-- <apex:outputText value=""/> -->
+                        <apex:param value="{!shipment.Measurement__c}"/>
+                    </apex:outputText>
+                   <!-- <apex:outputText style="{!IF(shipment.Measurement__c != null,'','display : none;')}" value="CBM: {!shipment.Measurement__c}"/> -->
+                    <!-- <h6>CBM :{!shipment.MeasurementTotalCBM__c}</h6> -->
+                </div>
+            </div>
+
+
+            <div style="position:absolute; left: 9mm; top:193mm;">
+                <!-- No of Pieces RCP  -->
+                <h6 style="position:absolute; top: 5mm; left: 9mm;">{!shipment.CargoQuantity__c}</h6>
+                <!-- Gross Weight -->
+                <h6 style="{! if(shipment.GrossWeight__c != null, '', 'display: none;')}position:absolute; left: 9mm; top: 5mm; width: 18mm; text-align: right;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!shipment.GrossWeight__c}"/>
+                    </apex:outputText>
+                </h6>
+                <h6 style="{! if(shipment.GrossWeight__c != null, '', 'display: none;')}position:absolute; left: 28.5mm; top: 5mm; text-align: right;">KGS</h6>
+                <!-- <h6 style="position:absolute; left: 105mm; top: 2mm; white-space: nowrap;">AS ARRANGED</h6> -->
+            </div>
+
+            <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'FREIGHT PREPAID', 'left: 17mm;', 'left: 53mm;')}position:absolute; top:209mm;">AS ARRANGED</h6>
+            <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'FREIGHT PREPAID', 'left: 17mm;', 'left: 53mm;')}position:absolute; top:243mm;">AS ARRANGED</h6>
+            <h6 style="{! IF(shipment.HouseFreightCollectPrepaid__c == 'FREIGHT PREPAID', 'left: 17mm;', 'left: 53mm;')}position:absolute; top:259mm;">AS ARRANGED</h6>
+            
+            <div>
+                <!-- Executed on (Date)  -->
+                <h6 style="position:absolute; left: 96mm; top:264mm; width: 20mm; text-align: center;">
+                    <apex:outputText value="{0,date,dd.MMM yyyy}">
+                        <apex:param value="{!shipment.DateofHouseBLIssued__c}" />
+                    </apex:outputText>
+                </h6>
+                <!-- at (Place) -->
+                <h6 style="position:absolute; left: 114mm; top:264mm; width: 55mm; text-align: center;">{!shipment.POLAODsDetailInformation__c}</h6>
+            </div>
+
+            <!-- <div style="color: #105295;">
+                <h6 style="position:absolute; left: 66mm; top:278mm; width: 80mm; text-align: center; font-size: 14px;">
+                    <apex:outputText >{!customer1}</apex:outputText>
+                </h6>
+            </div> -->
+        </div>
+    </body>
+</apex:page>

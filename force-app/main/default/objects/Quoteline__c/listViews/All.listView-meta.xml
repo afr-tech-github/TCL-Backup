@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>SellingListPriceLocal__c</columns>
+    <columns>BuyingListPriceLocal__c</columns>
+    <columns>AmountTaxBuyingLocal__c</columns>
+    <columns>AmountTaxSellingLocal__c</columns>
+    <columns>TotalAmountofBuyingLocal__c</columns>
+    <columns>TotalAmountofSellingLocal__c</columns>
+    <columns>TotalBuyingInclTaxLocal__c</columns>
+    <columns>TotalSellingInclTaxLocal__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

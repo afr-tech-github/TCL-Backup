@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Created</fullName>
+        <default>false</default>
+        <label>Created</label>
+    </customValue>
+    <customValue>
+        <fullName>Under Negotiation</fullName>
+        <default>false</default>
+        <label>Under Negotiation</label>
+    </customValue>
+    <customValue>
+        <fullName>Issued</fullName>
+        <default>false</default>
+        <label>Issued</label>
+    </customValue>
+    <customValue>
+        <fullName>Signed</fullName>
+        <default>false</default>
+        <label>Signed</label>
+    </customValue>
+    <customValue>
+        <fullName>Complete</fullName>
+        <default>false</default>
+        <label>Complete</label>
+    </customValue>
+    <customValue>
+        <fullName>Nearly Expired</fullName>
+        <default>false</default>
+        <label>Nearly Expired</label>
+    </customValue>
+    <customValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+    </customValue>
+    <masterLabel>Contract Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

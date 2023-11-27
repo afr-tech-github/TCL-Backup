@@ -1,0 +1,191 @@
+.THIS .border tr {
+    border-bottom: 1px solid #C9C9C9;
+    /* background-color: #e5dbdb; */
+}
+
+.THIS th {
+    background-color: #F3EEEE;
+}
+
+.THIS a {
+    text-decoration: none;
+}
+ 
+
+.THIS #quoteTable table,
+.THIS #quoteTable th,
+.THIS #quoteTable td {
+    /* border: 1px solid black; */
+    padding: 7px;
+}
+
+.THIS #mainTable table,
+.THIS #mainTable th,
+.THIS #mainTable td {
+    /* border: 1px solid black; */
+    /* text-align: center; */
+    padding: 5px;
+    /* border: 1px solid black; */
+}
+.THIS #mainTable th{
+    font-size: 13.5px;
+    font-weight: 600;
+}
+
+.THIS .hideRow {
+    display: none ;
+}
+
+.THIS .showRow {
+    display: flex !important;
+}
+
+.THIS input[type='checkbox'] {
+    accent-color: red;
+}
+
+.THIS #tablePONoCB tr:not(:first-child){
+    border-bottom: 1px solid #C9C9C9;
+    /* border-top: 1px solid black; */
+}
+
+/* .THIS #mainTable tr:hover {
+    background-color: #F8B9B9;
+} */
+
+.THIS .label-primary{
+    background-color: #8B0000;
+}
+
+.THIS .label-primary:hover{
+    cursor: pointer !important;
+
+}
+.THIS .label {
+    display: inline;
+    padding: 0.2em 0.6em 0.3em;
+    font-size: 100%;
+    font-weight: 700;
+    line-height: 1;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.25em;
+    transition: all 600ms;
+}
+
+.THIS .label:hover{
+    background-color: #DC143C;
+}
+
+.THIS body {
+    padding: 20px;
+    font-family: "open sans";
+    color: #555;
+}
+
+.THIS label {
+    font-weight: 600;
+}
+
+.THIS table {
+    margin-bottom: 0 !important;
+}
+
+.THIS table tbody>tr>td:first-child {
+    width: 2%;
+    white-space: nowrap;
+}
+
+.THIS div.trans {
+    transition: all 600ms;
+}
+
+.THIS span {
+    transition: all 600ms;
+}
+
+.THIS .tr-selected>td:not(:first-child) {
+    background-color: #F8B9B9;
+    color: #fff;
+}
+
+.THIS .tr-detail>td {
+    padding: 0 !important;
+    padding-bottom: 10px !important;
+    border-top: none !important;
+}
+
+.THIS .tr-detail>td:not(:first-child) {
+    padding: 5px 5px 5px 5px;
+}
+
+.THIS .detail-content ul,
+.THIS .detail-content li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.THIS .detail-content ul li {
+    border: 3px solid #F8B9B9;
+    border-width: 0 0 0px 1px;
+    display: flex;
+}
+
+.THIS .detail-content ul li .detail {
+    margin: 0;
+    padding: 0 10px 5px 0;
+    margin-bottom: 10px;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+
+.THIS .detail-content ul li .detail fieldset {
+    /* border: 1px solid #F8B9B9; */
+}
+
+.THIS .detail-content ul li .detail fieldset legend {
+    font-size: 90%;
+    margin-left: 5px;
+    width: auto;
+    margin-bottom: 0;
+    border: none;
+}
+
+.THIS .detail-content ul li .detail fieldset>div {
+    margin-left: 5px;
+    margin-right: 12px;
+}
+
+.THIS .detail-content ul li .detail fieldset>div table.table-condensed tbody>tr>td {
+    padding: 2px;
+}
+
+.THIS .detail-content ul li .detail:first-child {
+    border-top: 3px solid #F8B9B9;
+    flex-basis: 2%;
+    background: #fff;
+    margin-top: 15px;
+}
+
+.THIS .detail-content ul li:first-child {
+    padding-top: 5px;
+}
+
+.THIS .detail-content ul li:last-child {
+    margin-bottom: 20px;
+}
+
+.THIS .detail-content ul li:last-child>.detail {
+    margin-bottom: 0;
+}
+
+.THIS .detail-content ul li:last-child>.detail:first-child {
+    margin-left: -1px;
+}
+
+.THIS .rorateImg {
+    rotate: 90deg;
+}

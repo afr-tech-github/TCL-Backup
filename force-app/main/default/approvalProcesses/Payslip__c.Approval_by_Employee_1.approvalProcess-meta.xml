@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApprovalProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>true</active>
+    <allowRecall>true</allowRecall>
+    <allowedSubmitters>
+        <submitter>HR_dept</submitter>
+        <type>group</type>
+    </allowedSubmitters>
+    <approvalPageFields>
+        <field>Name</field>
+        <field>Owner</field>
+        <field>BasicSalary__c</field>
+        <field>ProductivitySalary__c</field>
+        <field>TaxableWorkDay__c</field>
+        <field>SalaryTaxableWorkDay__c</field>
+        <field>GrossIncome__c</field>
+        <field>WithholdingAllCompulsoryInsurance__c</field>
+        <field>DeductionAmount__c</field>
+        <field>PITAmount__c</field>
+        <field>NetIncome__c</field>
+    </approvalPageFields>
+    <approvalStep>
+        <allowDelegate>false</allowDelegate>
+        <approvalActions>
+            <action>
+                <name>Change_status_to_Employee_Approved1</name>
+                <type>FieldUpdate</type>
+            </action>
+        </approvalActions>
+        <assignedApprover>
+            <approver>
+                <name>Owner</name>
+                <type>relatedUserField</type>
+            </approver>
+            <whenMultipleApprovers>FirstResponse</whenMultipleApprovers>
+        </assignedApprover>
+        <label>Employee Approval</label>
+        <name>X1</name>
+        <rejectionActions>
+            <action>
+                <name>Update_Status_to_Employee_Rejected</name>
+                <type>FieldUpdate</type>
+            </action>
+        </rejectionActions>
+    </approvalStep>
+    <enableMobileDeviceAccess>false</enableMobileDeviceAccess>
+    <entryCriteria>
+        <criteriaItems>
+            <field>Payslip__c.Status__c</field>
+            <operation>equals</operation>
+            <value>Sent to Employee</value>
+        </criteriaItems>
+    </entryCriteria>
+    <finalApprovalRecordLock>true</finalApprovalRecordLock>
+    <finalRejectionRecordLock>false</finalRejectionRecordLock>
+    <initialSubmissionActions>
+        <action>
+            <name>Inform_Employee</name>
+            <type>Alert</type>
+        </action>
+    </initialSubmissionActions>
+    <label>Approval by Employee Official</label>
+    <processOrder>1</processOrder>
+    <recordEditability>AdminOnly</recordEditability>
+    <showApprovalHistory>true</showApprovalHistory>
+</ApprovalProcess>

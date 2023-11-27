@@ -1,0 +1,739 @@
+<apex:page controller="PrintHAWBController" contentType="text/html" showHeader="false" applyHtmlTag="false" applyBodyTag="false" docType="html-5.0" >
+    <head>
+        <style>
+            @page {
+                size: A4;
+                margin: 10mm;
+                margin-top: 2mm;
+                font-size: 7px;
+            }
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+                .print-only {
+                 page-break-inside: avoid !important;
+                 
+              }
+              
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            body{
+                margin: 0mm;
+                font-size: 7px;
+            }
+            table{
+                font-size: 7px;
+            }
+            td{
+                font-size: 9px;
+                color: rgb(228 172 146);
+            }
+        </style>
+        <script type="text/javascript">
+                  
+            window.onload = function() {
+                //window.top.document.title = "Your Title";
+                window.print();
+                return false; 
+            }
+        </script>
+    </head>
+    <body>
+        <div id="mydiv">
+            <div id="head"></div>
+    
+                <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+                <div id="mydivheader">Click here to move</div>
+                
+                <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">PRINT</a>
+            </div>
+        <!-- <div style="height: 900px; width: 500px; border: 1px solid rgb(228 172 146)">
+        </div> -->
+        <div style="display: inline-flex; width: 100%; height: 6mm">
+            
+            <div style="position: relative; height: 10px; padding-top: 8px">
+                <apex:outputText value="{!shipment.MAWBNumber__c} " style="font-weight: bold; font-size: 12px"/>
+                <div style="position: absolute; bottom: -6px; left: 50px; border: 1px solid rgb(228 172 146); width: 30px; height: 25px"></div>
+                
+            </div>
+            <div style="position: absolute; top: 8px; right: 0;"><apex:outputText value="{!shipment.HAWBNumber__c}" style="font-weight: bold; font-size: 12px"/></div>
+        </div>
+        <table border="1" style="border-collapse: collapse; border: 1px solid rgb(228 172 146) ; width: 100%;">
+            <col width="25%"/>
+            <col width="25%"/>
+            <col width="25%"/>
+            <col width="25%"/>
+            <tr>
+                <td rowspan="2" colspan="2" style="vertical-align: top;">
+                
+                    <div style="position: relative">
+                        <p style="margin-left: 5px;">Shipper's Name and Address</p>
+                        <p style="margin-left: 5px; color: black;">
+                            <apex:outputText value="{!shipment.ShipperDetailInformation__c}" escape="false" style="white-space: pre-line; text-transform: uppercase"/>
+                        </p>
+                        <div style="position: absolute; top: 0; right: 0; border-left: 1px solid rgb(228 172 146); border-bottom: 1px solid rgb(228 172 146); width: 140px; height: 30px; text-align: center; z-index: -1">
+                            Shipper's Account Number
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" style="height: 70px; vertical-align: top">
+                    <div style="display:inline-flex">
+                        <div style="width: 150px;">
+                            Not Negotiable<br/>
+                            <apex:outputText value="Air Waybill"  style="font-size: 17px; font-weight: bold; color: rgb(220 115 61)"/><br/>
+                            Issued by<br/>
+                        </div>
+                        <div style="width: 150px;">
+                            <img src="{!ComInfo.CompanyLogo__c}" style="width: 100px; height: auto"/>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <p>Copies 1,2 and 3 of this Air Waybill are originals and have the same validity.</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="vertical-align: top;">
+                
+                    <div style="position: relative">
+                        <p style="margin-left: 5px">Consignee's Name and Address</p>
+                        <p style="margin-left: 5px; color: black;">
+                            <apex:outputText value="{!shipment.ConsigneeDetailInformation__c}" escape="false" style="white-space: pre-line; text-transform: uppercase"/>
+                        </p>
+                        <div style="position: absolute; top: 0; right: 0; border-left: 1px solid rgb(228 172 146); border-bottom: 1px solid rgb(228 172 146); width: 140px; height: 30px; text-align: center; z-index: -1">
+                            Consignee's Account Number
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2" style="height: 80px; vertical-align: top">
+                    <p style="text-align: justify;">
+                        It is agreed that the goods described herein are accepted in apparent good order and condition (except as noted) for carriage SUBJECT TO THE CONDITIONS OF CONTRACT ON THE REVERSE HEREOF. ALL GOODS MAY BE CARRIED BY ANY OTHER MEANS INCLUDING ROAD OR ANY OTHER CARRIER UNLESS SPECIFIC CONTRARY INSTRUCTIONS ARE GIVEN HEREON BY THE SHIPPER, AND SHIPPER AGREES THAT THE SHIPMENT MAY BE CARRIED VIA INTERMEDIATE STOPPING PLACES WHICH THE CARRIER DEEMS APPROPRIATE. THE SHIPPER'S ATTENTION IS DRAWN TO THE NOTICE CONCERNING CARRIER'S LIMITATION OF LIABILITY Shipper may increase such limitation of lability by declaring a higher value for carriage and paying a supplemental charge if required.
+                    </p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="height: 60px; vertical-align: top">
+                    <p style="margin-left: 5px">Issuing Carrier's Agent Name and City</p>
+                    <p style="margin-left: 5px; color: black;">
+                        <apex:outputText value="{!shipment.AgentDetailInformation__c}" escape="false" style="white-space: pre-line; text-transform: uppercase"/>
+                    </p>
+                </td>
+                <td colspan="2" rowspan="2" style="vertical-align: top">
+                    <p style="margin-left: 5px">Accounting Information/Also Notify</p>
+                    <p></p>
+                </td>
+            </tr>
+            <tr>
+                <td style="height: 40px; vertical-align: top">
+                    <p style="margin-left: 5px">Agent's IATA Code</p>
+                    
+                </td>
+                <td style="vertical-align: top">
+                    <p style="margin-left: 5px">Account No.</p>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" style="height: 40px; vertical-align: top">
+                    <p style="margin-left: 5px">Airport of Departure (Addr. of  first Carrier) and requested Routing</p>
+                    <p style="margin-left: 5px"><apex:outputText value="{!shipment.POLAOD__r.Name}, {!shipment.POLAOD__r.CountryName__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                </td>
+                <td colspan="2" style="height: 40px; vertical-align: top">
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 0; left: 20px">Reference Number</div>
+                        
+                        <div style="position: absolute; top: -2px; right: 109px; border-left: 1px solid rgb(228 172 146); border-bottom: 1px solid rgb(228 172 146); width: 150px; border-right: 1px solid rgb(228 172 146); height: 15px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; text-align: center">
+                            <p style="margin-top: 3px;">Optional Shipping Information</p>
+                        </div>
+                        <div style="z-index: -1; position: absolute; top: 13px; right: 124px; border-left: 1px solid rgb(228 172 146); border-right: 1px solid rgb(228 172 146); width: 120px; height: 27px;">
+
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 40px;">
+                <td colspan="2" style="vertical-align: top">
+                    <div style="display: flex;">
+                        <div style="width: 40px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <p style="margin-left: 5px;  margin-top: 2px">To</p>
+                            <p style="margin-left: 5px;">
+                                <apex:outputText value="{!shipment.PODAOA__r.PortCode__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/>
+                            </p>
+                        </div>
+                        <div style="width: 170px; border-right: 1px solid rgb(228 172 146); height: 40px; position: relative">
+                            <div style="position: absolute; top: 0; left: 2px">By First Carrier</div>
+                            <div style="transform: rotate(45deg); position: absolute; top: -9px; right: 84px; border-bottom: 1px solid rgb(228 172 146); width: 15px; height: 15px;"></div>
+                            <div style="font-size: 6px; position: absolute; top: 2px; left: 78px; border-bottom: 1px solid rgb(228 172 146); width: 70px; height: 7px;">
+                                Recusing and Destination 
+                            </div>
+                            <div style="transform: rotate(-45deg); position: absolute; top: -9px; right: 15px; border-bottom: 1px solid rgb(228 172 146); width: 15px; height: 15px;"></div>
+                        </div>
+                        <div style="width: 40px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <p style="margin-left: 2px; margin-top: 2px">to</p>
+                            <p style="margin-left: 2px; "><apex:outputText value="{!shipment.PODAOA2nd__r.PortCode__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                        </div>
+                        <div style="width: 30px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <p style="margin-left: 2px; margin-top: 2px">by</p>
+                            <p style="margin-left: 2px; "><apex:outputText value="{!shipment.PODAOA2nd__r.CountryCode__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                        </div>
+                        <div style="width: 40px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <p style="margin-left: 2px; margin-top: 2px">to</p>
+                            <p style="margin-left: 2px; "><apex:outputText value="{!shipment.PODAOA3rd__r.PortCode__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                        </div>
+                        <div style="width: 30px; height: 40px;">
+                            <p style="margin-left: 2px; margin-top: 2px">by</p>
+                            <p style="margin-left: 2px; "><apex:outputText value="{!shipment.PODAOA3rd__r.CountryCode__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2">
+                    <div style="display: flex;">
+                        <div style="width: 36px; border-right: 1px solid rgb(228 172 146); height: 40px; text-align: center">
+                            <span style="font-size: 8px;">Currency</span> <br/>
+                            <p><apex:outputText value="{!shipment.Currency__c}" escape="false" style="white-space: pre-line; text-transform: uppercase; color: black"/></p>
+                        </div>
+
+                        <div style="width: 23px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <span style="font-size: 8px;">CHGS Code </span>
+                        </div>
+                        <div style="width: 40px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <div style="border-bottom: 1px solid rgb(228 172 146); height: 15px; width: 40px; text-align: center">
+                                <span style="font-size: 8px;">WT/VAL</span>
+                            </div>
+                            <div style="display: inline-flex; width: 40px; height: 30px">
+                                <div style="width: 20px; height: 26px; border-right: 1px solid rgb(228 172 146); text-align: center">
+                                    <p style="font-size: 7px; margin-top: 2px; margin-bottom: 3px;">PPD</p>
+                                    <p style="color: black; margin-top: 0; {!IF(shipment.HouseFreightCollectPrepaid__c == 'Prepaid', '', 'display: none')}">X</p>
+                                </div>
+                                <div style="width: 20px; height: 30px; text-align: center">
+                                    <p style="font-size: 7px; margin-top: 2px; margin-bottom: 3px;">COLL</p>
+                                    <p style="color: black; margin-top: 0; {!IF(shipment.HouseFreightCollectPrepaid__c == 'Collected', '', 'display: none')}">X</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 40px; border-right: 1px solid rgb(228 172 146); height: 40px;">
+                            <div style="border-bottom: 1px solid rgb(228 172 146); height: 15px; width: 40px; text-align: center">
+                                <span style="font-size: 8px;">Other</span>
+                            </div>
+                            <div style="display: inline-flex; width: 40px; height: 30px">
+                                <div style="width: 20px; height: 26px; border-right: 1px solid rgb(228 172 146); text-align: center">
+                                    <p style="font-size: 7px; margin-top: 2px;  margin-bottom: 3px;">PPD</p>
+                                    <p style="color: black; margin-top: 0; {!IF(shipment.HouseFreightCollectPrepaid__c == 'Prepaid', '', 'display: none')}">X</p>
+                                </div>
+                                <div style="width: 20px; height: 30px; text-align: center">
+                                    <p style="font-size: 7px; margin-top: 2px; margin-bottom: 3px;">COLL</p>
+                                    <p style="color: black; margin-top: 0; {!IF(shipment.HouseFreightCollectPrepaid__c == 'Collected', '', 'display: none')}">X</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width: 120px; border-right: 1px solid rgb(228 172 146); height: 40px; text-align: center">
+                            <p style="margin-top: 1px;">Declared Value for Carriage</p>
+                            <p style="margin-top: 2px; color: black">NVD</p>
+                        </div>
+                        <div style="width: 120px;  height: 40px; text-align: center">
+                            <p style="margin-top: 1px;">Declared Value for Customer</p>
+                            <p style="margin-top: 2px;  color: black">NCV</p>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 40px;">
+                <td style="border-bottom: 2px solid rgb(228 172 146); border-right: 2px solid rgb(228 172 146); border-top: 2px solid rgb(228 172 146); text-align: center; vertical-align: top">
+                    Airport of Destination
+                    <p style="color: black;"><apex:outputText value="{!shipment.FinalDestination__r.PortCode__c}" style="float: left; text-transform: uppercase;"/></p>
+                </td>
+                <td>
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 0px; left: 2px;  width: 185px;  height: auto; color: black; text-transform:uppercase; text-align:center;">
+                            <apex:outputText value="{!shipment.VesselFlight__c}"/>
+                            <apex:outputText value="/{!shipment.VesselFlight2nd__c}" rendered="{!shipment.VesselFlight2nd__c != null}"/>
+                            <apex:outputText value="/{!shipment.VesselFlight3rd__c}" rendered="{!shipment.VesselFlight3rd__c != null}"/>
+                            <apex:outputText value="/{0, date, MMM dd,yyyy}">
+                                <apex:param value="{!shipment.ETD__c}"/>
+                            </apex:outputText>
+                        </div>
+                        <div style="position: absolute; top: -21px; right: 41px; border-left: 1px solid rgb(228 172 146); border-bottom: 1px solid rgb(228 172 146); width: 96px; border-right: 1px solid rgb(228 172 146); height: 9px; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; text-align: center; font-size: 7px">
+                            Requested Flight Date
+                        </div>
+                        <div style="z-index: -1; position: absolute; top: -10px; right: 93px; border-right: 1px solid rgb(228 172 146); height: 30px;">
+                        </div>
+                    </div>
+                </td>
+                <td colspan="2"  style="vertical-align: top">
+                    <div style="display: flex;">
+                        <div style="width: 115px; border-right: 1px solid rgb(228 172 146); height: 40px; text-align: center; vertical-align: top;">
+                            Amount of Insurance
+                            <p style="color: black;">NIL</p>
+                        </div>
+                        <div style="width: 235px; border-right: 1px solid rgb(228 172 146); height: 40px; text-align: justify; padding-left: 2px; padding-right: 2px">
+                            INSURANCE - It Carrier offers insurance, and such insurance is requested in accordance with the conditions thereof. indicate amount to be insured in figures in box marked Amount of Insurance
+                        </div>
+                        <div style="width: 32px;  height: 40px; text-align: center; vertical-align: top">
+                            TC
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 70px; vertical-align: top">
+                <td colspan="4">
+                    <p style="margin-top: 2px; margin-left: 5px; margin-bottom: 2px;">HANDLING INFORMATION</p>
+                    <!-- <p style="margin-top: 2px; margin-left: 5px; text-transform: uppercase; color: black;">
+                        <apex:outputText value="{!shipment.CargoDeliveryRemark__c}" escape="false" style="white-space: pre-line;"/>
+                    </p> -->
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 5px; left: 5px; color: black">
+                            <apex:outputText value="{!shipment.CargoDeliveryRemark__c}" escape="false" style="white-space: pre-line;"/>
+                        </div>
+                        <div style="position: absolute; top: 19px; right: -1px; border-left: 1px solid rgb(228 172 146); border-top: 1px solid rgb(228 172 146); width: 100px; height:35px; text-align: center;">
+                            SC:
+                        </div>
+                        <div style="position: absolute; top: 45px; left: 5px; font-size: 7px">
+                            (For USA only) These commodities, technology or software were exported from the United States in accordance with the Export Administration Regulations. Diversion contrary to USA law prohibited.
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <table border="1" style="border-collapse: collapse; border: 1px solid rgb(228 172 146) ; width: 100%; border-top: hidden;">
+            <col width="6%"/>
+            <col width="10%"/>
+            <col width="2%"/>
+            <col width="2%"/>
+            <col width="10%"/>
+            <col width="2%"/>
+            <col width="10%"/>
+            <col width="2%"/>
+            <col width="10%"/>
+            <col width="2%"/>
+            <col width="15%"/>
+            <col width="2%"/>
+            <col width="27%"/>
+
+            <tr style="height: 45px; vertical-align: middle; text-align: center">
+                <td style="border: 1px solid rgb(228 172 146);">
+                    No. of <br/> Pieces <br/> RCP
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    Gross  <br/> Weight
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    Kg <br/> lb
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    <div style="position: relative">
+                        <div style="position: absolute; top: -9px; left: 4px;">Rate Class</div>
+                        <div style="position: absolute; top: 3px; right: -1px; border-left: 1px solid rgb(228 172 146); border-top: 1px solid rgb(228 172 146); width: 58px; height:250px; text-align: center; font-size: 8px">
+                            Commodity <br/> Item No.
+                        </div>
+                    </div>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    Chargeable <br/> Weight
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    <div style="position: relative">
+                        <div style="position: absolute; top: -9px; left: 4px;">Rate</div>
+                        <div style="transform: rotate(-27deg); position: absolute; top: -15px; right: 21px; border-bottom: 1px solid rgb(228 172 146); width: 35px; height: 15px;">
+                        </div>
+                        <div style="position: absolute; top: 3px; right: 3px; ">
+                            Charge
+                        </div>
+                    </div>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: top">
+                    <p style="margin-top: 3px;">Total</p>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: bottom">
+                    Nature and Quantity of Goods<br/>
+                    (inct. Dimensions or Volume)
+                </td>
+            </tr>
+            <tr style="height: 230px;">
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: top">
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 3px; left: 1px; width: 41px; color: black; text-align: center">
+                            <apex:outputText value="{!shipment.CargoQuantity__c}"/>
+                        </div>
+                        <div style="position: absolute; top: 15px; left: 1px; width: 55px; color: black; ">
+                            <apex:outputText value="{!shipment.CargoUnit__c}"/>
+                        </div>
+                        <div style="position: absolute; top: 205px; left: -1px; border-bottom: 1px solid rgb(228 172 146); width: 118px;"></div>
+                    </div>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: top; padding-top: 5px; color:black;">
+                    <apex:outputText value="{0, number, ###,###,###,###.00}" style="float: right;">
+                        <apex:param value="{!shipment.GrossWeight__c}"/>
+                    </apex:outputText>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align:top; padding-top:5px; color:black;">
+                    K
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: top; padding-top: 5px; color:black;">
+                    <apex:outputText value="{0, number, ###,###,###,###.00} K" style="float: right;" rendered="{!shipment.ChargeableWeight__c != null}">
+                        <apex:param value="{!shipment.ChargeableWeight__c}"/>
+                    </apex:outputText>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);  vertical-align: top; padding-top: 5px; color:black; text-align: center">
+                    <apex:outputText value="{!shipment.RateCharge__c}" escape="false" style="white-space: pre-line;"/>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146);">
+                    
+                    <div style="position: relative">
+                        <div style="position: absolute; top: -110px; left: 1px; width: 100px; color: black; text-align: center">
+                            AS ARRANGED
+                        </div>
+                        <div style="position: absolute; top: 90px; left: -1px; border-bottom: 1px solid rgb(228 172 146); width: 112px;"></div>
+                    </div>
+                </td>
+                <td style="border: 1px solid rgb(228 172 146);"></td>
+                <td style="border: 1px solid rgb(228 172 146); vertical-align: top; padding-top: 5px; color:black; padding-left: 3px">
+                    <p style="margin-top: 0;">
+                        <apex:outputText value="{!shipment.DescriptionofGoods__c}" escape="false" style="white-space: pre-line;"/>
+                    </p>
+                    <p>
+                        <apex:outputText value="{!shipment.DimensionDetail__c}" escape="false" style="white-space: pre-line;"/>
+                    </p>
+                </td>
+            </tr>
+        </table>
+        <table border="1" style="border-collapse: collapse; border: 1px solid rgb(228 172 146) ; width: 100%; border-top: hidden; {!IF(count < 20,'page-break-after: always', '')} ">
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="20%"/>
+            <col width="40%"/>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative; ">
+                        <div style="position: absolute; top: 2px; left: 40px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Prepaid', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="width: max-content; position: absolute; top: 2px; left: 190px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Collected', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 5px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 20px; border-bottom: 1px solid rgb(228 172 146); width: 59px; height: 10px; text-align: center">
+                            Prepaid
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 76px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 89px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 104px; border-bottom: 1px solid rgb(228 172 146); width: 89px; height: 10px; text-align: center; background-color: white;">
+                            Weight Charge 
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 190px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 202px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 217px; border-bottom: 1px solid rgb(228 172 146); width: 59px; height: 10px; text-align: center">
+                            Collect
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 273px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                    </div>
+                    
+                </td>
+                <td></td>
+                <td colspan="2" style="text-align: left; vertical-align: top;"> Other Charges</td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 89px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 104px; border-bottom: 1px solid rgb(228 172 146); width: 89px; height: 10px; text-align: center; background-color: white;">
+                            Valuation Charge
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 190px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 103px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 118px; border-bottom: 1px solid rgb(228 172 146); width: 60px; height: 10px; text-align: center; background-color: white">
+                            Tax
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 175px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td></td>
+                <td colspan="2"></td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 2px; left: 40px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Prepaid', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="width: max-content; position: absolute; top: 2px; left: 190px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Collected', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 25px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 40px; border-bottom: 1px solid rgb(228 172 146); width: 218px; height: 10px; text-align: center; background-color: white">
+                            Total other Charges Due Agent
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 255px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td></td>
+                <td colspan="2" rowspan="3" style="vertical-align: top">
+                    <!-- <span style="text-align: justify">Shipper certifies that the particulars on the face hereof are correct and that INSOFAR AS ANY PART OF THE CONSIGNMENT CONTAINS DANGEROUS GOOOS, SUCH PART IS PROPERLY DESCRIBED BY NAME AND IS ID. PROPER CONDITION FOR CARRIAGE BY MP ACCORDING TO THE APPLICABLE DANGEROUS GOODS " REGULATIONS </span> -->
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 2px; left: 2px; text-align: justify">Shipper certifies that the particulars on the face hereof are correct and that INSOFAR AS ANY PART OF THE CONSIGNMENT CONTAINS DANGEROUS GOOOS, SUCH PART IS PROPERLY DESCRIBED BY NAME AND IS ID. PROPER CONDITION FOR CARRIAGE BY MP ACCORDING TO THE APPLICABLE DANGEROUS GOODS " REGULATIONS</div>
+                        <div style="position: absolute; top: 74px; left: 0px; width: 450px; height: 13px; text-align: left; padding-left: 5px; color: black">
+                            <apex:outputText value="{0, date, dd MMM, yyyy} {!shipment.Place_of_issue__c}" style="text-transform: uppercase" >
+                                <apex:param value="{!shipment.Date_of_issue__c}" />
+                            </apex:outputText>
+                        </div>
+                        <div style="position: absolute; top: 85px; left: 0px; border-top: 1px dotted rgb(228 172 146); width: 450px; height: 10px; text-align: center;">
+                            <p style="margin: 2px;">Signature of Shipper or his Agent</p>
+                        </div>
+                        <!-- <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 255px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div> -->
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 25px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 40px; border-bottom: 1px solid rgb(228 172 146); width: 218px; height: 10px; text-align: center; background-color: white">
+                            Total other Charges Due Agent
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 255px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td></td>
+            </tr>
+            <tr style="height: 35px;">
+                <td ></td>
+                <td></td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="position: absolute; top: 2px; left: 40px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Prepaid', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="width: max-content; position: absolute; top: 2px; left: 190px; color: black; {!IF(shipment.HouseFreightCollectPrepaid__c ==  'Collected', '', 'display: none;')}">
+                            AS ARRANGED
+                        </div>
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 5px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 20px; border-bottom: 1px solid rgb(228 172 146); width: 105px; height: 10px; text-align: center;">
+                            Total Prepaid
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 122px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 5px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 20px; border-bottom: 1px solid rgb(228 172 146); width: 105px; height: 10px; text-align: center;">
+                            Total Collect
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 122px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td colspan="2" rowspan="2" style="vertical-align: bottom; text-align: left">
+                    <div style="width: 430px;">
+                        <span>Excuted on</span>
+                        <span style="margin-left: 30px;">{Date}</span>
+                        <span style="margin-left: 30px;">at</span>
+                        <span style="margin-left: 30px;">{Place}</span>
+                        <span style="margin-left: 30px;">Signture of Issuing Carrier of  its Agent</span>
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 35px;">
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: -4px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 11px; border-bottom: 1px solid rgb(228 172 146); width: 124px; height: 10px; text-align: center;">
+                            Currency Conversion Rates
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 132px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: -4px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 11px; border-bottom: 1px solid rgb(228 172 146); width: 124px; height: 10px; text-align: center;">
+                            cc charges in Dest.Currency
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 132px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 35px;">
+                <td style="vertical-align: middle; text-align: center"> For Carrier Use only <br/> at Destination</td>
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 5px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 20px; border-bottom: 1px solid rgb(228 172 146); width: 105px; height: 10px; text-align: center;">
+                            Charges at Destination
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 122px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td>
+                    <div style="position: relative">
+                        <div style="transform: rotate(45deg); position: absolute; top: -12px; left: 5px; border-bottom: 1px solid rgb(228 172 146); width: 18px;"></div>
+                        <div style="position: absolute; top: -16px; left: 20px; border-bottom: 1px solid rgb(228 172 146); width: 105px; height: 10px; text-align: center;">
+                            Total collect Charges
+                        </div>
+                        <div style="transform: rotate(-45deg); position: absolute; top: -12px; left: 122px; border-bottom: 1px solid rgb(228 172 146); width: 18px; "></div>
+                        <!-- <div style="position: absolute; top: -6px; left: 147px; border-left: 1px solid rgb(228 172 146); height: 24px;"></div> -->
+                    </div>
+                </td>
+                <td style="border-bottom: hidden; border-right: hidden"></td>
+            </tr>
+        </table>
+        <div style="height: 1px; width: 100%; position: relative; page-break-after: always">
+
+            <div style="width: 100%; position: absolute; top: 0; left: 0">
+                <img align="middle" src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000000zCyt&oid=00D8d00000AXMQJ&lastMod=1697596595000" style="width: 198mm; height: 290mm"/>
+            </div>
+        </div>
+
+        <div style="{!IF(count < 20, '', 'display: none;')}">
+            <table style="width: 100%; margin-top: 7mm">
+                <col width="70%"/>
+                <col width="10%"/>
+                <col width="20%"/>
+                <tr style="height: 20px;">
+                    <td></td>
+                    <td style="color: black;">
+                        H-B/L No.
+                    </td>
+                    <td style="color: black;">
+                        <apex:outputText value=": {!shipment.HAWBNumber__c}"/>
+                    </td>
+                </tr>
+                <tr style="height: 20px;">
+                    <td></td>
+                    <td style="color: black;">Date</td>
+                    <td style="color: black;">
+                        <apex:outputText value=": "/>
+                    </td>
+                </tr>
+            </table>
+            <div style="width: 100%; text-align: center; font-weight: bold; font-size: 22px">
+                ATTACHED LIST
+            </div>  
+            <div style="width: 100%; ">
+                <!-- <p style="margin-top: 0;">
+                    <apex:outputText value="{!shipment.DescriptionofGoods__c}" escape="false" style="white-space: pre-line;"/>
+                </p>
+                <p>
+                    <apex:outputText value="{!shipment.DimensionDetail__c}" escape="false" style="white-space: pre-line;"/>
+                </p> -->
+            </div>
+        </div>
+        <!-- <apex:outputPanel >
+            
+            <table border="1"  style="border-collapse: collapse; border: 1px solid black; width: 210mm; margin-top:  5mm">
+                <tr style="height: 40px;">
+                    <td>
+                        <img align="middle" src="https://tcl-02-dev-ed.develop.file.force.com/servlet/servlet.ImageServer?id=0158d000000zCyt&oid=00D8d00000AXMQJ&lastMod=1697596595000" style="width: 210mm; height: 295mm"/>
+                    </td>
+                </tr>
+            </table>
+        </apex:outputPanel> -->
+    </body>
+    <script>
+        dragElement(document.getElementById("mydiv"));
+        
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+    
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+    
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+    
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+</apex:page>

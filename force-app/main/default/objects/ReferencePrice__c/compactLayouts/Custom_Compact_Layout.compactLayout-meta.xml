@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Custom_Compact_Layout</fullName>
+    <fields>Name</fields>
+    <fields>Account__c</fields>
+    <fields>ServiceName__c</fields>
+    <fields>ServiceType__c</fields>
+    <fields>Route__c</fields>
+    <fields>CurrencyBuying__c</fields>
+    <fields>UnitPriceofBuying__c</fields>
+    <fields>COM__c</fields>
+    <label>Custom Compact Layout</label>
+</CompactLayout>

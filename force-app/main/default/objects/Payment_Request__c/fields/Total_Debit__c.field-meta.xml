@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Total_Debit__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Rollup from All Connect Bill record which have record type equal Connect Invoice</inlineHelpText>
+    <label>Total Debit</label>
+    <summarizedField>Connectbill__c.Requested_Deduction_Amount__c</summarizedField>
+    <summaryFilterItems>
+        <field>Connectbill__c.RecordTypeId</field>
+        <operation>equals</operation>
+        <value>Connect Invoice</value>
+    </summaryFilterItems>
+    <summaryForeignKey>Connectbill__c.Payment_Request__c</summaryForeignKey>
+    <summaryOperation>sum</summaryOperation>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

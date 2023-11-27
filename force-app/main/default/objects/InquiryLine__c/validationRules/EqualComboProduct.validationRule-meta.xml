@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>EqualComboProduct</fullName>
+    <active>false</active>
+    <errorConditionFormula>ComboProduct__r.Id  &lt;&gt;  Inquiry__r.ComboProduct1__c</errorConditionFormula>
+    <errorDisplayField>ComboProduct__c</errorDisplayField>
+    <errorMessage>Combo Product in Inquiry Line and Inquiry needs to be the same</errorMessage>
+</ValidationRule>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Employee_info_match_with_attendance</fullName>
+    <active>true</active>
+    <errorConditionFormula>If(
+isblank( Attendance__c),false, 
+Employee_Information__r.Id &lt;&gt; Attendance__r.Employee__r.Id)</errorConditionFormula>
+    <errorDisplayField>Attendance__c</errorDisplayField>
+    <errorMessage>Employee info in this record need to match with employee info in attendance</errorMessage>
+</ValidationRule>

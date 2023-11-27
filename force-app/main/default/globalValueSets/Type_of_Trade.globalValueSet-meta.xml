@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>DOMESTIC</fullName>
+        <default>false</default>
+        <label>DOMESTIC</label>
+    </customValue>
+    <customValue>
+        <fullName>IMPORT</fullName>
+        <default>false</default>
+        <label>IMPORT</label>
+    </customValue>
+    <customValue>
+        <fullName>EXPORT</fullName>
+        <default>false</default>
+        <label>EXPORT</label>
+    </customValue>
+    <customValue>
+        <fullName>ENTREPOT</fullName>
+        <default>false</default>
+        <label>ENTREPOT</label>
+    </customValue>
+    <customValue>
+        <fullName>THIRD COUNTRY</fullName>
+        <default>false</default>
+        <label>THIRD COUNTRY</label>
+    </customValue>
+    <masterLabel>Type of Trade</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

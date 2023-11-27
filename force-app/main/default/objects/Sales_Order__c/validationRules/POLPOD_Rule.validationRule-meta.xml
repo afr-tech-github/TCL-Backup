@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>POLPOD_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>P_O_L_A_O_D__r.Name = P_O_D_A_O_A__r.Name</errorConditionFormula>
+    <errorMessage>P.O.L (A.O.D) and P.O.L (A.O.A) must be different.</errorMessage>
+</ValidationRule>

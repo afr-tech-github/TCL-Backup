@@ -1,0 +1,19 @@
+<!--FileUpload.cmp-->
+<aura:component controller="FileUploadController" implements="force:hasSObjectName,force:hasRecordId,flexipage:availableForRecordHome,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,lightning:availableForFlowScreens,force:lightningQuickActionWithoutHeader" >
+    <!-- 'parentId' Aura Attribute for store the Id for Parent Record where we are attach our file --> 
+    <aura:attribute name="parentId" type="Id"  />
+    <!-- <aura:registerEvent name="closeUpload" type="c:close_pubUp"/> -->
+
+    <!-- 'fileName' attribute for display the selected file name --> 
+    <aura:attribute name="fileName" type="String" default="No File Selected.." />
+    <!-- <aura:handler name="init" value="{!this}" action="{!c.onMyAttributeChanged}" /> -->
+
+     
+    <!-- Lightning Input with file type and on file change call the 'handleFilesChange' controller -->
+    <lightning:input aura:id="fuploader" onchange="{!c.handleFilesChange}" type="file" name="file" label="Upload File" multiple="false"/>
+    <div class="slds-text-body_small slds-text-color_error">{!v.fileName} </div>
+    <br/>
+
+    <lightning:button label="Save" onclick="{!c.handleSave}"
+                      variant="brand" class="slds-m-top--medium"/>
+</aura:component>

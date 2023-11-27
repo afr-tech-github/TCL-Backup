@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>Customer__c</columns>
+    <columns>NAME</columns>
+    <columns>TransportType__c</columns>
+    <columns>Truck__c</columns>
+    <columns>TruckingBillNo__c</columns>
+    <columns>Pick_up_date__c</columns>
+    <columns>Drop_off_date__c</columns>
+    <columns>Container_number__c</columns>
+    <columns>Carrier_Seal__c</columns>
+    <columns>Transport_Status__c</columns>
+    <columns>PackingType__c</columns>
+    <columns>CargoPickupAddress__c</columns>
+    <columns>CargoDeliveryType__c</columns>
+    <filterScope>Everything</filterScope>
+    <label>All Records</label>
+</ListView>

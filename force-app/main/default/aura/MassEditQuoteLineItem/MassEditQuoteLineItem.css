@@ -1,0 +1,9 @@
+.THIS table, .THIS th, .THIS td{
+    padding: 5px;
+    vertical-align: top;
+    
+}
+.THIS .slds-dropdown{
+    position: absolute !important;
+    top: -170px !important;
+}

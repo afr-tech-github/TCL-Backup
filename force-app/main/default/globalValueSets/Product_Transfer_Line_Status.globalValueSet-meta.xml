@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Created</fullName>
+        <default>true</default>
+        <label>Created</label>
+    </customValue>
+    <customValue>
+        <fullName>Inventory Locked</fullName>
+        <default>false</default>
+        <label>Inventory Locked</label>
+    </customValue>
+    <customValue>
+        <fullName>Inventory Updated</fullName>
+        <default>false</default>
+        <label>Inventory Updated</label>
+    </customValue>
+    <customValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+    </customValue>
+    <masterLabel>Product Transfer Line Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

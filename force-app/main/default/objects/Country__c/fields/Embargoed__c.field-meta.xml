@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Embargoed__c</fullName>
+    <defaultValue>false</defaultValue>
+    <description>Tick this checkbox if this country is embargoed. It will restrict users not to create Routes for this Country</description>
+    <externalId>false</externalId>
+    <label>Embargoed</label>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

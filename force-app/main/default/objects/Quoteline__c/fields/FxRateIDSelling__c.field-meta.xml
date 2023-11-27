@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FxRateIDSelling__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>FxRate ID - Selling</label>
+    <lookupFilter>
+        <active>false</active>
+        <booleanFilter>(1 OR 3) AND (2 OR 4)</booleanFilter>
+        <filterItems>
+            <field>FxRate__c.Active1__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>FxRate__c.ExchangeCurrencyFrom1__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.CurrencySelling__c</valueField>
+        </filterItems>
+        <filterItems>
+            <field>FxRate__c.Activeforupdate__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </filterItems>
+        <filterItems>
+            <field>$Source.CurrencySelling__c</field>
+            <operation>equals</operation>
+            <value>VND</value>
+        </filterItems>
+        <isOptional>true</isOptional>
+    </lookupFilter>
+    <referenceTo>FxRate__c</referenceTo>
+    <relationshipLabel>Quote lines (FxRate ID - Selling)</relationshipLabel>
+    <relationshipName>Quote_lines1</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

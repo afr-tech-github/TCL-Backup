@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CheckListAction__c</fullName>
+    <externalId>false</externalId>
+    <label>Check List Action</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Get new email</fullName>
+                <default>false</default>
+                <label>Get new email</label>
+            </value>
+            <value>
+                <fullName>Get laptop</fullName>
+                <default>false</default>
+                <label>Get laptop</label>
+            </value>
+            <value>
+                <fullName>Get Stationary</fullName>
+                <default>false</default>
+                <label>Get Stationary</label>
+            </value>
+            <value>
+                <fullName>Sign contract</fullName>
+                <default>false</default>
+                <label>Sign contract</label>
+            </value>
+            <value>
+                <fullName>Participate &quot;Chương trình hội nhập&quot;</fullName>
+                <default>false</default>
+                <label>Participate &quot;Chương trình hội nhập&quot;</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

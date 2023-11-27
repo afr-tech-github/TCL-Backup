@@ -1,0 +1,34 @@
+<apex:page id="getAddress" docType="html-5.0" sidebar="false" showheader="false" controller="GoogleMapController">
+
+    <head>
+        <style type="text/css"> 
+            html { height: 100% } 
+            body { height: 100%; margin: 0; padding: 0 } 
+        </style> 
+    </head>
+
+    <body class="getGGMapBody">
+        <div style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
+            <h1 class="message">Please wait... The system is tracking your location</h1>
+        </div>
+        <apex:form >
+            <apex:actionFunction name="updateAddress" action="{!updateLocation}" reRender="none">
+                <apex:param name="address" value=""></apex:param>
+            </apex:actionFunction>
+        </apex:form>
+        <script>
+            var url = 'https://nominatim.openstreetmap.org/reverse?lat={!lat}&lon={!lng}&format=json';
+            fetch(url)
+            .then((res)=>{
+                return res.json();
+            })
+            .then((data)=>{
+                updateAddress(data.display_name);
+                document.querySelector(".message").textContent = 'Your Location: '+data.display_name;
+                setTimeout(() => {
+                    window.parent.location.replace("https://tcl-02-dev-ed.develop.lightning.force.com/{!id}");
+                }, 3000);
+            })
+        </script>
+    </body>
+</apex:page>

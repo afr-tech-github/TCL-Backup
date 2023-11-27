@@ -1,0 +1,348 @@
+<apex:page controller="TT_HT_NoiBoController" sidebar="false"  renderAs="pdf"  applyBodyTag="false" cache="true" title="12344324" showHeader="false" >    
+    <apex:variable var="printDate" value="{!NOW()}" />
+    <apex:includeLightning />
+<head>
+    <style type="text/css">
+        @media print {
+            
+          
+            .print-only {
+              page-break-inside: avoid !important;
+          }
+        }
+       
+        #mydiv {
+            position: fixed;
+            z-index: 9;
+            background-color: gray;
+            border: .5px solid #d3d3d3;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        #mydivheader {
+            padding: 10px;
+            cursor: move;
+            z-index: 10;
+            background-color: #2168a2;
+            color: #fff;
+        }
+        #print-btn{
+            display: block;
+            width: 100%;
+            padding: 6px 0;
+            font-size: 18px;
+            box-shadow: none; 
+            background-color: white; 
+            border: none; 
+            cursor: pointer;
+        }
+        #print-btn:hover{
+            background-color: rgb(232, 232, 232);
+            text-decoration: none;
+            color: black;
+        }
+        @page {
+            size: A4;
+            margin: 30mm;
+        }
+        p{
+            margin: 0 0;
+        }
+        
+        div.footer {
+            display: block;
+            
+        }
+       
+        table td{
+            vertical-align: top;
+        }
+        table, th, td {
+        border: .5px solid gray;
+        border-collapse: collapse;
+        }
+        body {
+            font-size: 15px;
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            /* font-family: "Calibri", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+            /* font-family: Arial, Helvetica, sans-serif; */
+            font-family: Arial Unicode MS ;
+           
+        }
+        body p{
+            line-height: 20px
+        }
+        table td {
+            line-height: 15px;
+            padding: 0 3px;
+            font-family: Arial Unicode MS ;
+
+            /* font-family: Arial, Helvetica, sans-serif; */
+            /* border: 1px solid black; */
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+        }
+        table th {
+            padding: 0 3px;
+            line-height: 15px;
+            font-family: Arial Unicode MS ;
+
+            /* font-family: Arial, Helvetica, sans-serif; */
+            /* background-color: rgb(179, 175, 175); */
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+        }
+        table {
+            width: 100%;
+            font-family: Arial Unicode MS ;
+
+        }
+        table th {
+            text-align: center;
+            
+        }
+        table tr {
+            min-height: 14px;
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+        }
+        .report-header {
+            width: 100%;
+            display: flex;
+            /* align-items: center; */
+            font-family: Arial Unicode MS ;
+
+        }
+        .logo-company {
+            float: left;
+            width: 32%;
+            font-family: Arial Unicode MS ;
+
+
+        }
+        .info-company {
+            width: 30%;
+            float: left; 
+            /* font-weight: bolder; */
+            padding-top: 20px;
+            font-family: Arial Unicode MS ;
+
+        }
+        .name-company {
+            font-weight: bolder;
+            font-size: 14px;
+            white-space: nowrap;
+            font-family: Arial Unicode MS ;
+
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            /* font-family: Arial, Helvetica, sans-serif; */
+        }
+        .address-company {
+            font-size: 11px;
+            font-family: Arial Unicode MS ;
+
+            /* white-space: nowrap; */
+            /* font-weight: bold; */
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            /* font-family: Arial, Helvetica, sans-serif; */
+        }
+        .infor-company {
+            font-size: 11px;
+            white-space: nowrap;
+            font-family: Arial Unicode MS ;
+
+            /* font-weight: bold; */
+            /* font-family: Arial, Helvetica, sans-serif; */
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+        }
+       
+       .none-boder table,
+       .none-boder tr,
+       .none-boder td
+       {
+           border: none
+       }
+       .company-infomation{
+        border-bottom: 1px solid red;
+        border-style: double;
+       }
+       .main-table td,tr, th {
+        font-weight: inherit;
+        border: .5px solid gray;
+       }
+       .main-table th{
+        height: 22px
+        }
+         .main-table td{
+          height: 35px
+        }
+        .table-bot tr{
+            height: 18px
+        }
+        .opos p+p{
+            margin: 14px 0 ;
+        }
+        .marlef{
+            margin-left: 30px;
+        }
+        p{
+            font-size: 12px;
+        }
+       
+      
+        
+
+        </style>
+    
+    </head>
+            
+    <body id="content" style="margin: 11.5mm !important;font-family: Arial Unicode MS ; "  >
+       
+        <div >
+            <table class="none-boder" style="margin-bottom: 0px;border: none">
+                <tr>
+                    <td>
+                        <img style="width: 150px; height: auto;" src="{!Company.CompanyLogo__c}" alt="Logo"/>
+    
+                    </td>
+                    <td>
+                        <div style="margin-left: 10px;width: 550px">
+    
+                            <h1 style="font-weight: bold; font-size: 18px;margin-top: 0;margin-bottom: 6px; display: block"><i>TIMES CARGO LOGISTIC CO.,LTD</i></h1>
+                            <p style="font-size: 9.3px; line-height: 10px">HEAD OFFICEE:3rd -4rd Floor, The Yuson Tower, 273 Ton Dan Str., Ward 15, Dist. 4, Ho Chi Minh City, Viet Nam</p>
+                            <p style="font-size: 11px; line-height: 10px">Tel: {!Company.Tel__c} &nbsp;&nbsp;  Fax: {!Company.TaxCode__c} &nbsp;&nbsp; Website: {!Company.Website__c}</p>
+                            <p style="font-size: 10px; font-weight: bold;margin-bottom: 2.5px">
+                                OUR OFFICES: HO CHI MINH | DONG NAI | DA NANG | MOC BAI | BAVET | PHNOM PENH
+                            </p>
+                        </div>
+                            
+    
+                    </td>
+                </tr>
+            </table>
+    
+           </div>
+           <div style="height: 2px;border: 1px solid red; border-left: none;border-right: none;margin-bottom: 8px"></div>
+                   
+        
+
+            
+            <p  class="vnese" style="font-size: 20px; margin: 13px; text-align: center; display: block;font-family: Arial Unicode MS; "><apex:outputText > THỎA THUẬN HỢP TÁC NỘI BỘ</apex:outputText></p>
+        <div style="font-size: 13px">
+        <div style="margin-left: 70px;margin-bottom: 15px;font-size: 13px">
+            <table style="width: 100%">
+                <tr style="vertical-align: top">
+                    <td>-&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                    <td> Căn cứ vào điều lệ, nội quy và chính sách của Công ty TNHH Dịch vụ Giao nhận Hàng hóa thời gian,</td>
+
+                </tr>
+                <tr style="vertical-align: top">
+                    <td>-&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                    <td>Căn cứ vào nhu cầu và khả năng của hai bên,</td>
+
+                </tr>
+
+            </table>
+       
+        </div>
+        <div style="margin: 2px 0;font-size: 13px">
+
+            <p>Ngày …., Chúng tôi gồm:</p>
+        </div>
+        <div class="opos" style="font-size: 13px">
+
+        
+        <p><b class="vnese" >Bên A: (Sales owner) </b></p>
+        <p>Họ tên:  <apex:outputText value=" {!So.Account_Owner__c}"></apex:outputText></p>
+        <p>Phòng ban:  <apex:outputText value=" {!So.Title__c}"></apex:outputText></p>
+        <p>Chức vụ:  <apex:outputText value=" {!So.Role__c}"></apex:outputText></p>
+        <p>Số điện thoại:   <apex:outputText value=" {!So.Phone__c}"></apex:outputText></p>
+        <div style="height: 25px"></div>
+        <p><b class="vnese">Bên B: (Sales đề nghị)   </b></p>
+        <p>Họ tên:  <apex:outputText value=" {!user.FirstName} {!user.LastName}"></apex:outputText></p>
+        <p>Phòng ban:  <apex:outputText value=" {!So.Sales_Request_s_Title__c}"></apex:outputText></p>
+        <p>Chức vụ:  <apex:outputText value=" {!So.Sales_Request_s_Role__c}"></apex:outputText></p>
+        <p>Số điện thoại:   <apex:outputText value=" {!So.Sales_Request_s_Phone__c}"></apex:outputText></p>
+        <div style="height: 25px"></div>
+    </div>
+    <div class="opos">
+        <p>Cùng thống nhất cùng hợp tác để khai thác cùng 1 đối tượng khách hàng với thông tin và thỏa thuận như sau: </p>
+        <div >
+        <div style="margin-left: 40px">
+        <p><b class="vnese" >A. Thông tin đối tượng khách hàng:  </b></p>
+        <p>Tên Công ty: (Theo GPKD)   <apex:outputText value=" {!ac.Name}"></apex:outputText></p>
+        <p>Mã số doanh nghiệp:  <apex:outputText value=" {!So.Tax_Code__c}"></apex:outputText></p>
+        <p>Địa chỉ:  <apex:outputText value=" {!So.Company_Address__c}"></apex:outputText></p>
+        <p>Loại hình dịch vụ hợp tác ban đầu:   <apex:outputText value=" {!So.Service_Type_Original__c}"></apex:outputText></p>
+        <p>Loại hình dịch vụ join sales:  <apex:outputText value=" {!So.Service_Type__c}"></apex:outputText></p>
+        <p>Hạn mức công nợ:  <apex:outputText value=" {!So.Credit_limit__c}"></apex:outputText></p>
+        <p>Phương thức thanh toán:  <apex:outputText value=" {!So.Payment_Methods__c}"></apex:outputText></p>
+        
+        <p>
+            <b class="vnese" >B. Thỏa thuận về chia sẻ lợi nhuận:</b> Lợi nhuận từ việc phân phối sản phẩm sẽ được phân chia theo thỏa thuận sau :  
+
+        </p>
+        </div>
+        <p>
+            Theo services / sales ref (áp dụng cho trường hợp khác tuyến hoặc trùng tuyến khác văn phòng phụ trách)  Hoặc  
+        </p>
+        <p>Theo tỷ lệ: (áp dụng cho trường hợp cùng 1 lô hàng multimodal)  </p>
+        <div style="margin-left: 38px">
+        <p>Bên A: ##%. <apex:outputText value=" {!So.Sales_Owner__c}"></apex:outputText></p>
+        <p>Bên B: ##%. <apex:outputText value=" {!So.Sales_Request__c}"></apex:outputText></p>
+        <p><b class="vnese">C. Các thỏa thuận khác:</b> (nếu có)</p>
+        <p><b class="vnese">D. Trách nhiệm của các bên:</b></p>
+        <table style="width: 100%">
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify"> Bên B đồng ý và cam kết việc cùng hợp tác khai thác này sẽ không làm ảnh hưởng đến hình ảnh, quyền lợi và mối quan hệ của Bên A trước đó với Khách hàng.</td>
+
+            </tr>
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify">Hai bên cam kết cùng thống nhất về giá bán, phương thức thanh toán và các điều kiện dịch vụ cung cấp trước khi thỏa thuận với khách hàng, không được để mâu thuẫn, chênh lệch gây thiệt hại đến quyền lợi và hình ảnh của Công ty.</td>
+
+            </tr>
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify">Trường hợp bổ sung thêm dịch vụ, điều kiện khác với bản hợp đồng mà Công ty đã ký với Khách hàng, Bên B phải trao đổi và tuân theo các thỏa thuận đã có trước đó, hoặc đề xuất chỉnh sửa / bổ sung hợp đồng với sự đồng ý của Bên A.</td>
+
+            </tr>
+       
+       
+        </table>
+        <p><b class="vnese">E. Điều khoản chung:  </b></p>
+
+
+        <table style="width: 100%">
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify"> Các thỏa thuận này thực hiện dựa trên sự tự nguyện, thống nhất giữa 2 bên với nhau, tuy nhiên phải đúng theo quy định của Công ty. Công ty sẽ có biện pháp can thiệp nếu xét thấy việc join sales có ảnh hưởng đến hình ảnh và quyền lợi chung của Công ty. </td>
+
+            </tr>
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify">Các bên cam kết giải quyết tranh chấp bằng đàm phán trên cơ sở hòa bình và công bằng. Trường hợp không thể tự thỏa thuận, Công ty có thể đứng hòa giải và giải quyết theo quy định. Quyết định của công ty là quyết định cuối cùng và ràng buộc hai bên thực hiện.  </td>
+
+            </tr>
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify">Thỏa thuận này có thể được sửa đổi hoặc bổ sung bằng văn bản và được ký kết bởi các bên đồng ý. </td>
+
+            </tr>
+            <tr style="vertical-align: top">
+                <td>-&nbsp;&nbsp;&nbsp; </td>
+                <td style="text-align: justify">Thỏa thuận này có hiệu lực trong [thời gian thỏa thuận] kể từ ngày ký kết.</td>
+
+            </tr>
+       
+       
+        </table>
+
+      
+    </div>
+    </div>
+    </div >
+</div>
+    </body>
+    
+</apex:page>

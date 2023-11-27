@@ -1,0 +1,1 @@
+{!Contact.FirstName}先生/小姐，您好！   {!Case.Solution_Description}   感謝您！{!User.Name}  {!Organization.Name}   您的意見：    {!Case.Description}   {!Case.Solution_Attachments}

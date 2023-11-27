@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Number_of_Correct_Answer__c</fullName>
+    <externalId>false</externalId>
+    <label>Number of Correct Answer</label>
+    <summaryFilterItems>
+        <field>TCL_Answer__c.Is_User_Correct__c</field>
+        <operation>equals</operation>
+        <value>True</value>
+    </summaryFilterItems>
+    <summaryForeignKey>TCL_Answer__c.TCL_Question__c</summaryForeignKey>
+    <summaryOperation>count</summaryOperation>
+    <trackTrending>false</trackTrending>
+    <type>Summary</type>
+</CustomField>

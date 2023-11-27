@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Ownership_check</fullName>
+    <active>true</active>
+    <description>Asset ownership belong to one of the three:Asset Owner, Location, Parent Asset</description>
+    <errorConditionFormula>(if(isblank(Asset_Owner__c),0,1)+
+if(isblank(Location__c),0,1)+
+if(isblank(Parent_Asset__c),0,1))&gt;=2</errorConditionFormula>
+    <errorMessage>Asset ownership belong to one of the three:Asset Owner, Location, Parent Asset</errorMessage>
+</ValidationRule>

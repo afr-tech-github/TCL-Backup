@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Prevent_deleted_edit_Consol_Bill</fullName>
+    <active>false</active>
+    <errorConditionFormula>PreventEdit__c = TRUE</errorConditionFormula>
+    <errorMessage>You can not edit or delete that Consol Bill because the related F/TMS Bills are locked by SO. Please contact to Administrator to delete them first!</errorMessage>
+</ValidationRule>

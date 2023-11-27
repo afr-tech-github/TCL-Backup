@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Business_Travel_Limit_Cost</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR (
+AND(
+ Not (Isnull( BusinessTraveler__c )), 
+ RecordType.Name = &apos;Business Travel Request&apos;, 
+ BusinessTravelRequest__r.Oversea__c = False,
+ BusinessTravelRequest__r.LongTrip__c ,
+ (BusinessTraveler__r.ActualEndDate__c -  
+ BusinessTraveler__r.ActualStartDate__c + 1)*  BusinessTraveler__r.EmployeeName__r.Position__r.LimitCostofAccommodationperDay__c &lt;  Amount__c ,
+ Ispickval ( Activity__r.Activity_Type__c , &apos;Business Travel Request&apos;),
+ Ispickval (  Activity__r.Activity__c , &apos;Hotel&apos;)), 
+
+AND(
+ Not (Isnull( BusinessTraveler__c )), 
+ RecordType.Name = &apos;Business Travel Request&apos;, 
+ BusinessTravelRequest__r.Oversea__c = False,
+ BusinessTravelRequest__r.LongTrip__c ,
+ (BusinessTraveler__r.ActualEndDate__c -  
+ BusinessTraveler__r.ActualStartDate__c + 1)*  BusinessTraveler__r.EmployeeName__r.Position__r.LimitCostofMealperDay__c &lt;  Amount__c ,
+ Ispickval ( Activity__r.Activity_Type__c , &apos;Business Travel Request&apos;),
+ Ispickval (  Activity__r.Activity__c , &apos;On-duty Meal&apos;)))</errorConditionFormula>
+    <errorMessage>Amount in General Cost has exceeded your regulated limit cost! Please input another amount!</errorMessage>
+</ValidationRule>

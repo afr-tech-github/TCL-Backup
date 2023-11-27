@@ -1,0 +1,153 @@
+<aura:component
+  implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+  access="global"
+  controller="UpdateKhoanThuController"
+>
+  <aura:attribute name="recordTypeId" type="String" />
+  <aura:attribute name="showForm" type="Boolean" default="true" />
+  <aura:attribute name="isShowTable" type="Boolean" default="true" />
+  <aura:attribute name="showMassUpdateRow" type="Boolean" default="true" />
+  <aura:attribute name="numberOfDisplayRecord" type="Integer" default="0" />
+  <aura:attribute name="overflowY" type="Boolean" default="false" />
+  <aura:attribute
+    name="isSelling"
+    type="Boolean"                    
+
+    access="global"
+  />
+  <aura:attribute name="changedFields" type="List" default="[]" />
+  <aura:attribute name="isMultiCurrency" type="Boolean" default="false"/>
+
+  <aura:attribute name="isUpdateable" type="Boolean" default="true" />
+  <aura:attribute name="isCreateable" type="Boolean" default="true" />
+  <aura:attribute name="isAccessible" type="Boolean" default="true" />
+  <aura:attribute name="isDeletable" type="Boolean" default="true" />
+  <aura:attribute name="listBillId" type="List" default="[]" />
+   
+  <aura:attribute
+    name="labels"
+    type="List"
+    default="[
+    {name: 'Mã ĐVCS',dec:'(ma_dvcs)', style: 'padding: 12px 4px; width: 110px '},
+    {name: 'Mã khách',dec:'(ma_kh)', style: 'padding: 12px 4px; width: 110px'},
+    {name: 'Người mua hàng',dec:'(ong_ba)', style: 'padding: 12px 4px; width: 210px !important'},
+    {name: 'Diễn giải',dec:'(dien_giai)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tk nợ',dec:'(ma_nx)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Ngày c.từ',dec:'(ngay_ct)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Quyển c.từ',dec:'(ma_qs)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Số hđ',dec:'(so_ct)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tk dt',dec:'(tk_dt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tên h.hóa, d.vụ',dec:'(ten_vt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Đvt',dec:'(dvt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Số lượng:Q',dec:'(so_luong)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Đơn giá:P0',dec:'(gia2)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Thành tiền:N0',dec:'(tien2)', style: 'padding: 12px 4px; width: 210px'},
+    
+    {name: 'Tỷ lệ ck  (%)',dec:'(tl_ck)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tiền ck n.tệ:N1',dec:'(ck_nt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tiền thuế n.tệ:N1',dec:'(thue_nt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã n.tệ',dec:'(ma_nt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tỷ giá:R',dec:'(ty_gia)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Đơn giá n.tệ:P1',dec:'(gia_nt2)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Thành tiền n.tệ:N1',dec:'(tien_nt2)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tiền ck:N0',dec:'(ck)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã t.suất',dec:'(ma_thue_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Thuế suất',dec:'(thue_suati)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tiền thuế:N0',dec:'(thue)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tk thuế',dec:'(tk_thue_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Tk ck',dec:'(tk_ck)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã đ/k tt',dec:'(ma_thck)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Hạn tt:N',dec:'(han_tt)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã dự án',dec:'(ma_vv_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã phí',dec:'(ma_phi_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã bpht',dec:'(ma_bpht_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã td 1',dec:'(ma_td_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã td 2',dec:'(ma_td2_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Mã td 3',dec:'(ma_td3_i)', style: 'padding: 12px 4px; width: 210px'},
+    {name: 'Sử dụng HĐĐT',dec:'(sd_hddt_yn)', style: 'padding: 12px 4px; width: 210px'},
+  ]"
+  />
+
+  <aura:attribute
+    name="fields"
+    type="List"
+    default="[
+   {name: 'MVCSmadvcsselling__c', style: 'width: 110px ;'},
+  {name: 'Mkhchmakhselling__c', style: 'width: 110px !important;'},
+  {name: 'Ngimuahngongbaselling__c', style: 'width: 210px'},
+  {name: 'Dingiidiengiaiselling__c', style: 'width: 210px'},
+  {name: 'Tknmanxselling__c', style: 'width: 210px'},
+  {name: 'Ngyctngayctselling__c', style: 'width: 210px'},
+  {name: 'Quynctmaqsselling__c', style: 'width: 210px'},
+  {name: 'Shsoctselling__c', style: 'width: 210px'},
+  {name: 'Tk_dt_tk_dtselling__c', style: 'width: 210px'},
+  {name: 'Tnhhadvtenvt__c', style: 'width: 210px'},
+  {name: 'vt_dvtselling__c', style: 'width: 210px'},
+  {name: 'S_l_ng_Q_so_luongselling__c', style: 'width: 210px'},
+  {name: 'ngintP1giant2selling__c', style: 'width: 210px'},
+  {name: 'ThnhtinntN1tiennt2selling__c', style: 'width: 210px'},
+  {name: 'T_l_ck_tl_ckselling__c', style: 'width: 210px'},
+  {name: 'Ti_n_ck_n_t_N1_ck_ntselling__c', style: 'width: 210px'},
+  {name: 'Ti_n_thu_n_t_N1_thue_ntselling__c', style: 'width: 210px'},
+  {name: 'M_n_t_ma_ntselling__c', style: 'width: 210px'},
+  {name: 'T_gi_R_ty_giaselling__c', style: 'width: 210px'},
+  {name: 'n_gi_P0_gia2selling__c', style: 'width: 210px'},
+  {name: 'Th_nh_ti_n_N0_tien2selling__c', style: 'width: 210px'},
+  {name: 'Ti_n_ck_N0_ckselling__c', style: 'width: 210px'},
+  {name: 'M_t_su_t_ma_thue_iselling__c', style: 'width: 210px'},
+  {name: 'Thusutthuesuatiselling__c', style: 'width: 210px'},
+  {name: 'TinthuN0thueselling__c', style: 'width: 210px'},
+  {name: 'Tk_thu_tk_thue_iselling__c', style: 'width: 210px'},
+  {name: 'Tk_ck_tk_ckselling__c', style: 'width: 210px'},
+  {name: 'M_k_tt_ma_thckselling__c', style: 'width: 210px'},
+  {name: 'H_n_tt_N_han_ttselling__c', style: 'width: 210px'},
+  {name: 'Mdnmavvi__c', style: 'width: 210px'},
+  {name: 'M_ph_ma_phi_iselling__c', style: 'width: 210px'},
+  {name: 'M_bpht_ma_bpht_iselling__c', style: 'width: 210px'},
+  {name: 'M_td_1_ma_td_iselling__c', style: 'width: 210px'},
+  {name: 'M_td_2_ma_td2_iselling__c', style: 'width: 210px'},
+  {name: 'M_td_3_ma_td3_iselling__c', style: 'width: 210px'},
+  {name: 'S_d_ng_H_T_sd_hddt_ynselling__c', style: 'width: 210px'},
+  
+  
+  ]"
+  />
+  
+  <!-- <aura:method name="onDelete" action="{! c.onDelete}"/> -->
+  <!-- <aura:method name="onClone" action="{! c.onClone}"/> -->
+  <aura:handler name="change" value="{!v.numberOfDisplayRecord}" action="{!c.changeNumberOfDisplayRecord}" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+
+
+  <lightning:spinner aura:id="spinner" class="slds-hide" />
+  <div style="overflow: auto">
+    <div style="display: inline-block; width: 7150px;">
+
+      <span style="font-size: 15px">Update Khoan Thu</span>
+      <table>
+        <tr>
+          <td style="width: 40px"></td>
+          <aura:iteration items="{!v.labels}" var="label">
+            <aura:if isTrue="{! not(v.isSelling) &amp;&amp; not(label.isSelling) &amp;&amp; or(not(label.isMultiCurrency), and(label.isMultiCurrency != null, label.isMultiCurrency == v.isMultiCurrency))}">
+              <td style="{!label.style}">
+                <label style="font-size: 16px;" class="slds-form-element__label"> {!label.name} </label>
+              </td>
+            </aura:if>
+          </aura:iteration>
+          <td style="width: 78px"></td>
+          <td style="width: 88px"></td>
+        </tr>
+      </table>
+      <aura:if isTrue="{!v.isShowTable}">
+        <div style="{! if(v.overflowY, 'max-height: 352px; overflow-y: auto;', 'max-height: 352px;')}">
+          {!v.body}
+        </div>
+      </aura:if>
+      <div class="slds-clearfix">
+            <div class="slds-float_right" >
+            	<lightning:button class="slds-m-bottom_small" onclick="{!c.onSaveAll}" variant="brand" type="button" name="Save" label="Save All" />
+            </div>
+        </div>
+    </div>
+  </div>
+</aura:component>

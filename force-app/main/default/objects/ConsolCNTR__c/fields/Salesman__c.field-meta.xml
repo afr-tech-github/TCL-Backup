@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Salesman__c</fullName>
+    <externalId>false</externalId>
+    <formula>HYPERLINK( &quot;/&quot; &amp; CASESAFEID(AdvancedShipment__r.ShippingInformation__r.Quote_route__r.Route__r.Salesman__r.Id)
+,AdvancedShipment__r.ShippingInformation__r.Quote_route__r.Route__r.Salesman__r.FirstName&amp;&quot; &quot;&amp;AdvancedShipment__r.ShippingInformation__r.Quote_route__r.Route__r.Salesman__r.LastName
+, &quot;_self&quot; )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Salesman</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

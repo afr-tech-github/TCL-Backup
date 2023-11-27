@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CV Qualified</fullName>
+        <default>false</default>
+        <label>CV Qualified</label>
+    </customValue>
+    <customValue>
+        <fullName>Manager Approving</fullName>
+        <default>false</default>
+        <label>Manager Approving</label>
+    </customValue>
+    <customValue>
+        <fullName>Inviting</fullName>
+        <default>false</default>
+        <label>Inviting</label>
+    </customValue>
+    <customValue>
+        <fullName>Interviewing</fullName>
+        <default>false</default>
+        <label>Interviewing</label>
+    </customValue>
+    <customValue>
+        <fullName>Considering</fullName>
+        <default>false</default>
+        <label>Considering</label>
+    </customValue>
+    <customValue>
+        <fullName>BOD Approving</fullName>
+        <default>false</default>
+        <label>BOD Approving</label>
+    </customValue>
+    <customValue>
+        <fullName>Sending Offer Letter</fullName>
+        <default>false</default>
+        <label>Sending Offer Letter</label>
+    </customValue>
+    <customValue>
+        <fullName>Completed</fullName>
+        <default>false</default>
+        <label>Completed</label>
+    </customValue>
+    <masterLabel>Application Stage</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

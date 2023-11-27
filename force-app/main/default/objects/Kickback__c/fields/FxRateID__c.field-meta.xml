@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FxRateID__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Fx Rate ID</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>FxRate__c.ExchangeRateType__c</field>
+            <operation>equals</operation>
+            <value>Tỷ giá trả theo KB</value>
+        </filterItems>
+        <filterItems>
+            <field>FxRate__c.ExchangeCurrencyFrom1__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.Currency__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>FxRate__c</referenceTo>
+    <relationshipLabel>Kickbacks</relationshipLabel>
+    <relationshipName>Kickbacks</relationshipName>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

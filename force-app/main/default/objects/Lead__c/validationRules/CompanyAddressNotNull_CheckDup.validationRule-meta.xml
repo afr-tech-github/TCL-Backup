@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CompanyAddressNotNull_CheckDup</fullName>
+    <active>true</active>
+    <errorConditionFormula>RecordType.DeveloperName = &quot;Agency&quot; &amp;&amp;
+
+ ISNEW() &amp;&amp;
+
+ ISBLANK( Company_Address__c ) &amp;&amp;
+ISBLANK(  Company_Address_VN__c )</errorConditionFormula>
+    <errorMessage>Due to this Lead is Agent. Please input Company Address (ENG) or Company Address (VN) for checking duplicate rule</errorMessage>
+</ValidationRule>

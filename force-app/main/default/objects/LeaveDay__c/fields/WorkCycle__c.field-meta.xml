@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>WorkCycle__c</fullName>
+    <externalId>false</externalId>
+    <label>Work Cycle</label>
+    <referenceTo>WorkCycle__c</referenceTo>
+    <relationshipLabel>Leave Days</relationshipLabel>
+    <relationshipName>Work_Cycle_Requests</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>true</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

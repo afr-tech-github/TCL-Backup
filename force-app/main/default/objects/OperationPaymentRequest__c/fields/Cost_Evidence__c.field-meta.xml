@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cost_Evidence__c</fullName>
+    <externalId>false</externalId>
+    <label>Cost Evidence</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Internal Report</fullName>
+                <default>false</default>
+                <label>Internal Report</label>
+            </value>
+            <value>
+                <fullName>All VAT(Outbound VAT to Customer &amp; Vendor VAT)</fullName>
+                <default>false</default>
+                <label>All VAT(Outbound VAT to Customer &amp; Vendor VAT)</label>
+            </value>
+            <value>
+                <fullName>Vendor VAT</fullName>
+                <default>false</default>
+                <label>Vendor VAT</label>
+            </value>
+            <value>
+                <fullName>Outbound VAT to Customer</fullName>
+                <default>false</default>
+                <label>Outbound VAT to Customer</label>
+            </value>
+            <value>
+                <fullName>Vendor Debit</fullName>
+                <default>false</default>
+                <label>Vendor Debit</label>
+            </value>
+            <value>
+                <fullName>Vendor Quote</fullName>
+                <default>false</default>
+                <label>Vendor Quote</label>
+            </value>
+            <value>
+                <fullName>Vendor Order</fullName>
+                <default>false</default>
+                <label>Vendor Order</label>
+            </value>
+            <value>
+                <fullName>Vendor Website</fullName>
+                <default>false</default>
+                <label>Vendor Website</label>
+            </value>
+            <value>
+                <fullName>Contract</fullName>
+                <default>false</default>
+                <label>Contract</label>
+            </value>
+            <value>
+                <fullName>Internal Proposal</fullName>
+                <default>false</default>
+                <label>Internal Proposal</label>
+            </value>
+            <value>
+                <fullName>No Evidence</fullName>
+                <default>false</default>
+                <label>No Evidence</label>
+            </value>
+            <value>
+                <fullName>Value1</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Value1</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

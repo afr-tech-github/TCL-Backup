@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All</fullName>
+    <columns>NAME</columns>
+    <columns>ConsolidationShipmentName__c</columns>
+    <columns>FTMSSO__c</columns>
+    <columns>PricingName__c</columns>
+    <columns>Quantity__c</columns>
+    <columns>ChargeUnit__c</columns>
+    <columns>PaymentTo__c</columns>
+    <columns>CurrencyBuying__c</columns>
+    <columns>TotalBuyingInclTaxActual__c</columns>
+    <columns>Invoiceto__c</columns>
+    <columns>CurrencySelling__c</columns>
+    <columns>TotalSellingInclTaxActual__c</columns>
+    <columns>CREATED_DATE</columns>
+    <filterScope>Everything</filterScope>
+    <label>All</label>
+</ListView>

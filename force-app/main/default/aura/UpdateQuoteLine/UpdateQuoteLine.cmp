@@ -1,0 +1,343 @@
+<aura:component controller="QuoteController"
+    implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction"
+    access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doinit}" />
+    <ltng:require scripts="{!$Resource.jquery}" />
+    <aura:attribute name="lstQuoteLine" type="Quoteline__c[]" />
+    <aura:attribute name="lstQLUpdate" type="List" />
+    <aura:attribute name="queryRoute" type="String" />
+    <aura:attribute name="QuoteId" type="String" />
+    <aura:attribute name="RefPriceID" type="String" />
+    <aura:attribute name="QuoteRoute" type="String" />
+    <aura:attribute name="isShowSpinner" type="boolean" default="true" />
+    <aura:attribute name="sObjectName" type="String" />
+    <aura:attribute name="changedFieldsAll" type="List" default="[{}]" />
+    <aura:handler event="force:refreshView" action="{!c.doinit}" />
+
+
+    <aura:if isTrue="{!v.isShowSpinner == true}">
+        <lightning:spinner aura:id="spinnerMain" variant="brand" size="large" />
+    </aura:if>
+    <aura:registerEvent name="quoteEvent" type="c:quoteEvent" />
+    <div id="main" style=" overflow: auto; ">
+        <div id="mainUpdateAll">
+            <lightning:recordEditForm objectApiName="Quoteline__c">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="visibility: hidden; width: 40px;vertical-align: middle;padding: 0px;">
+                            <p style="visibility: hidden;">1</p>
+                            <lightning:input type="checkbox" />
+                        </td>
+                        <td style="min-width: 90px;max-width: 90px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Name</span>
+                            <lightning:inputField variant="label-hidden" disabled="true" fieldName="Name" />
+                        </td>
+                        <td style="min-width: 155px;max-width: 155px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Reference Price ID</span>
+                            <div>
+                                <l_lookup:Lookup aura:id="lookupId" onchange="{!c.onUpdateFieldChange}"
+                                    objectType="ReferencePrice__c" primarySearchField="Name"
+                                    selectedRecordId="{!v.lstQuoteLine[0].ReferencePrice__c}" dropDownLimit="3"
+                                    fuzzySearch="true" dropDownQuery="Name != null" />
+                            </div>
+                        </td>
+                    <aura:if isTrue="{!not(empty(v.lstQuoteLine[0].ReferencePrice__c))}">
+
+                        <lightning:recordEditForm recordId="{!v.lstQuoteLine[0].ReferencePrice__c}"
+                            objectApiName="ReferencePrice__c">
+                            <td style="min-width: 200px;max-width: 200px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Service Name</span>
+                                <lightning:inputField variant="label-hidden" disabled="true"
+                                    fieldName="ServiceName__c" />
+                            </td>
+                            <td style="min-width: 200px;max-width: 200px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Supplier/ Vendor</span>
+                                <lightning:inputField variant="label-hidden" disabled="true" fieldName="Account__c" />
+                            </td>
+                            <td style="min-width: 150px;max-width: 150px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Unit Price of Buying</span>
+                                <lightning:inputField variant="label-hidden" disabled="true"
+                                fieldName="UnitPriceofBuying__c" />
+                            </td>
+                            <td style="min-width: 120px;max-width: 120px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Currency-Buying</span>
+                                <lightning:inputField variant="label-hidden" disabled="true"
+                                fieldName="CurrencyBuying__c" />
+                            </td>
+                        </lightning:recordEditForm>
+                        <td style="min-width: 150px;max-width: 150px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Buying(%)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].TaxRateBuying__c}"
+                                fieldName="TaxRateBuying__c" />
+                        </td>
+                        <!-- <td style="min-width: 115px;max-width: 115px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Buying(%)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].TaxRateBuying__c}"
+                                fieldName="TaxRateBuying__c" />
+                        </td> -->
+                        <lightning:recordEditForm recordId="{!v.lstQuoteLine[0].ReferencePrice__c}"
+                        objectApiName="ReferencePrice__c">
+                            <td style="min-width: 120px;max-width: 120px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Charge Unit</span>
+                                <lightning:inputField variant="label-hidden" disabled="true"
+                                    fieldName="ChargeUnit__c" />
+                            </td>
+                            <td style="min-width: 120px;max-width: 120px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Container Type</span>
+                                <lightning:inputField variant="label-hidden" disabled="true"
+                                    fieldName="ContainerType__c" />
+                            </td>
+                            </lightning:recordEditForm>
+                            <aura:set attribute="else" >
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Service Name</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].ServiceID__c}"
+                                        fieldName="ServiceID__c" />
+                                </td>
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Supplier/ Vendor</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].SupplierVendor__c}"
+                                        fieldName="SupplierVendor__c" />
+                                </td> <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Unit Price of Buying</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].BuyingListPriceActual__c}"
+                                        fieldName="BuyingListPriceActual__c" />
+                                </td> <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Currency-Buying</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].CurrencyBuying__c}"
+                                        fieldName="CurrencyBuying__c" />
+                                </td> 
+                                <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Buying(%)</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].TaxRateBuying__c}"
+                                        fieldName="TaxRateBuying__c" />
+                                </td>
+                                <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Charge Unit</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].ChargeUnit__c}"
+                                        fieldName="ChargeUnit__c" />
+                                </td>
+                               
+                                 <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Container Type</span>
+                                    <lightning:inputField  aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].ContainerType1__c}"
+                                        fieldName="ContainerType1__c" />
+                                </td>
+
+                            </aura:set>
+                    </aura:if>
+
+                        
+                        <td style="min-width: 115px;max-width: 115px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Charge Quantity</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].ChargeQuantity__c}"
+                                fieldName="ChargeQuantity__c" />
+                        </td>
+                        <td style="min-width: 120px;max-width: 120px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Currency-Selling</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].CurrencySelling__c}"
+                                fieldName="CurrencySelling__c" />
+                        </td>
+                        <td style="min-width: 120px;max-width: 120px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Selling(%)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}" value="{!v.lstQuoteLine[0].TaxRateSelling__c}"
+                                fieldName="TaxRateSelling__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Selling List Price
+                                (Actual)</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                onchange="{!c.onUpdateFieldChange}"
+                                value="{!v.lstQuoteLine[0].SellingListPriceActual__c}"
+                                fieldName="SellingListPriceActual__c" />
+                        </td>
+                        <td style="min-width: 200px;max-width: 200px;">
+                            <span style="{!IF(index > 0, 'display:none;','')}">Remark</span>
+                            <lightning:inputField aura:id="field" variant="label-hidden"
+                                value="{!v.lstQuoteLine[0].Remarks__c}" onchange="{!c.onUpdateFieldChange}"
+                                fieldName="Remarks__c" />
+                        </td>
+                    </tr>
+                </table>
+            </lightning:recordEditForm>
+            <div class="slds-align_absolute-center slds-p-top_small" style="padding: 100px 0px 50px 0px">
+                <aura:if isTrue="{!v.sObjectName == 'Quote__c'}">
+                    <lightning:button variant="brand" label="Back" title="Brand action" onclick="{!c.onBack}" />
+                </aura:if>
+                <lightning:button variant="brand" label="Update Quote Line" title="Brand action"
+                    onclick="{!c.onUpdate}" />
+            </div>
+        </div>
+
+        
+        <div id="mainUpdate" style="position: relative;">
+            <!-- <lightning:input style="position: absolute;top: 4px;" type="checkbox" /> -->
+            <input style="position: absolute;top: 10px;" type="checkbox" class="selectAll" onchange="{!c.onSelectAllQL}" />
+            <aura:iteration items="{!v.lstQLUpdate}" var="quoteLine" indexVar="index">
+                <lightning:recordEditForm recordId="{!quoteLine.Id}" objectApiName="Quoteline__c" >
+                    <table id="main" style="width: 100%;">
+                        <tr>
+                            <td style="min-width: 24px;vertical-align: middle;padding: 0px;">
+                                <p style="{!IF(index > 0 ,'display:none;','visibility: hidden;')}">1</p>
+                                <!-- <lightning:input class="selectItem" type="checkbox" checked="{!v.isSelected}" /> -->
+                                <input data-record="{!quoteLine.Id}" id="{!quoteLine.Id}" type="checkbox"
+                                    class="{!quoteLine.Id + ' quoteLineId' }" onchange="{!c.onSelectQL}" />
+                            </td>
+                            <td style="min-width: 90px;max-width: 90px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Name</span>
+                                <div style="border: 1px solid rgb(118, 112, 112);border-radius: 5px;padding: 4%;">
+                                    <a href="{!'/'+ quoteLine.Id}" target="_blank">{!quoteLine.Name}</a>
+                                </div>
+                            </td>
+                            <td style="min-width: 155px;max-width: 155px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Reference Price ID</span>
+                                <div>
+                                    <l_lookup:Lookup aura:id="lookupId" styleClass="{!index}" 
+                                        onchange="{!c.onUpdateFieldChangeItem}" objectType="ReferencePrice__c"
+                                        primarySearchField="Name" selectedRecordId="{!quoteLine.ReferencePrice__c}"
+                                        dropDownLimit="3" fuzzySearch="true" dropDownQuery="Name != null" />
+                                </div>
+                            </td>
+                        <aura:if isTrue="{!not(empty(quoteLine.ReferencePrice__c))}">
+
+                            <lightning:recordEditForm recordId="{!quoteLine.ReferencePrice__c}"
+                                objectApiName="ReferencePrice__c">
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Service Name</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="ServiceName__c" />
+                                </td>
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Supplier/ Vendor</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="Account__c" />
+                                </td>
+                                <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Unit Price of Buying</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="UnitPriceofBuying__c" />
+                                </td>
+                                <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Currency-Buying</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="CurrencyBuying__c" />
+                                </td>
+                                </lightning:recordEditForm>
+                                <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Buying(%)</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.TaxRateBuying__c}"
+                                        fieldName="TaxRateBuying__c" />
+                                </td>
+                            <lightning:recordEditForm recordId="{!quoteLine.ReferencePrice__c}"  objectApiName="ReferencePrice__c">
+                               
+                                <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Charge Unit</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="ChargeUnit__c" />
+                                </td>
+                                <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Container Type</span>
+                                    <lightning:inputField variant="label-hidden" disabled="true"
+                                        fieldName="Type2__c" />
+                                </td>
+                            </lightning:recordEditForm>
+                            <aura:set attribute="else" >
+
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Service Name</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.ServiceID__c}"
+                                        fieldName="ServiceID__c" />
+                                </td>
+                                <td style="min-width: 200px;max-width: 200px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Supplier/ Vendor</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.SupplierVendor__c}"
+                                        fieldName="SupplierVendor__c" />
+                                </td> <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Unit Price of Buying</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.BuyingListPriceActual__c}"
+                                        fieldName="BuyingListPriceActual__c" />
+                                </td> <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Currency-Buying</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.CurrencyBuying__c}"
+                                        fieldName="CurrencyBuying__c" />
+                                </td> 
+                                <td style="min-width: 150px;max-width: 150px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Buying(%)</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.TaxRateBuying__c}"
+                                        fieldName="TaxRateBuying__c" />
+                                </td>
+                                <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Charge Unit</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.ChargeUnit__c}"
+                                        fieldName="ChargeUnit__c" />
+                                </td>
+                               
+                                 <td style="min-width: 120px;max-width: 120px;">
+                                    <span style="{!IF(index > 0, 'display:none;','')}">Container Type</span>
+                                    <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                        onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.ContainerType1__c}"
+                                        fieldName="ContainerType1__c" />
+                                </td>
+
+
+                            </aura:set>
+                            </aura:if>
+                            <td style="min-width: 115px;max-width: 115px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Charge Quantity</span>
+                                <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                    onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.ChargeQuantity__c}"
+                                    fieldName="ChargeQuantity__c" />
+                            </td>
+                            <td style="min-width: 120px;max-width: 120px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Currency-Selling</span>
+                                <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                    onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.CurrencySelling__c}"
+                                    fieldName="CurrencySelling__c" />
+                            </td>
+                            <td style="min-width: 120px;max-width: 120px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Tax Rate-Selling(%)</span>
+                                <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                    onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.TaxRateSelling__c}"
+                                    fieldName="TaxRateSelling__c" />
+                            </td>
+                            <td style="min-width: 200px;max-width: 200px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Selling List Price
+                                    (Actual)</span>
+                                <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                    onchange="{!c.onUpdateFieldChangeItem}"
+                                    value="{!quoteLine.SellingListPriceActual__c}"
+                                    fieldName="SellingListPriceActual__c" />
+                            </td>
+                            <td style="min-width: 200px;max-width: 200px;">
+                                <span style="{!IF(index > 0, 'display:none;','')}">Remark</span>
+                                <lightning:inputField class="{!index}" aura:id="field" variant="label-hidden"
+                                    onchange="{!c.onUpdateFieldChangeItem}" value="{!quoteLine.Remarks__c}"
+                                    fieldName="Remarks__c" />
+                            </td>
+                        </tr>
+                    </table>
+                </lightning:recordEditForm>
+            </aura:iteration>
+        </div>
+
+    </div>
+</aura:component>

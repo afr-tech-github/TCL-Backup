@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ChargeUnit_ContainerType</fullName>
+    <active>false</active>
+    <errorConditionFormula>OR(
+AND(ISPICKVAL(ChargeUnit__c,&quot;Container&quot;),
+    ISPICKVAL(ContainerType__c,&quot;&quot;)
+   ),
+AND(NOT(ISPICKVAL(ChargeUnit__c,&quot;Container&quot;)),
+    NOT(ISPICKVAL(ContainerType__c,&quot;&quot;))))</errorConditionFormula>
+    <errorDisplayField>ChargeUnit__c</errorDisplayField>
+    <errorMessage>Container Type only has value when Charge Unit equals &quot;Container&quot;.</errorMessage>
+</ValidationRule>

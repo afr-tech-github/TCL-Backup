@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LockRecordAfterCancellation</fullName>
+    <active>true</active>
+    <errorConditionFormula>PRIORVALUE(Lock__c)=True</errorConditionFormula>
+    <errorMessage>You can not edit because this record is cancelled.</errorMessage>
+</ValidationRule>

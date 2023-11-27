@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Applied</fullName>
+        <default>true</default>
+        <label>Applied</label>
+    </customValue>
+    <customValue>
+        <fullName>Screened</fullName>
+        <default>false</default>
+        <label>Screened</label>
+    </customValue>
+    <customValue>
+        <fullName>Qualified</fullName>
+        <default>false</default>
+        <label>Qualified</label>
+    </customValue>
+    <customValue>
+        <fullName>Interviewed</fullName>
+        <default>false</default>
+        <label>Interviewed</label>
+    </customValue>
+    <customValue>
+        <fullName>Accepted</fullName>
+        <default>false</default>
+        <label>Accepted</label>
+    </customValue>
+    <customValue>
+        <fullName>Filled</fullName>
+        <default>false</default>
+        <label>Filled</label>
+    </customValue>
+    <masterLabel>Process stage</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

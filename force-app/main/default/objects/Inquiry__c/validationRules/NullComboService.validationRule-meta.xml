@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NullComboService</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(ISBLANK( ComboProduct1__c ),ISBLANK( ServiceType__c ))</errorConditionFormula>
+    <errorDisplayField>ComboProduct1__c</errorDisplayField>
+    <errorMessage>Please input Combo Product or Service Type!</errorMessage>
+</ValidationRule>

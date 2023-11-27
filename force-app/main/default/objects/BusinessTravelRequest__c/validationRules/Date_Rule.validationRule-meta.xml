@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Date_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR 
+(
+ YEAR( From__c )  &lt; YEAR(TODAY()),
+ YEAR(To__c) &lt; YEAR(TODAY()),
+ From__c &gt; To__c
+)</errorConditionFormula>
+    <errorMessage>Input dates are invalid! Please input again!</errorMessage>
+</ValidationRule>

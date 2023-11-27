@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Tknmanxbuying__c</fullName>
+    <externalId>false</externalId>
+    <label>Tk nợ (ma_nx)</label>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>15411: CP làm hàng HN</fullName>
+                <default>false</default>
+                <label>15411: CP làm hàng HN</label>
+            </value>
+            <value>
+                <fullName>15412: CP làm hàng HX</fullName>
+                <default>false</default>
+                <label>15412: CP làm hàng HX</label>
+            </value>
+            <value>
+                <fullName>1542: Cước VT nội địa</fullName>
+                <default>false</default>
+                <label>1542: Cước VT nội địa</label>
+            </value>
+            <value>
+                <fullName>1543: CP kho bãi</fullName>
+                <default>false</default>
+                <label>1543: CP kho bãi</label>
+            </value>
+            <value>
+                <fullName>15441: Cước VT HN</fullName>
+                <default>false</default>
+                <label>15441: Cước VT HN</label>
+            </value>
+            <value>
+                <fullName>15442: Cước VT HX</fullName>
+                <default>false</default>
+                <label>15442: Cước VT HX</label>
+            </value>
+            <value>
+                <fullName>15443: CP TTQT</fullName>
+                <default>false</default>
+                <label>15443: CP TTQT</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

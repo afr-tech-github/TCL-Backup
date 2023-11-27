@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AirTerminalNameonAN__c</fullName>
+    <externalId>false</externalId>
+    <formula>If( Text(AirCargoTerminal__c) = &quot;Kho TSC: CÔNG TY CỔ PHẦN DỊCH VỤ HÀNG HÓA TÂN SƠN NHẤT (TCS)&quot;,  LEFT( Text(AirCargoTerminal__c) , 7), LEFT( Text(AirCargoTerminal__c) , 8))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Air Terminal Name on AN</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

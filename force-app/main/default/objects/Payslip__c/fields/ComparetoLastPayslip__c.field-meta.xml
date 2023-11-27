@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ComparetoLastPayslip__c</fullName>
+    <externalId>false</externalId>
+    <formula>If ( NetIncome__c -  LastPayslip__r.NetIncome__c &gt; 0, &quot;Higher&quot;, If (NetIncome__c -  LastPayslip__r.NetIncome__c &lt; 0, &quot;Lower&quot;, &quot;Equal&quot;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Compare to Last Payslip</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

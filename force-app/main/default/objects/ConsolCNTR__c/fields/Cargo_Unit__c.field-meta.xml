@@ -1,0 +1,911 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Cargo_Unit__c</fullName>
+    <externalId>false</externalId>
+    <label>Cargo Unit</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>B/PLT</fullName>
+                <default>false</default>
+                <label>B/PLT</label>
+            </value>
+            <value>
+                <fullName>BAG</fullName>
+                <default>false</default>
+                <label>BAG</label>
+            </value>
+            <value>
+                <fullName>BAL</fullName>
+                <default>false</default>
+                <label>BAL</label>
+            </value>
+            <value>
+                <fullName>BALE</fullName>
+                <default>false</default>
+                <label>BALE</label>
+            </value>
+            <value>
+                <fullName>BALE, COMPRESSED</fullName>
+                <default>false</default>
+                <label>BALE, COMPRESSED</label>
+            </value>
+            <value>
+                <fullName>BALE, NON-COMPRESSED</fullName>
+                <default>false</default>
+                <label>BALE, NON-COMPRESSED</label>
+            </value>
+            <value>
+                <fullName>BAR</fullName>
+                <default>false</default>
+                <label>BAR</label>
+            </value>
+            <value>
+                <fullName>BARE</fullName>
+                <default>false</default>
+                <label>BARE</label>
+            </value>
+            <value>
+                <fullName>BARREL</fullName>
+                <default>false</default>
+                <label>BARREL</label>
+            </value>
+            <value>
+                <fullName>BILL</fullName>
+                <default>false</default>
+                <label>BILL</label>
+            </value>
+            <value>
+                <fullName>BIN</fullName>
+                <default>false</default>
+                <label>BIN</label>
+            </value>
+            <value>
+                <fullName>BOX</fullName>
+                <default>false</default>
+                <label>BOX</label>
+            </value>
+            <value>
+                <fullName>BOX CARTON</fullName>
+                <default>false</default>
+                <label>BOX CARTON</label>
+            </value>
+            <value>
+                <fullName>BOXE</fullName>
+                <default>false</default>
+                <label>BOXE</label>
+            </value>
+            <value>
+                <fullName>BOXPAL</fullName>
+                <default>false</default>
+                <label>BOXPAL</label>
+            </value>
+            <value>
+                <fullName>BUCKET</fullName>
+                <default>false</default>
+                <label>BUCKET</label>
+            </value>
+            <value>
+                <fullName>BULK</fullName>
+                <default>false</default>
+                <label>BULK</label>
+            </value>
+            <value>
+                <fullName>BUNDLE</fullName>
+                <default>false</default>
+                <label>BUNDLE</label>
+            </value>
+            <value>
+                <fullName>CAGE</fullName>
+                <default>false</default>
+                <label>CAGE</label>
+            </value>
+            <value>
+                <fullName>CAN</fullName>
+                <default>false</default>
+                <label>CAN</label>
+            </value>
+            <value>
+                <fullName>CAN, CYLINDRICAL</fullName>
+                <default>false</default>
+                <label>CAN, CYLINDRICAL</label>
+            </value>
+            <value>
+                <fullName>CAN, RECTANGULAR</fullName>
+                <default>false</default>
+                <label>CAN, RECTANGULAR</label>
+            </value>
+            <value>
+                <fullName>CARBOY, NON-PROTECTED</fullName>
+                <default>false</default>
+                <label>CARBOY, NON-PROTECTED</label>
+            </value>
+            <value>
+                <fullName>CARBOY, PROTECTED</fullName>
+                <default>false</default>
+                <label>CARBOY, PROTECTED</label>
+            </value>
+            <value>
+                <fullName>CARDBOARD</fullName>
+                <default>false</default>
+                <label>CARDBOARD</label>
+            </value>
+            <value>
+                <fullName>CARDBOXE</fullName>
+                <default>false</default>
+                <label>CARDBOXE</label>
+            </value>
+            <value>
+                <fullName>CARTON</fullName>
+                <default>false</default>
+                <label>CARTON</label>
+            </value>
+            <value>
+                <fullName>CARTON BOX</fullName>
+                <default>false</default>
+                <label>CARTON BOX</label>
+            </value>
+            <value>
+                <fullName>CARTON BOXE</fullName>
+                <default>false</default>
+                <label>CARTON BOXE</label>
+            </value>
+            <value>
+                <fullName>CARTON PALLET</fullName>
+                <default>false</default>
+                <label>CARTON PALLET</label>
+            </value>
+            <value>
+                <fullName>CASE</fullName>
+                <default>false</default>
+                <label>CASE</label>
+            </value>
+            <value>
+                <fullName>CHOCK</fullName>
+                <default>false</default>
+                <label>CHOCK</label>
+            </value>
+            <value>
+                <fullName>COIL</fullName>
+                <default>false</default>
+                <label>COIL</label>
+            </value>
+            <value>
+                <fullName>COLLI</fullName>
+                <default>false</default>
+                <label>COLLI</label>
+            </value>
+            <value>
+                <fullName>COLLIE</fullName>
+                <default>false</default>
+                <label>COLLIE</label>
+            </value>
+            <value>
+                <fullName>CONTAINER</fullName>
+                <default>false</default>
+                <label>CONTAINER</label>
+            </value>
+            <value>
+                <fullName>CRATE</fullName>
+                <default>false</default>
+                <label>CRATE</label>
+            </value>
+            <value>
+                <fullName>CTNS AND BUNDLE</fullName>
+                <default>false</default>
+                <label>CTNS AND BUNDLE</label>
+            </value>
+            <value>
+                <fullName>CTNS AND W/CRATE</fullName>
+                <default>false</default>
+                <label>CTNS AND W/CRATE</label>
+            </value>
+            <value>
+                <fullName>CUBIC</fullName>
+                <default>false</default>
+                <label>CUBIC</label>
+            </value>
+            <value>
+                <fullName>CYLINDER</fullName>
+                <default>false</default>
+                <label>CYLINDER</label>
+            </value>
+            <value>
+                <fullName>DRUM</fullName>
+                <default>false</default>
+                <label>DRUM</label>
+            </value>
+            <value>
+                <fullName>F/DRUM</fullName>
+                <default>false</default>
+                <label>F/DRUM</label>
+            </value>
+            <value>
+                <fullName>F/PLT</fullName>
+                <default>false</default>
+                <label>F/PLT</label>
+            </value>
+            <value>
+                <fullName>FILMED PALLET</fullName>
+                <default>false</default>
+                <label>FILMED PALLET</label>
+            </value>
+            <value>
+                <fullName>FUT</fullName>
+                <default>false</default>
+                <label>FUT</label>
+            </value>
+            <value>
+                <fullName>GALLON</fullName>
+                <default>false</default>
+                <label>GALLON</label>
+            </value>
+            <value>
+                <fullName>HOPE CARBOY</fullName>
+                <default>false</default>
+                <label>HOPE CARBOY</label>
+            </value>
+            <value>
+                <fullName>IBC TANK</fullName>
+                <default>false</default>
+                <label>IBC TANK</label>
+            </value>
+            <value>
+                <fullName>IRON CASE</fullName>
+                <default>false</default>
+                <label>IRON CASE</label>
+            </value>
+            <value>
+                <fullName>JERRICAN</fullName>
+                <default>false</default>
+                <label>JERRICAN</label>
+            </value>
+            <value>
+                <fullName>KEG</fullName>
+                <default>false</default>
+                <label>KEG</label>
+            </value>
+            <value>
+                <fullName>KISTE</fullName>
+                <default>false</default>
+                <label>KISTE</label>
+            </value>
+            <value>
+                <fullName>LIFTVAN</fullName>
+                <default>false</default>
+                <label>LIFTVAN</label>
+            </value>
+            <value>
+                <fullName>LIFTVAN CASE</fullName>
+                <default>false</default>
+                <label>LIFTVAN CASE</label>
+            </value>
+            <value>
+                <fullName>M.S.DRUM</fullName>
+                <default>false</default>
+                <label>M.S.DRUM</label>
+            </value>
+            <value>
+                <fullName>MAT</fullName>
+                <default>false</default>
+                <label>MAT</label>
+            </value>
+            <value>
+                <fullName>NET</fullName>
+                <default>false</default>
+                <label>NET</label>
+            </value>
+            <value>
+                <fullName>OTHER</fullName>
+                <default>false</default>
+                <label>OTHER</label>
+            </value>
+            <value>
+                <fullName>P/CAN</fullName>
+                <default>false</default>
+                <label>P/CAN</label>
+            </value>
+            <value>
+                <fullName>P/D</fullName>
+                <default>false</default>
+                <label>P/D</label>
+            </value>
+            <value>
+                <fullName>P/DRUM</fullName>
+                <default>false</default>
+                <label>P/DRUM</label>
+            </value>
+            <value>
+                <fullName>P/KEG</fullName>
+                <default>false</default>
+                <label>P/KEG</label>
+            </value>
+            <value>
+                <fullName>PACK</fullName>
+                <default>false</default>
+                <label>PACK</label>
+            </value>
+            <value>
+                <fullName>PACKAGE</fullName>
+                <default>true</default>
+                <label>PACKAGE</label>
+            </value>
+            <value>
+                <fullName>PACON</fullName>
+                <default>false</default>
+                <label>PACON</label>
+            </value>
+            <value>
+                <fullName>PAIL</fullName>
+                <default>false</default>
+                <label>PAIL</label>
+            </value>
+            <value>
+                <fullName>PAIR</fullName>
+                <default>false</default>
+                <label>PAIR</label>
+            </value>
+            <value>
+                <fullName>PAL</fullName>
+                <default>false</default>
+                <label>PAL</label>
+            </value>
+            <value>
+                <fullName>PALBOX</fullName>
+                <default>false</default>
+                <label>PALBOX</label>
+            </value>
+            <value>
+                <fullName>PALLET</fullName>
+                <default>false</default>
+                <label>PALLET</label>
+            </value>
+            <value>
+                <fullName>PAPER BAG</fullName>
+                <default>false</default>
+                <label>PAPER BAG</label>
+            </value>
+            <value>
+                <fullName>PARCEL</fullName>
+                <default>false</default>
+                <label>PARCEL</label>
+            </value>
+            <value>
+                <fullName>PART</fullName>
+                <default>false</default>
+                <label>PART</label>
+            </value>
+            <value>
+                <fullName>PCS/SET</fullName>
+                <default>false</default>
+                <label>PCS/SET</label>
+            </value>
+            <value>
+                <fullName>PEN</fullName>
+                <default>false</default>
+                <label>PEN</label>
+            </value>
+            <value>
+                <fullName>PIECE</fullName>
+                <default>false</default>
+                <label>PIECE</label>
+            </value>
+            <value>
+                <fullName>PIPE</fullName>
+                <default>false</default>
+                <label>PIPE</label>
+            </value>
+            <value>
+                <fullName>PLASCTIC KEG</fullName>
+                <default>false</default>
+                <label>PLASCTIC KEG</label>
+            </value>
+            <value>
+                <fullName>PLASTIC</fullName>
+                <default>false</default>
+                <label>PLASTIC</label>
+            </value>
+            <value>
+                <fullName>PLASTIC DRUM</fullName>
+                <default>false</default>
+                <label>PLASTIC DRUM</label>
+            </value>
+            <value>
+                <fullName>PLASTIC KEG</fullName>
+                <default>false</default>
+                <label>PLASTIC KEG</label>
+            </value>
+            <value>
+                <fullName>PLASTIC PALLET</fullName>
+                <default>false</default>
+                <label>PLASTIC PALLET</label>
+            </value>
+            <value>
+                <fullName>PLASTICS KEG</fullName>
+                <default>false</default>
+                <label>PLASTICS KEG</label>
+            </value>
+            <value>
+                <fullName>PLYWOOD BOX</fullName>
+                <default>false</default>
+                <label>PLYWOOD BOX</label>
+            </value>
+            <value>
+                <fullName>PLYWOOD PALLET</fullName>
+                <default>false</default>
+                <label>PLYWOOD PALLET</label>
+            </value>
+            <value>
+                <fullName>POLYEAG</fullName>
+                <default>false</default>
+                <label>POLYEAG</label>
+            </value>
+            <value>
+                <fullName>REEL</fullName>
+                <default>false</default>
+                <label>REEL</label>
+            </value>
+            <value>
+                <fullName>ROLL</fullName>
+                <default>false</default>
+                <label>ROLL</label>
+            </value>
+            <value>
+                <fullName>S/CASE</fullName>
+                <default>false</default>
+                <label>S/CASE</label>
+            </value>
+            <value>
+                <fullName>S/CRATE</fullName>
+                <default>false</default>
+                <label>S/CRATE</label>
+            </value>
+            <value>
+                <fullName>SACK</fullName>
+                <default>false</default>
+                <label>SACK</label>
+            </value>
+            <value>
+                <fullName>SET</fullName>
+                <default>false</default>
+                <label>SET</label>
+            </value>
+            <value>
+                <fullName>SKID</fullName>
+                <default>false</default>
+                <label>SKID</label>
+            </value>
+            <value>
+                <fullName>SPOOL</fullName>
+                <default>false</default>
+                <label>SPOOL</label>
+            </value>
+            <value>
+                <fullName>STEEL CASE</fullName>
+                <default>false</default>
+                <label>STEEL CASE</label>
+            </value>
+            <value>
+                <fullName>STEELDRUMS</fullName>
+                <default>false</default>
+                <label>STEELDRUMS</label>
+            </value>
+            <value>
+                <fullName>T/BIN</fullName>
+                <default>false</default>
+                <label>T/BIN</label>
+            </value>
+            <value>
+                <fullName>TANK</fullName>
+                <default>false</default>
+                <label>TANK</label>
+            </value>
+            <value>
+                <fullName>TIN</fullName>
+                <default>false</default>
+                <label>TIN</label>
+            </value>
+            <value>
+                <fullName>TOTEBIN</fullName>
+                <default>false</default>
+                <label>TOTEBIN</label>
+            </value>
+            <value>
+                <fullName>TRUNK</fullName>
+                <default>false</default>
+                <label>TRUNK</label>
+            </value>
+            <value>
+                <fullName>TUBE</fullName>
+                <default>false</default>
+                <label>TUBE</label>
+            </value>
+            <value>
+                <fullName>UNIT</fullName>
+                <default>false</default>
+                <label>UNIT</label>
+            </value>
+            <value>
+                <fullName>UNPACKED OR UNPACKAGED</fullName>
+                <default>false</default>
+                <label>UNPACKED OR UNPACKAGED</label>
+            </value>
+            <value>
+                <fullName>VAN</fullName>
+                <default>false</default>
+                <label>VAN</label>
+            </value>
+            <value>
+                <fullName>VENER</fullName>
+                <default>false</default>
+                <label>VENER</label>
+            </value>
+            <value>
+                <fullName>VOL</fullName>
+                <default>false</default>
+                <label>VOL</label>
+            </value>
+            <value>
+                <fullName>W/BOX</fullName>
+                <default>false</default>
+                <label>W/BOX</label>
+            </value>
+            <value>
+                <fullName>W/C</fullName>
+                <default>false</default>
+                <label>W/C</label>
+            </value>
+            <value>
+                <fullName>W/CARTON</fullName>
+                <default>false</default>
+                <label>W/CARTON</label>
+            </value>
+            <value>
+                <fullName>W/CASE</fullName>
+                <default>false</default>
+                <label>W/CASE</label>
+            </value>
+            <value>
+                <fullName>W/CRATE</fullName>
+                <default>false</default>
+                <label>W/CRATE</label>
+            </value>
+            <value>
+                <fullName>W/ LIFTVAN</fullName>
+                <default>false</default>
+                <label>W/ LIFTVAN</label>
+            </value>
+            <value>
+                <fullName>W/PLT</fullName>
+                <default>false</default>
+                <label>W/PLT</label>
+            </value>
+            <value>
+                <fullName>W/SKID</fullName>
+                <default>false</default>
+                <label>W/SKID</label>
+            </value>
+            <value>
+                <fullName>WOODEN</fullName>
+                <default>false</default>
+                <label>WOODEN</label>
+            </value>
+            <value>
+                <fullName>WOODEN BOX</fullName>
+                <default>false</default>
+                <label>WOODEN BOX</label>
+            </value>
+            <value>
+                <fullName>WOODEN CARTON</fullName>
+                <default>false</default>
+                <label>WOODEN CARTON</label>
+            </value>
+            <value>
+                <fullName>WOODEN CRATE</fullName>
+                <default>false</default>
+                <label>WOODEN CRATE</label>
+            </value>
+            <value>
+                <fullName>WOODEN LIFTVAN</fullName>
+                <default>false</default>
+                <label>WOODEN LIFTVAN</label>
+            </value>
+            <value>
+                <fullName>WOODEN PACKAGE</fullName>
+                <default>false</default>
+                <label>WOODEN PACKAGE</label>
+            </value>
+            <value>
+                <fullName>WOODEN PALLET</fullName>
+                <default>false</default>
+                <label>WOODEN PALLET</label>
+            </value>
+            <value>
+                <fullName>WOODEN REEL</fullName>
+                <default>false</default>
+                <label>WOODEN REEL</label>
+            </value>
+            <value>
+                <fullName>Bale,compressed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bale,compressed</label>
+            </value>
+            <value>
+                <fullName>Bale,non-compressed</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bale,non-compressed</label>
+            </value>
+            <value>
+                <fullName>Basket</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Basket</label>
+            </value>
+            <value>
+                <fullName>Budle</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Budle</label>
+            </value>
+            <value>
+                <fullName>Bulk, gas（at 1031mber and 15℃）</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, gas（at 1031mber and 15℃）</label>
+            </value>
+            <value>
+                <fullName>Bulk, liguefied gas（at abnomal temperature/pressure）</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, liguefied gas（at abnomal temperature/pressure）</label>
+            </value>
+            <value>
+                <fullName>Bulk, liquid</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, liquid</label>
+            </value>
+            <value>
+                <fullName>Bulk, solid, fine particles (powders）</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, solid, fine particles (powders）</label>
+            </value>
+            <value>
+                <fullName>Bulk, solid, granular particles(grains）</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, solid, granular particles(grains）</label>
+            </value>
+            <value>
+                <fullName>Bulk, solid, large particles(nodules）</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Bulk, solid, large particles(nodules）</label>
+            </value>
+            <value>
+                <fullName>Can,cylindrical</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Can,cylindrical</label>
+            </value>
+            <value>
+                <fullName>Can,rectangular</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Can,rectangular</label>
+            </value>
+            <value>
+                <fullName>Carboy,non-protected</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Carboy,non-protected</label>
+            </value>
+            <value>
+                <fullName>Carboy,protected</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Carboy,protected</label>
+            </value>
+            <value>
+                <fullName>Cask</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Cask</label>
+            </value>
+            <value>
+                <fullName>Chest</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Chest</label>
+            </value>
+            <value>
+                <fullName>DemiJohn, protected</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DemiJohn, protected</label>
+            </value>
+            <value>
+                <fullName>DemiJohn,non-protected</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>DemiJohn,non-protected</label>
+            </value>
+            <value>
+                <fullName>Fibre Drum</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Fibre Drum</label>
+            </value>
+            <value>
+                <fullName>Flask</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Flask</label>
+            </value>
+            <value>
+                <fullName>Flexible Container</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Flexible Container</label>
+            </value>
+            <value>
+                <fullName>Frame</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Frame</label>
+            </value>
+            <value>
+                <fullName>HEAD</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>HEAD</label>
+            </value>
+            <value>
+                <fullName>Hogeshead</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Hogeshead</label>
+            </value>
+            <value>
+                <fullName>Ingot</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Ingot</label>
+            </value>
+            <value>
+                <fullName>Jar</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Jar</label>
+            </value>
+            <value>
+                <fullName>Jug</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Jug</label>
+            </value>
+            <value>
+                <fullName>Log</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Log</label>
+            </value>
+            <value>
+                <fullName>Logs, in bundle/bunch/truss</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Logs, in bundle/bunch/truss</label>
+            </value>
+            <value>
+                <fullName>Packet</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Packet</label>
+            </value>
+            <value>
+                <fullName>Pallet &amp; Package</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pallet &amp; Package</label>
+            </value>
+            <value>
+                <fullName>Pipes, in bundle/bunch/truss</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Pipes, in bundle/bunch/truss</label>
+            </value>
+            <value>
+                <fullName>Planks, in bundle/bunch/truss</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Planks, in bundle/bunch/truss</label>
+            </value>
+            <value>
+                <fullName>Plate</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Plate</label>
+            </value>
+            <value>
+                <fullName>Plates, in bundle/bunch/truss</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Plates, in bundle/bunch/truss</label>
+            </value>
+            <value>
+                <fullName>Sheet</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sheet</label>
+            </value>
+            <value>
+                <fullName>Sheet,in bundle/bunch/truss</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Sheet,in bundle/bunch/truss</label>
+            </value>
+            <value>
+                <fullName>Shipment</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Shipment</label>
+            </value>
+            <value>
+                <fullName>Skeleton Case</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Skeleton Case</label>
+            </value>
+            <value>
+                <fullName>Slab</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Slab</label>
+            </value>
+            <value>
+                <fullName>Steel Envelop</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Steel Envelop</label>
+            </value>
+            <value>
+                <fullName>Tierce</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Tierce</label>
+            </value>
+            <value>
+                <fullName>Tray</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Tray</label>
+            </value>
+            <value>
+                <fullName>Tub</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Tub</label>
+            </value>
+            <value>
+                <fullName>Vanpack</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Vanpack</label>
+            </value>
+            <value>
+                <fullName>Vat</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Vat</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

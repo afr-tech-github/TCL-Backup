@@ -1,0 +1,312 @@
+<aura:component controller="MassUpdateConsolBillControllerV3" implements="force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome" access="global">
+  <aura:attribute name="id" type="String" />
+  <aura:attribute name="isShow" type="Boolean" default="true" />
+  <aura:attribute name="isFirstRecord" type="Boolean" default="false" />
+  <aura:attribute
+    name="recordLabelClass"
+    type="String"
+    default="slds-form-element__label slds-hide"
+  />
+  <aura:attribute name="isSelected" type="Boolean" default="false" />
+  <aura:attribute name="isSelling" type="Boolean" default="true" />
+  <aura:attribute name="isVATRateSelling" type="Boolean" default="true" />
+  <aura:attribute name="isExchangeRateIDDebitCredit" type="Boolean" default="true" />
+  <aura:attribute name="isCurrencyConversionForSelling" type="Boolean" default="true" />
+  <aura:attribute name="isExchangeRateSellingDebit" type="Boolean" default="true" />
+  <aura:attribute name="isVATRateBuying" type="Boolean" default="true" />
+  <aura:attribute name="isExchangeRateBuyingCredit" type="Boolean" default="true" />
+  <aura:attribute name="isCurrencyConversionForBuying" type="Boolean" default="true" />
+  <aura:attribute name="isAdvancePaymentonbehalfofOurCompany" type="Boolean" default="true" />
+  <aura:attribute name="parent" type="Aura.Component" required="true" access="global"/>
+  <aura:attribute name="firstTimeRecordLoad" type="Boolean" default="true" />
+  <aura:attribute name="isMultiCurrency" type="Boolean" default="false"/>
+  <aura:attribute name="count" type="Integer" default="3"/>
+  <aura:attribute name="listIds" type="String[]" default="[]"/>
+  <aura:attribute name="listIds2" type="List"/>
+  <aura:attribute name="iconDown" type="String" default="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R35O&amp;oid=00D5i00000CHEMI&amp;lastMod=1689847786000" />
+  
+  <aura:attribute
+    name="labels"
+    type="List"
+    default="[
+    {name: 'Master Billing', style: 'width: 130px !important'},
+  
+    {name: 'Name', style: 'width: 130px'},
+    {name: 'Pricing Name', style: 'width: 130px'},
+    {name: 'F/TMS S/O', style: 'width: 130px'},
+    {name: 'Charge Unit', style: 'width: 120px'},
+  
+    {name: 'Quantity', style: 'width: 130px'},
+    {name: 'Container Type', style: 'width: 130px'},
+    {name: 'Invoice to', style: 'width: 130px;'},
+    {name: 'Currency-Selling', style: 'width: 100px;'},
+    {name: 'Unit Price of Selling (Actual)', style: 'width: 100px;'},
+    {name: 'Tax Ratio-Selling', style: 'width: 100px;'},
+    {name: 'Tax Included-Selling', style: 'width: 60px;'},
+    {name: 'Payment To', style: 'width: 160px'},
+    {name: 'Unit Price of Buying (Actual)', style: 'width: 130px;'},
+    {name: 'Tax Ratio-Buying', style: 'width: 110px'},
+    {name: 'Tax Included-Buying', style: 'width: 60px'},
+    ]"
+  />
+
+  <aura:attribute
+    name="fields"
+    type="List"
+    default="[
+    {name: 'MasterBilling__c', style: 'width: 130px !important;'},
+  
+    {name: 'Name', style: 'width: 130px !important;'},
+    {name: 'PricingName__c', style: 'width: 130px !important;'},
+    {name: 'FTMSSO__c', style: 'width: 130px !important;'},
+    {name: 'ChargeUnit__c', style: 'width: 120px !important'},
+  
+    {name: 'Quantity__c', style: 'width: 130px'},
+    {name: 'Container_Type__c', style: 'width: 130px'},
+    {name: 'Invoiceto__c', style: 'width: 130px'},
+    {name: 'CurrencySelling__c', style: 'width: 100px'},
+    {name: 'UnitPriceofSellingActual__c', style: 'width: 100px'},
+    {name: 'TaxRatioSelling__c', style: 'width: 100px;'},
+    {name: 'Tax_Included_Selling__c', style: 'width: 60px;text-align: center !important;'},
+    {name: 'PaymentTo__c', style: 'width: 160px'},
+    {name: 'UnitPriceofBuyingActual__c', style: 'width: 130px'},
+    {name: 'TaxRatioBuying__c', style: 'width: 110px'},
+    {name: 'Tax_Included__c', style: 'width: 60px;text-align: center !important;'},
+    ]"
+  />
+
+  <aura:attribute name="isUpdateable" type="Boolean" default="true" />
+  <aura:attribute name="isAccessible" type="Boolean" default="true" />
+  <aura:attribute name="isDeletable" type="Boolean" default="true" />
+  <aura:attribute name="listBillId" type="String[]" default="[]" />
+
+
+
+  <aura:method name="updateFields" action="{! c.updateFields}">
+    <aura:attribute name="fields" type="List" />
+  </aura:method>
+  <aura:method name="getFields" action="{! c.getFields}"> </aura:method>
+  <aura:method name="refresh" action="{! c.refresh}"> </aura:method>
+  <aura:method name="onToggleSelect" action="{! c.onToggleSelect}">
+    <aura:attribute name="isSelected" type="Boolean" />
+  </aura:method>
+  <!-- <aura:method name="onToggleMultiCurrency" action="{! c.onToggleMultiCurrency}">
+    <aura:attribute name="isMultiCurrency" type="Boolean"/>
+  </aura:method> -->
+  
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  
+  
+
+
+  <lightning:spinner aura:id="spinner" class="slds-hide" />
+  <!-- <table>
+    <tr>
+      <th style="width: 130px;">
+        <div>Master Billing</div>
+      </th>
+      <th style="width: 130px;">
+        <div>Name</div>
+      </th>
+      <th style="width: 130px;">
+        <div>Pricing Name</div>
+      </th>
+      <th style="width: 130px;">
+        <div>F/TMS S/O</div>
+      </th>
+      <th style="width: 120px;">
+        <div>Charge Unit</div>
+      </th>
+      <th style="width: 130px;">
+        <div>Quantity</div>
+      </th>
+      <th style="width: 130px;">
+        <div>Container Type</div>
+      </th>
+
+      <th style="width: 130px;">
+        <div>Invoice to</div>
+      </th>
+      <th style="width: 100px;">
+        <div>Currency-Selling</div>
+      </th>
+      <th style="width: 100px;">
+        <div>Unit Price of Selling (Actual)</div>
+      </th>
+      <th style="width: 100px;">
+        <div>Tax Ratio-Selling</div>
+      </th>
+      <th style="width: 60px;">
+        <div>Tax Included-Selling</div>
+      </th>
+      <th style="width: 130px;">
+        <div>Unit Price of Buying (Actual)</div>
+      </th>
+      <th style="width: 110px;">
+        <div>Tax Ratio-Buying</div>
+      </th>
+      <th style="width: 60px;">
+        <div>Tax_Included__c</div>
+      </th>
+    </tr>
+  </table> -->
+
+
+  
+    <lightning:recordEditForm
+      aura:id="recordEditForm"
+      recordId="{!v.id}"
+
+      objectApiName="ConsolBill__c"
+    >
+      <lightning:messages />
+      <table>
+        <aura:if isTrue="{!v.isFirstRecord == false}">
+        <tr>
+            <td style="width: 50px;cursor: pointer;" onclick="{!c.togglePackageList}" data-index="{!v.id}">
+                <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto;opacity: .3;" class="imageDown"/>    
+             </td>
+          <aura:iteration items="{!v.fields}" var="field">
+            
+              <td style="{!field.style}">
+                <lightning:inputField
+                  aura:id="field"
+
+                  variant="label-hidden"
+                  fieldName="{!field.name}"
+                />
+              </td>
+          </aura:iteration>
+          <td>
+          </td>
+          <td>
+            <lightning:button
+              variant="brand"
+           
+              onclick="{!c.onDelete}"
+              name="Delete"
+              label="Delete"
+            />
+          </td>
+        </tr>
+        <tr>
+           <td colspan="10" style="padding: 0; border: none;">
+                    
+              <div class="{!v.id}" style="position: relative; box-shadow: inset 0 0 4px 4px rgba(0,0,0,0.1);">
+                <table style="width: 140%;margin-left: 80px" class="subtable">
+
+              <aura:iteration items="{!v.listIds2}" var="lstbill">
+                  <lightning:recordEditForm aura:id="editForm" objectApiName="ConsolBill__c" recordId="{!lstbill.Id}">
+                    <lightning:messages />
+                    <tr style="line-height: 40px;">
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="msBill" variant="label-hidden" fieldName="Name" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="prN" variant="label-hidden" fieldName="PricingName__c" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="ship" variant="label-hidden" fieldName="FTMSSO__c" />
+                      </td>
+                      <td style="width: 120px !important;"> 
+                        <lightning:inputField aura:id="cUnit" variant="label-hidden" fieldName="ChargeUnit__c" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="quanTy" variant="label-hidden" fieldName="Quantity__c" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="inV" variant="label-hidden" fieldName="Invoiceto__c" />
+                      </td>
+                      <td style="width: 120px !important;">
+                        <lightning:inputField aura:id="curS" variant="label-hidden" fieldName="CurrencySelling__c" />
+                      </td>
+                      <td style="width: 100px !important;">
+                        <lightning:inputField aura:id="uSell" variant="label-hidden" fieldName="UnitPriceofSellingActual__c" />
+                      </td>
+                      <td style="width: 100px !important;">
+                        <lightning:inputField aura:id="taxS" variant="label-hidden" fieldName="TaxRatioSelling__c" />
+                      </td>
+                      <td style="width: 60px !important;text-align: center;">
+                        <lightning:inputField aura:id="taIS" variant="label-hidden" fieldName="Tax_Included_Selling__c" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="payT" variant="label-hidden" fieldName="PaymentTo__c" />
+                      </td>
+                      <td style="width: 130px !important;">
+                        <lightning:inputField aura:id="unitP" variant="label-hidden" fieldName="UnitPriceofBuyingActual__c" />
+                      </td>
+                      <td style="width: 110px !important;">
+                        <lightning:inputField aura:id="taxRB" variant="label-hidden" fieldName="TaxRatioBuying__c" />
+                      </td>
+                      <td style="width: 60px !important; text-align: center;">
+                        <lightning:inputField aura:id="taxI" variant="label-hidden" fieldName="Tax_Included__c" />
+                      </td>
+                    </tr>
+                    <!-- <lightning:input aura:id="leadFirstName" type="text" label="First Name" />
+                    <lightning:inputField aura:id="lastName" fieldName="Name" />
+                    <lightning:inputField aura:id="cmpAct" fieldName="PricingName__c" />
+                    <lightning:button class="slds-m-top_small" variant="brand" name="update" label="Update"/> -->
+                  </lightning:recordEditForm>
+              </aura:iteration>
+              
+                </table>
+              </div>
+            </td>
+        </tr>
+      </aura:if>
+      </table>
+    </lightning:recordEditForm>
+    <div class="slds-p-top_x-small"></div>
+
+  <!-- <aura:if isTrue="{! v.isShow &amp;&amp; v.isAccessible &amp;&amp;	not(v.isUpdateable) }">
+    <lightning:recordViewForm
+      recordId="{!v.id}"
+      objectApiName="ConsolBill__c"
+    >
+      <lightning:messages />
+        <tr>
+          <td style="width: 50px" onclick="{!c.togglePackageList}">
+            <img src="{!v.iconDown}" alt="icon" height="15px" width="15px" style="width: 24px; height: auto;opacity: .3;" class="imageDown"/>    
+         </td>
+          <aura:iteration items="{!v.fields}" var="field">
+            <aura:if isTrue="{! v.isSelling &amp;&amp; not(field.isBuying) &amp;&amp; 
+                                or(not(field.isVATRateSelling), and(field.isVATRateSelling != null, field.isVATRateSelling == v.isVATRateSelling)) &amp;&amp; 
+                                or(not(field.isExchangeRateIDDebitCredit), and(field.isExchangeRateIDDebitCredit != null, field.isExchangeRateIDDebitCredit == v.isExchangeRateIDDebitCredit)) &amp;&amp;
+                                or(not(field.isCurrencyConversionForSelling), and(field.isCurrencyConversionForSelling != null, field.isCurrencyConversionForSelling == v.isCurrencyConversionForSelling)) &amp;&amp; 
+                                or(not(field.isExchangeRateSellingDebit), and(field.isExchangeRateSellingDebit != null, field.isExchangeRateSellingDebit == v.isExchangeRateSellingDebit)) &amp;&amp; 
+                                or(not(field.isMultiCurrency), and(field.isMultiCurrency != null, field.isMultiCurrency == v.isMultiCurrency))}">
+              <td style="{!field.style}">
+                <lightning:outputField
+                  variant="label-hidden"
+                  fieldName="{!field.name}"
+                />
+              </td>
+            </aura:if>
+            <aura:if isTrue="{! not(v.isSelling) &amp;&amp; not(field.isSelling) &amp;&amp; 
+                                or(not(field.isVATRateBuying), and(field.isVATRateBuying != null, field.isVATRateBuying == v.isVATRateBuying)) &amp;&amp; 
+                                or(not(field.isExchangeRateBuyingCredit), and(field.isExchangeRateBuyingCredit != null, field.isExchangeRateBuyingCredit == v.isExchangeRateBuyingCredit)) &amp;&amp;
+                                or(not(field.isCurrencyConversionForBuying), and(field.isCurrencyConversionForBuying != null, field.isCurrencyConversionForBuying == v.isCurrencyConversionForBuying)) &amp;&amp;  
+                                or(not(field.isAdvancePaymentonbehalfofOurCompany), and(field.isAdvancePaymentonbehalfofOurCompany != null, field.isAdvancePaymentonbehalfofOurCompany == v.isAdvancePaymentonbehalfofOurCompany)) &amp;&amp;
+                                or(not(field.isMultiCurrency), and(field.isMultiCurrency != null, field.isMultiCurrency == v.isMultiCurrency))}">
+              <td style="{!field.style}">
+                <lightning:outputField
+                  variant="label-hidden"
+                  fieldName="{!field.name}"
+                />
+              </td>
+            </aura:if>
+          </aura:iteration>
+          <td>
+           
+          </td>
+          <td>
+            <lightning:button
+              disabled="true"
+              label="Delete"
+            />
+          </td>
+        </tr>
+    </lightning:recordViewForm>
+    <div class="slds-p-top_x-small"></div>
+  </aura:if> -->
+</aura:component>

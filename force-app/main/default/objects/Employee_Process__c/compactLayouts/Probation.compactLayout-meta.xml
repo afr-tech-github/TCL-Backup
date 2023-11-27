@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Probation</fullName>
+    <fields>Name</fields>
+    <fields>Employeename__c</fields>
+    <fields>RecordTypeId</fields>
+    <fields>Status__c</fields>
+    <fields>End_Date__c</fields>
+    <label>Probation</label>
+</CompactLayout>

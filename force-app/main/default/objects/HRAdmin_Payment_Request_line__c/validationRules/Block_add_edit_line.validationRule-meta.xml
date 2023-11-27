@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_add_edit_line</fullName>
+    <active>true</active>
+    <description>block when request in status other than &quot;Created&quot;</description>
+    <errorConditionFormula>AND(  
+not(ispickval( HRAdmin_Payment_Request__r.Status__c,&quot;Created&quot;)),
+Or(
+PRIORVALUE(General_Cost__c  ) &lt;&gt; General_Cost__c,
+PRIORVALUE(HRAdmin_Payment_Request__c) &lt;&gt;HRAdmin_Payment_Request__c,
+ISnew()))</errorConditionFormula>
+    <errorMessage>You can not edit or add line while status is Created</errorMessage>
+</ValidationRule>

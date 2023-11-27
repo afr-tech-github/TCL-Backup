@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_when_Request_in_Approval_Process</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND ( RecordType.Name = &apos;Business Travel Request&apos;,
+ BusinessTravelRequest__r.IsBlock__c ,
+
+OR (Ischanged ( Activity__c ),
+Ischanged ( Amount__c ),
+Ischanged ( PIC__c ),
+Ischanged ( BusinessTraveler__c ),
+Ischanged ( BusinessTravelRequest__c )))</errorConditionFormula>
+    <errorMessage>Cannot change Activity, PIC, Amount, Business Traveler and Business Travel Request when Business Travel Request is in Approval Process!</errorMessage>
+</ValidationRule>

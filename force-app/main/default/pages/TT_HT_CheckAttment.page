@@ -1,0 +1,18 @@
+<apex:page controller="TT_HT_CheckAttmentController">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection title="Custom Page">
+                <apex:inputCheckbox value="{!selected}" label="Add Attachment" />
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Create" action="{!redirectToPrintPage}" reRender="none" onclick="handleChangePage()" />
+            </apex:pageBlockButtons>
+        </apex:pageBlock>
+    </apex:form>
+    <script>
+        function handleChangePage() {
+            window.location.href = '/apex/page_TT_HT_NoiBo?id=' + '{!OderID}';
+
+        }
+    </script>
+</apex:page>

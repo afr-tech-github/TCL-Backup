@@ -1,0 +1,13 @@
+Dear TCL Phnom Penh,
+
+The shipment no {!FTMSSO__c.JobRequestID__c} of {!FTMSSO__c.Customer__c} consists of the information below:
+- House B/L Number: {!FTMSSO__c.HBLNumber__c}
+- Booking Number: {!FTMSSO__c.HouseBookingNo__c} 
+- Description of Goods:  {!FTMSSO__c.DescriptionofGoods__c}
+- Container No./ Seal No.: {!FTMSSO__c.ContainerNoSealNo__c}
+
+Please check and reconfirm that you have received the email.
+If you require further information, feel free to contact me.
+
+Thank you and Best Regards,
+{!User.Name}

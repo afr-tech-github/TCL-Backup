@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Activity__c</fullName>
+    <externalId>false</externalId>
+    <label>Activity</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Activity_Type__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Hotel</fullName>
+                <default>false</default>
+                <label>Hotel</label>
+            </value>
+            <value>
+                <fullName>On-duty Meal</fullName>
+                <default>false</default>
+                <label>On-duty Meal</label>
+            </value>
+            <value>
+                <fullName>Transportation</fullName>
+                <default>false</default>
+                <label>Transportation</label>
+            </value>
+            <value>
+                <fullName>Training</fullName>
+                <default>false</default>
+                <label>Training</label>
+            </value>
+            <value>
+                <fullName>Purchasing Stationary</fullName>
+                <default>false</default>
+                <label>Purchasing Stationary</label>
+            </value>
+            <value>
+                <fullName>Set up training class</fullName>
+                <default>false</default>
+                <label>Set up training class</label>
+            </value>
+            <value>
+                <fullName>Composing Training Material</fullName>
+                <default>false</default>
+                <label>Composing Training Material</label>
+            </value>
+            <value>
+                <fullName>Reception</fullName>
+                <default>false</default>
+                <label>Reception</label>
+            </value>
+            <value>
+                <fullName>Repair Asset</fullName>
+                <default>false</default>
+                <label>Repair Asset</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Training Request</controllingFieldValue>
+            <valueName>Training</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Training Request</controllingFieldValue>
+            <valueName>Set up training class</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Training Request</controllingFieldValue>
+            <valueName>Composing Training Material</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Travel Request</controllingFieldValue>
+            <valueName>Hotel</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Travel Request</controllingFieldValue>
+            <valueName>On-duty Meal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Travel Request</controllingFieldValue>
+            <valueName>Transportation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Business Travel Request</controllingFieldValue>
+            <valueName>Reception</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase Order</controllingFieldValue>
+            <valueName>Purchasing Stationary</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

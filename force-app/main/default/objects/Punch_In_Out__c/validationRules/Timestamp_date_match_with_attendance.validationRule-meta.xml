@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Timestamp_date_match_with_attendance</fullName>
+    <active>true</active>
+    <errorConditionFormula>If(
+isblank( Attendance__c),false, 
+ datevalue(Timestamp__c)  &lt;&gt;  Attendance__r.Attendance_date__c )</errorConditionFormula>
+    <errorDisplayField>Attendance__c</errorDisplayField>
+    <errorMessage>Attendance date need to match with timestamp</errorMessage>
+</ValidationRule>

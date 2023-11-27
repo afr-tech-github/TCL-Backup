@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Purchase_Order_Line__c</fullName>
+    <externalId>false</externalId>
+    <label>Purchase Order Line</label>
+    <referenceTo>Purchase_order_line__c</referenceTo>
+    <relationshipLabel>PRL to POL</relationshipLabel>
+    <relationshipName>PRL_to_POL</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

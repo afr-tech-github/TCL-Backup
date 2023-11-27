@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ConsealReportOnly__c</fullName>
+    <externalId>false</externalId>
+    <formula>TEXT ( Container_Qnty_1__c ) &amp;  &quot;x&quot;  &amp;  TEXT ( Container_Type_1__c )  &amp;
+
+IF ( OR ( ISNULL ( Container_Qnty_2__c ) , Container_Qnty_2__c = 0 ) , &quot;&quot; , &quot;; &quot;  &amp;  TEXT ( Container_Qnty_2__c ) &amp;  &quot;x&quot;  &amp;  TEXT ( Container_Type_2__c ) ) &amp;
+
+IF ( OR ( ISNULL ( Container_Qnty_3__c ) , Container_Qnty_3__c = 0 ) , &quot;&quot; , &quot;; &quot;  &amp;  TEXT ( Container_Qnty_3__c ) &amp;  &quot;x&quot;  &amp;  TEXT ( Container_Type_3__c ) ) &amp;  
+
+&quot;; &quot;  &amp;  TEXT ( GrossWeight__c )  &amp;  &quot; Kgs / &quot;  &amp;   TEXT ( MeasurementCBM__c )  &amp;  &quot; CBM&quot;</formula>
+    <label>Conseal</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

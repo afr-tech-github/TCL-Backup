@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <environments>Default</environments>
+    <formulas>
+        <name>closingdatefor</name>
+        <dataType>Date</dataType>
+        <expression>IF(MONTH({!$Record.RecruitmentPlanLine__r.ClosingDate__c})=12, DATE(YEAR({!$Record.RecruitmentPlanLine__r.ClosingDate__c}),12,31), DATE(YEAR({!$Record.RecruitmentPlanLine__r.ClosingDate__c}),MONTH({!$Record.RecruitmentPlanLine__r.ClosingDate__c})+1, 1)-1)</expression>
+    </formulas>
+    <interviewLabel>Recruitment Request | Auto update field Closing Date in Recruitment Request Line {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Recruitment Request | Auto update field Closing Date in Recruitment Request Line</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <description>Update field Date has value
+
++ Day: Last day of month
+
++ Month = field Month ( Recruitment Plan Line)
+
++ Year = value year in Recruitment Plan</description>
+        <name>UpdateRecruitmentRequest</name>
+        <label>Update Recruitment Request</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <inputAssignments>
+            <field>Branch__c</field>
+            <value>
+                <elementReference>$Record.RecruitmentPlanLine__r.Branch__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ClosingDate__c</field>
+            <value>
+                <elementReference>$Record.RecruitmentPlanLine__r.ClosingDate__c</elementReference>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>UpdateRecruitmentRequest</targetReference>
+        </connector>
+        <filterLogic>(1 OR 3) AND 2</filterLogic>
+        <filters>
+            <field>ClosingDate__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>RecruitmentPlanLine__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Branch__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>RecruitmentRequest__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Queue xmlns="http://soap.sforce.com/2006/04/metadata">
+    <doesSendEmailToMembers>false</doesSendEmailToMembers>
+    <name>TCL - HR for Employee Process and Salary</name>
+    <queueMembers>
+        <users>
+            <user>hung@tcl.com</user>
+            <user>bao.nguyen@tcl.com</user>
+        </users>
+    </queueMembers>
+    <queueSobject>
+        <sobjectType>Employee_Process__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Payslip__c</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>Task</sobjectType>
+    </queueSobject>
+    <queueSobject>
+        <sobjectType>WorkCycle__c</sobjectType>
+    </queueSobject>
+</Queue>

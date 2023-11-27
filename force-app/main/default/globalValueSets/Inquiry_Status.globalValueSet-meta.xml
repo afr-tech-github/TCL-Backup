@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Created</fullName>
+        <default>true</default>
+        <label>Created</label>
+    </customValue>
+    <customValue>
+        <fullName>Inquiry Line Assigned</fullName>
+        <default>false</default>
+        <label>Inquiry Line Assigned</label>
+    </customValue>
+    <customValue>
+        <fullName>Ref.Price Available</fullName>
+        <default>false</default>
+        <label>Ref.Price Available</label>
+    </customValue>
+    <customValue>
+        <fullName>Returned</fullName>
+        <default>false</default>
+        <label>Returned</label>
+    </customValue>
+    <customValue>
+        <fullName>Submitted Again</fullName>
+        <default>false</default>
+        <label>Submitted Again</label>
+    </customValue>
+    <customValue>
+        <fullName>Cancelled</fullName>
+        <default>false</default>
+        <label>Cancelled</label>
+    </customValue>
+    <customValue>
+        <fullName>Converted to Quotation</fullName>
+        <default>false</default>
+        <label>Converted to Quotation</label>
+    </customValue>
+    <masterLabel>Inquiry Status</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

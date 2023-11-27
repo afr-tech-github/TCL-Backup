@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexEmailNotifications xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apexEmailNotification>
+        <user>huan@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>thuvu@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>tranvo@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>thao.nguyen@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>bao.nguyen@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>tu@afr-solution.com</user>
+    </apexEmailNotification>
+    <apexEmailNotification>
+        <user>huy@afr-solution.com</user>
+    </apexEmailNotification>
+</ApexEmailNotifications>

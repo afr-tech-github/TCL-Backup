@@ -1,0 +1,20 @@
+.THIS .slds-form-element__icon {/* Replace this class name "slds-form-element__icon" by your finding. */
+    display: none !important;
+}
+/* .THIS.nnUnits_wrap {   
+    min-width: 1500px;
+    max-width: auto;
+    overflow: auto;
+    min-height: 200px;
+    height: auto;
+} */
+.THIS th{
+    text-align: center;
+}
+.THIS .slds-listbox {
+    max-height: 175px !important;
+    overflow-y: auto !important;
+    /* display: block; */
+    /* z-index: 9999 !important; */
+    
+  }

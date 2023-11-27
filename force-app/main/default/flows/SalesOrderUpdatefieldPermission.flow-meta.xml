@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <decisions>
+        <name>is_PreventcreatingJob_True</name>
+        <label>is PreventcreatingJob True?</label>
+        <locationX>772</locationX>
+        <locationY>408</locationY>
+        <defaultConnector>
+            <targetReference>update_Sales_Order_0</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>false</defaultConnectorLabel>
+        <rules>
+            <name>true</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Customer__r.Preventcreatingjob__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>update_Sales_Order</targetReference>
+            </connector>
+            <label>true</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Sales Order | Update field Permission {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Sales Order | Update field Permission</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>update_Sales_Order</name>
+        <label>update Sales Order</label>
+        <locationX>922</locationX>
+        <locationY>576</locationY>
+        <inputAssignments>
+            <field>Permission__c</field>
+            <value>
+                <stringValue>Prevent from creating job</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <recordUpdates>
+        <name>update_Sales_Order_0</name>
+        <label>update Sales Order</label>
+        <locationX>663</locationX>
+        <locationY>566</locationY>
+        <inputAssignments>
+            <field>Permission__c</field>
+            <value>
+                <stringValue>Not prevent from creating job</stringValue>
+            </value>
+        </inputAssignments>
+        <inputReference>$Record</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>is_PreventcreatingJob_True</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Sales_Order__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

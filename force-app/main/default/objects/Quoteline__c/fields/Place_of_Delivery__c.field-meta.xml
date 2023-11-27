@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Place_of_Delivery__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Place of Delivery</label>
+    <referenceTo>PortCode__c</referenceTo>
+    <relationshipLabel>Quote lines (Place of Delivery)</relationshipLabel>
+    <relationshipName>Quote_lines4</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

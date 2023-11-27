@@ -1,0 +1,440 @@
+<apex:page controller="BookingNoteController2" renderAs="PDF" sidebar="false"  applyBodyTag="false" cache="true" title="12344324" showHeader="false" >    
+    <head>
+        <style type="text/css">
+            @media print {
+                #mydiv{
+                    display: none;
+                }
+                .print-only {
+            page-break-inside: avoid !important;
+              }
+            }
+            #mydiv {
+                position: fixed;
+                z-index: 9;
+                background-color: gray;
+                border: 1px solid #d3d3d3;
+                text-align: center;
+                min-width: 140px;
+            }
+
+            #mydivheader {
+                padding: 10px;
+                cursor: move;
+                z-index: 10;
+                background-color: #2168a2;
+                color: #fff;
+            }
+            #print-btn{
+                display: block;
+                width: 100%;
+                padding: 6px 0;
+                font-size: 18px;
+                box-shadow: none; 
+                background-color: white; 
+                border: none; 
+                cursor: pointer;
+            }
+            #print-btn:hover{
+                background-color: rgb(232, 232, 232);
+                text-decoration: none;
+                color: black;
+            }
+            @page {
+            
+                margin: 8mm 8mm 8mm 8mm;
+
+                size:  a4;   /* auto is the initial value */
+                /* margin: 0mm;   */
+                @bottom-center{
+                    content: element(footer);
+                }
+                
+            }
+            p{
+                margin: 0 0;
+            }
+            
+            div.footer {
+                display: block;
+                position: running(footer);
+            }
+           
+            table td{
+                vertical-align: top;
+            }
+            
+            body {
+                font-size: 11px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                /* font-family: "Calibri", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+               
+            }
+            .fontBold { 
+                font-weight: bold;
+            }
+            table td {
+                line-height: 15px;
+                padding: 0 3px;
+                font-family: 'Times New Roman', Times, serif;
+                /* border: 1px solid black; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                padding: 0 3px;
+                line-height: 15px;
+                font-family: 'Times New Roman', Times, serif;
+                /* background-color: rgb(179, 175, 175); */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            table th {
+                text-align: center;
+            }
+            table tr {
+                min-height: 15px;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .report-header {
+                width: 100%;
+                display: flex;
+                /* align-items: center; */
+            }
+            .logo-company {
+                float: left;
+                width: 32%;
+
+            }
+            .info-company {
+                width: 30%;
+                float: left; 
+                /* font-weight: bolder; */
+                padding-top: 20px;
+            }
+            .name-company {
+                font-weight: bolder;
+                font-size: 14px;
+                white-space: nowrap;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .address-company {
+                font-size: 11px;
+                /* white-space: nowrap; */
+                /* font-weight: bold; */
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+                font-family: 'Times New Roman', Times, serif;
+            }
+            .infor-company {
+                font-size: 11px;
+                white-space: nowrap;
+                /* font-weight: bold; */
+                font-family: 'Times New Roman', Times, serif;
+                /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic", sans-serif; */
+            }
+            .subtable,
+            .subtable td{
+                border: none;
+            }
+            .una{
+                padding: 0;
+                position: relative;
+                width: 10%;
+            }
+            .border-top{
+                border-top: 1px solid black; 
+            }
+            .border-right{
+                border-right: 1px solid black; 
+            }
+            .border-left{
+                border-left: 1px solid black; 
+            }
+            .border-bottom{
+                border-bottom: 1px solid black; 
+            }
+            /* .una::after{
+                content: '';
+                width: 100%;
+                height: 100%;
+                border: 1px solid;
+                top: 0;
+                position: absolute;
+                
+            } */
+           
+         
+            
+
+
+        </style>
+        <script type="text/javascript">
+                  
+            window.onload = function() {
+                //window.top.document.title = "Your Title";
+                window.print();
+                return false; 
+            }
+        </script>
+    </head>
+    <body style="font-family: Arial MS Unicode">
+        <div id="mydiv">
+            <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
+            <div id="mydivheader">Click here to move</div>
+            
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.print()">PRINT</a>
+            <a style="background-color: lightgray;" id="print-btn" type="button" onclick="window.history.back()">Cancel</a>
+        </div>
+        
+        
+       		<table style="width:100%; border:1px solid  black;border-collapse: collapse; font-family: Arial, Helvetica, sans-serif;">
+                <col width="25%" />
+                <col width="25%" />
+                <col width="50%" />
+             
+                <tr style="height: 100px">
+                	<td colspan="2"  style="border-right: 1px solid black;border-top: 1px solid black;border-left: 1px solid black;">
+                     <div style="display:table;">
+                        <div style="display: table-cell;">
+                            <apex:outputLabel >
+                    			<img align="left" src="https://tcl-02-dev-ed.develop.file.force.com/file-asset/logo22?v=1" width="100px" height="auto" />
+                    		</apex:outputLabel>
+                        </div>
+                        <div style="display: table-cell; font-weight:bold">
+                            <apex:outputText escape="false" style="white-space: pre-line;color:orange; font-size:15px; text-decoration:underline;" value="TIMES CARGO LOGISTIC CO..LTD"/>
+                            <br/>
+                            <apex:outputText style="white-space: pre-line" escape="false" value="{!(companyInfor.Address__c)}" />
+                            <br/>
+                            
+                            <apex:outputText value="Tel: " />
+                            <apex:outputText value="{!(companyInfor.Tel__c)}" />
+                        
+                            <apex:outputText value="Fax: " style="padding-left: 20px;"/>
+                            <apex:outputText value="{!(companyInfor.Fax__c)}" />
+                            
+                        </div>
+                      </div>
+                        
+                    </td>
+                    	
+                    <td style="border-bottom:1px solid black;vertical-align: top ; " class="border-top border-right">
+                        <apex:outputText style="font-weight:bold;text-decoration:underline" value="SHIPPER" />
+                        <apex:outputText style="font-weight:bold;" value=":" />&nbsp;
+                        <apex:outputField value="{!shipment.ShipperDetailInformation__c}" />
+                    </td>
+                </tr>
+                <tr style="height: 120px;border-bottom:1px solid black" >
+                	<td colspan="2" style="border-right: 1px solid black;" class="border-left border-bottom">
+                     <div >
+                            <div style="color:red; text-decoration:underline;display:block; text-align:center;font-size:28px;font-weight:bold">
+                             	<apex:outputLabel value="BOOKING NOTE"/>
+                         	</div><br/>
+                        	<div style="color:red;  text-align:center;font-size:20px;font-weight:bold">
+                             	<apex:outputLabel value="No: "/>
+                             	<apex:outputText value="{!shipment.HouseBookingNo__c}" />
+                         	</div>
+                      </div>
+                        
+                    </td>
+                    	
+                    <td style=";vertical-align: top" class="border-left border-bottom border-right border-top">
+                        <apex:outputText style="font-weight:bold;text-decoration:underline" value="CONSIGNEE" />
+                        <apex:outputText style="font-weight:bold;" value=":" />&nbsp;
+                        <apex:outputField value="{!shipment.ConsigneeDetailInformation__c}" />
+                    </td>
+                </tr>
+             
+                
+                
+                <tr >
+                	<td style="border-right: 1px solid black;vertical-align: top" class="border-left border-bottom border-right border-top"> 
+                        <div >
+                            <apex:outputLabel style="font-weight:bold;text-decoration:underline" value="PLACE OF RECEIPT" /><br/>
+                            <apex:outputField value="{!shipment.PlaceofReceipt__r.Name}" />
+                        </div>
+                    </td>
+                    <td style="border-right: 1px solid black;vertical-align: top" class="border-left border-bottom border-right border-top">
+                    	<div >
+                            <apex:outputLabel style="font-weight:bold;text-decoration:underline" value="PLACE OF DELIVERY"/>
+                            <br/>
+                            <apex:outputField value="{!shipment.PlaceofDelivery__r.Name}" />
+                            <br/>
+                        </div>
+                    </td>
+                    	
+                    <td class="border-left border-right border-top">
+                        <apex:outputText style="font-weight:bold;text-decoration:underline;font-style:italic" value="PLACE OF STUFFING" /><br/>
+                        <br/>
+                        <br/>
+                        <apex:outputText style="font-weight:bold;color:red" value="{!shipment.PlaceofStuffing__c}" />
+                    </td>
+                </tr>
+                <tr colspan="1" style="height:150px">
+                    <td class="border-left border-bottom border-right border-top" colspan = "2" style ="border-top:1px solid black;border-right:1px solid black;vertical-align: middle; test-align:center">
+                        <apex:outputLabel style="text-align:center; display:block" value="TRANSFER GOODS BY TRUCKING VIA BORDER" />
+                    </td>
+                    <td style="border-bottom:1px solid black" class="border-left border-bottom border-right ">
+                    	
+                    </td>
+                </tr>
+                <tr style="height:70px">
+                    <td class="border-left border-bottom border-right border-top" colspan = "2" style ="border-right:1px solid black;vertical-align: center;font-weight:bold;color:red">
+                        <apex:outputLabel style="text-align:center; display:block" value="BORDER" />
+                    </td>
+                    <td style="border-bottom:1px solid black;vertical-align: top;" class="border-left border-bottom border-right border-top">
+                        <apex:outputLabel style=" color:red;font-weight:bold" value="ETD: " />
+                    	<apex:outputField style=" display:block;color:red" value="{!shipment.ETD__c}"/>
+                    </td>
+                	
+                </tr>
+                
+                <tr >
+                	<td colspan="2"  style="border-top:1px solid black;border-right: 1px solid black;" class="border-left border-bottom border-right border-top">
+                        
+                            <apex:outputLabel style="font-weight:bold;text-decoration:underline;" value="FINAL DESTINATION" />&nbsp;
+                        
+                     	
+                       
+                    </td>
+                    	
+                    <td style="vertical-align: top" class="border-left border-bottom border-right border-top">
+                        <apex:outputText style="font-weight:bold;text-decoration:underline" value="ANY CONTACTS, PLEASE CALL: " /><br/>
+                        
+                    </td>
+                </tr>
+				<tr style="height:80px">
+                	<td class="border-left border-bottom border-right border-top" colspan="2"  style="border-right: 1px solid black;vertical-align:middle;text-align:center;">
+                        <apex:outputLabel style="display:block;text-align:center;font-weight:bold;color:red" value="{!shipment.FinalDestination__r.CountryName__c}" /><br/>
+                    </td>
+                    	
+                    <td class="border-left border-bottom border-right border-top" style="border-bottom:1px solid black;vertical-align: top">
+                        
+                        
+                    </td>
+                </tr>                
+                <tr >
+                	<td class="border-left border-bottom border-right border-top" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;vertical-align: top">
+                       
+                            <apex:outputLabel style="font-weight:bold;display:block;text-align:center;" value="DESCRIPTION OF GOODS" />
+                          
+                        
+                    </td>
+                    <td class="border-left border-bottom border-right border-top" style="border-bottom: 1px solid black;border-top: 1px solid black;border-right: 1px solid black;vertical-align: top">
+                    	
+                            <apex:outputLabel style="font-weight:bold;display:block;text-align:center;" value="MEASUREMENT" />
+                          
+                       
+                        
+                    </td>
+                    	
+                    <td  class="border-left border-bottom border-right border-top" style="border-bottom: 1px solid black;" >
+                        
+                            <apex:outputLabel style="font-weight:bold;display:block;text-align:center;" value="NOTE:" />
+                          
+                        
+                       
+                        
+                    </td>
+                </tr>
+                <tr style="height:90px">
+                    <td class="border-left border-bottom border-right border-top" style="border-top: 1px solid black;border-right: 1px solid black;vertical-align: top">
+                    	 
+                            <apex:outputField style="font-weight:bold;display:block;text-aglin:center" value="{!shipment.DescriptionofGoods__c}" />
+                        
+                    </td>
+                    <td class="border-left border-bottom border-right border-top" style="border-top: 1px solid black;border-right: 1px solid black;vertical-align: top">
+                    	
+                        <apex:outputField style="font-weight:bold;" value="{!shipment.MeasurementTotalCBM__c}" />&nbsp;
+                        <apex:outputLabel value="CBM" /><br/>
+                        
+                    </td>
+                    <td class="border-left border-bottom border-right border-top" style="vertical-align: top;">
+                    	
+                             <apex:outputLabel style="font-weight:bold;color:red" value="VUI LONG CUNG CAP INVOICE + PACKING LIST" /><br/>
+                       		<apex:outputLabel style="font-weight:bold;color:red" value="TRUOC 3 NGAY DONG HANG" /> &nbsp;&nbsp;
+                       	
+                        
+                    </td>
+                </tr>
+                <tr>
+                	<td class="border-left border-bottom border-right border-top" colspan="3" style="border-top: 1px solid black;font-weight:bold;font-style:italic">
+                        <p>
+                            NOTE:<br/>
+                            1/ Please sign your name to confirm the weight, measurement, cargo's status before release cargo. We<br/>
+                            will not bear any responsibility if there is any claim in future due to missing your confirmation.<br/>
+                            2/ Please attach the shipping mark to surface of all crate/carton/case. The responsibility will belong to you if occur<br/>
+                            any problem due to missing shipping mark.<br/>
+                            3/ We do not accept to handle dutiable,hazardous, seed, exhibition, re-export cargoes without our confirmation before<br/>
+							ship on board.<br/>
+							5/ We do not accept to handle cargo that is foodstuff have animal origin.<br/>
+							6/ Please inform us before the trucking depart if there is any discrepancy in this Booking note. If not, it will be treated<br/>
+							as the same as the correct one.<br/>
+							7/ In order to handle smoothly, please leave "Customs Declaration" to our driver after clear customs.<br/>
+
+                        </p>
+                    
+                    </td>
+                </tr>
+                <tr style="height:20px">
+                	<td class="border-left border-bottom border-right border-top" colspan="2" style="border-top: 1px solid black;border-right: 1px solid black;vertical-align: top;height:150px">
+                        <apex:outputLabel style="display:block; text-align:center;font-weight:bold" value="ONE BEHAF OF THE CARRIER TIMES CARGO LOGISTIC" />
+                    </td>
+                    <td class="border-left border-bottom border-right border-top" style="border-top: 1px solid black;vertical-align: top">
+                        <apex:outputLabel style="display:block; text-align:center;font-weight:bold" value="ON BEHAF OF THE SHIPPER" />
+                    </td>
+                </tr>
+                
+        	</table>
+        	
+
+        
+    </body>
+  
+      
+    <script>
+        dragElement(document.getElementById("mydiv"));
+        
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            if (document.getElementById(elmnt.id + "header")) {
+                // if present, the header is where you move the DIV from:
+                document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+                // otherwise, move the DIV from anywhere inside the DIV:
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // get the mouse cursor position at startup:
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                // call a function whenever the cursor moves:
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                // calculate the new cursor position:
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                // set the element's new position:
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                // stop moving when mouse button is released:
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+   
+</apex:page>

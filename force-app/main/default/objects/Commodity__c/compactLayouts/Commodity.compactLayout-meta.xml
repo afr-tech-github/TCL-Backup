@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commodity</fullName>
+    <fields>Name</fields>
+    <fields>Prioritized__c</fields>
+    <fields>Prohibited__c</fields>
+    <fields>Restricted__c</fields>
+    <label>Commodity</label>
+</CompactLayout>

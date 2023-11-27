@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>59.0</apiVersion>
+    <assignments>
+        <name>Assign_DD_Sing</name>
+        <label>Assign DD Sing</label>
+        <locationX>264</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>DDSing.ExchangeRateLocal__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ExchangeRateLocalVND</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DDSing.ExchangeRateFCY__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ExchangeRateUSD</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DDSing.Id</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Iterate_Through_Document_Detail.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>DDCol</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>DDSing</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Iterate_Through_Document_Detail</targetReference>
+        </connector>
+    </assignments>
+    <environments>Default</environments>
+    <formulas>
+        <name>CheckNull</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(NOT(ISNULL({!ExchangeRateUSD}))  , NOT(ISNULL({!ExchangeRateLocalVND})))</expression>
+    </formulas>
+    <formulas>
+        <name>DefaultExchangeRateUSD</name>
+        <dataType>Number</dataType>
+        <expression>IF({!Get_Document.ExchangeRateFCY__c} &gt; 0,{!Get_Document.ExchangeRateFCY__c}, 0)</expression>
+        <scale>3</scale>
+    </formulas>
+    <formulas>
+        <name>DefaultExchangeRateVND</name>
+        <dataType>Number</dataType>
+        <expression>IF({!Get_Document.ExchangeRateLocal__c} &gt; 0, {!Get_Document.ExchangeRateLocal__c}, 0)</expression>
+        <scale>3</scale>
+    </formulas>
+    <interviewLabel>Document | Update Tax {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Document | Update Exchange Rate</label>
+    <loops>
+        <name>Iterate_Through_Document_Detail</name>
+        <label>Iterate Through Document Detail</label>
+        <locationX>176</locationX>
+        <locationY>566</locationY>
+        <collectionReference>Get_Document_Detail</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Assign_DD_Sing</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Update_Record</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <recordLookups>
+        <name>Get_Document</name>
+        <label>Get Document</label>
+        <locationX>176</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Document_Detail</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Document__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Document_Detail</name>
+        <label>Get Document Detail</label>
+        <locationX>176</locationX>
+        <locationY>350</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Update_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Document__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Document.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>AdvancedShipment__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Document.AdvancedShipment__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Documentsdetails__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Docu</name>
+        <label>Update Document</label>
+        <locationX>176</locationX>
+        <locationY>974</locationY>
+        <connector>
+            <targetReference>Done_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>ExchangeRateFCY__c</field>
+            <value>
+                <elementReference>ExchangeRateUSD</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>ExchangeRateLocal__c</field>
+            <value>
+                <elementReference>ExchangeRateLocalVND</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Document__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Record</name>
+        <label>Update Record</label>
+        <locationX>176</locationX>
+        <locationY>866</locationY>
+        <connector>
+            <targetReference>Docu</targetReference>
+        </connector>
+        <inputReference>DDCol</inputReference>
+    </recordUpdates>
+    <screens>
+        <name>Done_Screen</name>
+        <label>Done Screen</label>
+        <locationX>176</locationX>
+        <locationY>1082</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <fields>
+            <name>DoneText</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(8, 28, 54); font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Update Completed&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Update_Screen</name>
+        <label>Update Screen</label>
+        <locationX>176</locationX>
+        <locationY>458</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Cancel</backButtonLabel>
+        <connector>
+            <targetReference>Iterate_Through_Document_Detail</targetReference>
+        </connector>
+        <fields>
+            <name>Update_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Update_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>ExchangeRateLocalVND</name>
+                    <dataType>Number</dataType>
+                    <defaultValue>
+                        <elementReference>DefaultExchangeRateVND</elementReference>
+                    </defaultValue>
+                    <fieldText>Exchange Rate (VND)</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <scale>0</scale>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;Please Input Exchange Rate Local or Exchange Rate FCY&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                        <formulaExpression>OR(AND( NOT({!ExchangeRateLocalVND} = 0), 
+{!ExchangeRateUSD} =0),
+
+AND( NOT({!ExchangeRateUSD} = 0), 
+{!ExchangeRateLocalVND} =0),
+
+AND(NOT({!ExchangeRateUSD} = 0), 
+NOT({!ExchangeRateLocalVND} =0))
+)</formulaExpression>
+                    </validationRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>Update_Screen_Section1_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>ExchangeRateUSD</name>
+                    <dataType>Number</dataType>
+                    <defaultValue>
+                        <elementReference>DefaultExchangeRateUSD</elementReference>
+                    </defaultValue>
+                    <fieldText>Exchange Rate (USD)</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <isRequired>false</isRequired>
+                    <scale>0</scale>
+                    <validationRule>
+                        <errorMessage>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 0, 0);&quot;&gt;Please Input Exchange Rate Local or Exchange Rate FCY&lt;/span&gt;&lt;/p&gt;</errorMessage>
+                        <formulaExpression>OR(AND( NOT({!ExchangeRateLocalVND} = 0), 
+{!ExchangeRateUSD} =0
+),
+AND( NOT({!ExchangeRateUSD} = 0), 
+{!ExchangeRateLocalVND} =0
+),
+AND(NOT({!ExchangeRateUSD} = 0), 
+NOT({!ExchangeRateLocalVND} =0)
+)
+)</formulaExpression>
+                    </validationRule>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>6</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <nextOrFinishButtonLabel>Update</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Welcom_Screen</name>
+        <label>Welcom Screen</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>No</backButtonLabel>
+        <connector>
+            <targetReference>Get_Document</targetReference>
+        </connector>
+        <fields>
+            <name>WelcomeScreenDisplay</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(8, 28, 54); font-size: 16px; background-color: rgb(255, 255, 255);&quot;&gt;Do you want to update the Exchange Rate?&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>Yes</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Welcom_Screen</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>DDCol</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Documentsdetails__c</objectType>
+    </variables>
+    <variables>
+        <name>DDSing</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <objectType>Documentsdetails__c</objectType>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+</Flow>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>線上提交新商機時自動回應。</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>商機：線上商機電子郵件回應（範例）</name>
+    <style>none</style>
+    <subject>{!Organization.Name}:  Thank you for your inquiry</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

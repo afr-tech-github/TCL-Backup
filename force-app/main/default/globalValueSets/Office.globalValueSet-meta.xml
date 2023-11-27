@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>HO CHI MINH HEAD OFFICE</fullName>
+        <default>false</default>
+        <label>HO CHI MINH HEAD OFFICE</label>
+    </customValue>
+    <customValue>
+        <fullName>HAI PHONG BRANCH OFFICE</fullName>
+        <default>false</default>
+        <label>HAI PHONG BRANCH OFFICE</label>
+    </customValue>
+    <customValue>
+        <fullName>DA NANG BRANCH OFFICE</fullName>
+        <default>false</default>
+        <label>DA NANG BRANCH OFFICE</label>
+    </customValue>
+    <customValue>
+        <fullName>CAMBODIA BRANCH OFFICE</fullName>
+        <default>false</default>
+        <label>CAMBODIA BRANCH OFFICE</label>
+    </customValue>
+    <masterLabel>Office</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ContainerStatus__c</fullName>
+    <externalId>false</externalId>
+    <label>Container Status</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Created</fullName>
+                <default>true</default>
+                <label>Created</label>
+            </value>
+            <value>
+                <fullName>Waiting for Pick-up</fullName>
+                <default>false</default>
+                <label>Waiting for Pick-up</label>
+            </value>
+            <value>
+                <fullName>Transported to Warehouse</fullName>
+                <default>false</default>
+                <label>Transported to Warehouse</label>
+            </value>
+            <value>
+                <fullName>Cargo Stuffing</fullName>
+                <default>false</default>
+                <label>Cargo Stuffing</label>
+            </value>
+            <value>
+                <fullName>In use</fullName>
+                <default>false</default>
+                <label>In use</label>
+            </value>
+            <value>
+                <fullName>Cargo Unloading</fullName>
+                <default>false</default>
+                <label>Cargo Unloading</label>
+            </value>
+            <value>
+                <fullName>Empty Container Return</fullName>
+                <default>false</default>
+                <label>Empty Container Return</label>
+            </value>
+            <value>
+                <fullName>Container Returned</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Container Returned</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

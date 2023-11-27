@@ -1,0 +1,421 @@
+<apex:page controller="InvoiceSOSelectionController">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+    <script src="/soap/ajax/54.0/connection.js"></script>
+    <script src="/soap/ajax/54.0/apex.js" type="text/javascript"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.min.js')}"/>
+    
+    
+        <head>
+            <style>
+                table tr.billHeader td{
+                    color: white;
+                }    
+            </style>
+            <!-- <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery/jquery.min.js')}"/>
+            <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.min.js')}"/> -->
+            
+            
+                <script type="text/javascript">
+                    // window.open(/apex/page_InvoiceSelection?id={!shipmentID}, "_blank");
+                    
+                    function closePopupDialog() {
+                        window.open('/{!JSENCODE(shipmentId)}','_self');
+                    }
+                    j$ = jQuery.noConflict();
+                    function onchangeCheckBox(id) {
+                        if (j$('.shipment' + id).is(":checked")) {
+
+                        } else {
+                            j$('#checkBoxAll').prop("checked", false);
+                        }
+                    };
+                    function onchangeCheckBoxAll() {
+                        if (j$('#checkBoxAll').is(":checked")) {
+                            j$('.shipment').prop("checked", true);
+                        } else {
+                            j$('.shipment').prop("checked", false);
+                        }
+                    }
+                    function closePopupDialog() {
+                        window.open('/{!JSENCODE(shipmentId)}','_self');
+                    }
+                </script>
+        </head>
+            <apex:form id="theform">
+                <apex:sectionHeader subtitle="INVOICE/DEBIT/CREDIT NOTE"/>
+                <apex:pageBlock tabStyle="FTMSSO__c" >
+                    <apex:pageBlockButtons location="bottom">
+                        <apex:outputPanel id="buttonBlock">
+                            
+                            <apex:commandButton value="Generate" onclick="generateReportDoc('pdf'); return false;"/>
+                            <apex:commandButton value="close" action="{!closePopupDialog}"/>
+                        </apex:outputPanel>
+                    </apex:pageBlockButtons>
+                    <apex:pageBlockSection title="Select Invoice No" columns="1">
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputPanel >Customer</apex:outputPanel>
+                            <!-- <apex:outputPanel ><apex:outputText value="{!agentName}" /></apex:outputPanel> -->
+                            <apex:selectList onchange="handleInvoiceChange()" size="1" styleclass="accountt" value="{!customerId}" id="customerOption">
+                                <apex:selectOptions value="{!customerList}"></apex:selectOptions>
+                                <apex:actionSupport event="onchange" reRender="jsPanel, filterSection" status="status"/>
+                                <apex:actionStatus id="status">
+                                    <apex:facet name="start">
+                                        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                                            &nbsp;
+                                        </div>
+                                        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                                            <div style="display: inline-block; padding: 2px;width: 125px;">
+                                                <span style="display: inline-block; padding: 10px 0px; color:white" >Loading...</span>
+                                            </div>
+                                        </div>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+
+                        <!-- <apex:pageBlockSectionItem >
+                            <apex:outputPanel >Select Title</apex:outputPanel>
+                            <apex:selectList size="1" styleclass="title" value="{!title}" id="titleId">
+                                <apex:selectOptions value="{!TitleList}"></apex:selectOptions>
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem> -->
+
+                        <apex:pageBlockSectionItem id="jsPanel">
+                            <apex:outputPanel >Invoice Number</apex:outputPanel>
+                            <apex:selectList onchange="handleSelectChange()" size="1" styleclass="oubound" value="{!ouboundId}" id="ouboundId">
+                                <apex:selectOptions value="{!ouboundList}"></apex:selectOptions>
+                                <apex:actionSupport event="onchange" reRender="jsPanel, filterSection" status="status"/>
+                                <apex:actionStatus id="status">
+                                    <apex:facet name="start">
+                                        <div style="position: fixed; top: 0; left: 0; right: 0; bottom: 0; opacity: 0.25; z-index: 1000; background-color: black;">
+                                            &nbsp;
+                                        </div>
+                                        <div style="position: fixed; left: 0; top: 0; bottom: 0; right: 0; z-index: 1001; margin: 15% 50%">
+                                            <div style="display: inline-block; padding: 2px;width: 125px;">
+                                                <span style="display: inline-block; padding: 10px 0px; color:white" >Loading...</span>
+                                            </div>
+                                        </div>
+                                    </apex:facet>
+                                </apex:actionStatus>
+                            </apex:selectList>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                            <apex:outputLabel value="Draft"/>
+                            <apex:inputCheckbox styleClass="messageCheckbox" id="checkShow" value="{!Draft}" onchange="checkStatus()"/>
+                        </apex:pageBlockSectionItem>
+                        
+                        <apex:pageBlockSectionItem >
+                             <apex:outputLabel value="Official"/>
+                            <apex:inputCheckbox styleClass="messageCheckboxSignatue" value="{!Official}" onchange="checkStatus()"/>
+                        </apex:pageBlockSectionItem>                      
+                       <!-- -->
+                    </apex:pageBlockSection>
+                    <!-- <apex:pageBlockSection title="Attachment" columns="1" >
+                         <apex:pageBlockSectionItem >
+                            <apex:inputCheckbox styleClass="messageAttachment" id="checkShow" value="{!requiredAttachmentCreation}"/>
+                            <apex:outputLabel >Create Attachment?</apex:outputLabel>
+                        </apex:pageBlockSectionItem>
+                    </apex:pageBlockSection> -->
+                    <!-- <apex:actionFunction action="{!generateAttachmentFile}" name="af_generateReportDoc" reRender="jsPanel" oncomplete="generateReportDoc('{!fileType}'); return false;">
+                    </apex:actionFunction> -->  
+                </apex:pageBlock>
+                <apex:outputPanel id="filterSection">
+        <table id="billTable" border="0" width="100%">
+            <tr bgcolor="#bfc4d4">
+                <th class="cell_border" style="text-align: center;">
+                    <input type="checkbox" id="checkBoxAll" class="checkBoxAll" onchange="onchangeCheckBoxAll(); return false" />
+                </th>
+                <th class="cell_border" style="text-align: center;">F/TMS Bill ID </th>
+                <th class="cell_border" style="text-align: center;">Invoice To</th>
+                <th class="cell_border" style="text-align: center;">Payment To</th>
+                <th class="cell_border" style="text-align: center;">Outbound Debit No.</th>
+                <th class="cell_border" style="text-align: center;">Outbound Credit No.</th>
+                <th class="cell_border" style="text-align: center;">Bill Name at Print(Eng)</th>
+                <th class="cell_border" style="text-align: center;">Quantity</th>
+                <th class="cell_border" style="text-align: center;">Charge Unit</th>
+                <th class="cell_border" style="text-align: center;">Currency-Selling</th>
+                <!-- <th class="cell_border" style="text-align: center;">Tax Rate-Selling</th> -->
+                <th class="cell_border" style="text-align: center;">Total Amount of Selling</th>
+                <th class="cell_border" style="text-align: center;">Total Selling Incl Tax</th>
+                <th class="cell_border" style="text-align: center;">Currency-Buying</th>
+                <th class="cell_border" style="text-align: center;">Total Amount of Buying</th>
+                <th class="cell_border" style="text-align: center;">Total Buying Incl Tax</th>
+                <!-- <th class="cell_border" style="text-align: center;">Total Amount of Selling (Local)</th>
+                <th class="cell_border" style="text-align: center;">Total Selling Incl Tax (Local)</th> -->
+            </tr>
+            <apex:repeat value="{!arrResult2}" var="bill">
+                <tr bgcolor="#d4dadc">
+                    <td class="cell_border" style="text-align: center;">
+                        <!-- <div style="{!IF(bill.InvoiceTo__c == agentID, '', 'display:none;')}">
+
+                            <input id="action" type="checkbox" class="shipment{!bill.Id} shipment" onchange="onchangeCheckBox('{!bill.Id}'); return false" />
+                        </div> -->
+                        <!-- <div style="{!IF((bill.InvNoonCreditfromCompany__c == null && bill.PaymentTo__c == agentID), '', 'display:none;')}">
+
+                            <input id="action" type="checkbox" class="shipment{!bill.Id} shipment" onchange="onchangeCheckBox('{!bill.Id}'); return false" />
+                        </div> -->
+                        <!-- <div style="{!IF((bill.OutboundVATInvNo__c != null && bill.InvoiceTo__c == agentID), '', 'display:none;')}">
+                            <input id="action" type="checkbox" class="shipment{!bill.Id} shipment" onchange="onchangeCheckBox('{!bill.Id}'); return false" disabled ="disabled"/>
+                        </div>
+                        <div style="{!IF((bill.InvNoonCreditfromCompany__c != null && bill.PaymentTo__c == agentID), '', 'display:none;')}">
+
+                            <input id="action" type="checkbox" class="shipment{!bill.Id} shipment" onchange="onchangeCheckBox('{!bill.Id}'); return false" disabled ="disabled"/>
+                        </div> -->
+                        <div style="{!IF((bill.OutboundVATInvNo__c == null && bill.InvNoonCreditfromCompany__c == null) || 
+                                        (bill.OutboundVATInvNo__c == null && bill.InvoiceTo__c == customerValue && bill.InvNoonCreditfromCompany__c != null) || 
+                                        (bill.InvNoonCreditfromCompany__c == null && bill.PaymentTo__c == customerValue && bill.OutboundVATInvNo__c != null), '', 'display:none;')}">
+                            <input id="action" type="checkbox" class="shipment{!bill.Id} {!IF((bill.OutboundVATInvNo__c == null && bill.InvNoonCreditfromCompany__c == null) || 
+                                                                                                (bill.OutboundVATInvNo__c == null && bill.InvoiceTo__c == customerValue && bill.InvNoonCreditfromCompany__c != null) || 
+                                                                                                (bill.InvNoonCreditfromCompany__c == null && bill.PaymentTo__c == customerValue && bill.OutboundVATInvNo__c != null) , 'shipment', 'none')}" onchange="onchangeCheckBox('{!bill.Id}'); return false" />
+                        </div>
+                        <div style="{!IF((bill.OutboundVATInvNo__c != null && bill.InvNoonCreditfromCompany__c != null) || (bill.PaymentTo__c == customerValue && bill.InvNoonCreditfromCompany__c != null) || (bill.OutboundVATInvNo__c != null && bill.InvoiceTo__c == customerValue), '', 'display:none;')}">
+                            <input id="action1" type="checkbox" class="none" disabled ="disabled"/>
+                        </div>
+                        <!-- <input id="action" type="checkbox" class="shipment{!bill.Id} shipment" onchange="onchangeCheckBox('{!bill.Id}'); return false" /> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.Name}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.InvoiceTo__r.Name}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.PaymentTo__r.Name}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.OutboundVATInvNo__c}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.InvNoonCreditfromCompany__c}" />
+                    </td>
+                    <!-- <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0, date, MMM'-'d'-'yyyy}">
+                            <apex:param value="{!bill.OutboundInvDate__c}" />
+                        </apex:outputText>
+                    </td> -->
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.BillNameatPrintENG__c}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.ChargeQuantity__c}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.ChargeUnit__c}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.CurrencySelling__c}" />
+                    </td>
+                    <!-- <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.TaxRateSelling__c}" />
+                    </td> -->
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalAmountofSellingFCY__c}" />
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!bill.TotalAmountofSellingFCY__c}" /> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalSellingInclTaxFCY__c}" />
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!bill.TotalSellingInclTaxFCY__c}" /> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{!bill.CurrencyBuying__c}" />
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalAmountofBuyingFCY__c}" />
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!bill.TotalAmountofSellingFCY__c}" /> -->
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalBuyingInclTaxFCY__c}" />
+                        </apex:outputText>
+                        <!-- <apex:outputText value="{!bill.TotalSellingInclTaxFCY__c}" /> -->
+                    </td>
+                    <!-- <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalAmountofSellingLocal__c}" />
+                        </apex:outputText>
+                    </td>
+                    <td class="cell_border" style="text-align: center;">
+                        <apex:outputText value="{0,number,###,###,###,##0.00}">
+                            <apex:param value="{!bill.TotalSellingInclTaxLocal__c}" />
+                        </apex:outputText>
+                    </td> -->
+                    
+                </tr>
+            </apex:repeat>
+           
+        </table>
+        </apex:outputPanel>
+                <apex:outputPanel id="jsPanel">
+            <script type="text/javascript">
+            function checkStatus(){
+                var Draft =  document.querySelector('.messageCheckbox').checked;
+                var Official = document.querySelector('.messageCheckboxSignatue').checked;
+                var s = document.getElementsByClassName("oubound")[0];
+                var value = s.options[s.selectedIndex].value;
+                console.log('hihih: ' + value);
+                if(Draft === true){
+                    document.querySelector('.messageCheckboxSignatue').disabled = true;
+                }
+                else{
+                    document.querySelector('.messageCheckboxSignatue').disabled = false;
+                }
+
+                if(Official === true){
+                    document.querySelector('.messageCheckbox').disabled = true;
+                }
+                else{
+                    document.querySelector('.messageCheckbox').disabled = false;
+                }
+
+                // if(value !== 'None'){
+                //     document.querySelector('.messageCheckbox').disabled = true;
+                //     document.querySelector('.messageCheckboxOfficial').disabled = true;
+                // }
+                // else{
+                //     document.querySelector('.messageCheckbox').disabled = false;
+                //     document.querySelector('.messageCheckboxOfficial').disabled = false;
+                // }
+            }
+            function generateReportDoc(docType){
+                var Draft =  document.querySelector('.messageCheckbox').checked;
+                var Official = document.querySelector('.messageCheckboxSignatue').checked;
+                // var requiredAttachmentCreation = document.querySelector('.messageAttachment').checked;
+
+                var s = document.getElementsByClassName("oubound")[0];
+                var value = s.options[s.selectedIndex].value;
+
+                var e = document.getElementsByClassName("accountt")[0];
+                var customerValue = e.options[e.selectedIndex].value;
+                
+                // var e = document.getElementsByClassName("title")[0];
+                // var title = e.options[e.selectedIndex].value;
+               
+                var billcheckeds = j$('.shipment:checkbox:checked');
+                var ankenIds = [];
+                    for (var i = 0; i < billcheckeds.length; i++) {
+                        var idAnken = billcheckeds[i].className.replace(/\s/g, "").replace(/shipment/g, "");
+                        ankenIds.push(idAnken);
+                    };
+                var strAkens = ankenIds.join(',');
+                console.log('log attach3 :'+strAkens);
+                var url;
+                url = '/apex/page_PrintInvoiceSO?'
+                url += 'Id=' + '{!JSENCODE(shipmentId)}';          
+                url += '&Draft=' + Draft;
+                url += '&Official=' + Official;
+                // url += '&requiredAttachmentCreation=' + requiredAttachmentCreation;
+                // url += '&agentId=' + '{!JSENCODE(agentID)}';
+                url += '&customerValue=' + customerValue;
+                url += '&Invoice=' + value;
+                url += '&BillId=' + strAkens;
+                console.log('&Invoice=' + value);
+                
+                if((strAkens === null || strAkens === '') && (value === 'none')){
+                    window.alert("Please choose Bill below before Generate!!!");
+                } else {
+                    
+                    // updateDebit(strAkens, Official);
+                    updateDebit(strAkens, customerValue, Official);
+                    window.open(url,'_blank');
+                }
+                    // else{
+                        // updateDebit(strAkens, customerValue, Official);
+                // PrintAtt(requiredAttachmentCreation,value);
+                
+                // window.open(url,'_blank');
+                    // }
+                
+                
+            }
+
+            function handleSelectChange(){
+                var s = document.getElementsByClassName("oubound")[0];
+                var value = s.options[s.selectedIndex].value;
+                var e = document.getElementsByClassName("accountt")[0];
+                var customerValue = e.options[e.selectedIndex].value;
+                var billcheckeds = j$('.shipment:checkbox:checked');
+                var ankenIds = [];
+                    for (var i = 0; i < billcheckeds.length; i++) {
+                        var idAnken = billcheckeds[i].className.replace(/\s/g, "").replace(/shipment/g, "");
+                        ankenIds.push(idAnken);
+                    };
+                var strAkens = ankenIds.join(',');
+                console.log('log attach3 :'+strAkens);
+                
+                var url;
+                url = '/apex/InvoiceSOSelection?';
+                url += 'Id=' + '{!JSENCODE(shipmentID)}';
+                // url += '&agentId=' + '{!JSENCODE(agentID)}';
+                url += '&customerValue=' + customerValue;
+                url += '&Invoice=' + value;
+                // url += '&BillId=' + strAkens;
+                
+
+                console.log(url);
+                // SaveOnchange(value);
+                window.location.href = url;
+                
+            }
+            function handleInvoiceChange(){
+                
+                
+                var e = document.getElementsByClassName("accountt")[0];
+                var customerValue = e.options[e.selectedIndex].value;
+                
+                var s = document.getElementsByClassName("oubound")[0];
+                var value = s.options[s.selectedIndex].value;
+
+                var billcheckeds = j$('.shipment:checkbox:checked');
+                var ankenIds = [];
+                    for (var i = 0; i < billcheckeds.length; i++) {
+                        var idAnken = billcheckeds[i].className.replace(/\s/g, "").replace(/shipment/g, "");
+                        ankenIds.push(idAnken);
+                    };
+                var strAkens = ankenIds.join(',');
+                console.log('log attach3 :'+strAkens);
+                //af_generateReportDoc(docType,strAkens);
+                var url;
+                url = '/apex/InvoiceSOSelection?';
+                url += 'Id=' + '{!JSENCODE(shipmentID)}';
+                // url += '&agentId=' + '{!JSENCODE(agentID)}';
+                // url += '&Invoice=' + value;
+                url += '&customerValue=' + customerValue;
+                // url += '&BillId=' + strAkens;
+                
+
+                console.log(url);
+                // SaveOnchange(value,customerValue);
+                window.location.href = url;
+                
+            }
+            
+            </script>
+        </apex:outputPanel>
+            </apex:form>
+            <apex:form >
+        <apex:actionFunction name="updateDebit" action="{!updateDebitNo}" reRender="none" oncomplete="">
+            <apex:param value="" name="strAkens" />
+            <apex:param value="" name="customerValue"/>
+            <apex:param value="" name="checkOfficial" />
+        </apex:actionFunction>
+        <!-- <apex:actionFunction name="SaveOnchange" action="{!saveOnchangeApex}" reRender="jsPanel, filterSection">
+            <apex:param value="" name="Seikyusaki"/>
+            <apex:param value="" name="customerValue"/>
+        </apex:actionFunction> -->
+        <!-- <apex:actionFunction name="PrintAtt" action="{!generateAttachmentFile}" reRender="">
+            <apex:param value="" name="requiredAttachmentCreation"/>
+            <apex:param value="" name="value"/>
+        </apex:actionFunction> -->
+    </apex:form>
+</apex:page>

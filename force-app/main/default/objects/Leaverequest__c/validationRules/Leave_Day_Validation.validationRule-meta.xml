@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Leave_Day_Validation</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+  RecordType.Name = &apos;Normal Leave&apos;,
+  ISCHANGED(Status__c),
+  ( LeaveusedHalf__c/2  + LeaveusedFull__c) &gt; 0,
+  ISPICKVAL(Status__c, &apos;Canceled&apos;)
+)</errorConditionFormula>
+    <errorMessage>This Leave Request has been used and cannot be canceled!</errorMessage>
+</ValidationRule>

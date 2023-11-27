@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>57.0</apiVersion>
+    <assignments>
+        <name>Assign_Mconsignee_s_Detail_Information</name>
+        <label>Assign Mconsignee&apos;s Detail Information</label>
+        <locationX>854</locationX>
+        <locationY>689</locationY>
+        <assignmentItems>
+            <assignToReference>record_for_update.MasterConsigneesDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Mconsignee_Detail_Information_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>MasterNotify_s_Detail_Information</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Mnotify_s_Detail_Information</name>
+        <label>Assign Mnotify&apos;s Detail Information</label>
+        <locationX>851</locationX>
+        <locationY>854</locationY>
+        <assignmentItems>
+            <assignToReference>record_for_update.MasterNotifyPartysDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MNotify_Detail_Information_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Update_F_tms_S_o</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Mshipper_s_Detail_Information</name>
+        <label>Assign Mshipper&apos;s Detail Information</label>
+        <locationX>842</locationX>
+        <locationY>524</locationY>
+        <assignmentItems>
+            <assignToReference>record_for_update.MasterShippersDetailInformation__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>MshipperInformation_formula</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>MasterConsignee_s_Detail_Information</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Asssign_record</name>
+        <label>Asssign record</label>
+        <locationX>622</locationX>
+        <locationY>382</locationY>
+        <assignmentItems>
+            <assignToReference>record_for_update</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>MasterShipper_s_Detail_Information</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <name>MasterConsignee_s_Detail_Information</name>
+        <label>Master Consignee&apos;s Detail Information</label>
+        <locationX>623</locationX>
+        <locationY>677</locationY>
+        <defaultConnector>
+            <targetReference>MasterNotify_s_Detail_Information</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Null_Mconsignee_s_Detail_Information</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterConsigneesDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterConsignee__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Mconsignee_s_Detail_Information</targetReference>
+            </connector>
+            <label>Null Master Cosignee&apos;s Detail Information</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>MasterNotify_s_Detail_Information</name>
+        <label>Master Notify&apos;s Detail Information</label>
+        <locationX>625</locationX>
+        <locationY>849</locationY>
+        <defaultConnector>
+            <targetReference>Update_F_tms_S_o</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Null_MasterNotify_s_Detail_Information</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterNotifyPartysDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterNotifyParty__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Mnotify_s_Detail_Information</targetReference>
+            </connector>
+            <label>Null Master Notify&apos;s Detail Information</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>MasterShipper_s_Detail_Information</name>
+        <label>Master Shipper&apos;s Detail Information</label>
+        <locationX>607</locationX>
+        <locationY>536</locationY>
+        <defaultConnector>
+            <targetReference>MasterConsignee_s_Detail_Information</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Null_Mastershipper_s_Detail_Information</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.MasterShippersDetailInformation__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.MasterShipper__c</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Mshipper_s_Detail_Information</targetReference>
+            </connector>
+            <label>Null Master Shipper&apos;s Detail Information</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>Customer_Detail_Information_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Customer__r.AccountNameENG__c} )), {!$Record.Customer__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.Customer__r.EnglishAddress__c})), {!$Record.Customer__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.Customer__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Customer__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>Delivery_Party_Details_formula</name>
+        <dataType>String</dataType>
+        <expression>IF (NOT(ISBLANK( {!$Record.ForDeliveryofGoodsapplyto__r.AccountNameENG__c} )), {!$Record.ForDeliveryofGoodsapplyto__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.ForDeliveryofGoodsapplyto__r.EnglishAddress__c})), {!$Record.ForDeliveryofGoodsapplyto__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.ForDeliveryofGoodsapplyto__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.ForDeliveryofGoodsapplyto__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>House_Notify_Detail_Information_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.HouseNotifyParty__r.AccountNameENG__c} )), {!$Record.HouseNotifyParty__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.HouseNotifyParty__r.EnglishAddress__c})), {!$Record.HouseNotifyParty__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.HouseNotifyParty__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.HouseNotifyParty__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>Mconsignee_Detail_Information_formula</name>
+        <dataType>String</dataType>
+        <expression>IF (NOT(ISBLANK({!$Record.MasterConsignee__r.AccountNameENG__c} )), {!$Record.MasterConsignee__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterConsignee__r.EnglishAddress__c})), {!$Record.MasterConsignee__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterConsignee__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterConsignee__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>MNotify_Detail_Information_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.MasterNotifyParty__r.AccountNameENG__c} )), {!$Record.MasterNotifyParty__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterNotifyParty__r.EnglishAddress__c})), {!$Record.MasterNotifyParty__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterNotifyParty__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterNotifyParty__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>MshipperInformation_formula</name>
+        <dataType>String</dataType>
+        <expression>IF (NOT(ISBLANK({!$Record.MasterShipper__r.AccountNameENG__c} )), {!$Record.MasterShipper__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterShipper__r.EnglishAddress__c})), {!$Record.MasterShipper__r.EnglishAddress__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.MasterShipper__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.MasterShipper__r.Phone}, NULL)</expression>
+    </formulas>
+    <formulas>
+        <name>Shipper_Detail_Information_formula</name>
+        <dataType>String</dataType>
+        <expression>IF(NOT(ISBLANK( {!$Record.Shipper__r.AccountNameENG__c} )), {!$Record.Shipper__r.AccountNameENG__c} , NULL) + &quot; &quot; + BR()&amp;
+IF(NOT(ISBLANK({!$Record.Shipper__r.EnglishAddress__c})), {!$Record.Shipper__r.EnglishAddress__c} , NULL) + &quot; &quot; +BR()&amp;
+IF(NOT(ISBLANK({!$Record.Shipper__r.Phone})), &quot; &quot; + &quot;TEL:&quot; +&quot; &quot;+ {!$Record.Shipper__r.Phone}, NULL)</expression>
+    </formulas>
+    <interviewLabel>F/TMS S/O| Update SI Information {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>F/TMS S/O| Update SI Information</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_F_tms_S_o</name>
+        <label>Update F/tms S/o</label>
+        <locationX>738</locationX>
+        <locationY>1030</locationY>
+        <inputReference>record_for_update</inputReference>
+    </recordUpdates>
+    <start>
+        <locationX>490</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Asssign_record</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>MasterShipper__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterConsignee__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterNotifyParty__c</field>
+            <operator>IsChanged</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterShippersDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterConsigneesDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <filters>
+            <field>MasterNotifyPartysDetailInformation__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <object>FTMSSO__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Obsolete</status>
+    <variables>
+        <name>record_for_update</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>FTMSSO__c</objectType>
+    </variables>
+</Flow>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PreventupdateAccounttoOfficialSupplier</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+RecordType.DeveloperName = &quot;Vendor&quot;,
+TEXT(Type_of_Account__c) = &apos;Official&apos;, 
+OR (
+ISBLANK( NumberOfEmployees ),
+ISBLANK ( NumberofOffices__c ),
+ISBLANK ( Charter_capital__c ),
+ISBLANK (TEXT( Company_Established_Date__c )),
+ISBLANK (TEXT(  CreditTerm__c )),
+ISBLANK (   CreditLimit__c ),
+ISBLANK ( Routing__c )
+
+))</errorConditionFormula>
+    <errorMessage>PLEASE INPUT ALL PROSPECT INFORMATION BEFORE UPDATE ACCOUNT TO &quot;OFFICIAL&quot;</errorMessage>
+</ValidationRule>

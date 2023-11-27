@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TCL_Inventory_record_Owner_Inventory</fullName>
+    <filterScope>Queue</filterScope>
+    <label>TCL - Inventory record Owner</label>
+    <queue>TCL_Inventory_record_Owner</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

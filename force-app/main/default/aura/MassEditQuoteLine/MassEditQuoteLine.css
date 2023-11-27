@@ -1,0 +1,22 @@
+.THIS .slds-form-element__icon {
+    display: none !important;
+}
+.THIS textarea {
+    max-height: 32px;
+    resize: none;
+    overflow-y: hidden;
+}
+
+.THIS .validateMess {
+    display: none;
+}
+.THIS .validateMess.active {
+    display: block;
+}
+.THIS .forceToastMessage .slds-notify--toast {
+    background-color : red !important;
+}
+.THIS .slds-form-element__label {
+    display: none !important;
+    padding: 0px !important;
+}

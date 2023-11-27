@@ -1,0 +1,680 @@
+<aura:component
+  controller="MassUpdateConsolBillControllerV4"
+  implements="force:hasRecordId,force:hasSObjectName,flexipage:availableForRecordHome"
+  access="global"
+>
+  <aura:attribute name="id" type="String" />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  <!-- <aura:handler event="force:refreshView" action="{!c.handleRefreshView }" /> -->
+  <!-- <lightning:workspaceAPI aura:id="workspace" />
+  <aura:handler event="lightning:tabRefreshed" action="{! c.onTabRefreshed }"/> -->
+  <aura:attribute name="ListWapper" type="List" />
+  <aura:attribute name="listChild" type="List" />
+  <aura:attribute name="listIds2" type="List" />
+  <!-- <aura:handler event=”force:refreshView” action=”{!c.init}” /> -->
+  <!-- <aura:attribute name="ListWapper2" type="ConsolBill__c[]" /> -->
+  <aura:attribute name="ListWapper2" type="List"/>
+  <aura:attribute name="isLoading" type="Boolean" default="false"/>
+  <aura:attribute
+    name="iconDown"
+    type="String"
+    default="https://afr-wms.file.force.com/servlet/servlet.ImageServer?id=0155i000000R35O&amp;oid=00D5i00000CHEMI&amp;lastMod=1689847786000"
+  />
+  <!-- <aura:attribute name="isFirstRecord" type="Boolean" default="false" /> -->
+  <aura:attribute
+    name="labels"
+    type="List"
+    default="[
+    {name: 'Master Billing', style: 'width: 130px !important'},
+  
+    {name: 'Name', style: 'width: 130px'},
+    {name: 'Pricing Name', style: 'width: 130px'},
+    {name: 'F/TMS S/O', style: 'width: 130px'},
+    {name: 'Charge Unit', style: 'width: 120px'},
+  
+    {name: 'Quantity', style: 'width: 130px'},
+    {name: 'Container Type', style: 'width: 130px'},
+    {name: 'Invoice to', style: 'width: 130px;'},
+    {name: 'Currency-Selling', style: 'width: 100px;'},
+    {name: 'Unit Price of Selling (Actual)', style: 'width: 100px;'},
+    {name: 'Tax Ratio-Selling', style: 'width: 100px;'},
+    {name: 'Tax Included-Selling', style: 'width: 60px;'},
+    {name: 'Payment To', style: 'width: 160px'},
+    {name: 'Unit Price of Buying (Actual)', style: 'width: 130px;'},
+    {name: 'Tax Ratio-Buying', style: 'width: 110px'},
+    {name: 'Tax Included-Buying', style: 'width: 60px'},
+    ]"
+  />
+
+  <aura:attribute
+    name="fields"
+    type="List"
+    default="[
+    {name: 'MasterBilling__c', style: 'width: 130px !important;'},
+  
+    {name: 'Name', style: 'width: 130px !important;'},
+    {name: 'PricingName__c', style: 'width: 130px !important;'},
+    {name: 'FTMSSO__c', style: 'width: 130px !important;'},
+    {name: 'ChargeUnit__c', style: 'width: 120px !important'},
+  
+    {name: 'Quantity__c', style: 'width: 130px'},
+    {name: 'Container_Type__c', style: 'width: 130px'},
+    {name: 'Invoiceto__c', style: 'width: 130px'},
+    {name: 'CurrencySelling__c', style: 'width: 100px'},
+    {name: 'UnitPriceofSellingActual__c', style: 'width: 100px'},
+    {name: 'TaxRatioSelling__c', style: 'width: 100px;'},
+    {name: 'Tax_Included_Selling__c', style: 'width: 60px;text-align: center !important;'},
+    {name: 'PaymentTo__c', style: 'width: 160px'},
+    {name: 'UnitPriceofBuyingActual__c', style: 'width: 130px'},
+    {name: 'TaxRatioBuying__c', style: 'width: 110px'},
+    {name: 'Tax_Included__c', style: 'width: 60px;text-align: center !important;'},
+    ]"
+  />
+  <aura:handler name="init" value="{!this}" action="{!c.init}" />
+  
+
+
+
+  <div style="margin-top: 50px;overflow-x: auto; overflow-y: auto;display: block;height: 450px;">
+    <div class="hide">
+      <div aura:id="loadingSection" class="{!'slds-spinner_container' + (v.isLoading ? '' : ' slds-hide')}">
+        <div class="slds-spinner--brand slds-spinner slds-spinner--large" role="alert">
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="display: block;width: 137%; margin-bottom: 200px;">
+      <lightning:spinner aura:id="spinner" class="slds-hide" />
+      <div style="margin-bottom: 180px;">
+          <!-- <table class="smallMobie" style="margin-left: 0px;width: 1877px;border: 1px solid #c9c9c9; border-bottom: none;">
+            <tr class="headertr"  style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;position: sticky;top: 65px;z-index: 10;">
+              <th style="width: 12px;">
+  
+              </th>
+              <th style="width: 110px;text-align: center;">
+                <div>Name</div>
+              </th>
+              <th style="width: 174px;text-align: center;">
+                <div>Pricing Name</div>
+              </th>
+              <th style="width: 120px;text-align: center;">
+                <div>Charge Unit</div>
+              </th>
+              <th style="width: 120px;text-align: center;">
+                <div>Quantity</div>
+              </th>
+              <th style="width: 134px;text-align: center;">
+                <div>Container Type</div>
+              </th>
+  
+              <th style="width: 177px;text-align: center;">
+                <div>Invoice to</div>
+              </th>
+              <th style="width: 130px;text-align: center;">
+                <div>Currency-Selling</div>
+              </th>
+              <th style="width: 140px;text-align: center;">
+                <div>Unit Price of Selling (Actual)</div>
+              </th>
+              <th style="width: 132px;text-align: center;">
+                <div>Tax Ratio-Selling</div>
+              </th>
+              <th style="width: 100px;text-align: center;">
+                <div>Tax Included-Selling</div>
+              </th>
+              <th style="width: 178px;text-align: center;">
+                <div>Payment To</div>
+              </th>
+              <th style="width: 110px;text-align: center;">
+                <div>Currency-Buying</div>
+              </th>
+              <th style="width: 141px;text-align: center;">
+                <div>Unit Price of Buying (Actual)</div>
+              </th>
+              <th style="width: 130px;text-align: center;">
+                <div>Tax Ratio-Buying</div>
+              </th>
+              <th style="width: 90px;text-align: center;">
+                <div>Tax Included-Buying</div>
+              </th>
+            </tr>
+          </table> -->
+  
+          <lightning:messages />
+          <table class="smallMobie" style="width: 1900px;border: 1px solid #c9c9c9; border-bottom: none;">
+            <tr class="headertr" style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;position: sticky;top: -1px;z-index: 10;border-top: 1px solid #c9c9c9">
+              <tr class="headertr" style="border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;position: sticky;top: 65px;z-index: 10;border-top: 1px solid #c9c9c9">
+                <th style="width: 12px;">
+  
+                </th>
+                <th style="min-width: 100px;text-align: center;">
+                  <div>Name</div>
+                </th>
+                <th style="min-width: 167px;text-align: center;">
+                  <div>Pricing Name</div>
+                </th>
+                <th style="min-width: 120px;text-align: center;">
+                  <div>Charge Unit</div>
+                </th>
+                <th style="min-width: 102px;text-align: center;">
+                  <div>Quantity</div>
+                </th>
+                <th style="min-width: 130px;text-align: center;">
+                  <div>Container Type</div>
+                </th>
+    
+                <th style="min-width: 166px;text-align: center;">
+                  <div>Invoice to</div>
+                </th>
+                <th style="min-width: 120px;text-align: center;">
+                  <div>Currency-Selling</div>
+                </th>
+                <th style="min-width: 110px;text-align: center;">
+                  <div>Unit Price of Selling (Actual)</div>
+                </th>
+                <th style="min-width: 130px;text-align: center;">
+                  <div>Tax Ratio-Selling</div>
+                </th>
+                <th style="min-width: 76px;text-align: center;">
+                  <div>Tax Included-Selling</div>
+                </th>
+                <th style="min-width: 155px;text-align: center;">
+                  <div>Payment To</div>
+                </th>
+                <th style="min-width: 120px;text-align: center;">
+                  <div>Currency-Buying</div>
+                </th>
+                <th style="min-width: 90px;text-align: center;">
+                  <div>Unit Price of Buying (Actual)</div>
+                </th>
+                <th style="min-width: 122px;text-align: center;">
+                  <div>Tax Ratio-Buying</div>
+                </th>
+                <th style="min-width: 110px;text-align: center;">
+                  <div>Tax Included-Buying</div>
+                </th>
+              </tr>
+            </tr>
+            <!-- <aura:if isTrue="{!v.isFirstRecord == false}"> -->
+              <tbody>
+                <aura:iteration items="{!v.ListWapper2}" var="field">
+                  <lightning:recordEditForm
+                    aura:id="recordEditForm"
+                    recordId="{!field.Id}"
+                    objectApiName="ConsolBill__c"
+                  >
+                    <tr style="line-height: 50px;border-bottom: 1px solid #c9c9c9;">
+                      <aura:if isTrue="{!field.Consol_Bills__r.length > 0}">
+                        <td
+                        style="min-width: 40px; cursor: pointer"
+                        onclick="{!c.togglePackageList}"
+                        data-index="{!field.Id}"
+                      >
+                        <img
+                          src="{!v.iconDown}"
+                          alt="icon"
+                          height="15px"
+                          width="15px"
+                          style="width: 24px; height: auto;"
+                          class="imageDown"
+                        />
+                      </td>
+                      <aura:set attribute="else">
+                        <td style="width: 50px" >
+                          <img
+                          src="{!v.iconDown}"
+                          alt="icon"
+                          height="15px"
+                          width="15px"
+                          style="width: 24px; height: auto; display: none;"
+                          class="imageDown"
+                        />   
+                         </td>
+                      </aura:set>
+                      </aura:if>
+                      <!-- <td style="width: 107px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="ms"
+                          variant="label-hidden"
+                          fieldName="MasterBilling__c"
+                        />
+                      </td> -->
+                      <td style="min-width: 100px !important;padding: 0 4px;">
+                        <a href="{! '/'+ field.Id}" target="_blank">
+                          <!-- <lightning:inputField
+                            aura:id="msBill"
+                            variant="label-hidden"
+                            fieldName="Name"
+                            value="{!field.Name}"
+                          />   -->
+                          {!field.Name}
+                        </a>
+                      </td>
+                      <td style="min-width: 167px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="prN"
+                          variant="label-hidden"
+                          fieldName="PricingName__c"
+                          value="{!field.PricingName__c}"
+                        />
+                      </td>
+                      <!-- <td style="width: 200px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="ship"
+                          variant="label-hidden"
+                          fieldName="FTMSSO__c"
+                        />
+                      </td> -->
+                      <td style="min-width: 120px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="cUnit"
+                          variant="label-hidden"
+                          fieldName="ChargeUnit__c"
+                          value="{!field.ChargeUnit__c}"
+                        />
+                      </td>
+                      <td style="min-width: 102px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="quanTy"
+                          variant="label-hidden"
+                          fieldName="Quantity__c"
+                          value="{!field.Quantity__c}"
+                        />
+                      </td>
+                      <td style="min-width: 130px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="conT"
+                          variant="label-hidden"
+                          disabled="{!field.ChargeUnit__c != 'Container'}"
+                          fieldName="Container_Type__c"
+                          value="{!field.Container_Type__c}"
+                        />
+                      </td>
+                      <td style="min-width: 166px !important;padding: 0 4px;">
+                        <lightning:inputField
+                        variant="label-hidden"
+                        fieldName="Invoiceto__c"
+                        value="{!field.Invoiceto__c}"
+                        />
+                      </td>
+                      <td style="min-width: 120px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="curS"
+                          variant="label-hidden"
+                          fieldName="CurrencySelling__c"
+                          value="{!field.CurrencySelling__c}"
+                        />
+                      </td>
+                      <td style="min-width: 125px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="uSell"
+                          variant="label-hidden"
+                          fieldName="UnitPriceofSellingActual__c"
+                          value="{!field.UnitPriceofSellingActual__c}"
+                        />
+                      </td>
+                      <td style="min-width: 138px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="taxS"
+                          variant="label-hidden"
+                          fieldName="TaxRatioSelling__c"
+                          value="{!field.TaxRatioSelling__c}"
+                        />
+                      </td>
+                      <td style="min-width: 76px !important; text-align: center;padding: 0 4px;">
+                        <lightning:input
+                          aura:id="taIS"
+                          variant="label-hidden"
+                          type="checkbox"
+                          fieldName="Tax_Included_Selling__c"
+                          value="{!field.Tax_Included_Selling__c}"
+                          checked="{!field.Tax_Included_Selling__c}"
+                        />
+                      </td>
+                      <td style="min-width: 166px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="payT"
+                          variant="label-hidden"
+                          fieldName="PaymentTo__c"
+                          value="{!field.PaymentTo__c}"
+                        />
+                      </td>
+                      <td style="padding: 0 4px; min-width: 120px;">
+                        <lightning:inputField
+                            aura:id="cuuB"
+                            variant="label-hidden"
+                            fieldName="CurrencyBuying__c"
+                            value="{!field.CurrencyBuying__c}"
+                          />
+                      </td>
+                      <td style="min-width: 125px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="unitP"
+                          variant="label-hidden"
+                          fieldName="UnitPriceofBuyingActual__c"
+                          value="{!field.UnitPriceofBuyingActual__c}"
+                        />
+                      </td>
+                      <td style="min-width: 138px !important;padding: 0 4px;">
+                        <lightning:inputField
+                          aura:id="taxRB"
+                          variant="label-hidden"
+                          fieldName="TaxRatioBuying__c"
+                          value="{!field.TaxRatioBuying__c}"
+                        />
+                      </td>
+                      <td style="min-width: 76px !important; text-align: center;padding: 0 4px;">
+                        <lightning:input
+                          aura:id="taxI"
+                          type="checkbox"
+                          variant="label-hidden"
+                          fieldName="Tax_Included__c"
+                          value="{!field.Tax_Included__c}"
+                          checked="{!field.Tax_Included__c}"
+                        />
+                      </td>
+                      <!-- <td onclick="{!c.onDelete}" data-recordid="{!field.Id}" onsuccess="{!c.handleSuccess}">
+                        <lightning:button
+                          variant="brand"
+                          
+                          name="Delete"
+                          label="Delete"
+                          
+                        /> -->
+                        <div onclick="{!c.onDelete}" data-recordid="{!field.Id}" onsuccess="{!c.handleSuccess}">
+                          <a
+  
+                            >
+                              <lightning:icon
+                                iconName="utility:delete"
+                                size="small"
+                                alternativeText="Delete"
+                                
+                              />
+                              <span class="slds-assistive-text">Delete</span>
+                            </a>
+                        </div>
+                      <!-- </td> -->
+                    </tr>
+                  </lightning:recordEditForm>
+                  <tr>
+                    <td colspan="10" style="padding: 0; border: none">
+                      <div
+                        class="{!field.Id}"
+                        style="
+                          display: none;
+                          position: relative;
+                          transition: all ease .3s;
+                        "
+                      >
+                        <table
+                          style="width: 96%; margin-left: 60px;;"
+                          class="subtable"
+                        >
+                        <tr style="width: 100%;border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;border-left: #c9c9c9;">
+                          <tr style="width: 100%;border-bottom: 1px solid #c9c9c9;background-color: #f3f3f3;">
+                            <th style="min-width: 100px;text-align: center;">
+                              <div>Name</div>
+                            </th>
+                            <th style="min-width: 147px;text-align: center;">
+                              <div>FTMSSO</div>
+                            </th>
+                            <th style="min-width: 120px;text-align: center;">
+                              <div>Charge Unit</div>
+                            </th>
+                            <th style="min-width: 102px;text-align: center;">
+                              <div>Quantity</div>
+                            </th>
+                            <th style="min-width: 130px;text-align: center;">
+                              <div>Container Type</div>
+                            </th>
+                
+                            <th style="min-width: 140px;text-align: center;">
+                              <div>Invoice to</div>
+                            </th>
+                            <th style="min-width: 120px;text-align: center;">
+                              <div>Currency-Selling</div>
+                            </th>
+                            <th style="width: 144px;text-align: center;">
+                              <div>Unit Price of Selling (Actual)</div>
+                            </th>
+                            <th style="min-width: 125px;text-align: center;">
+                              <div>Tax Ratio-Selling</div>
+                            </th>
+                            <th style="min-width: 76px;text-align: center;">
+                              <div>Tax Included-Selling</div>
+                            </th>
+                            <th style="min-width: 163px;text-align: center;">
+                              <div>Payment To</div>
+                            </th>
+                            <th style="min-width: 120px;text-align: center;">
+                              <div>Currency-Buying</div>
+                            </th>
+                            <th style="width: 127px;text-align: center;">
+                              <div>Unit Price of Buying (Actual)</div>
+                            </th>
+                            <th style="min-width: 122px;text-align: center;">
+                              <div>Tax Ratio-Buying</div>
+                            </th>
+                            <th style="width: 120px;text-align: center;">
+                              <div>Tax Included-Buying</div>
+                            </th>
+                          </tr>
+                        </tr>
+                          <aura:iteration
+                            items="{!field.Consol_Bills__r}"
+                            var="lstbill"
+                          >
+                            <lightning:recordEditForm
+                              aura:id="editForm"
+                              objectApiName="ConsolBill__c"
+                              recordId="{!lstbill.Id}"
+                             
+                            >
+                              <lightning:messages />
+                              <tr style="border-bottom: 1px solid #c9c9c9;position: relative;line-height: 50px;">
+                                <!-- <td>
+                                  <div style=" 
+                                    
+                                    width: 47px;
+                                    height: 27%;
+                                    border-bottom-left-radius: 10px;
+                             
+                                    border-left: 1px solid #ba0517;
+                                    border-bottom: 1px solid #ba0517">
+
+                                  </div>
+                                </td> -->
+                                <td class="firstBorder" style="width: 100px !important;padding: 0 4px;border-left: 2px solid rgb(248, 166, 166);">
+                                  <a href="{! '/'+ lstbill.Id}" target="_blank">
+                                    <!-- <lightning:inputField
+                                      aura:id="msBill"
+                                      variant="label-hidden"
+                                      fieldName="Name"
+                                      value="{!lstbill.Name}"
+                                    /> -->
+                                    {!lstbill.Name}
+                                  </a>
+                                </td>
+                                <td style="width: 147px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="ship"
+                                    variant="label-hidden"
+                                    fieldName="FTMSSO__c"
+                                    value="{!lstbill.FTMSSO__c}"
+                                  />
+                                </td>
+                                <td style="width: 120px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="cUnit"
+                                    variant="label-hidden"
+                                    fieldName="ChargeUnit__c"
+                                    value="{!lstbill.ChargeUnit__c}"
+                                  />
+                                </td>
+                                <td style="width: 102px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="quanTy"
+                                    variant="label-hidden"
+                                    fieldName="Quantity__c"
+                                    value="{!lstbill.Quantity__c}"
+                                  />
+                                </td>
+                                <td style="width: 130px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="quanTy"
+                                    variant="label-hidden"
+                                    fieldName="Container_Type__c"
+                                    disabled="{!lstbill.ChargeUnit__c != 'Container'}"
+                                    value="{!lstbill.Container_Type__c}"
+                                  />
+                                </td>
+                                <td style="width: 166px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="inV"
+                                    variant="label-hidden"
+                                    fieldName="Invoiceto__c"
+                                    value="{!lstbill.Invoiceto__c}"
+                                  />
+                                </td>
+                                <td style="width: 120px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="curS"
+                                    variant="label-hidden"
+                                    fieldName="CurrencySelling__c"
+                                    value="{!lstbill.CurrencySelling__c}"
+                                  />
+                                </td>
+                                <td style="width: 125px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="uSell"
+                                    variant="label-hidden"
+                                    fieldName="UnitPriceofSellingActual__c"
+                                    value="{!lstbill.UnitPriceofSellingActual__c}"
+                                  />
+                                </td>
+                                <td style="width: 138px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="taxS"
+                                    variant="label-hidden"
+                                    fieldName="TaxRatioSelling__c"
+                                    value="{!lstbill.TaxRatioSelling__c}"
+                                  />
+                                </td>
+                                <td
+                                  style="
+                                  width: 76px !important;
+                                    text-align: center;;padding: 0 4px;
+                                  "
+                                >
+                                  <lightning:input
+                                    aura:id="taIS"
+                                    type="checkbox"
+                                    variant="label-hidden"
+                                    fieldName="Tax_Included_Selling__c"
+                                    value="{!lstbill.Tax_Included_Selling__c}"
+                                    checked="{!lstbill.Tax_Included_Selling__c}"
+                                  />
+                                </td>
+                                <td style="width: 166px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="payT"
+                                    variant="label-hidden"
+                                    fieldName="PaymentTo__c"
+                                    value="{!lstbill.PaymentTo__c}"
+                                  />
+                                </td>
+                                <td style="width: 120px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="curB"
+                                    variant="label-hidden"
+                                    fieldName="CurrencyBuying__c"
+                                    value="{!lstbill.CurrencyBuying__c}"
+                                  />
+                                </td>
+                                <td style="width: 125px !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="unitP"
+                                    variant="label-hidden"
+                                    fieldName="UnitPriceofBuyingActual__c"
+                                    value="{!lstbill.UnitPriceofBuyingActual__c}"
+                                  />
+                                </td>
+                                <td style="width: 138px  !important;padding: 0 4px;">
+                                  <lightning:inputField
+                                    aura:id="taxRB"
+                                    variant="label-hidden"
+                                    fieldName="TaxRatioBuying__c"
+                                    value="{!lstbill.TaxRatioBuying__c}"
+                                  />
+                                </td>
+                                <td
+                                  style="
+                                  width: 76px !important;
+                                    text-align: center;;padding: 0 4px;
+                                  "
+                                >
+                                  <lightning:input
+                                    aura:id="taxI"
+                                    type="checkbox"
+                                    variant="label-hidden"
+                                    fieldName="Tax_Included__c"
+                                    value="{!lstbill.Tax_Included__c}"
+                                    checked="{!lstbill.Tax_Included__c}"
+                                  />
+                                </td>
+                                <div style=" 
+                                  position: absolute;
+                                  width: 48px;
+                                  height: 116%;
+                                  border-bottom-left-radius: 10px;
+                                  top: -62%;
+                                  left: -49px;
+                                  border-left: 1px solid #ba0517;
+                                  border-bottom: 1px solid #ba0517">
+                                </div>
+                                <div style="
+                                  position: absolute;
+                                  border-left: 1px solid #ba0517;
+                                  width: 1px;
+                                  height: 68%;
+                                  top: -124%;
+                                  left: -49px;
+                                "></div>
+                              </tr>
+  
+                              <!-- <lightning:input aura:id="leadFirstName" type="text" label="First Name" />
+                                       <lightning:inputField aura:id="lastName" fieldName="Name" />
+                                       <lightning:inputField aura:id="cmpAct" fieldName="PricingName__c" />
+                                       <lightning:button class="slds-m-top_small" variant="brand" name="update" label="Update"/> -->
+                            </lightning:recordEditForm>
+                          </aura:iteration>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                </aura:iteration>
+                <td></td>
+              </tbody>
+            <!-- </aura:if> -->
+          </table>
+        <!-- </div> -->
+      <!-- </div> -->
+      <div style="width: 1897px;">
+        <lightning:button
+
+          class="slds-m-bottom_small"
+          onclick="{!c.onSaveAll}"
+          variant="brand"
+          type="button"
+          name="Save"
+          label="Save All"
+        />
+      </div>
+      </div>
+    </div>
+  </div>
+</aura:component>

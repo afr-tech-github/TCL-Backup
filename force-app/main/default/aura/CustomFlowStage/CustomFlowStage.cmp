@@ -1,0 +1,127 @@
+<aura:component controller="CustomApplicationStage" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId,forceCommunity:availableForAllPageTypes,force:lightningQuickAction" access="global" >
+    <aura:attribute name="stageList" type="String[]" />
+    <aura:attribute name="appTodoList" type="ApplicationToDoList__c[]" />
+    <aura:attribute name="appAssessmentList" type="Application_Assessment__c[]" />
+    <aura:attribute name="currentStage" type="String" />
+    <aura:attribute name="currentFlag" type="Boolean" default="false"/>
+    <aura:attribute name="recordId" type="String" />
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <div style="background: #fff;border-radius: 4px;box-shadow: 0px 1px 1px 1px #c0bfbf;padding: 10px 16px;">
+        <div style="display: flex;justify-content: space-between;">
+            <div class="show-more-btn">
+                <lightning:icon class="show-more-btn__icon" iconName="utility:chevronright" alternativeText="Show More" title="Show More"></lightning:icon>
+            </div>
+            <ul style="display: flex; flex: 1; margin: 0 20px;">
+                <aura:iteration items="{!v.stageList}" var="stageItem">
+                    <li class="{!'stage-item '+ IF(v.currentStage == stageItem, 'current selected', '')}" onclick="{!c.selectStage}">
+                        <div class="stage-item-wrap">
+                            <div class="stage-item-wrap__front">
+                                <lightning:icon class="stage-item__icon" iconName="utility:check" alternativeText="Mark" title=""></lightning:icon>
+                            </div>
+                            <div class="stage-item-wrap__back">
+                                <span class="stage-item-content">{!stageItem}</span>
+                            </div>
+                        </div>
+                    </li>
+                </aura:iteration>
+            </ul>
+            <div class="mark-btn complete-mark show" onclick="{!c.markAsComplete}">
+                <lightning:icon class="mark-btn__icon" iconName="utility:check" alternativeText="Mark" title=""></lightning:icon>
+                Mark Stage as Complete
+            </div>
+            <div class="mark-btn stage-mark" onclick="{!c.markAsCurrent}">
+                Mark as Current Stage
+            </div>
+        </div>
+    </div>
+    <div class="todo-box" style="display: none;margin-top: 12px; border-radius: 4px; background: #fff;border-radius: 4px;box-shadow: 0px 1px 1px 1px #c0bfbf;">
+        <div style="font-weight: 700; font-size: 16px; background-color: #f3f3f3; display: flex; padding: 16px 20px; border-radius: 4px;">
+            <img src="https://tcl-02-dev-ed.develop.my.salesforce.com/img/icon/t4v35/custom/custom9_120.png" style="background-color: #6b9ee2; border-radius: 4px; width: 24px; height: 24px; margin-right: 8px;"/>
+            Application To Do List
+        </div>
+        <div style="padding: 16px 20px 0 20px;">
+            <table>
+                <aura:iteration items="{!v.appTodoList}" var="asses">
+                    <tr>
+                        <td style="width: 10%;">
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="min-height: 20px;">
+                                    <a href="{!'https://tcl-02-dev-ed.develop.lightning.force.com/'+ asses.Id}">
+                                        {!asses.Name}
+                                    </a>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>Time:</span>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>Status:</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="min-height: 20px;"></div>
+                                <div style="min-height: 20px;">
+                                    <span>
+                                        <ui:outputDateTime format="dd-MM-yyyy', 'HH:mm:ss a" value="{!asses.Time__c}"/>
+                                    </span>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>{!asses.Status__c}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="height: 16px;"></tr>
+                </aura:iteration>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; padding: 16px 0; border-top: 1px solid #cccccc;">
+            <a href="{!'https://tcl-02-dev-ed.develop.lightning.force.com/lightning/cmp/force__dynamicRelatedListViewAll?force__flexipageId=Application_Pagelayout&amp;force__cmpId=lst_dynamicRelatedList2&amp;force__recordId='+v.recordId}">View All</a>
+        </div>
+    </div>
+    <div class="asses-box" style="display: none;margin-top: 12px; border-radius: 4px; background: #fff;border-radius: 4px;box-shadow: 0px 1px 1px 1px #c0bfbf;">
+        <div style="font-weight: 700; font-size: 16px; background-color: #f3f3f3; display: flex; padding: 16px 20px; border-radius: 4px;">
+            <img src="https://tcl-02-dev-ed.develop.my.salesforce.com/img/icon/t4v35/custom/custom83_120.png" style="background-color: #e7806f; border-radius: 4px; width: 24px; height: 24px; margin-right: 8px;"/>
+            Application Assessment
+        </div>
+        <div style="padding: 16px 20px 0 20px;">
+            <table>
+                <aura:iteration items="{!v.appAssessmentList}" var="asses">
+                    <tr>
+                        <td style="width: 10%;">
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="min-height: 20px;">
+                                    <a href="{!'https://tcl-02-dev-ed.develop.lightning.force.com/'+ asses.Id}">
+                                        {!asses.Name}
+                                    </a>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>Assessor (User):</span>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>Result:</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div style="display: flex; flex-direction: column;">
+                                <div style="min-height: 20px;"></div>
+                                <div style="min-height: 20px;">
+                                    <a href="{!'https://tcl-02-dev-ed.develop.lightning.force.com/'+ asses.AssessorUser__r.Id}">{!asses.AssessorUser__r.Name}</a>
+                                </div>
+                                <div style="min-height: 20px;">
+                                    <span>{!asses.Result__c}</span>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr style="height: 16px;"></tr>
+                </aura:iteration>
+            </table>
+        </div>
+        <div style="display: flex; justify-content: center; align-items: center; padding: 16px 0; border-top: 1px solid #cccccc;">
+            <a href="{!'https://tcl-02-dev-ed.develop.lightning.force.com/lightning/cmp/force__dynamicRelatedListViewAll?force__flexipageId=Application_Pagelayout&amp;force__cmpId=lst_dynamicRelatedList&amp;force__recordId='+v.recordId}">View All</a>
+        </div>
+    </div>
+</aura:component>

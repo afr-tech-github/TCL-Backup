@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Translations xmlns="http://soap.sforce.com/2006/04/metadata">
+    <quickActions>
+        <label><!-- Guest Community Case --></label>
+        <name>GuestCommunityCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- LogACall --></label>
+        <name>LogACall</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewAccount --></label>
+        <name>NewAccount</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewCase --></label>
+        <name>NewCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Community Case --></label>
+        <name>NewCommunityCase</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewContact --></label>
+        <name>NewContact</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewEvent --></label>
+        <name>NewEvent</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewGroup --></label>
+        <name>NewGroup</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Lead --></label>
+        <name>NewLead</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewNote --></label>
+        <name>NewNote</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- NewOpportunity --></label>
+        <name>NewOpportunity</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- New Task --></label>
+        <name>NewTask</name>
+    </quickActions>
+    <quickActions>
+        <label><!-- SendEmail --></label>
+        <name>SendEmail</name>
+    </quickActions>
+    <reportTypes>
+        <description><!-- AShipment -&gt; S/O -&gt; Bill --></description>
+        <label><!-- AShipment -&gt; S/O -&gt; Bill --></label>
+        <name>AShipment_S_O_Bill</name>
+        <sections>
+            <columns>
+                <label><!-- M-Agent Name --></label>
+                <name>M-Agent Name</name>
+            </columns>
+            <label><!-- Advanced Shipment --></label>
+            <name>Advanced Shipment</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS Bills --></label>
+            <name>F/TMS Bills</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS S/O --></label>
+            <name>F/TMS S/O</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+        <sections>
+            <label><!-- Shipments. --></label>
+            <name>Shipments.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Account with SO --></description>
+        <label><!-- Account with SO --></label>
+        <name>Account_with_SO</name>
+        <sections>
+            <label><!-- Accounts --></label>
+            <name>Accounts</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS S/O --></label>
+            <name>F/TMS S/O</name>
+        </sections>
+        <sections>
+            <label><!-- Shipments. --></label>
+            <name>Shipments.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Advance + S/O --></description>
+        <label><!-- Advance + S/O --></label>
+        <name>Advance_S_O</name>
+        <sections>
+            <label><!-- Advanced Shipment --></label>
+            <name>Advanced Shipment</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS S/O --></label>
+            <name>F/TMS S/O</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+        <sections>
+            <label><!-- Shipments. --></label>
+            <name>Shipments.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Advanced Shipment with Consol Bills with Master Billing + Payment Requests --></description>
+        <label><!-- Advanced Shipment with Consol Bills with Master Billing + Payment Requests --></label>
+        <name>Advanced_Shipment_with_Consol_Bills_with_Master_Billing_Payment_Requests</name>
+        <sections>
+            <label><!-- Advanced Shipment --></label>
+            <name>Advanced Shipment</name>
+        </sections>
+        <sections>
+            <label><!-- Billings --></label>
+            <name>Billings</name>
+        </sections>
+        <sections>
+            <label><!-- Consol Bills --></label>
+            <name>Consol Bills</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+        <sections>
+            <label><!-- Master Billing + Payment Requests --></label>
+            <name>Master Billing + Payment Requests</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Business Trip in a Year --></description>
+        <label><!-- Business Trip in a Year --></label>
+        <name>Business_Trip_in_a_Year</name>
+        <sections>
+            <label><!-- Business Traveler --></label>
+            <name>Business Traveler</name>
+        </sections>
+        <sections>
+            <label><!-- Business Travelers --></label>
+            <name>Business Travelers</name>
+        </sections>
+        <sections>
+            <label><!-- Employee Information --></label>
+            <name>Employee Information</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- CNTR In Trans --></description>
+        <label><!-- CNTR In Trans --></label>
+        <name>CNTRInTrans</name>
+        <sections>
+            <label><!-- CNTR in Trans --></label>
+            <name>CNTR in Trans</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Consol CNTR --></description>
+        <label><!-- Consol CNTR --></label>
+        <name>ConsolCNTR</name>
+        <sections>
+            <label><!-- Consol CNTR --></label>
+            <name>Consol CNTR</name>
+        </sections>
+        <sections>
+            <label><!-- Job Containers --></label>
+            <name>Job Containers</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Consol CNTR + CNTR In Trans --></description>
+        <label><!-- Consol CNTR + CNTR In Trans --></label>
+        <name>ConsolCNTRCNTRInTrans</name>
+        <sections>
+            <label><!-- CNTR in Trans --></label>
+            <name>CNTR in Trans</name>
+        </sections>
+        <sections>
+            <label><!-- Consol CNTR --></label>
+            <name>Consol CNTR</name>
+        </sections>
+        <sections>
+            <label><!-- Job Containers --></label>
+            <name>Job Containers</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Duplicate Asset --></description>
+        <label><!-- Duplicate Asset --></label>
+        <name>Duplicate_Asset</name>
+        <sections>
+            <label><!-- Duplicate Record Items --></label>
+            <name>Duplicate Record Items</name>
+        </sections>
+        <sections>
+            <label><!-- Duplicate Record Sets --></label>
+            <name>Duplicate Record Sets</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- F/TMS S/O with CNTR in Trans --></description>
+        <label><!-- F/TMS S/O with CNTR in Trans --></label>
+        <name>FTMSSO_with_CNTR_in_Trans</name>
+        <sections>
+            <label><!-- CNTR in Trans --></label>
+            <name>CNTR in Trans</name>
+        </sections>
+        <sections>
+            <columns>
+                <label><!-- Agent Name --></label>
+                <name>Agent Name</name>
+            </columns>
+            <label><!-- F/TMS S/O --></label>
+            <name>F/TMS S/O</name>
+        </sections>
+        <sections>
+            <label><!-- Shipments. --></label>
+            <name>Shipments.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- F/TMS S/O with F/TMS Bills with F/TMS Bill + Payment Request --></description>
+        <label><!-- F/TMS S/O with F/TMS Bills with F/TMS Bill + Payment Request --></label>
+        <name>F_TMS_S_O_with_F_TMS_Bills_with_F_TMS_Bill_Payment_Request</name>
+        <sections>
+            <label><!-- F/TMS Bill + Payment Request --></label>
+            <name>F/TMS Bill + Payment Request</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS Bills --></label>
+            <name>F/TMS Bills</name>
+        </sections>
+        <sections>
+            <label><!-- F/TMS S/O --></label>
+            <name>F/TMS S/O</name>
+        </sections>
+        <sections>
+            <label><!-- Shipments. --></label>
+            <name>Shipments.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Jobs with Billings with Connect Bill --></description>
+        <label><!-- Jobs with Billings with Connect Bill --></label>
+        <name>Jobs_with_Billings_with_Connect_Bill</name>
+        <sections>
+            <label><!-- Billings --></label>
+            <name>Billings</name>
+        </sections>
+        <sections>
+            <label><!-- Connect Bill --></label>
+            <name>Connect Bill</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Jobs with Billings with Payment Allocation --></description>
+        <label><!-- Jobs with Billings with Payment Allocation --></label>
+        <name>Jobs_with_Billings_with_Payment_Allocation</name>
+        <sections>
+            <label><!-- Billings --></label>
+            <name>Billings</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Jobs with Billings with Rollup Requested Amount to Billing --></description>
+        <label><!-- Jobs with Billings with Rollup Requested Amount to Billing --></label>
+        <name>Jobs_with_Billings_with_Rollup_Requested_Amount_to_Billing</name>
+        <sections>
+            <label><!-- Billings --></label>
+            <name>Billings</name>
+        </sections>
+        <sections>
+            <label><!-- Jobs --></label>
+            <name>Jobs</name>
+        </sections>
+        <sections>
+            <label><!-- Rollup Requested Amount to Billing --></label>
+            <name>Rollup Requested Amount to Billing</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Payment Request with Connect Bill with Payment Allocation --></description>
+        <label><!-- Payment Request with Connect Bill with Payment Allocation --></label>
+        <name>Payment_Request_with_Connect_Bill_with_Payment_Allocation</name>
+        <sections>
+            <label><!-- Connect Bill --></label>
+            <name>Connect Bill</name>
+        </sections>
+        <sections>
+            <label><!-- Payment Request --></label>
+            <name>Payment Request</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Product Transfer. with Product Transfer Lines with Asset Transfer --></description>
+        <label><!-- Product Transfer. with Product Transfer Lines with Asset Transfer --></label>
+        <name>Product_Transfer_with_Product_Transfer_Lines_with_Asset_Transfer</name>
+        <sections>
+            <label><!-- Product Transfer Lines --></label>
+            <name>Product Transfer Lines</name>
+        </sections>
+        <sections>
+            <label><!-- Product Transfer. --></label>
+            <name>Product Transfer.</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Quotes with SI with SI Lines --></description>
+        <label><!-- Quotes with SI with SI Lines --></label>
+        <name>Quotes_with_SI_with_SI_Lines</name>
+        <sections>
+            <label><!-- Quotes --></label>
+            <name>Quotes</name>
+        </sections>
+        <sections>
+            <label><!-- SI --></label>
+            <name>SI</name>
+        </sections>
+        <sections>
+            <label><!-- SI Lines --></label>
+            <name>SI Lines</name>
+        </sections>
+        <sections>
+            <label><!-- Sales Order --></label>
+            <name>Sales Order</name>
+        </sections>
+        <sections>
+            <label><!-- Sales Order Lines --></label>
+            <name>Sales Order Lines</name>
+        </sections>
+    </reportTypes>
+    <reportTypes>
+        <description><!-- Screen Flows --></description>
+        <label><!-- Screen Flows --></label>
+        <name>screen_flows_prebuilt_crt</name>
+        <sections>
+            <label><!-- Flow Interview Log Entries --></label>
+            <name>Flow Interview Log Entries</name>
+        </sections>
+        <sections>
+            <label><!-- Flow Interview Logs --></label>
+            <name>Flow Interview Logs</name>
+        </sections>
+    </reportTypes>
+</Translations>

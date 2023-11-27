@@ -1,0 +1,772 @@
+<apex:page controller="SOAAdvancedShipmentController" showHeader="true"  sidebar="false" applyBodyTag="false" docType="html-5.0">
+    <apex:stylesheet value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.css')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery/jquery.min.js')}"/>
+    <apex:includeScript value="{!URLFOR($Resource.CommonResource ,'CommonResource/Jquery-UI/jquery-ui.min.js')}"/>
+    
+    <style type="text/css">
+        body {
+        font-family: Arial,Helvetica,sans-serif;
+        overflow: hidden;
+        }
+        
+        table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width:100%;
+        }
+
+        thead {
+        position: sticky;
+        top: 0;
+        }
+
+
+        th {
+        text-align: center;
+        white-space: initial;
+        }
+        td {
+        white-space: initial;
+        vertical-align: middle !important;
+        
+        }
+        .error_message {
+        color: red;
+        }
+        .cell_border-tr th{
+            position: relative;
+        }
+        .cell_border-tr th::after{
+            display: block;
+            content: '';
+            width: 100%;
+            height: 1px;
+            background: black;
+            position: absolute;
+            top: -1px;
+            right: 0;
+        }
+        .cell_border-tr th::before{
+            display: block;
+            content: '';
+            width: 100%;
+            height: 1px;
+            background: black;
+            POSITION: absolute;
+            bottom: -1px;
+            right: 0;
+        }
+        .success_message {
+        color: rgb(31, 144, 31);
+        }
+        .cell_border { 
+        border: 1px solid black;
+        }
+        .cell_border_top_bot { 
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-right: 3px;
+        padding-left: 3px;
+        }
+        .cell_border_top_bot_left { 
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border-left: 1px solid black;
+        padding-right: 3px;
+        padding-left: 3px;
+        }
+        .cell_border_top_bot_right { 
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border-right: 1px solid black;
+        padding-right: 3px;
+        padding-left: 3px;
+        }
+        .cell_border_top_bot_left_td { 
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        border-left: 2px solid #ba0517;
+        padding-right: 3px;
+        padding-left: 3px;
+        }
+        .hideRow{
+        display: none;
+        }
+        .showRow{
+        display: table-row;
+        }
+        .hideColumn{
+        display: none;
+        }
+        .showColumn{
+        display: table-cell;
+        }
+        .boldFont{
+        font-weight: bold;
+        }
+        .selectBorderBottom{
+        border-bottom: 3px solid #ba0517;
+        }
+
+    </style>
+    <script type="text/javascript">
+    function setFocus() {
+        document.getElementById("dummy_hidden_input").focus();
+    }
+    
+    j$ = jQuery.noConflict();
+    function onchangeCheckBox(id){
+        if(j$('.report' + id).is(":checked")){
+            j$('.' + id).removeClass('hideRow');
+            j$('.' + id).addClass('showRow');
+        }else{
+            j$('#checkBoxAll').prop( "checked", false);
+            j$('.' + id).addClass('hideRow');
+            j$('.' + id).removeClass('showRow');
+        }
+    };
+    function onchangeCheckBoxAll(){
+        if(j$('#checkBoxAll').is(":checked")){
+            j$('.shipment').prop( "checked", true);
+            j$('.reportItem').removeClass('hideRow');
+            j$('.reportItem').addClass('showRow');
+        }else{
+            j$('.shipment').prop( "checked", false);
+            j$('.reportItem').addClass('hideRow');
+            j$('.reportItem').removeClass('showRow');
+        }
+    }
+
+    function showDetail(id){
+        var detailId = "detail"+id;
+        var showListPack = "showListPack"+id;
+        var showListPackID = document.getElementById(showListPack);
+        var showDetailID = document.getElementById(detailId);
+        if(j$('.' + id).hasClass('hideRow')){
+            j$('.' + id).removeClass('hideRow');
+            j$('.' + id).addClass('showRow');
+            //showListPackID.addClass('selectBorderBottom');
+            showListPackID.classList.add("selectBorderBottom");
+            showDetailID.innerHTML = "&or;";
+        }else{
+            j$('.' + id).addClass('hideRow');
+            j$('.' + id).removeClass('showRow');
+            //showListPackID.removeClass('selectBorderBottom');
+            showListPackID.classList.remove("selectBorderBottom");
+            showDetailID.innerHTML = "&gt;";
+        }
+    }
+    
+    /*j$(document).ready(function() {
+        
+        j$( "input[id$=fromDate]" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            dateFormat:"yy/mm/dd"
+        });
+        j$( "input[id$=toDate]" ).datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            dateFormat:"yy/mm/dd"
+        });
+    });*/
+    </script>
+    <!-- <div style="overflow-y: scroll;"> -->
+    <apex:form >
+        <input type="hidden" id="dummy_hidden_input"/>
+        <!--Select Report Section-->
+        <!-- Report Filter Section-->
+        <apex:pageBlock title="Filter" id="filterSection">
+            <script>
+            j$(document).ready(function() {
+                
+                j$( "input[id$=fromDate]" ).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    numberOfMonths: 1,
+                    dateFormat:"dd/mm/yy"
+                });
+                j$( "input[id$=toDate]" ).datepicker({
+                    defaultDate: "+1w",
+                    changeMonth: true,
+                    changeYear: true,
+                    numberOfMonths: 1,
+                    dateFormat:"dd/mm/yy"
+                });
+            });
+            </script>
+            <table style="position: sticky; top: 0;">
+                <col style="width: 5%"/>
+                <col style="width: 20%"/>
+                <col style="width: 5%"/>
+                <col style="width: 30%"/>
+                <col style="width: 10%"/>
+                <col style="width: 30%"/>
+                <tr>
+                    <td><apex:outputLabel ><span>From : </span></apex:outputLabel></td>
+                    <td>
+                        <apex:inputText id="fromDate" value="{!sFromDate}" style="width: 50%">
+                            <apex:actionSupport event="onchange" action="{!onChangeDateFrom}" reRender="idCusName, reportResult, error, jsPanel" />
+                        </apex:inputText>
+                    </td>
+                    <td><apex:outputLabel ><span>Branch : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_branch">
+                            <apex:selectList size="1" value="{!branch}"  style="width: 50%">
+                                <apex:selectOptions value="{!Branchs}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td><apex:outputLabel id="idTblTypeOfTrade" ><span>Type of Trade : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_TypeOfTrade">
+                            <apex:selectList size="1" value="{!TypeOfTrade}" id="idTypeOfTrade"  style="width: 50%">
+                                <apex:selectOptions value="{!TypeOfTrades}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <!-- <td></td> -->
+                </tr>
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel ><span> To : </span></apex:outputLabel></td>
+                    <td>
+                        <apex:inputText id="toDate" value="{!sToDate}" style="width: 50%">
+                            <apex:actionSupport event="onchange" action="{!onChangeDateTo}" reRender="idCusName, reportResult, error, jsPanel" />
+                        </apex:inputText>
+                    </td>
+                    <td><apex:outputLabel id="idTblSaleMan"><span>Customer : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_saleman">
+                            <apex:selectList size="1" value="{!salManId}" id="idSaleMan"  style="width: 50%">
+                                <apex:selectOptions value="{!Customers}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td><apex:outputLabel id="idTblShipmentTerms" ><span>Shipment Term : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_ShipmentTerms">
+                            <apex:selectList size="1" value="{!ShipmentTerm}" id="idShipmentTerms"  style="width: 50%">
+                                <apex:selectOptions value="{!ShipmentTerms}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <!-- <td></td> -->
+                </tr>
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <!-- <td><apex:outputLabel ><span>Branch : </span></apex:outputLabel></td> -->
+                    <!-- <td>
+                        <span id="report_branch">
+                            <apex:selectList size="1" value="{!branch}"  style="width: 50%">
+                                <apex:selectOptions value="{!Branchs}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td> -->
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td><apex:outputLabel id="idTblTransportationWays" ><span>Transportation Way : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_TransportationWays">
+                            <apex:selectList size="1" value="{!TransportationWay}" id="idTransportationWays"  style="width: 50%">
+                                <apex:selectOptions value="{!TransportationWays}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                   
+                </tr>
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <!-- <tr>
+                    <td><apex:outputLabel id="idTblSaleMan"><span>Customer : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_saleman">
+                            <apex:selectList size="1" value="{!salManId}" id="idSaleMan"  style="width: 50%">
+                                <apex:selectOptions value="{!Customers}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel id="idTblRecordType" ><span>Record Type : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_recordType">
+                            <apex:selectList size="1" value="{!recordType}" id="idRecordType"  style="width: 50%">
+                                <apex:selectOptions value="{!RecordTypes}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel id="idTblTypeOfTrade" ><span>Type of Trade : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_TypeOfTrade">
+                            <apex:selectList size="1" value="{!TypeOfTrade}" id="idTypeOfTrade"  style="width: 50%">
+                                <apex:selectOptions value="{!TypeOfTrades}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel id="idTblTransportationWays" ><span>Transportation Way : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_TransportationWays">
+                            <apex:selectList size="1" value="{!TransportationWay}" id="idTransportationWays"  style="width: 50%">
+                                <apex:selectOptions value="{!TransportationWays}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr style="height: 15px">
+                    <td colspan="3"></td>
+                </tr>
+                <tr>
+                    <td><apex:outputLabel id="idTblShipmentTerms" ><span>Shipment Term : </span></apex:outputLabel></td>
+                    <td>
+                        <span id="report_ShipmentTerms">
+                            <apex:selectList size="1" value="{!ShipmentTerm}" id="idShipmentTerms"  style="width: 50%">
+                                <apex:selectOptions value="{!ShipmentTerms}"></apex:selectOptions>
+                            </apex:selectList>
+                        </span>
+                    </td>
+                    <td></td>
+                </tr> -->
+            </table>
+            <!-- <apex:outputLabel style="width: 30%"><span>From : </span></apex:outputLabel>
+            <apex:inputText id="fromDate" value="{!sFromDate}" style="width: 30%">
+                <apex:actionSupport event="onchange" action="{!onChangeDateFrom}" reRender="idCusName, reportResult, error, jsPanel" />
+            </apex:inputText>
+            <br/><br/>
+            <apex:outputLabel style="width: 30%"><span> To : </span></apex:outputLabel>
+            <apex:inputText id="toDate" value="{!sToDate}" style="width: 30%">
+                <apex:actionSupport event="onchange" action="{!onChangeDateTo}" reRender="idCusName, reportResult, error, jsPanel" />
+            </apex:inputText>
+            <br/><br/>
+            
+            <apex:outputLabel style="width: 30%"><span>Branch : </span></apex:outputLabel>
+            <span id="report_branch">
+                <apex:selectList size="1" value="{!branch}"  style="width: 30%">
+                    <apex:selectOptions value="{!Branchs}"></apex:selectOptions>
+                </apex:selectList>
+            </span>
+            <br/><br/>
+            <apex:outputPanel id="saleManList">
+                <apex:outputLabel id="idTblSaleMan"  style="width: 30%"><span>Sale Man : </span></apex:outputLabel>
+                <span id="report_saleman">
+                    <apex:selectList size="1" value="{!salManId}" id="idSaleMan"  style="width: 30%">
+                        <apex:selectOptions value="{!SaleUsers}"></apex:selectOptions>
+                    </apex:selectList>
+                </span>
+            </apex:outputPanel>
+            <br/><br/>
+            
+            <apex:outputPanel id="saleSupportList">
+                <apex:outputLabel id="idTblSaleSupport"  style="width: 30%"><span>Sale Support : </span></apex:outputLabel>
+                <span id="report_salesupport">
+                    <apex:selectList size="1" value="{!salSupId}" id="idSaleSupport"  style="width: 30%">
+                        <apex:selectOptions value="{!SaleUsers}"></apex:selectOptions>
+                    </apex:selectList>
+                </span>
+            </apex:outputPanel> -->
+            <br/>
+            <apex:outputPanel id="error" style="width: 100%">
+                <apex:outputText value="{!message}" styleClass="error_message"></apex:outputText>
+            </apex:outputPanel>
+
+            <br/>
+            <br/>
+            
+           
+            <apex:commandButton value="Generate" action="{!generateReport}" rerender="reportResult, jsPanel" status="actionStatus"/>
+
+           
+            <!-- <apex:commandButton value="{!translations['generate_report']}" action="{!generateReport}" rerender="reportResult, jsPanel" status="actionStatus"/> -->
+            
+            
+            <apex:actionStatus id="actionStatus">
+
+                <apex:facet name="start">
+                    <apex:outputText value="generating"/>
+                </apex:facet>
+
+            </apex:actionStatus>
+
+
+
+        </apex:pageBlock>
+        <!--Report Section-->
+        <apex:outputPanel id="reportResult"> 
+            <apex:pageBlock title="Report">
+                <apex:outputPanel rendered="{!displayReportTable}">
+                    <div style="width: 100%; text-align: center; padding-top: 15px; padding-bottom: 15px ">
+                        <!-- <apex:commandButton value="Excel" onclick="generateReportDoc('excel'); return false;">
+                        </apex:commandButton> -->
+                        
+                        <apex:commandButton value="Excel" onclick="generateReportDoc('excel'); return false;" ></apex:commandButton>
+                    </div>
+                    <div style="height:calc(100vh - 340px); overflow-y:auto;">
+                    <table cellPadding="4" border="0" width="100%">
+                        <thead style="position: sticky; z-index: 10">
+                        <tr bgcolor="#bfc4d4" class="cell_border-tr" >
+                            <!-- <th class="cell_border">
+                                <input type="checkbox"  id="checkBoxAll" class="checkBoxAll" onchange="onchangeCheckBoxAll(); return false" />
+                            </th> -->
+                            <th class="cell_border" style="width: 20px;">
+                                <!-- <input type="checkbox"  id="checkBoxAll" class="checkBoxAll" onchange="onchangeCheckBoxAll(); return false" /> -->
+                            </th>
+                            <th class="cell_border">No.</th>
+                            <th class="cell_border">Branch</th>
+                            <th class="cell_border">Job No.</th>
+                            <th class="cell_border">M B/L or M AWB Number</th>
+                            <th class="cell_border">Customer</th>
+                            <th class="cell_border">M-Agent</th>
+                            <th class="cell_border">Consignee</th>
+                            <th class="cell_border">Number of HB/L</th>
+                            <th class="cell_border">ETD</th>
+                            <th class="cell_border">ETA</th>
+                            <th class="cell_border">P.O.L(A.O.D)</th>
+                            <th class="cell_border">P.O.D(A.O.A)</th>
+                            <th class="cell_border">Gross Weight</th>
+                            <th class="cell_border">Measurement (CBM)</th>
+                            <th class="cell_border" colspan="3">Description of Goods</th>
+                            <!-- <th class="cell_border">Container Quantity 1</th>
+                            <th class="cell_border">Container Type 1</th>
+                            <th class="cell_border">Conseal</th>
+							<th class="cell_border">BILLING (VND)</th>
+                            <th class="cell_border">COSTING (VND)</th>
+                            <th class="cell_border">PROFIT</th>
+                            <th class="cell_border">Sales Man</th>
+                            <th class="cell_border">Sales Support</th> -->
+                        </tr>
+                        </thead>
+                        <apex:variable value="{!0}" var="count"/>
+                        <apex:repeat value="{!listReport}" var="report" >
+                            <apex:variable var="count" value="{!count + 1}"/>
+                            <tr bgcolor="#d4dadc" style="box-shadow: 0 5px 7px -7px #6b6b6b, 0 -5px 7px -7px #6b6b6b; height: 45px">
+                                <td id="showListPack{!report.id}" class="cell_border_top_bot_left showDetail{!report.id}" style="text-align: center; background-color: white;"  onclick="showDetail('{!IF(report.lstItem.size > 0,report.id, '')}');">
+                                    <div id="detail{!report.id}" style="{!IF (report.lstItem.size > 0,'','display:none;')}">
+                                        &gt; 
+                                    </div>               
+                                </td>
+                                <!-- <td class="cell_border" style="text-align: center;">
+                                    <input type="checkbox" class="report{!report.id} shipment" onchange="onchangeCheckBox('{!report.id}'); return false" style="{!IF (report.lstItem.size > 0,'','display:none;')}" />
+                                </td> -->
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!count}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.branch}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <a href="https://tcl-02-dev-ed.develop.lightning.force.com/{!report.id}" target="_blank">
+                                        <apex:outputText escape="false" value="{!report.fileNo}"/>
+                                    </a>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.mbl}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.customer}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.agent}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.consignee}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.NumOfHouseBill}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!report.eTD}"/>
+                                    </apex:outputText>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!report.eTA}"/>
+                                    </apex:outputText>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <!-- <apex:outputText escape="false" value="{!report.lstItem.size}" rendered="{!report.lstItem.size > 0}"/>
+                                    <apex:outputText escape="false" value="1" rendered="{!report.lstItem.size == 0}"/> -->
+                                    <apex:outputText escape="false" value="{!report.MPOL}"/>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.MPOD}"/>
+                                    <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!report.createDate}"/>
+                                    </apex:outputText> -->
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <!-- <apex:outputText escape="false" value="{!report.GrossWeight}"/> -->
+                                    <apex:outputText value="{0,number,###,###,###,##0.####}">
+                                        <apex:param value="{!report.GrossWeight}" />
+                                    </apex:outputText>
+                                    <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!report.eTD}"/>
+                                    </apex:outputText> -->
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <!-- <apex:outputText escape="false" value="{!report.MeasurementCBM}"/> -->
+                                    <apex:outputText value="{0,number,###,###,###,##0.####}">
+                                        <apex:param value="{!report.MeasurementCBM}" />
+                                    </apex:outputText>
+                                    <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                        <apex:param value="{!report.eTA}"/>
+                                    </apex:outputText> -->
+                                </td>
+                                <td class="cell_border" style="text-align: center;" colspan="3">
+                                    <apex:outputText escape="false" value="{!report.description}"/>
+                                </td> 
+                                <!-- <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="-" rendered="{!report.contQuan == 0}"/>
+                                    <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.contQuan <> 0}">
+                                        <apex:param value="{!report.contQuan}" />
+                                    </apex:outputText>
+                                </td> 
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.contType}"/>
+                                </td> 
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.conSeal}"/>
+                                </td>   
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="-" rendered="{!report.totalSelling == 0}"/>
+                                    <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalSelling <> 0}">
+                                        <apex:param value="{!report.totalSelling}" />
+                                    </apex:outputText>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="-" rendered="{!report.totalBuying == 0}"/>
+                                    <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalBuying <> 0}">
+                                        <apex:param value="{!report.totalBuying}" />
+                                    </apex:outputText>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText value="-" rendered="{!report.totalAmount == 0}"/>
+                                    <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!report.totalAmount <> 0}">
+                                        <apex:param value="{!report.totalAmount}" />
+                                    </apex:outputText>
+                                </td>
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.salesMan}"/>
+                                </td>  
+                                <td class="cell_border" style="text-align: center;">
+                                    <apex:outputText escape="false" value="{!report.salesSupport}"/>
+                                </td>   -->
+                            </tr>
+                            <tr style="height: 10px" bgcolor="#f8f8f8" class="hideRow {!report.id} reportItem">
+                                    
+                            </tr>
+                            <tr bgcolor="#f3f3f3" class="hideRow {!report.id} reportItem">
+                                <th bgcolor="#f8f8f8">                                
+                                    <!-- <div style=" position: absolute;width: 2px; height: 40px;: 100%; margin-left: 15px;; margin-top: -20px; background: #ba0517;"></div>  -->
+                                </th>
+                                <!-- <th class="cell_border" ></th> -->
+                                <th class="cell_border">No.</th>
+                                <th class="cell_border">Branch</th>
+                                <th class="cell_border">Job No.</th>
+                                <th class="cell_border">HB/L or HAWB Number</th>
+                                <th class="cell_border">Shipper</th>
+                                <th class="cell_border">Agent</th>
+                                <th class="cell_border" colspan="2">Consignee</th>
+                                <th class="cell_border">ETD</th>
+                                <th class="cell_border">ETA</th>
+                                <th class="cell_border">P.O.L(A.O.D)</th>
+                                <th class="cell_border">P.O.D(A.O.A)</th>
+                                <th class="cell_border">Gross Weight</th>
+                                <th class="cell_border">Measurement (Total CBM)</th>
+                                <th class="cell_border">Description of Goods</th>
+                                <!-- <th class="cell_border">Container Quantity 1</th>
+                                <th class="cell_border">Container Type 1</th>
+                                <th class="cell_border" colspan="4">Conseal</th>
+                                <th class="cell_border">Sales Man</th>
+                                <th class="cell_border">Sales Support</th> -->
+                                <!--<th class="cell_border">BILLING (VND)</th>
+                                <th class="cell_border">COSTING (VND)</th>
+                                <th class="cell_border">PROFIT</th>-->
+                            </tr>
+                            <apex:variable value="{!0}" var="countItem"/>
+                            <apex:repeat value="{!report.lstItem}" var="reportItem">
+                                <apex:variable var="countItem" value="{!countItem + 1}"/>
+                                <tr bgcolor="white" class="hideRow {!report.id} reportItem">
+                                    <td bgcolor="#f8f8f8" style="border-right: 2px solid #ba0517"><div style="margin-top: -63px; height: 63px; margin-right: -5px; width: 14px;  border-bottom-left-radius: 10px; margin-left: 8px; border-left: 2px solid #ba0517; border-bottom: 2px solid #ba0517; color: #f8f8f8"></div></td>
+                                    <!-- <td class="cell_border" style="text-align: center;">
+                                    </td> -->
+                                    <td class="cell_border" style="text-align: center; height: 35px">
+                                        <apex:outputText value="{!countItem}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.branch}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <a href="https://tcl-02-dev-ed.develop.lightning.force.com/{!reportItem.id}" target="_blank">
+                                            <!-- <apex:outputText escape="false" value="{!report.fileNo}"/> -->
+                                            <apex:outputText escape="false" value="{!reportItem.fileNo}"/>
+                                        </a>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.mbl}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.shipper}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.agent}"/>
+                                    </td>
+                                    <td colspan="2" class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.consignee}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!reportItem.eTD}"/>
+                                        </apex:outputText>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!reportItem.eTA}"/>
+                                        </apex:outputText>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.POLAOD}"/>
+                                        <!-- <apex:outputText escape="false" value="1"/> -->
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.PODAOA}"/>
+                                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!reportItem.createDate}"/>
+                                        </apex:outputText> -->
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <!-- <apex:outputText escape="false" value="{!reportItem.GrossWeight}"/> -->
+                                        <apex:outputText value="{0,number,###,###,###,##0.####}">
+                                            <apex:param value="{!reportItem.GrossWeight}" />
+                                        </apex:outputText>
+                                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!reportItem.eTD}"/>
+                                        </apex:outputText> -->
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <!-- <apex:outputText escape="false" value="{!reportItem.MeasurementCBM}"/> -->
+                                        <apex:outputText value="{0,number,###,###,###,##0.####}">
+                                            <apex:param value="{!reportItem.MeasurementCBM}" />
+                                        </apex:outputText>
+                                        <!-- <apex:outputText value="{0,date,dd'/'MM'/'yyyy}">
+                                            <apex:param value="{!reportItem.eTA}"/>
+                                        </apex:outputText> -->
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.description}"/>
+                                    </td> 
+                                    <!-- <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="-" rendered="{!reportItem.contQuan == 0}"/>
+                                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!reportItem.contQuan <> 0}">
+                                            <apex:param value="{!reportItem.contQuan}" />
+                                        </apex:outputText>
+                                    </td> 
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.contType}"/>
+                                    </td>
+                                    <td class="cell_border" colspan="4" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.conSeal}"/>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.salesMan}"/>
+                                    </td>  
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText escape="false" value="{!reportItem.salesSupport}"/>
+                                    </td>  -->
+                                    <!--<td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="-" rendered="{!reportItem.totalSelling == 0}"/>
+                                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!reportItem.totalSelling <> 0}">
+                                            <apex:param value="{!reportItem.totalSelling}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="-" rendered="{!reportItem.totalBuying == 0}"/>
+                                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!reportItem.totalBuying <> 0}">
+                                            <apex:param value="{!reportItem.totalBuying}" />
+                                        </apex:outputText>
+                                    </td>
+                                    <td class="cell_border" style="text-align: center;">
+                                        <apex:outputText value="-" rendered="{!reportItem.totalAmount == 0}"/>
+                                        <apex:outputText value="{0,number,###,###,###,##0}" rendered="{!reportItem.totalAmount <> 0}">
+                                            <apex:param value="{!reportItem.totalAmount}" />
+                                        </apex:outputText>
+                                    </td>-->
+                                </tr>
+                                
+                            </apex:repeat>
+                            <tr style="height: 10px" bgcolor="#f8f8f8" class="hideRow {!report.id} reportItem">
+                                    
+                            </tr>
+                        </apex:repeat>
+                    </table>
+                    </div>
+                </apex:outputPanel>
+                
+                
+            </apex:pageBlock>
+        </apex:outputPanel>
+        <apex:outputPanel id="jsPanel">
+        <script type="text/javascript">
+            // learn js
+            // alert('hi javascript'); // tag notification 
+            // confirm('xac nhan ban tren 18') // ham xac nhan
+            //  prompt('Nhap nam sinh');
+            // console.log('hi abc');
+            //  setTimeout(function(){
+            //     alert('notification');
+            //  },2000); 
+            // setInterval(function () {
+            //     alert('notification');
+            //  },2000); auto load this function
+            
+
+            function generateReportDoc(docType){
+                if(docType ==='excel'){
+                    url = '/apex/page_SOAAdvanceShipmentandSOExcel?'
+                }
+                url += 'branch=' + '{!JSENCODE(branch)}';
+                url += '&salManId=' + '{!JSENCODE(salManId)}';
+                //url += '&salSupId=' + '{!JSENCODE(salSupId)}';
+                //url += '&recordType=' + '{!JSENCODE(recordType)}';
+                url += '&TypeOfTrade=' + '{!JSENCODE(TypeOfTrade)}';
+                url += '&TransportationWay=' + '{!JSENCODE(TransportationWay)}';
+                url += '&ShipmentTerm=' + '{!JSENCODE(ShipmentTerm)}';
+                url += '&fromDate=' + '{!JSENCODE(sFromDate)}';
+                url += '&toDate=' + '{!JSENCODE(sToDate)}';  
+                console.log('url' + url);
+                window.location.href = url;
+            }
+            </script>
+            
+        </apex:outputPanel>
+        
+    </apex:form>
+    <!-- </div> -->
+</apex:page>

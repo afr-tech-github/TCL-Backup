@@ -1,0 +1,9 @@
+<aura:component controller="PositionTreeController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.init}" />
+    <aura:attribute name="curPosition" type="Employee__c"/>
+    <aura:attribute name="positions" type="Employee__c[]" default="[]"/>
+    <aura:attribute name="concatPositions" type="Employee__c[]" default="[]"/>
+    <aura:attribute name="items" type="Object"/>
+
+    <lightning:tree id="tree-pos" items="{! v.items }" header="Organization Chart" selectedItem="{!v.curPosition.Id}"/>
+</aura:component>

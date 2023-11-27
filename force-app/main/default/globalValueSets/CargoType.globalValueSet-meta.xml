@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>CFS/CFS</fullName>
+        <default>false</default>
+        <label>CFS/CFS</label>
+    </customValue>
+    <customValue>
+        <fullName>CFS/CY</fullName>
+        <default>false</default>
+        <label>CFS/CY</label>
+    </customValue>
+    <customValue>
+        <fullName>CFS/DOOR</fullName>
+        <default>false</default>
+        <label>CFS/DOOR</label>
+    </customValue>
+    <customValue>
+        <fullName>CY/CFS</fullName>
+        <default>false</default>
+        <label>CY/CFS</label>
+    </customValue>
+    <customValue>
+        <fullName>CY/CY</fullName>
+        <default>false</default>
+        <label>CY/CY</label>
+    </customValue>
+    <customValue>
+        <fullName>DOOR/DOOR</fullName>
+        <default>false</default>
+        <label>DOOR/DOOR</label>
+    </customValue>
+    <customValue>
+        <fullName>FCL/FCL</fullName>
+        <default>false</default>
+        <label>FCL/FCL</label>
+    </customValue>
+    <customValue>
+        <fullName>LCL/LCL</fullName>
+        <default>false</default>
+        <label>LCL/LCL</label>
+    </customValue>
+    <masterLabel>Cargo Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

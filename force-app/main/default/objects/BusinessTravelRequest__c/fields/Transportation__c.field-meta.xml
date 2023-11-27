@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Transportation__c</fullName>
+    <externalId>false</externalId>
+    <label>Transportation</label>
+    <required>false</required>
+    <trackFeedHistory>true</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Airplane</fullName>
+                <default>false</default>
+                <label>Airplane</label>
+            </value>
+            <value>
+                <fullName>Company Car</fullName>
+                <default>false</default>
+                <label>Company Car</label>
+            </value>
+            <value>
+                <fullName>Rental Car</fullName>
+                <default>false</default>
+                <label>Rental Car</label>
+            </value>
+            <value>
+                <fullName>Train</fullName>
+                <default>false</default>
+                <label>Train</label>
+            </value>
+            <value>
+                <fullName>Bus line</fullName>
+                <default>false</default>
+                <label>Bus line</label>
+            </value>
+            <value>
+                <fullName>Rental Motorbike</fullName>
+                <default>false</default>
+                <label>Rental Motorbike</label>
+            </value>
+            <value>
+                <fullName>Self Motorbike</fullName>
+                <default>false</default>
+                <label>Self Motorbike</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

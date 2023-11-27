@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ValidEndDateLessThanOrEqualToday</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (
+      Valid_End_Date__c &lt;=  TODAY() ,
+      NOT ( ISPICKVAL( Status__c  , &quot;Cancelled&quot; ) ) ,
+      NOT ( ISPICKVAL( Status__c  , &quot;Converted to Quotation&quot; ))
+)</errorConditionFormula>
+    <errorDisplayField>Valid_End_Date__c</errorDisplayField>
+    <errorMessage>Please update status this Inquiry to Cancelled and input the reason in field Notes or change the Valid End Date to greater than Today. Thank you!</errorMessage>
+</ValidationRule>

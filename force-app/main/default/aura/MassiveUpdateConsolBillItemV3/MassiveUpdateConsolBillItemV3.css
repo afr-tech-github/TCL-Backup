@@ -1,0 +1,139 @@
+.THIS .packageListRow {
+    display: none;
+}
+
+.THIS .packageListRow.show {
+    display: table-row;
+    
+}
+.THIS .div-class{
+    height: 0;
+}
+.THIS .show{
+    border-bottom: 1px solid  #c9c9c9;
+    padding: 10px 7px 10px;
+
+}
+.THIS {
+    background-color: white;
+}
+.THIS th{
+    padding: 8px;
+}
+.THIS .subtable{
+    background-color: white;
+    border: 1px solid  #c9c9c9;
+    /* border-left: 2px solid #2da02b; */
+}
+.THIS .subtable th{
+  
+    padding: 6px;
+    border: none;
+}
+.THIS .container{
+    background: white;
+    padding: 13px;
+}
+.THIS .imageDown{
+    transition: all ease .2s;
+}
+.THIS .imageDown.rotate{
+   transform: rotate(90deg);
+}
+
+.THIS table , 
+.THIS th,
+.THIS tr,
+.THIS td{
+        text-align: center;
+        /* border: 1px solid black;
+        border-collapse: collapse;  */
+}
+.THIS .more{
+    text-align: center;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 8px;
+    color: blue;
+    border-radius: 0px 0px 5px 5px;
+    border: 1px solid #c9c9c9;
+    border-top: none;
+    min-height: 34px;
+
+
+}   
+.THIS .header{
+    border: 1px solid #c9c9c9;
+    border-bottom:none;
+    border-radius: 5px 5px 0 0;
+
+}
+.THIS td{
+    padding: 10px 7px;
+    border-bottom: 1px solid #c9c9c9;
+}
+.THIS .subtable  td{
+    border-bottom: none;
+
+}
+.THIS .clearTime{
+    color: red;
+    border-color: red;
+}
+.THIS .filter-bnt{
+    display: inline-block;
+                    padding: 3px 4px;
+                    background-color:white;
+                    font-size: 15px;
+                      font-weight: 700;
+                      color: white;
+                      border: 1px solid #747474;
+                      border-radius: 6px;
+                    cursor: pointer
+}
+.THIS .subtable tr,
+.THIS .subtable tr+tr td{
+    border-bottom: none;
+      border-top: 1px solid #c9c9c9;;
+}
+.THIS .inputTime{
+    width: 240px;
+    margin: auto;
+}
+.THIS .inputSearch label{
+    display: none;
+}
+.THIS  .datetime-filter {
+    background-color: white;
+    position: absolute;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 260px;
+    right: 0;
+}
+.THIS .div-tablebox{
+    
+}
+.THIS .reload-btn{
+    margin-left: 20px;
+    width: 37px;
+    height: 33px;
+    background: white;
+    border: 1px solid #747474;
+    border-radius: 4px;
+    padding: 0;
+}
+.THIS .boderbottom{
+    border-bottom: 2px solid #2da02b;
+}
+
+.THIS .subtable tr{
+   border-left: 2px solid #2da02b;
+}
+.THIS .subtable tr:first-child {
+    border-left: none;
+ }
+ .THIS .ShowOnMobie{
+    display: none;
+ }

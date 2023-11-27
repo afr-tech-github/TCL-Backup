@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TCL_HR_Receiving_Application_Assessment_Applicationn</fullName>
+    <filterScope>Queue</filterScope>
+    <label>TCL-HR Receiving Application Assessment</label>
+    <queue>TCL_HR_Receiving_Application_Assessment</queue>
+    <sharedTo>
+        <allInternalUsers></allInternalUsers>
+    </sharedTo>
+</ListView>

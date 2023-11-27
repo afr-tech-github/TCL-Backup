@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>FTMSSO__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <externalId>false</externalId>
+    <label>Shipment</label>
+    <lookupFilter>
+        <active>true</active>
+        <filterItems>
+            <field>FTMSSO__c.ConsolidationID__c</field>
+            <operation>equals</operation>
+            <valueField>$Source.ConsolidationShipmentName__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>FTMSSO__c</referenceTo>
+    <relationshipLabel>Billings</relationshipLabel>
+    <relationshipName>Consol_Bills</relationshipName>
+    <required>false</required>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

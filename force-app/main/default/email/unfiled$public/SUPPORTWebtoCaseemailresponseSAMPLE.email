@@ -1,0 +1,1 @@
+{!Case.SuppliedName}先生/小姐，感謝您將您的疑問線上呈交給我們！個案號碼{!Case.CaseNumber}：已建立「{!Case.Subject}」，{!Organization.Name} 客戶顧問會很快給您回覆。感謝您！  客戶顧問小組  {!Organization.Name}

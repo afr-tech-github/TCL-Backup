@@ -1,0 +1,33 @@
+Dear {!FTMSSO__c.Customer__c},	
+	
+"Pls help us handle this shipment.
+We will pay handling fee at dest for you. Please find CREDIT NOTE as attached file.
+Please note HBL is original. We will send you HBL/MBL Surrender once available.
+"	
+
+PRE-ALERT
+POL: {!FTMSSO__c.POLAODsDetailInformation__c}
+POD: {!FTMSSO__c.PODAOAsDetailInformation__c }
+Vessel / Voy: {!FTMSSO__c.VesselFlight__c} / {!FTMSSO__c.Voyage__c}
+Carrier: {!FTMSSO__c.CarrierAirlinerVendor__c}
+E.T.D: {!FTMSSO__c.ETD__c}
+E.T.A: {!FTMSSO__c.ETA__c}
+MBL No: {!FTMSSO__c.MBLNumber__c}
+Freight term: {!FTMSSO__c.Master_Freight_Collect_Prepaid__c}
+
+HB/L#: {!FTMSSO__c.HBLNumber__c}
+Shipper: {!FTMSSO__c.Shipper__c}
+Consignee: {!FTMSSO__c.Consignee__c}
+Notify party: {!FTMSSO__c.HouseNotifyParty__c}
+Freight term: {!FTMSSO__c.HouseFreightCollectPrepaid__c}
+Quantity: {!FTMSSO__c.CargoQuantity__c}
+
+Please acknowledge by return once you received the documents.
+Please follow up with consignee and provide Proof of Delivery Report a.s.a.p.
+Remarks:
+* If there is no Surrendered mentioned on HBL, delivery agent must collect original HBL from consignee before releasing delivery order. If not, the delivery agent must take legal responsibilities. Not accept consignee's guarantee letter
+
+*We request notification within 05 days from arrival date of vessel or ramp if consignee does not pick up delivery order. In case of failure to inform us, we need to hold you responsible for any financial damages or claims.
+
+Thank you and Best Regards,
+{!User.Name}

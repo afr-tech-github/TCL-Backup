@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ValidDate</fullName>
+    <active>true</active>
+    <errorConditionFormula>Valid_End_Date__c &lt; Valid_Start_Date__c</errorConditionFormula>
+    <errorMessage>Valid End Date must be greater than Valid Start Date</errorMessage>
+</ValidationRule>

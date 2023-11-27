@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Housing_Allowance_Limit</fullName>
+    <active>true</active>
+    <errorConditionFormula>TaxfreeHousingallowanceperMonth__c &gt; 0.15 * ( Basicsalary__c +  Productivitysalary__c )</errorConditionFormula>
+    <errorMessage>Housing Allowance cannot be higher than 15% of Basic Salary + Productivity Salary!</errorMessage>
+</ValidationRule>

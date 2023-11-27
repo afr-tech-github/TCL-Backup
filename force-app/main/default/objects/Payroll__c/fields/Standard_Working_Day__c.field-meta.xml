@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Standard_Working_Day__c</fullName>
+    <externalId>false</externalId>
+    <inlineHelpText>Standard work days in a month that have excluded weekend and holiday</inlineHelpText>
+    <label>Standard Working Day</label>
+    <precision>3</precision>
+    <required>false</required>
+    <scale>1</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

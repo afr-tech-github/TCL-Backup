@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>向「自助式服務」新增使用者傳送登入通知和密碼</description>
+    <encodingKey>ISO-8859-1</encodingKey>
+    <name>支援：自助式服務新增使用者登入資訊（範例）</name>
+    <style>none</style>
+    <subject>Your {!Organization.Name} Self-Service username and password</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TransportationWay__c</fullName>
+    <externalId>false</externalId>
+    <label>Transportation Way</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>ServiceType__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetName>Transportation_Way</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>TRUCKING</controllingFieldValue>
+            <valueName>TRUCKING</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FREIGHT</controllingFieldValue>
+            <valueName>SEA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FREIGHT</controllingFieldValue>
+            <valueName>AIR</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FREIGHT</controllingFieldValue>
+            <valueName>RAIL</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FREIGHT</controllingFieldValue>
+            <valueName>INLAND WATERWAY</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>FREIGHT</controllingFieldValue>
+            <valueName>MULTIMODAL</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

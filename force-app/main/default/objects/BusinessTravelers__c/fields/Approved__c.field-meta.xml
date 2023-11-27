@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Approved__c</fullName>
+    <externalId>false</externalId>
+    <formula>If (OR (AND ( Ispickval(BusinessTravelRequest__r.ApprovalStatus__c , &apos;Manager Approved&apos;),  BusinessTravelRequest__r.ManagerApproved__c ), Ispickval(BusinessTravelRequest__r.ApprovalStatus__c , &apos;BOD Approved&apos;)), 1 , 0)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Approved</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

@@ -1,0 +1,16 @@
+.THIS .slds-listbox {
+    max-height: 180px !important;
+    overflow-y: auto !important;
+    /* display: block; */
+    /* z-index: 9999 !important; */
+    
+  }
+  .THIS .slds-media__body{
+    height: 35px;
+  }
+  .THIS .slds-button{
+    float: inline-end;
+  }
+  .THIS .subtable tr :hover{
+    /* padding-left: 10px; */
+  }

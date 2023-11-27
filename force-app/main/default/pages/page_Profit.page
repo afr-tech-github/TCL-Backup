@@ -1,0 +1,682 @@
+<apex:page controller="ProfitController" contentType="text/html" sidebar="false" applyHtmlTag="false" applyBodyTag="false" cache="true" showHeader="false" docType="html-5.0" renderAs="pdf">
+<html xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+</html>
+<head>
+    <style type="text/css">
+        @page {
+            /* margin-left: 10px;
+            margin-right: 10px; */
+            size:  auto;  /* auto is the initial value*/
+            /* this affects the margin in the printer settings*/
+            /* font-family: "Times New Roman", Times, serif; */
+            font-family: 'Times New Roman', Times, serif;
+            @bottom-right {
+                    content: element(footer);
+                }
+        }
+        #footer {
+                position:fixed;
+                padding-bottom: 10px;
+                width:100%;
+                height:60px; 
+                background:#6cf;
+            }
+            div.footer {
+                display: flex;
+                position: running(footer);
+            }
+        .custom{
+            /* font-family: "Times New Roman", sans-serif; */
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11px;
+            width: 100%;
+            border: none;
+            border-collapse: collapse;
+        }
+        .custom td{
+            /* border: none; */
+        }
+        .custom1{
+            /* font-family: "Times New Roman", sans-serif; */
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 11px;
+            border-collapse: collapse;
+            /* border: 1px solid black; */
+            width: 100%
+        }
+        .custom1 td{
+            /* border-top: dotted; */
+            /* border-bottom: dotted; */
+            /* font-family: "Times New Roman", sans-serif; */
+            font-family: 'Times New Roman', Times, serif;
+            /* border-left: hidden;
+            border-right: hidden; */
+            border: thin dashed gray;
+        }
+        .custom1 tr{
+           height: 20px;
+        }
+        .customtd{
+            border: hidden;
+        }
+        body {
+            font-size: 11px;
+            /* font-family: "Arial Unicode MS", "MS Pゴシック", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", Osaka, "メイリオ", Meiryo, "MS PGothic",'Khmer', sans-serif; */
+            /* font-family: "Times New Roman", sans-serif; */
+            font-family: 'Times New Roman', Times, serif
+             /* margin you want for the content */
+        }
+
+        td{
+            /* font-family: "Times New Roman", sans-serif; */
+            font-family: 'Times New Roman', Times, serif;
+        }
+        .page-break {
+            display:block;
+            page-break-after:always;
+        }
+    </style>
+    <!-- <script type="text/javascript">
+              
+        window.onload = function() {
+            //window.top.document.title = "Your Title";
+            window.print();
+            return false; 
+        }
+    </script> -->
+</head>
+<body>
+    <div>
+        <b><i>
+            <apex:outputText value="{!CompanyInfo.Name}" style="font-size: 14px;"/>
+            <br/>
+            <apex:outputField value="{!CompanyInfo.Address__c}"/>
+            <br/>
+            <apex:outputText value="Tel: "/>
+            <apex:outputText value="{!CompanyInfo.Tel__c}"/>
+            <apex:outputText value="Fax: " style="padding-left: 10px;"/>
+            <apex:outputText value="{!CompanyInfo.Fax__c}"/>
+        </i></b>
+    </div>
+    <br/>
+    <div style="font-size: 18px; text-align: center;">
+        <b><apex:outputText value="PROFIT STATEMENT"/></b>
+    </div>
+    <br/>
+    <br/>
+    <table class="custom">
+        <col width="55%"/>
+        <col width="35%"/>
+        <col width="10%"/>
+
+        <tr>
+            <td>
+                <b>
+                    <apex:outputText value="FILE NO.: "/>
+                    <apex:outputField value="{!shipment.JobRequestID__c}"/>
+                </b>
+            </td>
+            <td colspan="2">
+                <apex:outputText value="Service : "/>
+                <apex:outputField value="{!shipment.CargoType__c}"/>
+                <apex:outputText value=" / "/>
+                <apex:outputField value="{!CNTR.Container_Number__c}"/>x
+                <apex:outputField value="{!CNTR.Container_Type__c}"/>
+                <apex:outputText value="; "/>
+                <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!shipment.GrossWeight__c}"/>
+                </apex:outputText> Kgs
+                <apex:outputText value=" / "/>
+                <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                    <apex:param value="{!shipment.MeasurementTotalCBM__c}"/>
+                </apex:outputText> CBM
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <b>
+                    <apex:outputText value="Agent : "/>
+                    <apex:outputField value="{!shipment.agentnamefor__c}"/>
+                </b>
+            </td>
+            <td colspan="2">
+                <apex:outputText value="Loading : "/>
+                <apex:outputField value="{!shipment.POLAOD__r.Name}"/>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <apex:outputText value="Flight / VSL / Date : "/>
+                <apex:outputField value="{!shipment.VesselFlight__c}"/>&nbsp;
+                <apex:outputField value="{!shipment.Voyage__c}"/>
+            </td>
+            <td>
+                <apex:outputText value="Discharging : "/>
+                <apex:outputField value="{!shipment.PODAOA__r.Name}"/>
+            </td>
+            <td>
+                <apex:outputText value="Page 1 of 1"/>
+                <!-- <apex:outputText value="{!counter(page)}"/> -->
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <apex:outputText value="MAWB/MBL: "/>
+                <apex:outputText value="{!MAWB_MBL}"/>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <div style="border-top: 1px solid black; width: 100%; height: 10px;"></div>
+    <table class="custom1">
+        <col width="30%"/>
+        <col width="10%"/>
+        <col width="13%"/>
+        <col width="5%"/>
+        <col width="14%"/>
+        <col width="5%"/>
+        <col width="8%"/>
+        <col width="15%"/>
+        <tr>
+            <td class="customtd" style="border: hidden;">
+                <b><apex:outputText style="padding-left: 10px;" value="No. DESCRIPTION"/></b>
+            </td>
+            <td style="border: hidden;">
+                <b><apex:outputText value="Cont type"/></b>
+            </td>
+            <td class="customtd" colspan="2" style="text-align: center; border: hidden;">
+                <b><apex:outputText value="COSTING"/></b>
+            </td>
+            <td class="customtd" colspan="2" style="text-align: center; border: hidden;">
+                <b><apex:outputText value="BILLING"/></b>
+            </td>
+            <td class="customtd" style="text-align: center; border: hidden;">
+                <b><apex:outputText value="ROE"/></b>
+            </td>
+            <td class="customtd" style="text-align: right; padding-right: 10px; border: hidden;" >
+                <b><apex:outputText value="TOTAL"/></b>
+            </td>
+        </tr>
+        <tr>
+            <td style="border: hidden;"></td>
+            <td style="border: hidden;"></td>
+            <td style="text-align: center; border: hidden;">
+                <b><apex:outputText value="Amount"/></b>
+            </td>
+            <td style="text-align: center; border: hidden;">
+                <b><apex:outputText value="Curr"/></b>
+            </td>
+            <td style="text-align: center; border: hidden;">
+                <b><apex:outputText value="Amount"/></b>
+            </td>
+            <td style="text-align: center; border: hidden;">
+                <b><apex:outputText value="Curr"/></b>
+            </td>
+            <td style="border: hidden;"></td>
+            <td style="border: hidden;"></td>
+        </tr>
+    </table>
+    <div style="border-bottom: 1px solid black; width: 100%; height: 10px;"></div>
+    <apex:variable value="{!1}" var="count"/>
+    <!-- <table class="custom1" style="width: 100%"  border="1">
+        <col width="3%"/>
+        <col width="27%"/>
+        <col width="10%"/>
+        <col width="13%"/>
+        <col width="5%"/>
+        <col width="14%"/>
+        <col width="5%"/>
+        <col width="8%"/>
+        <col width="15%"/>
+        
+        <tr>
+            <td colspan="9" style="border: none;">
+                <b>
+                    <apex:outputText >
+                        Doc. No.
+                    </apex:outputText>
+                </b>
+            </td>
+            
+        </tr>
+        <apex:repeat value="{!lstPayment}" var="item">
+            <tr>
+                <td style="border: hidden;"></td>
+                <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                    <apex:outputText value="{!item.BillName}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                    <apex:outputText rendered="{!item.ChargeUint != 'Container'}" value="{!item.ChargeUint}"/>
+                    <apex:outputText rendered="{!item.ChargeUint == 'Container'}" value="{!item.ContainerType}"/>
+                </td>
+                <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrBuying != 'VND'}">
+                        <apex:param value="{!item.AmountBuyingFCY}"/>
+                    </apex:outputText>
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrBuying == 'VND'}">
+                        <apex:param value="{!item.AmountBuyingLocal}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{!item.CurrBuying}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="text-align: right; padding-right: 10px; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrBuying != 'VND'}">
+                        <apex:param value="{!item.ExRateBuying}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!item.AmountBuyingInclTaxLocal}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr>
+            <td colspan="9" style="border: none;">
+                <b>
+                    <apex:outputText >
+                        Doc. No.
+                    </apex:outputText>
+                </b>
+            </td>
+            
+        </tr>
+        <apex:repeat value="{!lstBoth1}" var="item">
+            <tr>
+                <td style="border: hidden;"></td>
+                <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                    <apex:outputText value="{!item.BillName}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                    <apex:outputText rendered="{!item.ChargeUint != 'Container'}" value="{!item.ChargeUint}"/>
+                    <apex:outputText rendered="{!item.ChargeUint == 'Container'}" value="{!item.ContainerType}"/>
+                </td>
+                <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrBuying != 'VND'}">
+                        <apex:param value="{!item.AmountBuyingFCY}"/>
+                    </apex:outputText>
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrBuying == 'VND'}">
+                        <apex:param value="{!item.AmountBuyingLocal}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{!item.CurrBuying}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="text-align: right; padding-right: 10px; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrBuying != 'VND'}">
+                        <apex:param value="{!item.ExRateBuying}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!item.AmountBuyingInclTaxLocal}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+        <apex:repeat value="{!lstBoth2}" var="item">
+            <tr>
+                <td style="border: hidden;"></td>
+                <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                    <apex:outputText value="{!item.BillName}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                    <apex:outputText rendered="{!item.ChargeUint != 'Container'}" value="{!item.ChargeUint}"/>
+                    <apex:outputText rendered="{!item.ChargeUint == 'Container'}" value="{!item.ContainerType}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;"> 
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrSelling != 'VND'}">
+                        <apex:param value="{!item.AmountSellingFCY}"/>
+                    </apex:outputText>
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrSelling == 'VND'}">
+                        <apex:param value="{!item.AmountSellingLocal}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{!item.CurrSelling}"/>
+                </td>
+                <td style="text-align: right; padding-right: 10px;  ">
+                    <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrSelling != 'VND'}">
+                        <apex:param value="{!item.ExRateSelling}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!item.AmountSellingInclTaxLocal}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+        <tr>
+            <td colspan="9" style="border: none;">
+                <b>
+                    <apex:outputText >
+                        Doc. No.
+                    </apex:outputText>
+                </b>
+            </td>
+            
+        </tr>
+        <apex:repeat value="{!lstInvoice}" var="item">
+            <tr>
+                <td style="border: hidden;"></td>
+                <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                    <apex:outputText value="{!item.BillName}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                    <apex:outputText rendered="{!item.ChargeUint != 'Container'}" value="{!item.ChargeUint}"/>
+                    <apex:outputText rendered="{!item.ChargeUint == 'Container'}" value="{!item.ContainerType}"/>
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="border-left: hidden; border-right: hidden;">
+                </td>
+                <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;"> 
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrSelling != 'VND'}">
+                        <apex:param value="{!item.AmountSellingFCY}"/>
+                    </apex:outputText>
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrSelling == 'VND'}">
+                        <apex:param value="{!item.AmountSellingLocal}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{!item.CurrSelling}"/>
+                </td>
+                <td style="text-align: right; padding-right: 10px;  ">
+                    <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrSelling != 'VND'}">
+                        <apex:param value="{!item.ExRateSelling}"/>
+                    </apex:outputText>
+                </td>
+                <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                    <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                        <apex:param value="{!item.AmountSellingInclTaxLocal}"/>
+                    </apex:outputText>
+                </td>
+            </tr>
+        </apex:repeat>
+    </table> -->
+    <table class="custom1">
+        <col width="3%"/>
+        <col width="27%"/>
+        <col width="10%"/>
+        <col width="13%"/>
+        <col width="5%"/>
+        <col width="14%"/>
+        <col width="5%"/>
+        <col width="8%"/>
+        <col width="15%"/>
+        <!-- Payment To -->
+        <!-- <tr>
+            <td colspan="9">
+                <apex:outputText style="font-size: 15px;font-weight: bold;" value="1. PAYMENT TO"/>
+            </td>
+        </tr> -->
+        <apex:repeat value="{!lstComPayment}" var="item1">
+            <tr>
+                <td colspan="9" style="font-weight: bold; border: hidden;">
+                    {!count}. &nbsp;&nbsp; <apex:outputText value="Doc. No."/>
+                     <!-- <apex:outputText value="{!item1.CompanyName}"/> -->
+                     <apex:outputText style="padding-left: 25px;" value="{!shipment.AgentsdebitcreditNo__c}" rendered="{!item1.CompanyName == shipment.Agent__r.Name}"/>
+                </td>
+            </tr>
+            <apex:variable var="count" value="{!count + 1}"/>
+            <apex:repeat value="{!item1.lstBillOfCompany}" var="item">
+                <tr>
+                    <td style="border: hidden;"></td>
+                    <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                        <apex:outputText value="{!item.BillNameatPrintENG__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                        <apex:outputText rendered="{!item.ChargeUnit__c != 'Container'}" value="{!item.ChargeUnit__c}"/>
+                        <apex:outputText rendered="{!item.ChargeUnit__c == 'Container'}" value="{!item.ContainerType__c}"/>
+                    </td>
+                    <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencyBuying__c != 'VND'}">
+                            <apex:param value="{!item.TotalAmountofBuyingFCY__c}"/>
+                        </apex:outputText>
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencyBuying__c == 'VND'}">
+                            <apex:param value="{!item.TotalAmountofBuyingLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{!item.CurrencyBuying__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="text-align: right; padding-right: 10px; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrencyBuying__c != 'VND'}">
+                            <apex:param value="{!item.ExchangeRateBuying__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!item.AmountBuyingInclTaxLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+            </apex:repeat>
+        </apex:repeat>
+
+        <!-- Both -->
+        <!-- <tr>
+            <td colspan="9">
+                <apex:outputText style="font-size: 15px;font-weight: bold;" value="3. BOTH"/>
+            </td>
+        </tr> -->
+        <apex:repeat value="{!lstComBoth}" var="item1">
+            <tr>
+                <td colspan="9" style="font-weight: bold; border: hidden;">
+                    {!count}. &nbsp;&nbsp; <apex:outputText value="Doc. No."/>
+                    <!-- {!count}. <apex:outputText value="{!item1.CompanyName}"/> -->
+                </td>
+            </tr>
+            <!-- payment to -->
+            <apex:variable var="count" value="{!count + 1}"/>
+            <apex:repeat value="{!item1.lstBillOfCompany}" var="item" >
+                <apex:repeat value="{!item}" var="item2" rendered="{!item1.CompanyName == item.PaymentTo__r.Name}">
+                <tr>
+                    <td style="border: hidden;"></td>
+                    <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                        <apex:outputText value="{!item.BillNameatPrintENG__c}" />
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                        <apex:outputText rendered="{!item.ChargeUnit__c != 'Container'}" value="{!item.ChargeUnit__c}"/>
+                        <apex:outputText rendered="{!item.ChargeUnit__c == 'Container'}" value="{!item.ContainerType__c}"/>
+                    </td>
+                    <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencyBuying__c != 'VND'}">
+                            <apex:param value="{!item.TotalAmountofBuyingFCY__c}"/>
+                        </apex:outputText>
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencyBuying__c == 'VND'}">
+                            <apex:param value="{!item.TotalAmountofBuyingLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{!item.CurrencyBuying__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="text-align: right; padding-right: 10px; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrencyBuying__c != 'VND'}">
+                            <apex:param value="{!item.ExchangeRateBuying__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!item.AmountBuyingInclTaxLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+                </apex:repeat>
+            </apex:repeat>
+            <!-- invoice to -->
+            <apex:repeat value="{!item1.lstBillOfCompany}" var="item" >
+                <apex:repeat value="{!item}" var="item2" rendered="{!item1.CompanyName == item.InvoiceTo__r.Name}">
+                <tr>
+                    <td style="border: hidden;"></td>
+                    <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                        <apex:outputText value="{!item.BillNameatPrintENG__c}" />
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                        <apex:outputText rendered="{!item.ChargeUnit__c != 'Container'}" value="{!item.ChargeUnit__c}"/>
+                        <apex:outputText rendered="{!item.ChargeUnit__c == 'Container'}" value="{!item.ContainerType__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;"> 
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencySelling__c != 'VND'}">
+                            <apex:param value="{!item.TotalAmountofSellingFCY__c}"/>
+                        </apex:outputText>
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencySelling__c == 'VND'}">
+                            <apex:param value="{!item.TotalAmountofSellingLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{!item.CurrencySelling__c}"/>
+                    </td>
+                    <td style="text-align: right; padding-right: 10px;  ">
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrencySelling__c != 'VND' && item.CurrencySelling__c != null}">
+                            <apex:param value="{!item.ExchangeRateSelling__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!item.AmountSellingInclTaxLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+                </apex:repeat>
+            </apex:repeat>
+        </apex:repeat>
+        <!-- Invoice To -->
+        <!-- <tr>
+            <td colspan="9">
+                <apex:outputText style="font-size: 15px;font-weight: bold;" value="2. INVOICE TO"/>
+            </td>
+        </tr> -->
+        <apex:repeat value="{!lstComInvoice}" var="item1">
+            <tr>
+                <td colspan="9" style="font-weight: bold; border: hidden">
+                    {!count}. &nbsp;&nbsp; <apex:outputText value="Doc. No."/> 
+                    <apex:outputText style="padding-left: 25px;" value="{!HBLnumber}" rendered="{!item1.CompanyName == CustomerName}"/>
+                    <!-- {!count}. <apex:outputText value="{!item1.CompanyName}"/> -->
+                </td>
+            </tr>
+            <apex:variable var="count" value="{!count + 1}"/>
+            <apex:repeat value="{!item1.lstBillOfCompany}" var="item">
+                <tr>
+                    <td style="border: hidden;"></td>
+                    <td style="border-left: hidden; border-right: hidden; text-transform: uppercase;">
+                        <apex:outputText value="{!item.BillNameatPrintENG__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                        <apex:outputText rendered="{!item.ChargeUnit__c != 'Container'}" value="{!item.ChargeUnit__c}"/>
+                        <apex:outputText rendered="{!item.ChargeUnit__c == 'Container'}" value="{!item.ContainerType__c}"/>
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="border-left: hidden; border-right: hidden;">
+                    </td>
+                    <td style="text-align: right; padding-right: 15px; border-left: hidden; border-right: hidden;"> 
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencySelling__c != 'VND'}">
+                            <apex:param value="{!item.TotalAmountofSellingFCY__c}"/>
+                        </apex:outputText>
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}" rendered="{!item.CurrencySelling__c == 'VND'}">
+                            <apex:param value="{!item.TotalAmountofSellingLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: center; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{!item.CurrencySelling__c}"/>
+                    </td>
+                    <td style="text-align: right; padding-right: 10px;  ">
+                        <apex:outputText value="{0, number, ###,###,###,##0}" rendered="{!item.CurrencySelling__c != 'VND'}">
+                            <apex:param value="{!item.ExchangeRateSelling__c}"/>
+                        </apex:outputText>
+                    </td>
+                    <td style="text-align: right; border-left: hidden; border-right: hidden;">
+                        <apex:outputText value="{0, number, ###,###,###,##0.00}">
+                            <apex:param value="{!item.AmountSellingInclTaxLocal__c}"/>
+                        </apex:outputText>
+                    </td>
+                </tr>
+            </apex:repeat>
+        </apex:repeat>
+        
+    </table>
+        <div style="border-bottom: 1px solid black; width: 100%; "></div>
+        <br/>
+        <div>
+            <b>
+                <apex:outputText value="TOTAL COSTING:  "/>
+                <apex:outputText value="{0, number, ###,###,###,##0.00}" style="padding-left: 17px;">
+                    <apex:param value="{!shipment.TotalBuyingInclTaxLocal__c}"/>
+                </apex:outputText>
+                <apex:outputText value=" VND"/>
+            </b>
+        </div>
+        <br/>
+        <div>
+            <b>
+                <apex:outputText value="TOTAL BILLING:   "/>
+                <apex:outputText value="{0, number, ###,###,###,##0.00}" style="padding-left: 20px;">
+                    <apex:param value="{!shipment.TotalSellingInclTaxLocal__c}"/>
+                </apex:outputText>
+                <apex:outputText value=" VND"/>
+            </b>
+        </div>
+        <br/>
+        <div>
+            <b>
+                <apex:outputText value="PROFIT: "/> 
+                <!-- <apex:outputText value="- " rendered="{!shipment.ProfitINCLTaxLocal__c < 0}"/> -->
+                <apex:outputText value="{0, number, ###,###,###,##0.00}" style="padding-left: 67px;">
+                    <apex:param value="{!shipment.ProfitINCLTaxLocal__c}"/>
+                </apex:outputText>
+                <apex:outputText value=" VND"/>
+            </b>
+        </div>
+        <br/>
+        <div>
+            <b><apex:outputText value="SAY: "/></b>
+            <!-- <apex:outputText value="NEGATIVE" rendered="{!shipment.ProfitINCLTaxLocal__c < 0}"/>
+            <apex:outputText value="{!TextSum}" style="padding-left: 40px;"/> -->
+            <apex:outputText value="NEGATIVE " rendered="{!shipment.ProfitINCLTaxLocal__c < 0}" style="padding-left: 40px;"/>
+            <apex:outputText value="{!TextSum}" rendered="{!shipment.ProfitINCLTaxLocal__c < 0}"/>
+            <apex:outputText value="{!TextSum}" rendered="{!shipment.ProfitINCLTaxLocal__c >= 0}" style="padding-left: 40px;"/>
+            <apex:outputText value=" VND"/>
+        </div>
+
+    
+        <div class="footer" style=" width: 100%; text-align: right;">
+            <div style="width: 100%;">
+                <div style="text-align: right;">
+                    <apex:outputText value="Print Date: "/>
+                    <apex:outputText value="{0, date, MM'/'dd'/'yyyy}">
+                        <apex:param value="{!Today()}"/>
+                    </apex:outputText>
+                    <apex:outputText value=" by "/>
+                    <apex:outputText value="{!UserName}"/>
+                </div>
+            </div>
+        </div> 
+</body>
+</apex:page>

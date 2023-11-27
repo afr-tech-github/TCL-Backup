@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>InputPIC</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND (CancelFee__c &gt; 0,  ISNULL(CancelsPIC__c) = TRUE)</errorConditionFormula>
+    <errorDisplayField>CancelsPIC__c</errorDisplayField>
+    <errorMessage>Please input the PIC for this Cancel Fee</errorMessage>
+</ValidationRule>
